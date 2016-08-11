@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<form method="post" action="" enctype="multipart/form-data">
+    <input type="hidden" value="@ViewBag.ProductModel.ProductId" name="ProductId" />
+    <p>Product name</p>
+    <input type="text" name="Name" value="@ViewBag.ProductModel.Name"/>
+    <p>Description</p>
+    <input type="text" name="Description" value="@ViewBag.ProductModel.Discription"/>
+    <p>Brand</p>
+    <input type="number" name="BrandId" value="@ViewBag.ProductModel.BrandId"/> 
+    <a class="show_popup" rel="" href="#">Edit</a>
+    <p>Color</p>
+    <input type="text" name="Color" />
+    <select onselect="setColor" name="colorpicker" value="@ViewBag.ProductModel.Color">
+        <option value="#7bd148">Green</option>
+        <option value="#5484ed">Bold blue</option>
+        <option value="#a4bdfc">Blue</option>
+        <option value="#46d6db">Turquoise</option>
+        <option value="#7ae7bf">Light green</option>
+        <option value="#51b749">Bold green</option>
+        <option value="#fbd75b">Yellow</option>
+        <option value="#ffb878">Orange</option>
+        <option value="#ff887c">Red</option>
+        <option value="#dc2127">Bold red</option>
+        <option value="#dbadff">Purple</option>
+        <option value="#e1e1e1">Gray</option>
+    </select>
+    <p>Quantity</p>
+    <input type="number" name="Quantity" value="@ViewBag.ProductModel.Qantity"/>
+    @if (ViewBag.ProductModel.ImageData == null)
+    {
+        @:None
+    }
+    else
+    {
+        <img width="150" height="150" src="@Url.Action("GetImage", "Product", new { Model.ProductID })" />
+    }    
+    <div>
+        <img src="" />
+        <input type="file" name="file" id="Image"/>
+    </div>
+    <input type="submit" value="Create" />
+
+</form>
+
+
+ 
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
+<script src="~/bower_components/jquery-simplecolorpicker/jquery.simplecolorpicker.js"></script>
+<script src="~/Scripts/ModalView/ModalView.js"></script>
+
+<link rel="stylesheet" href="~/bower_components/jquery-simplecolorpicker/jquery.simplecolorpicker.css">
+<link rel="stylesheet" href="~/Scripts/ModalView/ModalView.css" />
+<script>
+    $('select[name="colorpicker"]').simplecolorpicker();
+    
+    $('select[name="colorpicker"]').simplecolorpicker('destroy');
+    $('select[name="colorpicker"]').simplecolorpicker({
+    picker: true
+    }).on('change', function() {
+        document.getElementsByName("Color")[0].value = document.getElementsByName("colorpicker")[0].value;
+    });
+</script>
