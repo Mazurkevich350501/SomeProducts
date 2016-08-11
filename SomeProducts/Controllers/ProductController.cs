@@ -17,7 +17,7 @@ namespace SomeProducts.Controllers
             Product prod;
             using (var db = new ProductContext())
             {
-                prod = db.Products.First(x => x.ProductId == id);
+             //   prod = db.Products.First(x => x.ProductId == id);
             }
             ViewBag.ProductModel = new Product() { Name = "a", Description = "s", ProductId = id};
             return View();
@@ -73,6 +73,7 @@ namespace SomeProducts.Controllers
         bool IsModelCorrectly(Product model)
         {
             if (model.Name != null && model.Name.Length < 200)
+               
                 if (model.Description != null && model.Description.Length < 200)
                     if (model.Quantity > 0 && model.BrandId > 0)
                         return true;
@@ -95,6 +96,11 @@ namespace SomeProducts.Controllers
             {
                 return null;
             }
+        }
+
+        public bool IsBrandUsing(int brandId)
+        {
+            return true;
         }
     }
 }

@@ -1,58 +1,82 @@
 ﻿
 @{
-   // ViewBag.Title = "Create";
+// ViewBag.Title = "Create";
 }
 
 <h2>Create</h2>
 
 <form method="post" action="" enctype="multipart/form-data">
     <input type="hidden" name="ProductId" />
-    <p>Product name</p>
-    <input type="text" name="Name" />
-    <p>Description</p>
-    <input type="text" name="Description" />
-    <p>Brand</p>
-    <input type="number" name="BrandId" /> 
-    <a href="#myPopup" data-rel="popup" class="ui-btn ui-btn-inline ui-corner-all">Edit</a>
-    <p>Color</p>
-    <input type="text" name="Color" />
-    <select onselect="setColor" name="colorpicker">
-        <option value="#7bd148">Green</option>
-        <option value="#5484ed">Bold blue</option>
-        <option value="#a4bdfc">Blue</option>
-        <option value="#46d6db">Turquoise</option>
-        <option value="#7ae7bf">Light green</option>
-        <option value="#51b749">Bold green</option>
-        <option value="#fbd75b">Yellow</option>
-        <option value="#ffb878">Orange</option>
-        <option value="#ff887c">Red</option>
-        <option value="#dc2127">Bold red</option>
-        <option value="#dbadff">Purple</option>
-        <option value="#e1e1e1">Gray</option>
-    </select>
-    <p>Quantity</p>
-    <input type="number" name="Quantity" />
-    @if (ViewBag.ProductModel.Image == null)
-    {
-        @:None
-    }
-    else
-    {
-        <img width="150" height="150" src="@Url.Action("GetImage", "Product", new { ViewBag.ProducModel.ProductID })" />
-    }    
-    <div>
-        <img src="" />
-        <input type="file" name="Image" id="Image"/>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="row">
+                <h4 class="col-lg-2">Product name</h4>
+                <input type="text" class="form-control col-lg-5" name="Name" />
+            </div>
+            <div class="row" style="padding-bottom:10px">
+                <h4 class="col-lg-2">Description</h4>
+                <textarea type="text" class="form-control col-lg-5 pad" name="Description" ></textarea>
+            </div>
+            <div class="row">
+                <h4 class="col-lg-2">Brand</h4>
+                <input type="number" class="form-control col-lg-3" name="BrandId" />
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#BrandModal">Edit</button>
+            </div>
+            <div class="row">
+                <h4 class="col-lg-2">Color</h4>
+                <input type="text" class="form-control col-lg-5" name="Color" />
+                <select onselect="setColor" name="colorpicker">
+                    <option value="#7bd148">Green</option>
+                    <option value="#5484ed">Bold blue</option>
+                    <option value="#a4bdfc">Blue</option>
+                    <option value="#46d6db">Turquoise</option>
+                    <option value="#7ae7bf">Light green</option>
+                    <option value="#51b749">Bold green</option>
+                    <option value="#fbd75b">Yellow</option>
+                    <option value="#ffb878">Orange</option>
+                    <option value="#ff887c">Red</option>
+                    <option value="#dc2127">Bold red</option>
+                    <option value="#dbadff">Purple</option>
+                    <option value="#e1e1e1">Gray</option>
+                </select>
+            </div>
+            <div class="row">
+                <h4 class="col-lg-2">Quantity</h4>
+                <input type="number" class="form-control col-lg-5" name="Quantity" />
+            </div>
+        </div>
+        <div class="col-lg-4">
+            @if (ViewBag.ProductModel.Image == null)
+            {
+                @:None
+            }
+            else
+            {
+                <img width="150" height="150" src="@Url.Action("GetImage", "Product", new { ViewBag.ProducModel.ProductId })" />
+            }
+            <div>
+                <input type="file" name="Image" id="Image" />
+            </div>
+        </div>
     </div>
-    <input type="submit" value="Create" />
+    <input type="submit" class="btn btn-success" value="Create" />
 </form>
 
-  <div data-role="main" class="ui-content">
-    <div data-role="popup" id="myPopup" class="ui-content" data-dismissible="false" style="max-width:400px;">
-        <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
-        <p>I am an undismissible button (data-dismissible="false). The only way to close me is by clicking on the close button, which is positioned at the top right corner. You cannot close me by clicking outside of me.</p>
+<div id="BrandModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Brands</h4>
+            </div>
+            <div class="modal-body">
+                <p>ASDASDASDSDA</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success">Save</button>
+            </div>
+        </div>
     </div>
- </div>
+</div>
 
 
 
@@ -62,7 +86,7 @@
     <script src="~/Scripts/ModalView/ModalView.js"></script>
 
     <link rel="stylesheet" href="~/bower_components/jquery-simplecolorpicker/jquery.simplecolorpicker.css">
-    
+
     <link rel="stylesheet" href="~/Scripts/ModalView/ModalView.css" />
     <script>
         $('select[name="colorpicker"]').simplecolorpicker();
