@@ -14,7 +14,12 @@ namespace SomeProducts.Controllers
         [HttpGet]
         public ActionResult Create(int id)
         {
-            ViewBag.ProductModel = null;
+            Product prod;
+            using (var db = new ProductContext())
+            {
+                prod = db.Products.First(x => x.ProductId == id);
+            }
+            ViewBag.ProductModel = new Product() { Name = "a", Description = "s", ProductId = id};
             return View();
         }
         
@@ -34,7 +39,7 @@ namespace SomeProducts.Controllers
 
         // POST: /Product/Create
         [HttpPost]
-        public ActionResult Create(int id, Product model, HttpPostedFileBase image)
+        public ActionResult Create(int id, [Bind(Exclude = "Image")]Product model, HttpPostedFileBase image)
         {
             if (IsModelCorrectly(model))
             {
@@ -44,9 +49,9 @@ namespace SomeProducts.Controllers
                     model.Image = new byte[image.ContentLength];
                     image.InputStream.Read(model.Image, 0, image.ContentLength);
                 }
-                using (var db = new ProductContext())
+                //using (var db = new ProductContext())
                 {
-                    db.Products.Add(model);
+                  //  db.Products.Add(model);
                 }
             }
             return RedirectToAction("index");

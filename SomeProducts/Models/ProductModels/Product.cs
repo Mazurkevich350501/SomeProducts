@@ -11,7 +11,7 @@ namespace SomeProducts.Models.ProductModels
         public string Name { get; set; }
         public string Description { get; set; }
         public int BrandId { get; set; }
-        public System.Drawing.Color Color { get; set; }
+        public string Color { get; set; }
         public int Quantity { get; set; }
         public byte[] Image { get; set; }
         public string ImageType { get; set; }
