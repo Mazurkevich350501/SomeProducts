@@ -2,60 +2,52 @@
 @{
 // ViewBag.Title = "Create";
 }
+@model SomeProducts.Models.ProductModels.ProductViewModel
 
 <h2>Create</h2>
 
-<form method="post" action="" enctype="multipart/form-data">
+<form method="post" action=@Url.Action("Create", "Product") enctype="multipart/form-data">
     <input type="hidden" name="ProductId" />
     <div class="row">
         <div class="col-lg-8">
+            @Html.ValidationMessageFor(model => model.Product.Name)
             <div class="row">
                 <h4 class="col-lg-2">Product name</h4>
-                <input type="text" class="form-control col-lg-5" name="Name" />
+                @Html.TextBoxFor(m => m.Product.Name, new { @class = "form-control col-lg-5" })
             </div>
+            @Html.ValidationMessageFor(model => model.Product.Description)
             <div class="row" style="padding-bottom:10px">
                 <h4 class="col-lg-2">Description</h4>
-                <textarea type="text" class="form-control col-lg-5 pad" name="Description" ></textarea>
+                @Html.TextAreaFor(m => m.Product.Description, new { @class = "form-control col-lg-5 pad" })
             </div>
+            @Html.ValidationMessageFor(model => model.Product.BrandId)
             <div class="row">
                 <h4 class="col-lg-2">Brand</h4>
-                <input type="number" class="form-control col-lg-3" name="BrandId" />
+                @Html.DropDownListFor(m => m.Product.BrandId, new SelectList(Model.Brands, "Key", "Value", Model.Product.BrandId))            
                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#BrandModal">Edit</button>
             </div>
+            @Html.ValidationMessageFor(model => model.Product.Color)
             <div class="row">
                 <h4 class="col-lg-2">Color</h4>
-                <input type="text" class="form-control col-lg-5" name="Color" />
-                <select onselect="setColor" name="colorpicker">
-                    <option value="#7bd148">Green</option>
-                    <option value="#5484ed">Bold blue</option>
-                    <option value="#a4bdfc">Blue</option>
-                    <option value="#46d6db">Turquoise</option>
-                    <option value="#7ae7bf">Light green</option>
-                    <option value="#51b749">Bold green</option>
-                    <option value="#fbd75b">Yellow</option>
-                    <option value="#ffb878">Orange</option>
-                    <option value="#ff887c">Red</option>
-                    <option value="#dc2127">Bold red</option>
-                    <option value="#dbadff">Purple</option>
-                    <option value="#e1e1e1">Gray</option>
-                </select>
+                @Html.DropDownListFor(m => m.Product.Color, new SelectList(Model.Colors, "Key", "Value", Model.Product.Color))
             </div>
+            @Html.ValidationMessageFor(model => model.Product.Quantity)
             <div class="row">
                 <h4 class="col-lg-2">Quantity</h4>
-                <input type="number" class="form-control col-lg-5" name="Quantity" />
+                @Html.TextBoxFor(m => m.Product.Quantity, new { @class = "form-control col-lg-5 pad" })
             </div>
         </div>
         <div class="col-lg-4">
-            @if (ViewBag.ProductModel.Image == null)
-            {
-                @:None
-            }
-            else
-            {
-                <img width="150" height="150" src="@Url.Action("GetImage", "Product", new { ViewBag.ProducModel.ProductId })" />
-            }
+            @*if ( == null)
+    {
+        @:None
+    }
+    else
+    {
+        <img width="150" height="150" src="@Url.Action("GetImage", "Product", new { ViewBag.ProducModel.ProductId })" />
+    }*@
             <div>
-                <input type="file" name="Image" id="Image" />
+                <input type="file" name="file" id="file" />
             </div>
         </div>
     </div>
@@ -89,12 +81,12 @@
 
     <link rel="stylesheet" href="~/Scripts/ModalView/ModalView.css" />
     <script>
-        $('select[name="colorpicker"]').simplecolorpicker();
+        $('select[name="Product.Color"]').simplecolorpicker();
 
-        $('select[name="colorpicker"]').simplecolorpicker('destroy');
-        $('select[name="colorpicker"]').simplecolorpicker({
+        $('select[name="Product.Color"]').simplecolorpicker('destroy');
+        $('select[name="Product.Color"]').simplecolorpicker({
             picker: true
         }).on('change', function () {
-            document.getElementsByName("Color")[0].value = document.getElementsByName("colorpicker")[0].value;
+            document.getElementsByName("Color")[0].value = document.getElementsByName("Product.Color")[0].value;
         });
     </script>

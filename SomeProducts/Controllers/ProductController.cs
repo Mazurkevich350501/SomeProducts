@@ -12,15 +12,25 @@ namespace SomeProducts.Controllers
     {
         // GET: Product
         [HttpGet]
-        public ActionResult Create(int id)
+        public ActionResult Create()
         {
-            Product prod;
+            ProductColors color = new ProductColors();
+            var model = new ProductViewModel()
+            {
+                Product = new Product { Name = "a", Description = "s", Quantity = 10, Color = "@ffff00", BrandId = 2 },
+                Brands = new Dictionary<int, string>(),
+                Colors = color.Colors 
+                   
+            };
             using (var db = new ProductContext())
             {
-             //   prod = db.Products.First(x => x.ProductId == id);
+                var brands = db.Brands;
+                foreach(Brand brand in brands)
+                {
+                    model.Brands.Add(brand.BrandId, brand.BrandName);
+                }
             }
-            ViewBag.ProductModel = new Product() { Name = "a", Description = "s", ProductId = id};
-            return View();
+            return View(model);
         }
         
         [HttpGet]
@@ -39,47 +49,44 @@ namespace SomeProducts.Controllers
 
         // POST: /Product/Create
         [HttpPost]
-        public ActionResult Create(int id, [Bind(Exclude = "Image")]Product model, HttpPostedFileBase image)
+        public ActionResult Create(ProductViewModel model)
         {
-            if (IsModelCorrectly(model))
+            if (ModelState.IsValid)
             {
-                if (image != null)
+                if (model != null)
                 {
-                    model.ImageType = image.ContentType;
-                    model.Image = new byte[image.ContentLength];
-                    image.InputStream.Read(model.Image, 0, image.ContentLength);
+                    if (Request.Files.Count > 0)
+                    {
+                        var image = Request.Files[0];
+                        if (image != null && image.ContentLength > 0)
+                        {
+                            model.Product.Image = new byte[image.ContentLength];
+                            image.InputStream.Read(model.Product.Image, 0, image.ContentLength);
+                            model.Product.ImageType = image.ContentType;
+
+                        }
+                    }
+                    using (var db = new ProductContext())
+                    {
+                        db.Products.Add(model.Product);
+                        db.SaveChanges();
+                    }
                 }
-                //using (var db = new ProductContext())
-                {
-                  //  db.Products.Add(model);
-                }
+                return null;//View(model);
             }
-            return RedirectToAction("index");
+            else
+            {
+                return null;
+            }
         }
 
         [HttpPost]
         public ActionResult Edit(int id, Product model)
         {
-            if(IsModelCorrectly(model))
-            {
-                using (var db = new ProductContext())
-                {
-                    db.Products.Add(model);
-                }
-            }
+            
             return null;
         }
-        
-        bool IsModelCorrectly(Product model)
-        {
-            if (model.Name != null && model.Name.Length < 200)
-               
-                if (model.Description != null && model.Description.Length < 200)
-                    if (model.Quantity > 0 && model.BrandId > 0)
-                        return true;
-            return false;
-        }
-
+      
         public FileContentResult GetImage(int productId)
         {
             Product product;
