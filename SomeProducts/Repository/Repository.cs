@@ -17,7 +17,7 @@ namespace SomeProducts.DbRepository
         void Save();
     }
 
-    public class ProductRepository : IRepository<ProductViewModel>
+    public class ProductRepository : IRepository<Product>
     {
         private ProductContext db;
 
@@ -26,14 +26,14 @@ namespace SomeProducts.DbRepository
             this.db = new ProductContext();
         }
 
-        public void Create(ProductViewModel item)
+        public void Create(Product item)
         {
             db.Products.Add(item);
         }
 
         public void Delete(int id)
         {
-            ProductViewModel product = db.Products.Find(id);
+            Product product = db.Products.Find(id);
             if (product != null)
                 db.Products.Remove(product);
         }
@@ -43,12 +43,12 @@ namespace SomeProducts.DbRepository
             GC.SuppressFinalize(this);
         }
 
-        public ProductViewModel GetById(int id)
+        public Product GetById(int id)
         {
             return db.Products.Find(id);
         }
 
-        public IEnumerable<ProductViewModel> GetList()
+        public IEnumerable<Product> GetList()
         {
             return db.Products;
         }
@@ -58,7 +58,7 @@ namespace SomeProducts.DbRepository
             db.SaveChanges();
         }
 
-        public void Update(ProductViewModel item)
+        public void Update(Product item)
         {
             db.Entry(item).State = EntityState.Modified;
         }

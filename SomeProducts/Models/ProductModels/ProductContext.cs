@@ -8,7 +8,7 @@ namespace SomeProducts.Models.ProductModels
 {
     public class ProductContext : DbContext
     {
-        public DbSet<ProductViewModel> Products { set; get; }
+        public DbSet<Product> Products { set; get; }
         public DbSet<Brand> Brands { set; get; }
     }
 }

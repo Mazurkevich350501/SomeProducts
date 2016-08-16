@@ -6,7 +6,7 @@ using System.Web;
 
 namespace SomeProducts.Models.ProductModels
 {
-    public class ProductViewModel
+    public class Product
     {
         public int ProductId { get; set; }
 

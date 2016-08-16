@@ -17,7 +17,7 @@ namespace SomeProducts.Controllers
         {
             var model = new ProductViewModel()
             {
-                Product = new ProductViewModel(),
+                Product = new Product(),
                 Brands = BrandDictionary(),
                 Colors = new ProductColors().Colors
             };         
@@ -74,7 +74,7 @@ namespace SomeProducts.Controllers
 
 
       
-        public FileContentResult GetImage(ProductViewModel product)
+        public FileContentResult GetImage(Product product)
         {
             if (product != null)
             {
@@ -88,7 +88,7 @@ namespace SomeProducts.Controllers
 
         public JsonResult GetBrandsList()
         {
-            return Json(new BrandRepository().GetList(), JsonRequestBehavior.AllowGet);
+            return Json(new BrandRepository().GetList().ToList(), JsonRequestBehavior.AllowGet);
         }
 
         private Dictionary<int, string> BrandDictionary()
