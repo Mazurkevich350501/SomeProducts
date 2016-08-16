@@ -1,4 +1,5 @@
-﻿using SomeProducts.Models.ProductModels;
+﻿using SomeProducts.DbRepository;
+using SomeProducts.Models.ProductModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,38 +15,30 @@ namespace SomeProducts.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            ProductColors color = new ProductColors();
             var model = new ProductViewModel()
             {
-                Product = new Product { Name = "a", Description = "s", Quantity = 10, Color = "@ffff00", BrandId = 2 },
-                Brands = new Dictionary<int, string>(),
-                Colors = color.Colors 
-                   
-            };
-            /*using (var db = new ProductContext())
-            {
-                var brands = db.Brands;
-                foreach(Brand brand in brands)
-                {
-                    model.Brands.Add(brand.BrandId, brand.BrandName);
-                }
-            }*/
-            model.Brands.Add(2, "asdasdasdasd");
+                Product = new ProductViewModel(),
+                Brands = BrandDictionary(),
+                Colors = new ProductColors().Colors
+            };         
             return View(model);
         }
         
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            using (var db = new ProductContext())
+            var product = new ProductRepository().GetById(id);
+            if(product == null)
             {
-                ViewBag.ProductModel = db.Products.First(x => x.ProductId == id);
+                throw new HttpException(404, "Are you sure you're in the right place?");
             }
-            if (ViewBag.ProductModel == null)
+            var model = new ProductViewModel()
             {
-                return null;
-            }    
-            return View();
+                Product = product,
+                Brands = BrandDictionary(),
+                Colors = new ProductColors().Colors
+            };
+            return View("Create", model);
         }
 
         // POST: /Product/Create
@@ -54,48 +47,35 @@ namespace SomeProducts.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (model != null)
-                {
-                    if (Request.Files.Count > 0)
-                    {
-                        var image = Request.Files[0];
-                        if (image != null && image.ContentLength > 0)
-                        {
-                            model.Product.Image = new byte[image.ContentLength];
-                            image.InputStream.Read(model.Product.Image, 0, image.ContentLength);
-                            model.Product.ImageType = image.ContentType;
-
-                        }
-                    }
-                    using (var db = new ProductContext())
-                    {
-                        db.Products.Add(model.Product);
-                        db.SaveChanges();
-                    }
-                }
-                return null;//View(model);
+                SaveImage(model, Request);
+                var productRepository = new ProductRepository();
+                productRepository.Create(model.Product);
+                productRepository.Save();
             }
-            else
-            {
-                return null;
-            }
+            model.Colors = new ProductColors().Colors;
+            model.Brands = BrandDictionary();
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, Product model)
+        public ActionResult Edit(int id, ProductViewModel model)
         {
-            
-            return null;
-        }
-      
-        public FileContentResult GetImage(int productId)
-        {
-            Product product;
-            using (var db = new ProductContext())
+            if (ModelState.IsValid)
             {
-                product = db.Products.FirstOrDefault(p => p.ProductId == productId);
+                SaveImage(model, Request);
+                var productRepository = new ProductRepository();
+                productRepository.Update(model.Product);
+                productRepository.Save();
             }
+            model.Colors = new ProductColors().Colors;
+            model.Brands = BrandDictionary();
+            return View("Create", model);
+        }
 
+
+      
+        public FileContentResult GetImage(ProductViewModel product)
+        {
             if (product != null)
             {
                 return File(product.Image, product.ImageType);
@@ -105,13 +85,31 @@ namespace SomeProducts.Controllers
                 return null;
             }
         }
+
         public JsonResult GetBrandsList()
         {
-            return Json(new { foo = "bar", baz = "Blech" }, JsonRequestBehavior.AllowGet);
+            return Json(new BrandRepository().GetList(), JsonRequestBehavior.AllowGet);
         }
-        public bool IsBrandUsing(int brandId)
+
+        private Dictionary<int, string> BrandDictionary()
         {
-            return true;
+            var brandsRepository = new BrandRepository();
+            return brandsRepository.GetList().ToDictionary(b => b.BrandId, b => b.BrandName);
+       
+        }
+
+        private void SaveImage(ProductViewModel model, HttpRequestBase request)
+        {
+            if (Request.Files.Count > 0)
+            {
+                var image = request.Files[0];
+                if (image != null && image.ContentLength > 0)
+                {
+                    model.Product.Image = new byte[image.ContentLength];
+                    image.InputStream.Read(model.Product.Image, 0, image.ContentLength);
+                    model.Product.ImageType = image.ContentType;
+                }
+            }     
         }
     }
 }

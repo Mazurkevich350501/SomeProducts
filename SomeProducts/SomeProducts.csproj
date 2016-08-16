@@ -216,13 +216,10 @@
     <Compile Include="Models\ProductModels\ProductContext.cs" />
     <Compile Include="Models\ProductModels\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Repository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\SomeProducts.Models.ProductModels.ProductContext.mdf" />
-    <Content Include="App_Data\SomeProducts.Models.ProductModels.ProductContext_log.ldf">
-      <DependentUpon>SomeProducts.Models.ProductModels.ProductContext.mdf</DependentUpon>
-    </Content>
     <Content Include="bower_components\jquery-simplecolorpicker\demo.html" />
     <Content Include="bower_components\jquery-simplecolorpicker\jquery.simplecolorpicker-fontawesome.css" />
     <Content Include="bower_components\jquery-simplecolorpicker\jquery.simplecolorpicker-glyphicons.css" />
@@ -423,6 +420,7 @@
     <Content Include="Views\Product\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="DbRepository\" />
   </ItemGroup>
   <ItemGroup>

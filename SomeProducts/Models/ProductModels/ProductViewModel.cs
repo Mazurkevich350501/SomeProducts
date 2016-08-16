@@ -7,7 +7,7 @@ namespace SomeProducts.Models.ProductModels
 {
     public class ProductViewModel
     {
-        public Product Product { get; set; }
+        public ProductViewModel Product { get; set; }
         public Dictionary<int, string> Brands { get; set; }
         public Dictionary<string, string> Colors { get; set; }
     }

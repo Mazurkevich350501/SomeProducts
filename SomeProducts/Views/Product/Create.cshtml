@@ -1,13 +1,15 @@
 ﻿
-@{
-// ViewBag.Title = "Create";
-}
 @model SomeProducts.Models.ProductModels.ProductViewModel
+
+@{
+    ViewBag.Title = "Create";
+    bool isEdit = Model.Product.ProductId != 0;
+}
 
 <h2>Create</h2>
 
-<form method="post" action=@Url.Action("Create", "Product") enctype="multipart/form-data">
-    <input type="hidden" name="ProductId" />
+<form method="post" action=@Url.Action(isEdit ? "Edit" : "Create", "Product") enctype="multipart/form-data">
+    @Html.HiddenFor(model => model.Product.ProductId)
     <div class="row">
         <div class="col-lg-8">
             @Html.ValidationMessageFor(model => model.Product.Name)
@@ -38,30 +40,35 @@
             </div>
         </div>
         <div class="col-lg-4">
-            @*if ( == null)
-    {
-        @:None
-    }
-    else
-    {
-        <img width="150" height="150" src="@Url.Action("GetImage", "Product", new { ViewBag.ProducModel.ProductId })" />
-    }*@
+            @if (Model.Product.Image == null || Model.Product.ImageType == null)
+            {
+                @:None
+            }
+            else
+            {
+                <img width="150" height="150" src="@Url.Action("GetImage", "Product", new { Model.Product })" />
+            }
             <div>
                 <input type="file" name="file" id="file" />
             </div>
         </div>
     </div>
-    <input type="submit" class="btn btn-success" value="Create" />
+    <div>
+        <input type="submit" class="btn btn-success" value=@(isEdit ? "Save" : "Create") />
+        @if (isEdit)
+        {
+            <button class="btn btn-warning" value="Delete" onclick=""/>
+        }
+    </div> 
 </form>
-
+    
 <div id="BrandModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Brands</h4>
             </div>
-            <div class="modal-body" id="modal-body">
-                
+            <div class="modal-body" id="modal-body">     
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success">Save</button>
@@ -70,24 +77,21 @@
     </div>
 </div>
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
+<script src="~/bower_components/jquery-simplecolorpicker/jquery.simplecolorpicker.js"></script>
+<script src="~/Scripts/ModalView/ModalView.js"></script>
+<script src="~/Scripts/Product/ProductControl.js"></script>    
 
+<link rel="stylesheet" href="~/bower_components/jquery-simplecolorpicker/jquery.simplecolorpicker.css">
+<link rel="stylesheet" href="~/Scripts/ModalView/ModalView.css" />
 
+<script>
+    $('select[name="Product.Color"]').simplecolorpicker();
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
-    <script src="~/bower_components/jquery-simplecolorpicker/jquery.simplecolorpicker.js"></script>
-    <script src="~/Scripts/ModalView/ModalView.js"></script>
-    <script src="~/Scripts/Product/ProductControl.js"></script>    
-
-    <link rel="stylesheet" href="~/bower_components/jquery-simplecolorpicker/jquery.simplecolorpicker.css">
-
-    <link rel="stylesheet" href="~/Scripts/ModalView/ModalView.css" />
-    <script>
-        $('select[name="Product.Color"]').simplecolorpicker();
-
-        $('select[name="Product.Color"]').simplecolorpicker('destroy');
-        $('select[name="Product.Color"]').simplecolorpicker({
-            picker: true
-        }).on('change', function () {
-            document.getElementsByName("Color")[0].value = document.getElementsByName("Product.Color")[0].value;
-        });
-    </script>
+    $('select[name="Product.Color"]').simplecolorpicker('destroy');
+    $('select[name="Product.Color"]').simplecolorpicker({
+        picker: true
+    }).on('change', function () {
+        document.getElementsByName("Color")[0].value = document.getElementsByName("Product.Color")[0].value;
+    });
+</script>

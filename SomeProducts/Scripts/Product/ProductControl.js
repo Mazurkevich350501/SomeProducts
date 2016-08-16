@@ -9,8 +9,3 @@
         
     })
 })
-
-function deleteBrand(brandId)
-{
-
-}
