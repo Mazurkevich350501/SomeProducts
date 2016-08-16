@@ -90,7 +90,22 @@ namespace SomeProducts.Controllers
         {
             return Json(new BrandRepository().GetList().ToList(), JsonRequestBehavior.AllowGet);
         }
-
+        public JsonResult IsBrandUsing(int id)
+        {
+            //тут все очень плохо (я подумаю как исправить)
+            using (ProductContext db = new ProductContext())
+            {
+                try
+                {
+                    var prod = db.Products.First(p => p.BrandId == id);
+                    return Json(prod != null, JsonRequestBehavior.AllowGet);
+                }
+                catch
+                {
+                    return Json(false, JsonRequestBehavior.AllowGet);
+                }    
+            }
+        }
         private Dictionary<int, string> BrandDictionary()
         {
             var brandsRepository = new BrandRepository();

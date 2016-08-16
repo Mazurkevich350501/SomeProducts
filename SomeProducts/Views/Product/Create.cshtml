@@ -25,7 +25,7 @@
             @Html.ValidationMessageFor(model => model.Product.BrandId)
             <div class="row">
                 <h4 class="col-lg-2">Brand</h4>
-                @Html.DropDownListFor(m => m.Product.BrandId, new SelectList(Model.Brands, "Key", "Value", Model.Product.BrandId))            
+                @Html.DropDownListFor(m => m.Product.BrandId, new SelectList(Model.Brands, "Key", "Value", Model.Product.BrandId), new { @class="btn btn-default dropdown-toggle" })            
                 <button type="button" id="brandEditBtn" class="btn btn-info" data-toggle="modal" data-target="#BrandModal">Edit</button>
             </div>
             @Html.ValidationMessageFor(model => model.Product.Color)
@@ -69,9 +69,13 @@
                 <h4 class="modal-title">Brands</h4>
             </div>
             <div class="modal-body" id="modal-body">     
+                <div class="row">
+                    <input class="text-left form-control col-lg-10" id="newBrandName" />
+                    <button class="btn btn-success glyphicon glyphicon-plus-sign" onclick="addNewBrand()"></button>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success">Save</button>
+                <button type="button" class="btn btn-success" onclick="saveBrandsChanges">Save</button>
             </div>
         </div>
     </div>
