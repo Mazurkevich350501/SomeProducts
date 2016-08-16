@@ -24,7 +24,7 @@
             <div class="row">
                 <h4 class="col-lg-2">Brand</h4>
                 @Html.DropDownListFor(m => m.Product.BrandId, new SelectList(Model.Brands, "Key", "Value", Model.Product.BrandId))            
-                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#BrandModal">Edit</button>
+                <button type="button" id="brandEditBtn" class="btn btn-info" data-toggle="modal" data-target="#BrandModal">Edit</button>
             </div>
             @Html.ValidationMessageFor(model => model.Product.Color)
             <div class="row">
@@ -60,8 +60,8 @@
             <div class="modal-header">
                 <h4 class="modal-title">Brands</h4>
             </div>
-            <div class="modal-body">
-                <p>ASDASDASDSDA</p>
+            <div class="modal-body" id="modal-body">
+                
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success">Save</button>
@@ -76,6 +76,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js"></script>
     <script src="~/bower_components/jquery-simplecolorpicker/jquery.simplecolorpicker.js"></script>
     <script src="~/Scripts/ModalView/ModalView.js"></script>
+    <script src="~/Scripts/Product/ProductControl.js"></script>    
 
     <link rel="stylesheet" href="~/bower_components/jquery-simplecolorpicker/jquery.simplecolorpicker.css">
 

@@ -22,14 +22,15 @@ namespace SomeProducts.Controllers
                 Colors = color.Colors 
                    
             };
-            using (var db = new ProductContext())
+            /*using (var db = new ProductContext())
             {
                 var brands = db.Brands;
                 foreach(Brand brand in brands)
                 {
                     model.Brands.Add(brand.BrandId, brand.BrandName);
                 }
-            }
+            }*/
+            model.Brands.Add(2, "asdasdasdasd");
             return View(model);
         }
         
@@ -104,7 +105,10 @@ namespace SomeProducts.Controllers
                 return null;
             }
         }
-
+        public JsonResult GetBrandsList()
+        {
+            return Json(new { foo = "bar", baz = "Blech" }, JsonRequestBehavior.AllowGet);
+        }
         public bool IsBrandUsing(int brandId)
         {
             return true;

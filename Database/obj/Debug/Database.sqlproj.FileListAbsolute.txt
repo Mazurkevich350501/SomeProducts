@@ -1,0 +1,9 @@
+D:\Projects\SomeProducts\Database\bin\Debug\Database.dacpac
+D:\Projects\SomeProducts\Database\bin\Debug\Database.dll
+D:\Projects\SomeProducts\Database\bin\Debug\Database.pdb
+D:\Projects\SomeProducts\Database\obj\Debug\Model.xml
+D:\Projects\SomeProducts\Database\obj\Debug\refactor.xml
+D:\Projects\SomeProducts\Database\obj\Debug\postdeploy.sql
+D:\Projects\SomeProducts\Database\obj\Debug\predeploy.sql
+D:\Projects\SomeProducts\Database\obj\Debug\Database.dll
+D:\Projects\SomeProducts\Database\obj\Debug\Database.pdb
