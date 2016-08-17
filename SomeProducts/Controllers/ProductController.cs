@@ -1,4 +1,4 @@
-﻿using SomeProducts.DbRepository;
+﻿using SomeProducts.Repository;
 using SomeProducts.Models.ProductModels;
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace SomeProducts.Controllers
             var model = new ProductViewModel()
             {
                 Product = new Product(),
-                Brands = BrandDictionary(),
+                Brands = CreateBrandDictionary(),
                 Colors = new ProductColors().Colors
             };         
             return View(model);
@@ -35,7 +35,7 @@ namespace SomeProducts.Controllers
             var model = new ProductViewModel()
             {
                 Product = product,
-                Brands = BrandDictionary(),
+                Brands = CreateBrandDictionary(),
                 Colors = new ProductColors().Colors
             };
             return View("Create", model);
@@ -53,7 +53,7 @@ namespace SomeProducts.Controllers
                 productRepository.Save();
             }
             model.Colors = new ProductColors().Colors;
-            model.Brands = BrandDictionary();
+            model.Brands = CreateBrandDictionary();
             return View(model);
         }
 
@@ -68,12 +68,34 @@ namespace SomeProducts.Controllers
                 productRepository.Save();
             }
             model.Colors = new ProductColors().Colors;
-            model.Brands = BrandDictionary();
+            model.Brands = CreateBrandDictionary();
             return View("Create", model);
         }
 
+        public JsonResult SaveBrandsChanges(BrandsChangeModel changeModel)
+        {
+            if(changeModel != null)
+            {
+                var repository = new BrandRepository();
+                if(changeModel.RemovedBrands != null)
+                {
+                    foreach (Brand brand in changeModel.RemovedBrands)
+                    {
+                        repository.Delete(brand.BrandId);
+                    }
+                }
+                if(changeModel.AddedBrands != null)
+                {
+                    foreach (Brand brand in changeModel.AddedBrands)
+                    {
+                        repository.Create(brand);
+                    }
+                }
+                repository.Save();
+            }
+            return GetBrandsList();
+        }
 
-      
         public FileContentResult GetImage(Product product)
         {
             if (product != null)
@@ -88,29 +110,21 @@ namespace SomeProducts.Controllers
 
         public JsonResult GetBrandsList()
         {
-            return Json(new BrandRepository().GetList().ToList(), JsonRequestBehavior.AllowGet);
+            return Json(new BrandRepository().GetAllItems().ToList(), JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult IsBrandUsing(int id)
         {
-            //тут все очень плохо (я подумаю как исправить)
             using (ProductContext db = new ProductContext())
             {
-                try
-                {
-                    var prod = db.Products.First(p => p.BrandId == id);
-                    return Json(prod != null, JsonRequestBehavior.AllowGet);
-                }
-                catch
-                {
-                    return Json(false, JsonRequestBehavior.AllowGet);
-                }    
+                return Json(db.Products.Any(p => p.BrandId == id) , JsonRequestBehavior.AllowGet);  
             }
         }
-        private Dictionary<int, string> BrandDictionary()
+
+        private Dictionary<int, string> CreateBrandDictionary()
         {
             var brandsRepository = new BrandRepository();
-            return brandsRepository.GetList().ToDictionary(b => b.BrandId, b => b.BrandName);
-       
+            return brandsRepository.GetAllItems().ToDictionary(b => b.BrandId, b => b.BrandName);
         }
 
         private void SaveImage(ProductViewModel model, HttpRequestBase request)

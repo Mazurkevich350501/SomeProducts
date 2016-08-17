@@ -18,7 +18,7 @@
                 @Html.TextBoxFor(m => m.Product.Name, new { @class = "form-control col-lg-5" })
             </div>
             @Html.ValidationMessageFor(model => model.Product.Description)
-            <div class="row" style="padding-bottom:10px">
+            <div class="row description-text-area">
                 <h4 class="col-lg-2">Description</h4>
                 @Html.TextAreaFor(m => m.Product.Description, new { @class = "form-control col-lg-5 pad" })
             </div>
@@ -57,13 +57,13 @@
         <input type="submit" class="btn btn-success" value=@(isEdit ? "Save" : "Create") />
         @if (isEdit)
         {
-            <button class="btn btn-warning" value="Delete" onclick=""/>
+            <button class="btn btn-warning" onclick="">Delete</button>
         }
     </div> 
 </form>
     
 <div id="BrandModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog" id="modal_dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Brands</h4>
@@ -75,7 +75,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="saveBrandsChanges">Save</button>
+                <button type="button" class="btn btn-success" onclick="saveBrandsChanges()">Save</button>
             </div>
         </div>
     </div>
@@ -85,17 +85,24 @@
 <script src="~/bower_components/jquery-simplecolorpicker/jquery.simplecolorpicker.js"></script>
 <script src="~/Scripts/ModalView/ModalView.js"></script>
 <script src="~/Scripts/Product/ProductControl.js"></script>    
+<script src="~/Scripts/Product/ProductColorpicker.js"></script>
 
 <link rel="stylesheet" href="~/bower_components/jquery-simplecolorpicker/jquery.simplecolorpicker.css">
 <link rel="stylesheet" href="~/Scripts/ModalView/ModalView.css" />
+<link rel="stylesheet" href="~/Scripts/Product/Product.css" />
 
 <script>
-    $('select[name="Product.Color"]').simplecolorpicker();
+    var colorId = '@Html.IdFor(model => model.Product.Color)';
+    var brandDropdownId = '@Html.IdFor(model => model.Product.BrandId)';
+    var getBrandsListUrl = '@Url.Action("GetBrandsList", "Product")';
+    var isBrandUsingUrl = '@Url.Action("IsBrandUsing", "Product")';
+    var saveBrandsChangesUrl = '@Url.Action("SaveBrandsChanges", "Product")'; 
 
-    $('select[name="Product.Color"]').simplecolorpicker('destroy');
-    $('select[name="Product.Color"]').simplecolorpicker({
+    var id = '#' + colorId;
+
+    $(id).simplecolorpicker();
+    $(id).simplecolorpicker('destroy');
+    $(id).simplecolorpicker({
         picker: true
-    }).on('change', function () {
-        document.getElementsByName("Color")[0].value = document.getElementsByName("Product.Color")[0].value;
-    });
+    })
 </script>
