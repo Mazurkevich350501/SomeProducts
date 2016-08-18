@@ -58,7 +58,7 @@ namespace SomeProducts.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, ProductViewModel model)
+        public ActionResult Edit(ProductViewModel model)
         {
             if (ModelState.IsValid)
             {

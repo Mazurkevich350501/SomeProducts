@@ -68,13 +68,13 @@ function addBrandTolist(id, name, list) {
 }
 
 function saveBrandsChanges() {
-    postJSONData(JSON.stringify(brandChangesModel), "asd");
+    postJSONData(JSON.stringify(brandChangesModel), saveBrandsChangesUrl);
 }
 
 function postJSONData(JSONData, url) { 
     $.ajax({
         type: 'POST',
-        url: saveBrandsChangesUrl,
+        url: url,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: JSONData,
@@ -99,5 +99,6 @@ function addOptionToSelectBox(idSelectBox, key, value){
 }
 
 function closeModalWindow(){
-    //$('#modal_dialog').close();
+    console.log('asddd');
+    $('#BrandModal').modal("hide");
 }
