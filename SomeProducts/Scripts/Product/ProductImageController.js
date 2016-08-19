@@ -19,8 +19,10 @@ $('document').ready(function (){
 		data : $("#" + imageDataId).val(),
 		type : $("#" + imageTypeId).val()
 	};
-	if(image.data != null && image.type != null)
-	{
+	if(image.data != "" && image.type != ""){
 		$('#image').attr("src", "data:" + image.type + ";base64," + image.data);
 	}
+    else{
+        $('#image').attr("src", "https://i.vimeocdn.com/portrait/1274237_300x300");
+    }
 })
