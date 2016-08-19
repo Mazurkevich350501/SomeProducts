@@ -5,3 +5,9 @@
 	max-width: 200px;
 	max-height: 200px;
 }
+ .buttun-left-margin{
+     margin-left: 10px;
+ }
+ .field-validation-error{
+     color:red;
+ }
