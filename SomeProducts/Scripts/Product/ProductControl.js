@@ -1,56 +1,68 @@
-﻿var brandChangesModel = {
+﻿var brandsList;
+var brandChangesModel = {
     RemovedBrands: [],
     AddedBrands: []
 };
 var idCounter;
+
+$("#delete-btn").submit(function(){return false;})
+
+function a(){
+    submit();
+}
+
+function createBrandsDiv(){
+    $('#newBrandValidation').empty();
+    $('#modal-content').remove();       
+    $('#modal-body').append("<div id='modal-content'/>");
+}
+
 $('document').ready(function () {
     $('#brandEditBtn').click(function () {
-        $('#modal-content').remove();
-        console.log("asdasda");
         brandChangesModel.RemovedBrands = [];
         brandChangesModel.AddedBrands = [];
         idCounter = 1;
         $.getJSON(getBrandsListUrl, function (brands) {
-            $('#modal-body').append("<div id='modal-content'/>");
+            createBrandsDiv();
+            brandsList = brands;
             brands.forEach(function (item, i, brands) {
-                showBrand(item.BrandId, item.BrandName);
+                showBrand(item.BrandId, item.BrandName, "dbBrand");
             })
 
         })
-    })  
+
+    }) 
+
 })
-
-
 
 function removeBrand(obj) {
     var id = obj.getAttribute('id').substring(4);
-    if (id.substring(0, 1) == "0") {
-         brandChangesModel.AddedBrands.find(function (element, index, array) {
-            if (element.brandId == id) {
-                array.splice(index, 1);
-                return true;
-            }
-            else {
-                return false;
-            }
-        })
-        $('#row-' + id).remove();
+    var name = obj.getAttribute('data-name');
+    if (obj.getAttribute('data-info') == "newBrand") {
+        removeBrandFromList(name, brandChangesModel.AddedBrands);
+        removeBrandFromList(name, brandsList);
     }
     else {
         $.getJSON(isBrandUsingUrl + '/' + id, function (isUsing) {
             if (!isUsing) {
                 addBrandTolist(id, $('#lbl-' + id).text(), brandChangesModel.RemovedBrands);
-                $('#row-' + id).remove();
+                removeBrandFromList(name, brandsList);
+            }
+            else{
+                return;
             }
         });
+
     }  
+    $('#row-' + id).remove();
 }
 
 function addNewBrand() {
+    var brandName = document.getElementById("newBrandName").value;
     if(checkForValidity(brandName)){
         addBrandTolist(0, brandName,  brandChangesModel.AddedBrands);
         addBrandTolist(0, brandName, brandsList);
-        showBrand('0' + idCounter, document.getElementById("newBrandName").value);
+        showBrand('0' + idCounter, document.getElementById("newBrandName").value, "newBrand");
         document.getElementById("newBrandName").value = '';
         idCounter++;    
     }
@@ -59,11 +71,12 @@ function addNewBrand() {
     }
 }
 
-function showBrand(brandId, brandName){
+function showBrand(brandId, brandName, info){
     var rowId = "#row-" + brandId;
     $('#modal-content').append("<div class='row' id='row-" + brandId + "'/>");
     $(rowId).append("<h4 class='col-lg-10' id='lbl-" + brandId + "'>" + brandName + "</h4>");
-    $(rowId).append("<button class='btn btn-warning glyphicon glyphicon-minus-sign'onclick='removeBrand(this)' id='btn-" + brandId + "'/>");
+    $(rowId).append("<button class='btn btn-warning glyphicon glyphicon-minus-sign' onclick='removeBrand(this)' data-info='"
+        + info +"' data-name='"+ brandName +"' id='btn-" + brandId + "'/>");
 }
 
 function addBrandTolist(id, name, list) {
@@ -71,6 +84,18 @@ function addBrandTolist(id, name, list) {
     brand.brandId = id;
     brand.brandName = name;
     list.push(brand);
+}
+
+function removeBrandFromList(name, list){
+    list.find(function (element, index, array) {
+        if (element.brandName == name) {
+            array.splice(index, 1);
+            return true;
+        }
+        else {
+            return false;
+        }
+    })
 }
 
 function saveBrandsChanges() {
@@ -91,8 +116,7 @@ function postJSONData(JSONData, url) {
     });
 }
 
-function setBrandDropdownItems(items)
-{
+function setBrandDropdownItems(items){
     var id = "#" + brandDropdownId;
     $(id).find('option').remove();
     items.forEach(function(item, index, array){
@@ -105,7 +129,6 @@ function addOptionToSelectBox(idSelectBox, key, value){
 }
 
 function closeModalWindow(){
-    console.log('asddd');
     $('#BrandModal').modal("hide");
 }
 
