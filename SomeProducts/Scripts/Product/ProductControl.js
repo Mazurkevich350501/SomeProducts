@@ -47,10 +47,16 @@ function removeBrand(obj) {
 }
 
 function addNewBrand() {
-    addBrandTolist(0, document.getElementById("newBrandName").value,  brandChangesModel.AddedBrands);
-    showBrand('0' + idCounter, document.getElementById("newBrandName").value);
-    document.getElementById("newBrandName").value = '';
-    idCounter++;
+    if(checkForValidity(brandName)){
+        addBrandTolist(0, brandName,  brandChangesModel.AddedBrands);
+        addBrandTolist(0, brandName, brandsList);
+        showBrand('0' + idCounter, document.getElementById("newBrandName").value);
+        document.getElementById("newBrandName").value = '';
+        idCounter++;    
+    }
+    else{
+        showErrorMessage(getErrorMessage(brandName));
+    }
 }
 
 function showBrand(brandId, brandName){
@@ -101,4 +107,33 @@ function addOptionToSelectBox(idSelectBox, key, value){
 function closeModalWindow(){
     console.log('asddd');
     $('#BrandModal').modal("hide");
+}
+
+function checkForValidity(brandName){
+    $('#newBrandValidation').empty();
+    if(getErrorMessage(brandName) == ""){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+function getErrorMessage(brandName){
+    var message = "";
+    if(brandName == "") {
+        message = "brand name is empty";
+    }
+    brandsList.forEach(function(brand, index, array){
+        if(brand.brandName == brandName){
+            message = "brand name already exists";
+        } 
+    });
+    console.log(message);
+    return message;
+}
+
+function showErrorMessage(message){
+    console.log(message);
+    $('#newBrandValidation').append(message);
 }
