@@ -47,10 +47,12 @@ namespace SomeProducts.Controllers
         {
             if (ModelState.IsValid)
             {
-                SaveImage(model, Request);
+                //SaveImage(model, Request);
                 var productRepository = new ProductRepository();
-                productRepository.Create(model.Product);
-                productRepository.Save();
+                //productRepository.Create(model.Product);
+                //productRepository.Save();
+                var product = productRepository.GetAllItems().LastOrDefault(p => p.ProductId != 0);
+                return Redirect(Url.Action("Edit", "Product", new { id = product.ProductId }));
             }
             model.Colors = new ProductColors().Colors;
             model.Brands = CreateBrandDictionary();
