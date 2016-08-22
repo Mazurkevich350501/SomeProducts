@@ -3,10 +3,11 @@
 
 @{
     bool isEdit = Model.Product.ProductId != 0;
-    ViewBag.Title = isEdit ? "Edit" : "Create";
+    var title = isEdit ? "Edit" : "Create";
+    ViewBag.Title = title;
 }
 
-<h2>Create</h2>
+<h2>@title</h2>
 
 <form method="post" action=@Url.Action(isEdit ? "Edit" : "Create", "Product") enctype="multipart/form-data">
     @Html.HiddenFor(model => model.Product.ProductId)
