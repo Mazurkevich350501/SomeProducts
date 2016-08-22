@@ -6,10 +6,13 @@
 	max-height: 200px;
 }
  .buttun-left-margin{
-     margin-left: 10px;
+    margin-left: 10px;
  }
  .field-validation-error{
-     color:red;
+    color:red;
+ }
+ .field-validation-valid{
+ 	color:red;
  }
  .new-brand-input{
  	margin-left: 10px;

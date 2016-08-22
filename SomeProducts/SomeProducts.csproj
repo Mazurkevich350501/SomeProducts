@@ -380,9 +380,10 @@
     <Content Include="Scripts\ModalView\ModalView.css" />
     <Content Include="Scripts\ModalView\ModalView.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\Product\ProductValidation.js" />
     <Content Include="Scripts\Product\Product.css" />
     <Content Include="Scripts\Product\ProductColorpicker.js" />
-    <Content Include="Scripts\Product\ProductControl.js" />
+    <Content Include="Scripts\Product\ProductModalWindowControl.js" />
     <Content Include="Scripts\Product\ProductImageController.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
