@@ -1,5 +1,12 @@
 ﻿var validationExp = /[\!@_%<>\$\^\[\]\+\-\/\{\}]/;
+
 $("form").submit(function(){
+	result = checkValidity();
+	checkQuantityValue();
+	return result;
+});
+
+function checkValidity(){
 	var result = true;
 	$('span').empty();
 	$('input').each(function() {
@@ -14,18 +21,23 @@ $("form").submit(function(){
 			result = false;
 		}	
 	});
-	console.log(result);
 	return result;
-});
+}
 
 function checkInputData(obj){
 	return validationExp.test( $(obj).val());
 }
 
 function showValidationMessage(obj){
-	console.log($('#' + obj.id + "_Validation"));
 	$('#' + obj.id + "_Validation").append("Used illegal characters");
 }
 
+function checkQuantityValue(){
+	if($('#' + quantityId).val() == ""){
+		setQuantityValue();
+	}
+}
 
-	
+function setQuantityValue(){
+	$('#' + quantityId).val(0);
+}

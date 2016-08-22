@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -26,7 +27,7 @@ namespace SomeProducts.Models.ProductModels
 
         public string Color { get; set; }
 
-        [Range(0, double.PositiveInfinity, ErrorMessage = "The {0} should be positive")]
+        //[Range(0, double.PositiveInfinity, ErrorMessage = "The {0} should be positive")]
         public int Quantity { get; set; }
 
         public byte[] Image { get; set; }
