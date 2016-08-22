@@ -43,16 +43,18 @@ function removeBrand(obj) {
         removeBrandFromList(name, brandsList);
     }
     else {
+        var isRemove;
         $.getJSON(isBrandUsingUrl + '/' + id, function (isUsing) {
             if (!isUsing) {
                 addBrandTolist(id, $('#lbl-' + id).text(), brandChangesModel.RemovedBrands);
                 removeBrandFromList(name, brandsList);
+                isRemove = true;
             }
             else{
-                return;
+                isRemove = false;
             }
         });
-
+        if(!isRemove) return;
     }  
     $('#row-' + id).remove();
 }
