@@ -147,11 +147,11 @@ function checkForValidity(brandName){
 function getErrorMessage(brandName){
     var message = "";
     if(brandName == "") {
-        message = "brand name is empty";
+        message = "Brand name is empty.";
     }
     brandsList.forEach(function(brand, index, array){
         if(brand.brandName == brandName){
-            message = "brand name already exists";
+            message = "Brand name already exists.";
         } 
     });
     console.log(message);

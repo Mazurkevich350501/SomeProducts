@@ -64,12 +64,14 @@
             <div class="modal-header">
                 <h4 class="modal-title">Brands</h4>
             </div>
-            <div class="modal-body" id="modal-body">     
-                <div class="row">
-                    <p class="field-validation-error" id="newBrandValidation" >xxxxxxx</p>
-                    <input class="text-left form-control col-lg-10" id="newBrandName" />
-                    <button class="btn btn-success glyphicon glyphicon-plus-sign buttun-left-margin" onclick="addNewBrand()"></button>
-                </div>
+            <div class="modal-body" id="modal-body">
+                <div>
+                    <div class="row">
+                        <p class="field-validation-error" id="newBrandValidation"></p>
+                        <input class="new-brand-input form-control col-lg-10" id="newBrandName" />
+                        <button class="btn btn-success glyphicon glyphicon-plus-sign buttun-left-margin" onclick="addNewBrand()"></button>
+                    </div>
+                </div>   
             </div>
             <div class="modal-footer">
                 <button class="btn btn-success" onclick="saveBrandsChanges()">Save</button>
