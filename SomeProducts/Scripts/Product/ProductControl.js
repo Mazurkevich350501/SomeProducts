@@ -7,8 +7,12 @@ var idCounter;
 
 $("#delete-btn").submit(function(){return false;})
 
-function a(){
-    submit();
+function startInit(){
+    createBrandsDiv();
+    brandChangesModel.RemovedBrands = [];
+    brandChangesModel.AddedBrands = [];
+    brandsList =[];
+    idCounter = 1;
 }
 
 function createBrandsDiv(){
@@ -19,13 +23,10 @@ function createBrandsDiv(){
 
 $('document').ready(function () {
     $('#brandEditBtn').click(function () {
-        brandChangesModel.RemovedBrands = [];
-        brandChangesModel.AddedBrands = [];
-        idCounter = 1;
         $.getJSON(getBrandsListUrl, function (brands) {
-            createBrandsDiv();
-            brandsList = brands;
+            startInit();
             brands.forEach(function (item, i, brands) {
+                addBrandTolist(item.BrandId, item.BrandName, brandsList);
                 showBrand(item.BrandId, item.BrandName, "dbBrand");
             })
 
@@ -40,14 +41,12 @@ function removeBrand(obj) {
     var name = obj.getAttribute('data-name');
     if (obj.getAttribute('data-info') == "newBrand") {
         removeBrandFromList(name, brandChangesModel.AddedBrands);
-        removeBrandFromList(name, brandsList);
     }
     else {
         var isRemove;
         $.getJSON(isBrandUsingUrl + '/' + id, function (isUsing) {
             if (!isUsing) {
                 addBrandTolist(id, $('#lbl-' + id).text(), brandChangesModel.RemovedBrands);
-                removeBrandFromList(name, brandsList);
                 isRemove = true;
             }
             else{
@@ -55,7 +54,8 @@ function removeBrand(obj) {
             }
         });
         if(!isRemove) return;
-    }  
+    }
+    removeBrandFromList(name, brandsList);  
     $('#row-' + id).remove();
 }
 
