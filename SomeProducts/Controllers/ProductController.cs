@@ -47,10 +47,10 @@ namespace SomeProducts.Controllers
         {
             if (ModelState.IsValid)
             {
-                //SaveImage(model, Request);
+                SaveImage(model, Request);
                 var productRepository = new ProductRepository();
-                //productRepository.Create(model.Product);
-                //productRepository.Save();
+                productRepository.Create(model.Product);
+                productRepository.Save();
                 var product = productRepository.GetAllItems().LastOrDefault(p => p.ProductId != 0);
                 return Redirect(Url.Action("Edit", "Product", new { id = product.ProductId }));
             }
@@ -109,7 +109,14 @@ namespace SomeProducts.Controllers
                 return null;
             }
         }
-
+        [HttpPost]
+        public JsonResult Delete(int productId)
+        {
+            /*var repository = new ProductRepository();
+            repository.Delete(id);
+            repository.Save();*/
+            return Json(Url.Action("Create", "Product"), JsonRequestBehavior.AllowGet);
+        }
         public JsonResult GetBrandsList()
         {
             return Json(new BrandRepository().GetAllItems().ToList(), JsonRequestBehavior.AllowGet);

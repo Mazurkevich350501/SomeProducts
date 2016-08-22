@@ -53,7 +53,7 @@
         <input type="submit" class="btn btn-success" value=@(isEdit ? "Save" : "Create") />
         @if (isEdit)
         {
-            <button id="delete-btn" class="btn btn-warning" onclick="">Delete</button>
+            <div id="delete-btn" class="btn btn-warning" onclick="deleteProduct()">Delete</div>
         }
     </div> 
 </form>
@@ -86,6 +86,8 @@
     var imageDataId = '@Html.IdFor(model => model.Product.Image)';
     var imageTypeId = '@Html.IdFor(model => model.Product.ImageType)';
     var quantityId = '@Html.IdFor(model => model.Product.Quantity)';
+    var productId = '@Html.IdFor(model => model.Product.ProductId)';
+    var deleteProductUrl = '@Url.Action("Delete", "Product")';
     var getImageUrl = '@Url.Action("GetImage", "Product")';
     var getBrandsListUrl = '@Url.Action("GetBrandsList", "Product")';
     var isBrandUsingUrl = '@Url.Action("IsBrandUsing", "Product")';

@@ -10,7 +10,8 @@ function checkValidity(){
 	var result = true;
 	$('span').empty();
 	$('input').each(function() {
-		if(checkInputData(this)){
+		if(checkInputData(this) && !isFileInput(this.id)){
+			console.log(this.id);
 			showValidationMessage(this);
 			result = false;
 		}	
@@ -22,6 +23,10 @@ function checkValidity(){
 		}	
 	});
 	return result;
+}
+
+function isFileInput(inputId){
+	return (inputId == imageDataId || inputId == imageTypeId);
 }
 
 function checkInputData(obj){
@@ -40,4 +45,22 @@ function checkQuantityValue(){
 
 function setQuantityValue(){
 	$('#' + quantityId).val(0);
+}
+
+function deleteProduct(){
+	var data =  $('#' + productId).val();
+	postRequest(JSON.stringify(data), deleteProductUrl);
+}
+
+function postRequest(data, url) { 
+    $.ajax({
+        type: 'POST',
+        url: url,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: data,
+        success: function (data) {
+            console.log(123);
+        }
+    });
 }
