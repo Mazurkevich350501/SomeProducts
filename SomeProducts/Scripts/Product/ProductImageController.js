@@ -19,7 +19,7 @@ $('document').ready(function (){
 		data : $("#" + imageDataId).val(),
 		type : $("#" + imageTypeId).val()
 	};
-	if(image.data != "" && image.type != ""){
+	if(image.data !== "" && image.type !== ""){
 		$('#image').attr("src", "data:" + image.type + ";base64," + image.data);
 	}
     else{

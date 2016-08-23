@@ -41,7 +41,7 @@ function checkValidity(){
 }
 
 function isFileInput(inputId){
-	return (inputId == imageDataId || inputId == imageTypeId);
+	return (inputId === imageDataId || inputId === imageTypeId);
 }
 
 function checkInputData(obj){
@@ -53,7 +53,7 @@ function showValidationMessage(obj){
 }
 
 function checkQuantityValue(){
-	if($('#' + quantityId).val() == ""){
+	if($('#' + quantityId).val() === ""){
 		setQuantityValue();
 	}
 }

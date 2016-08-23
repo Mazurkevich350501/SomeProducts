@@ -5,8 +5,6 @@ var brandChangesModel = {
 };
 var idCounter;
 
-$("#delete-btn").submit(function(){return false;})
-
 function startInit(){
     createBrandsDiv();
     brandChangesModel.RemovedBrands = [];
@@ -39,7 +37,7 @@ $('document').ready(function () {
 function removeBrand(obj) {
     var id = obj.getAttribute('id').substring(4);
     var name = obj.getAttribute('data-name');
-    if (obj.getAttribute('data-info') == "newBrand") {
+    if (obj.getAttribute('data-info') === "newBrand") {
         removeBrandFromList(name, brandChangesModel.AddedBrands);
     }
     else {
@@ -90,7 +88,7 @@ function addBrandTolist(id, name, list) {
 
 function removeBrandFromList(name, list){
     list.find(function (element, index, array) {
-        if (element.brandName == name) {
+        if (element.brandName === name) {
             array.splice(index, 1);
             return true;
         }
@@ -136,7 +134,7 @@ function closeModalWindow(){
 
 function checkForValidity(brandName){
     $('#newBrandValidation').empty();
-    if(getErrorMessage(brandName) == ""){
+    if(getErrorMessage(brandName) === ""){
         return true;
     }
     else{
@@ -146,11 +144,11 @@ function checkForValidity(brandName){
 
 function getErrorMessage(brandName){
     var message = "";
-    if(brandName == "") {
+    if(brandName === "") {
         message = "Brand name is empty.";
     }
     brandsList.forEach(function(brand, index, array){
-        if(brand.brandName == brandName){
+        if(brand.brandName === brandName){
             message = "Brand name already exists.";
         } 
     });
