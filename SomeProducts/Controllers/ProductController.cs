@@ -98,25 +98,15 @@ namespace SomeProducts.Controllers
             return GetBrandsList();
         }
 
-        public FileContentResult GetImage(Product product)
-        {
-            if (product != null)
-            {
-                return File(product.Image, product.ImageType);
-            }
-            else
-            {
-                return null;
-            }
-        }
         [HttpPost]
         public JsonResult Delete(int productId)
         {
-            /*var repository = new ProductRepository();
-            repository.Delete(id);
-            repository.Save();*/
+            var repository = new ProductRepository();
+            repository.Delete(productId);
+            repository.Save();
             return Json(Url.Action("Create", "Product"), JsonRequestBehavior.AllowGet);
         }
+
         public JsonResult GetBrandsList()
         {
             return Json(new BrandRepository().GetAllItems().ToList(), JsonRequestBehavior.AllowGet);

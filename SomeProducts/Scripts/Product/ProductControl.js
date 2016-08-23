@@ -48,8 +48,8 @@ function setQuantityValue(){
 }
 
 function deleteProduct(){
-	var data =  $('#' + productId).val();
-	postRequest(JSON.stringify(data), deleteProductUrl);
+	var id = {productId: $('#' + productId).val()};
+	postRequest(JSON.stringify(id), deleteProductUrl);
 }
 
 function postRequest(data, url) { 
@@ -59,8 +59,8 @@ function postRequest(data, url) {
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         data: data,
-        success: function (data) {
-            console.log(123);
+        success: function (newUrl) {
+			window.location.replace(newUrl);
         }
     });
 }

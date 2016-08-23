@@ -87,6 +87,7 @@
     var imageTypeId = '@Html.IdFor(model => model.Product.ImageType)';
     var quantityId = '@Html.IdFor(model => model.Product.Quantity)';
     var productId = '@Html.IdFor(model => model.Product.ProductId)';
+    console.log(productId);
     var deleteProductUrl = '@Url.Action("Delete", "Product")';
     var getImageUrl = '@Url.Action("GetImage", "Product")';
     var getBrandsListUrl = '@Url.Action("GetBrandsList", "Product")';
