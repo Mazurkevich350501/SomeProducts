@@ -1,0 +1,11 @@
+database/*
+packages/*
+SomeProducts/.bin/*
+SomeProducts/bin/*
+SomeProducts/obj/*
+*.mdf
+*.user
+SomeProducts/App_Data/*
+*.suo
+.vs/SomeProducts/*
+.vs/config/*
