@@ -1,10 +1,25 @@
 ﻿var validationExp = /[\!@_%<>\$\^\[\]\+\-\/\{\}]/;
+colorpickerItnitialization();
 
 $("form").submit(function(){
+	console.log("form");
 	result = checkValidity();
 	checkQuantityValue();
 	return result;
 });
+
+$('span').click(function(){
+	colorpickerItnitialization();
+});
+
+function a(){
+	console.log("a");
+}
+
+$(colorpickerId).click(function(){
+	console.log(colorpickerOptions);
+	document.getElementById(colorpickerId).options = colorpickerOptions;
+})
 
 function checkValidity(){
 	var result = true;
@@ -62,5 +77,15 @@ function postRequest(data, url) {
         success: function (newUrl) {
 			window.location.replace(newUrl);
         }
+    });
+}
+
+function colorpickerItnitialization(){
+	console.log("asaa");
+	var id = '#' + colorpickerId;
+    $(id).simplecolorpicker();
+    $(id).simplecolorpicker('destroy');
+    $(id).simplecolorpicker({
+        picker: true
     });
 }
