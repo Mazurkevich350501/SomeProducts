@@ -123,8 +123,8 @@ namespace SomeProducts.Controllers
         private Dictionary<int, string> CreateBrandDictionary()
         {
             var brandsRepository = new BrandRepository();
-            brandsRepository.Create(new Brand() { BrandName = "aaaaasd" });
-            brandsRepository.Save();
+            //brandsRepository.Create(new Brand() { BrandName = "aaaaasd" });
+            //brandsRepository.Save();
             return brandsRepository.GetAllItems().ToDictionary(b => b.BrandId, b => b.BrandName);
         }
 

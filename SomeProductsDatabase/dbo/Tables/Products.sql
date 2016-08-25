@@ -7,6 +7,8 @@
     [Image]       VARBINARY (MAX) NULL,
     [ImageType]   NVARCHAR (MAX)  NULL,
     [BrandId]     INT             NOT NULL,
+	[CreateDate] DATETIME NOT NULL, 
+    [ModifiedDate] DATETIME NULL, 
     CONSTRAINT [PK_Products_ProductId] PRIMARY KEY CLUSTERED ([ProductId] ASC),
     FOREIGN KEY ([BrandId]) REFERENCES [dbo].[Brands] ([BrandId])
 );

@@ -64,4 +64,7 @@
     <Build Include="dbo\Tables\Products.sql" />
     <Build Include="dbo\Tables\Brands.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="SomeProductsDatabase.refactorlog" />
+  </ItemGroup>
 </Project>

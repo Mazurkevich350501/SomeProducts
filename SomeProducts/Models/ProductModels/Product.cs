@@ -33,5 +33,9 @@ namespace SomeProducts.Models.ProductModels
         public byte[] Image { get; set; }
 
         public string ImageType { get; set; }
+
+        public DateTime CreateDate { get; set; }
+
+        public DateTime ModifiedDate { get; set; }
     }
 }
