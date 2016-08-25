@@ -1,11 +1,13 @@
 database/*
 packages/*
-SomeProducts/.bin/*
-SomeProducts/bin/*
-SomeProducts/obj/*
+*/.bin/*
+*/bin/*
+*/obj/*
 *.mdf
 *.user
 SomeProducts/App_Data/*
 *.suo
 .vs/SomeProducts/*
 .vs/config/*
+*.dacpac
+*dbmdl

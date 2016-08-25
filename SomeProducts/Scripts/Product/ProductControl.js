@@ -5,16 +5,15 @@ $("form").submit(function(){
 	console.log("form");
 	result = checkValidity();
 	checkQuantityValue();
+	if(!result){
+		location.reload();
+	}
 	return result;
 });
 
 $('span').click(function(){
 	colorpickerItnitialization();
 });
-
-function a(){
-	console.log("a");
-}
 
 $(colorpickerId).click(function(){
 	console.log(colorpickerOptions);
