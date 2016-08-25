@@ -11,6 +11,8 @@
 
 <form method="post" action=@Url.Action(isEdit ? "Edit" : "Create", "Product") enctype="multipart/form-data">
     @Html.HiddenFor(m => m.Product.ProductId)
+    @Html.HiddenFor(m => m.Product.CreateDate)
+    @Html.HiddenFor(m => m.Product.ModifiedDate)
     @Html.HiddenFor(m => m.Product.Image)
     @Html.HiddenFor(m => m.Product.ImageType)
     <div class="row">
@@ -50,7 +52,7 @@
         </div>
     </div>
     <div>
-        <input type="submit" class="btn btn-success"  value=@(isEdit ? "Save" : "Create") />
+        <input type="submit" class="btn btn-success" value=@(isEdit ? "Save" : "Create") onclick="addDateToForm()"/>
         @if (isEdit)
         {
             <div id="delete-btn" class="btn btn-warning" onclick="deleteProduct()">Delete</div>
@@ -83,6 +85,9 @@
 @section scripts
 {
 <script>
+    var isEdit = "@isEdit" === true;
+    var createDateId = '@Html.IdFor(m => m.Product.CreateDate)';
+    var modifiedDateId = '@Html.IdFor(m => m.Product.ModifiedDate)';
     var colorpickerId = '@Html.IdFor(m => m.Product.Color)';
     var brandDropdownId = '@Html.IdFor(m => m.Product.BrandId)';
     var imageDataId = '@Html.IdFor(m => m.Product.Image)';
