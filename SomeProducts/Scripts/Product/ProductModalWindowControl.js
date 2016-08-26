@@ -39,20 +39,19 @@ function removeBrand(obj) {
     var name = obj.getAttribute('data-name');
     if (obj.getAttribute('data-info') === "newBrand") {
         removeBrandFromList(name, brandChangesModel.AddedBrands);
+        removeRow(name, id);
     }
     else {
-        var isRemove;
         $.getJSON(isBrandUsingUrl + '/' + id, function (isUsing) {
             if (!isUsing) {
                 addBrandTolist(id, $('#lbl-' + id).text(), brandChangesModel.RemovedBrands);
-                isRemove = true;
-            }
-            else{
-                isRemove = false;
+                removeRow(name, id);
             }
         });
-        if(!isRemove) return;
     }
+}
+
+function removeRow(name, id){
     removeBrandFromList(name, brandsList);  
     $('#row-' + id).remove();
 }

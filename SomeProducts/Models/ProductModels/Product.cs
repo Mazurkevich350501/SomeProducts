@@ -36,6 +36,6 @@ namespace SomeProducts.Models.ProductModels
 
         public DateTime CreateDate { get; set; }
 
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
     }
 }
