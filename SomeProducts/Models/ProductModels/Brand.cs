@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SomeProducts.Repository;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Web;
 
 namespace SomeProducts.Models.ProductModels
 {
-    public class Brand
+    public class Brand : IDateModified
     {
         public int BrandId { get; set; }
 

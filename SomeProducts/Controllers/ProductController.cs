@@ -27,7 +27,7 @@ namespace SomeProducts.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var product = new ProductRepository().GetById(id);
+            var product = new BaseRepository<Product>().GetById(id);
             if(product == null)
             {
                 throw new HttpException(404, "Are you sure you're in the right place?");
@@ -48,7 +48,7 @@ namespace SomeProducts.Controllers
             if (ModelState.IsValid)
             {
                 SaveImage(model, Request);
-                var productRepository = new ProductRepository();
+                var productRepository = new BaseRepository<Product>();
                 productRepository.Create(model.Product);
                 productRepository.Save();
                 var product = productRepository.GetAllItems().LastOrDefault(p => p.ProductId != 0);
@@ -65,7 +65,7 @@ namespace SomeProducts.Controllers
             if (ModelState.IsValid)
             {
                 SaveImage(model, Request);
-                var productRepository = new ProductRepository();
+                var productRepository = new BaseRepository<Product>();
                 productRepository.Update(model.Product);
                 productRepository.Save();
             }
@@ -78,7 +78,7 @@ namespace SomeProducts.Controllers
         {
             if(changeModel != null)
             {
-                var repository = new BrandRepository();
+                var repository = new BaseRepository<Brand>();
                 if(changeModel.RemovedBrands != null)
                 {
                     foreach (Brand brand in changeModel.RemovedBrands)
@@ -101,15 +101,15 @@ namespace SomeProducts.Controllers
         [HttpPost]
         public JsonResult Delete(int productId)
         {
-            var repository = new ProductRepository();
-            repository.Delete(productId);
-            repository.Save();
+            var productRepository = new BaseRepository<Product>();
+            productRepository.Delete(productId);
+            productRepository.Save();
             return Json(Url.Action("Create", "Product"), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetBrandsList()
         {
-            return Json(new BrandRepository().GetAllItems().ToList(), JsonRequestBehavior.AllowGet);
+            return Json(new BaseRepository<Brand>().GetAllItems().ToList(), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult IsBrandUsing(int id)
@@ -122,7 +122,7 @@ namespace SomeProducts.Controllers
 
         private Dictionary<int, string> CreateBrandDictionary()
         {
-            var brandsRepository = new BrandRepository();
+            var brandsRepository = new BaseRepository<Brand>();
             return brandsRepository.GetAllItems().ToDictionary(b => b.BrandId, b => b.BrandName);
         }
 

@@ -217,9 +217,9 @@
     <Compile Include="Models\ProductModels\ProductContext.cs" />
     <Compile Include="Models\ProductModels\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\BrandRepository.cs" />
-    <Compile Include="Repository\ProductRepository.cs" />
-    <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Repository\BaseRepository.cs" />
+    <Compile Include="Repository\IDateModified.cs" />
+    <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

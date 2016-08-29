@@ -7,25 +7,27 @@ using System.Web;
 
 namespace SomeProducts.Repository
 {
-    public class ProductRepository : IRepository<Product>
+    public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class//, IDateModified
     {
         private ProductContext db;
 
-        public ProductRepository()
+        public BaseRepository()
         {
             this.db = new ProductContext();
         }
 
-        public void Create(Product item)
+        public void Create(TEntity item)
         {
-            db.Products.Add(item);
+
+            //item.CreateDate = DateTime.Now;
+            db.Set<TEntity>().Add(item);
         }
 
         public void Delete(int id)
         {
-            Product product = db.Products.Find(id);
-            if (product != null)
-                db.Products.Remove(product);
+            TEntity item = db.Set<TEntity>().Find(id);
+            if (item != null)
+                db.Set<TEntity>().Remove(item);
         }
 
         public void Dispose()
@@ -33,14 +35,14 @@ namespace SomeProducts.Repository
             GC.SuppressFinalize(this);
         }
 
-        public Product GetById(int id)
+        public IEnumerable<TEntity> GetAllItems()
         {
-            return db.Products.Find(id);
+            return db.Set<TEntity>();
         }
 
-        public IEnumerable<Product> GetAllItems()
+        public TEntity GetById(int id)
         {
-            return db.Products;
+            return db.Set<TEntity>().Find(id);
         }
 
         public void Save()
@@ -48,8 +50,9 @@ namespace SomeProducts.Repository
             db.SaveChanges();
         }
 
-        public void Update(Product item)
+        public void Update(TEntity item)
         {
+            //item.ModifiedDate = DateTime.Now;
             db.Entry(item).State = EntityState.Modified;
         }
     }
