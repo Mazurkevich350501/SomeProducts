@@ -7,7 +7,7 @@ using System.Web;
 
 namespace SomeProducts.Repository
 {
-    public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class//, IDateModified
+    public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class, IDateModified
     {
         private ProductContext db;
 
@@ -18,8 +18,7 @@ namespace SomeProducts.Repository
 
         public void Create(TEntity item)
         {
-
-            //item.CreateDate = DateTime.Now;
+            item.CreateDate = DateTime.Now;
             db.Set<TEntity>().Add(item);
         }
 
@@ -52,7 +51,7 @@ namespace SomeProducts.Repository
 
         public void Update(TEntity item)
         {
-            //item.ModifiedDate = DateTime.Now;
+            item.ModifiedDate = DateTime.Now;
             db.Entry(item).State = EntityState.Modified;
         }
     }

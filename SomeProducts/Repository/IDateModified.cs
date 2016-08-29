@@ -2,7 +2,7 @@
 
 namespace SomeProducts.Repository
 {
-    interface IDateModified
+    public interface IDateModified
     {
         DateTime CreateDate { get; set; }
 
