@@ -7,7 +7,7 @@ using System.Web;
 
 namespace SomeProducts.Repository
 {
-    interface IRepository<T> : IDisposable
+    internal interface IRepository<T> : IDisposable
     {
         IEnumerable<T> GetAllItems();
         T GetById(int id);

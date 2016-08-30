@@ -1,11 +1,11 @@
-﻿using SomeProducts.Models.ProductModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
+using SomeProducts.DAL.Context;
+using SomeProducts.DAL.Models;
+using SomeProducts.Repository;
 
-namespace SomeProducts.Repository
+namespace SomeProducts.DAL.Repository
 {
     public class BrandRepository : IRepository<Brand>
     {

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Data.Entity;
+﻿using System.Data.Entity;
+using SomeProducts.DAL.Models;
+using SomeProducts.Models.ProductModels;
 
-namespace SomeProducts.Models.ProductModels
+namespace SomeProducts.DAL.Context
 {
     public class ProductContext : DbContext
     {

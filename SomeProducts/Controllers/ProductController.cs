@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SomeProducts.DAL.Context;
+using SomeProducts.DAL.Models;
+using SomeProducts.DAL.Repository;
 
 
 namespace SomeProducts.Controllers
@@ -123,8 +126,6 @@ namespace SomeProducts.Controllers
         private Dictionary<int, string> CreateBrandDictionary()
         {
             var brandsRepository = new BrandRepository();
-            brandsRepository.Create(new Brand() { BrandName = "aaaaasd" });
-            brandsRepository.Save();
             return brandsRepository.GetAllItems().ToDictionary(b => b.BrandId, b => b.BrandName);
         }
 
