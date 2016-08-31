@@ -11,7 +11,7 @@ $("form").submit(function(){
 	return result;
 });
 
-$('span').click(function(){
+$("span").click(function(){
 	colorpickerItnitialization();
 });
 
@@ -22,15 +22,15 @@ $(colorpickerId).click(function(){
 
 function checkValidity(){
 	var result = true;
-	$('span').empty();
-	$('input').each(function() {
+	$("span").empty();
+	$("input").each(function() {
 		if(checkInputData(this) && !isFileInput(this.id)){
 			console.log(this.id);
 			showValidationMessage(this);
 			result = false;
 		}	
 	});
-	$('textarea').each(function() {
+	$("textarea").each(function() {
 		if(checkInputData(this)){
 			showValidationMessage(this);
 			result = false;
@@ -48,27 +48,27 @@ function checkInputData(obj){
 }
 
 function showValidationMessage(obj){
-	$('#' + obj.id + "_Validation").append("Used illegal characters");
+	$("#" + obj.id + "_Validation").append("Used illegal characters");
 }
 
 function checkQuantityValue(){
-	if($('#' + quantityId).val() === ""){
+	if($("#" + quantityId).val() === ""){
 		setQuantityValue();
 	}
 }
 
 function setQuantityValue(){
-	$('#' + quantityId).val(0);
+	$("#" + quantityId).val(0);
 }
 
 function deleteProduct(){
-	var id = {productId: $('#' + productId).val()};
+	var id = {productId: $("#" + productId).val()};
 	postRequest(JSON.stringify(id), deleteProductUrl);
 }
 
 function postRequest(data, url) { 
     $.ajax({
-        type: 'POST',
+        type: "POST",
         url: url,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -80,10 +80,9 @@ function postRequest(data, url) {
 }
 
 function colorpickerItnitialization(){
-	console.log("asaa");
-	var id = '#' + colorpickerId;
+	var id = "#" + colorpickerId;
     $(id).simplecolorpicker();
-    $(id).simplecolorpicker('destroy');
+    $(id).simplecolorpicker("destroy");
     $(id).simplecolorpicker({
         picker: true
     });

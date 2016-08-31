@@ -30,7 +30,7 @@ namespace SomeProducts.Controllers
             var product = new ProductRepository().GetById(id);
             if(product == null)
             {
-                throw new HttpException(404, "Are you sure you're in the right place?");
+                return View("Error");
             }
             var model = new ProductViewModel()
             {
@@ -123,8 +123,6 @@ namespace SomeProducts.Controllers
         private Dictionary<int, string> CreateBrandDictionary()
         {
             var brandsRepository = new BrandRepository();
-            brandsRepository.Create(new Brand() { BrandName = "aaaaasd" });
-            brandsRepository.Save();
             return brandsRepository.GetAllItems().ToDictionary(b => b.BrandId, b => b.BrandName);
         }
 
