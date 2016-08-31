@@ -1,6 +1,5 @@
 ﻿using System.Data.Entity;
 using SomeProducts.DAL.Models;
-using SomeProducts.Models.ProductModels;
 
 namespace SomeProducts.DAL.Context
 {

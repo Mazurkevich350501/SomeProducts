@@ -1,5 +1,4 @@
-﻿using SomeProducts.Models.ProductModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -11,6 +10,7 @@ namespace SomeProducts.Repository
     {
         IEnumerable<T> GetAllItems();
         T GetById(int id);
+        T GetLast();
         void Create(T item);
         void Update(T item);
         void Delete(int id);

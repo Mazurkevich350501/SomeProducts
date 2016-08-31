@@ -201,9 +201,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductModels\BrandsChangeModel.cs" />
-    <Compile Include="Models\ProductModels\ProductColors.cs" />
-    <Compile Include="Models\ProductModels\ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -280,9 +277,9 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SomeProducts.DAL\SomeProducts.DAL.csproj">
-      <Project>{7234c738-6ba2-457e-bd8b-475408570312}</Project>
-      <Name>SomeProducts.DAL</Name>
+    <ProjectReference Include="..\SomeProducts.PresentationServices\SomeProducts.PresentationServices.csproj">
+      <Project>{3ff100a8-aa3d-4814-a403-eaa90b31ad49}</Project>
+      <Name>SomeProducts.PresentationServices</Name>
     </ProjectReference>
     <ProjectReference Include="..\SomeProductsDatabase\SomeProductsDatabase.sqlproj">
       <Project>{1bca0973-5ef6-4d7c-92e2-bc99323e9edb}</Project>

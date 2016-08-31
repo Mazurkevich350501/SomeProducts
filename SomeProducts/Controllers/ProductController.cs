@@ -1,47 +1,37 @@
-﻿using SomeProducts.Repository;
-using SomeProducts.Models.ProductModels;
-using System;
-using System.Collections.Generic;
+﻿
+
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SomeProducts.DAL.Context;
-using SomeProducts.DAL.Models;
-using SomeProducts.DAL.Repository;
+using SomeProducts.PresentationServices.Dao;
+using SomeProducts.PresentationServices.IDao;
+using SomeProducts.PresentationServices.Models;
 
 
 namespace SomeProducts.Controllers
 {
     public class ProductController : Controller
     {
+        private IProductViewModelDao _productViewModelService = new ProductViewModelDao();
+        private IBrandModelDao _barndModelService = new BrandModelDao();
+
         // GET: Product
         [HttpGet]
         public ActionResult Create()
         {
-            var model = new ProductViewModel()
-            {
-                Product = new Product(),
-                Brands = CreateBrandDictionary(),
-                Colors = new ProductColors().Colors
-            };         
+            ProductViewModel model = _productViewModelService.GetProductViewModel(null);
             return View(model);
         }
         
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var product = new ProductRepository().GetById(id);
-            if(product == null)
+            var productModel = _productViewModelService.GetProductViewModel(id);
+            if(productModel == null)
             {
-                throw new HttpException(404, "Are you sure you're in the right place?");
+                return View("Error");
             }
-            var model = new ProductViewModel()
-            {
-                Product = product,
-                Brands = CreateBrandDictionary(),
-                Colors = new ProductColors().Colors
-            };
-            return View("Create", model);
+            return View("Create", productModel);
         }
 
         // POST: /Product/Create
@@ -51,15 +41,13 @@ namespace SomeProducts.Controllers
             if (ModelState.IsValid)
             {
                 SaveImage(model, Request);
-                var productRepository = new ProductRepository();
-                productRepository.Create(model.Product);
-                productRepository.Save();
-                var product = productRepository.GetAllItems().LastOrDefault(p => p.ProductId != 0);
-                return Redirect(Url.Action("Edit", "Product", new { id = product.ProductId }));
+                _productViewModelService.CreateProductViewModel(model);
+                var productModel = _productViewModelService.GetLastProductViewMode();
+                return Redirect(Url.Action("Edit", "Product", new { productModel.Product.ProductId }));
             }
-            model.Colors = new ProductColors().Colors;
-            model.Brands = CreateBrandDictionary();
-            return View(model);
+            var newModel = _productViewModelService.GetProductViewModel(null);
+            newModel.Product = model.Product;
+            return View(newModel);
         }
 
         [HttpPost]
@@ -68,35 +56,31 @@ namespace SomeProducts.Controllers
             if (ModelState.IsValid)
             {
                 SaveImage(model, Request);
-                var productRepository = new ProductRepository();
-                productRepository.Update(model.Product);
-                productRepository.Save();
+                _productViewModelService.UpdateProductViewModel(model);
             }
-            model.Colors = new ProductColors().Colors;
-            model.Brands = CreateBrandDictionary();
-            return View("Create", model);
+            var newModel = _productViewModelService.GetProductViewModel(null);
+            newModel.Product = model.Product;
+            return View("Create",newModel);
         }
 
         public JsonResult SaveBrandsChanges(BrandsChangeModel changeModel)
         {
             if(changeModel != null)
             {
-                var repository = new BrandRepository();
                 if(changeModel.RemovedBrands != null)
                 {
-                    foreach (Brand brand in changeModel.RemovedBrands)
+                    foreach (var brand in changeModel.RemovedBrands)
                     {
-                        repository.Delete(brand.BrandId);
+                        _barndModelService.RemoveBrand(brand.BrandId);
                     }
                 }
                 if(changeModel.AddedBrands != null)
                 {
-                    foreach (Brand brand in changeModel.AddedBrands)
+                    foreach (var brand in changeModel.AddedBrands)
                     {
-                        repository.Create(brand);
+                        _barndModelService.CreateBrand(brand);
                     }
                 }
-                repository.Save();
             }
             return GetBrandsList();
         }
@@ -104,29 +88,22 @@ namespace SomeProducts.Controllers
         [HttpPost]
         public JsonResult Delete(int productId)
         {
-            var repository = new ProductRepository();
-            repository.Delete(productId);
-            repository.Save();
+           _productViewModelService.RemoveProductViewModel(productId);
             return Json(Url.Action("Create", "Product"), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetBrandsList()
         {
-            return Json(new BrandRepository().GetAllItems().ToList(), JsonRequestBehavior.AllowGet);
+            return Json(_barndModelService.GetAllItems().ToList(), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult IsBrandUsing(int id)
         {
-            using (ProductContext db = new ProductContext())
+            /*using (ProductContext db = new ProductContext())
             {
                 return Json(db.Products.Any(p => p.BrandId == id) , JsonRequestBehavior.AllowGet);  
-            }
-        }
-
-        private Dictionary<int, string> CreateBrandDictionary()
-        {
-            var brandsRepository = new BrandRepository();
-            return brandsRepository.GetAllItems().ToDictionary(b => b.BrandId, b => b.BrandName);
+            }*/
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         private void SaveImage(ProductViewModel model, HttpRequestBase request)

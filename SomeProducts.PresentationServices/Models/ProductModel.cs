@@ -1,9 +1,8 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace SomeProducts.DAL.Models
+namespace SomeProducts.PresentationServices.Models
 {
-    public class Product
+    public class ProductModel
     {
         public int ProductId { get; set; }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using SomeProducts.DAL.Context;
 using SomeProducts.DAL.Models;
 using SomeProducts.Repository;
@@ -51,6 +52,11 @@ namespace SomeProducts.DAL.Repository
         public void Update(Brand item)
         {
             db.Entry(item).State = EntityState.Modified;
+        }
+
+        public Brand GetLast()
+        {
+            return db.Brands.LastOrDefault();
         }
     }
 
