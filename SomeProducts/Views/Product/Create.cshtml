@@ -67,14 +67,14 @@
             <div class="modal-body" id="modal-body">
                 <div>
                     <div class="row">
-                        <p class="field-validation-error" id="newBrandValidation"></p>
+                        <p class="field-validation-error new-brand-input" id="newBrandValidation"></p>
                         <input class="new-brand-input form-control col-lg-10" id="newBrandName" />
-                        <button class="btn btn-success glyphicon glyphicon-plus-sign buttun-left-margin" onclick="addNewBrand()"></button>
+                        <button class="btn btn-success glyphicon glyphicon-plus-sign buttun-left-margin" id="addBtnId"></button>
                     </div>
                 </div>   
             </div>
             <div class="modal-footer">
-                <button class="btn btn-success" onclick="saveBrandsChanges()">Save</button>
+                <button class="btn btn-success" id="saveBtnId">Save</button>
             </div>
         </div>
     </div>
@@ -82,26 +82,37 @@
 
 @section scripts
 {
-<script>
-    var colorpickerId = '@Html.IdFor(m => m.Product.Color)';
-    var brandDropdownId = '@Html.IdFor(m => m.Product.BrandId)';
-    var imageDataId = '@Html.IdFor(m => m.Product.Image)';
-    var imageTypeId = '@Html.IdFor(m => m.Product.ImageType)';
-    var quantityId = '@Html.IdFor(m => m.Product.Quantity)';
-    var productId = '@Html.IdFor(m => m.Product.ProductId)';
-    var deleteProductUrl = '@Url.Action("Delete", "Product")';
-    var getImageUrl = '@Url.Action("GetImage", "Product")';
-    var getBrandsListUrl = '@Url.Action("GetBrandsList", "Product")';
-    var isBrandUsingUrl = '@Url.Action("IsBrandUsing", "Product")';
-    var saveBrandsChangesUrl = '@Url.Action("SaveBrandsChanges", "Product")';
-</script>
+    <script>
+        $(function() {
+            var params = { id: {} , url: {}};
+            params.id.colorpickerId = '@Html.IdFor(m => m.Product.Color)';
+            params.id.brandDropdownId = '@Html.IdFor(m => m.Product.BrandId)';
+            params.id.imageDataId = '@Html.IdFor(m => m.Product.Image)';
+            params.id.imageTypeId = '@Html.IdFor(m => m.Product.ImageType)';
+            params.id.quantityId = '@Html.IdFor(m => m.Product.Quantity)';
+            params.id.productId = '@Html.IdFor(m => m.Product.ProductId)';
+            params.url.deleteProductUrl = '@Url.Action("Delete", "Product")';
+            params.url.getBrandsListUrl = '@Url.Action("GetBrandsList", "Product")';
+            params.url.isBrandUsingUrl = '@Url.Action("IsBrandUsing", "Product")';
+            params.url.saveBrandsChangesUrl = '@Url.Action("SaveBrandsChanges", "Product")';
 
-<script src="~/bower_components/jquery-simplecolorpicker/jquery.simplecolorpicker.js"></script>
-<script src="~/Scripts/ModalView/ModalView.js"></script>
-<script src="~/Scripts/Product/ProductModalWindowControl.js"></script>    
-<script src="~/Scripts/Product/ProductColorpicker.js"></script>
-<script src="~/Scripts/Product/ProductImageController.js"></script>
-<script src="~/Scripts/Product/ProductControl.js"></script>
+            var productNamespace = Utils.getNamespace("Product");
+            var imageNamespace = Utils.getNamespace("Image");
+            var modalWindowNamespace = Utils.getNamespace("ModalWindow");
+            console.log(modalWindowNamespace);
+            productNamespace.initPage(params);
+            imageNamespace.initImage(params);
+            modalWindowNamespace.initModalWindow(params);
+        });
+
+    </script>
+
+    <script src="~/bower_components/jquery-simplecolorpicker/jquery.simplecolorpicker.js"></script>
+    <script src="~/Scripts/Product/Utils.js"></script>
+    <script src="~/Scripts/ModalView/ModalView.js"></script>
+    <script src="~/Scripts/Product/ProductModalWindowControl.js"></script>
+    <script src="~/Scripts/Product/ProductImageController.js"></script>
+    <script src="~/Scripts/Product/ProductControl.js"></script>
 }
 
 @section stylesheets
