@@ -25,7 +25,7 @@ namespace SomeProducts.PresentationServices.Dao
             ProductModel productModel;
             if (id != null)
             {
-                var product = _productService.GetProduct((int)id);
+                var product = _productService.GetProduct(id.Value);
                 productModel = ProductModelCast(product);
             }
             else
