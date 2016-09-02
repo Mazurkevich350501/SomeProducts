@@ -8,24 +8,24 @@
         if (!checkValidity()) {
             e.preventDefault();
         }
-        checkQuantityValue();
+	checkQuantityValue();
     });
 
     function checkValidity() {
-        var result = true;
+	var result = true;
         $("input").each(function () {
             if (checkInputData(this) && !isFileInput(this.id)) {
-                showValidationMessage(this);
-                result = false;
+			showValidationMessage(this);
+			result = false;
             }
-        });
+	});
         $("textarea").each(function () {
             if (checkInputData(this)) {
-                showValidationMessage(this);
-                result = false;
+			showValidationMessage(this);
+			result = false;
             }
-        });
-        return result;
+	});
+	return result;
     }
 
     function checkInputData(obj) {
@@ -44,8 +44,8 @@
 
     function checkQuantityValue() {
         if ($("#" + idParams.quantityId).val() === "") {
-            setQuantityValue();
-        }
+		setQuantityValue();
+	}
     }   
 
     function setQuantityValue() {
@@ -54,20 +54,20 @@
 
     function deleteProduct() {
         var id = { productId: $("#" + productId).val() };
-        postRequest(JSON.stringify(id), deleteProductUrl);
+	postRequest(JSON.stringify(id), deleteProductUrl);
     }
 
     function postRequest(data, url) {
-        $.ajax({
+    $.ajax({
             type: "POST",
-            url: url,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            data: data,
-            success: function (newUrl) {
-                window.location.replace(newUrl);
-            }
-        });
+        url: url,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: data,
+        success: function (newUrl) {
+			window.location.replace(newUrl);
+        }
+    });
     } 
     productNamespace.initPage = function(params) {
         
@@ -77,11 +77,11 @@
         idParams.quantityId = params.id.quantityId;
         function colorpickerItnitialization() {
             var id = "#" + params.id.   colorpickerId;
-            $(id).simplecolorpicker();
+    $(id).simplecolorpicker();
             $(id).simplecolorpicker("destroy");
-            $(id).simplecolorpicker({
-                picker: true
-            });
+    $(id).simplecolorpicker({
+        picker: true
+    });
         }
     }
 })();

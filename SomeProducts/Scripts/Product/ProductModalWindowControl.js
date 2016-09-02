@@ -8,7 +8,6 @@
     };
     var idCounter;
     var params = {};
-
     var modalWindowNamespace = Utils.getNamespace("ModalWindow");
     modalWindowNamespace.initModalWindow = function(newParams){
         params = newParams;
@@ -54,19 +53,21 @@
         console.log(obj.getAttribute('data-info'));
         if (obj.getAttribute('data-info') === "newBrand") {
             removeBrandFromList(name, brandChangesModel.AddedBrands);
-            removeBrandFromList(name, brandsList);  
-            $('#row-' + id).remove();
+        removeRow(name, id);
         }
         else {
-            var isRemove;
             $.getJSON(params.url.isBrandUsingUrl + '/' + id, function (isUsing) {
                 if (!isUsing) {
                     addBrandTolist(id, $('#lbl-' + id).text(), brandChangesModel.RemovedBrands);
-                    removeBrandFromList(name, brandsList);  
-                    $('#row-' + id).remove();
+                removeRow(name, id);
                 }
             });
         }
+}
+
+function removeRow(name, id){
+    removeBrandFromList(name, brandsList);  
+    $('#row-' + id).remove();
     }
 
     function addNewBrand() {

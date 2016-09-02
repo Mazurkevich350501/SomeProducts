@@ -2,7 +2,7 @@
 
 namespace SomeProducts.PresentationServices.Models
 {
-    public class ProductModel
+    public class Product : IDateModified
     {
         public int ProductId { get; set; }
 
@@ -28,5 +28,9 @@ namespace SomeProducts.PresentationServices.Models
         public byte[] Image { get; set; }
 
         public string ImageType { get; set; }
+
+        public DateTime CreateDate { get; set; }
+
+        public DateTime? ModifiedDate { get; set; }
     }
 }
