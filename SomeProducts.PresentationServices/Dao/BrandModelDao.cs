@@ -30,5 +30,10 @@ namespace SomeProducts.PresentationServices.Dao
             var brandList = _brandSevice.GetAllItems().ToList();
             return brandList.Select(brand => new BrandModel() {BrandId = brand.BrandId, BrandName = brand.BrandName}).ToList();
         }
+
+        public bool IsBrandModelUsing(int id)
+        {
+            return _brandSevice.IsBrandUsing(id);
+        }
     }
 }

@@ -10,5 +10,7 @@ namespace SomeProducts.PresentationServices.IDao
         void RemoveBrand(int id);
 
         void CreateBrand(BrandModel model);
+
+        bool IsBrandModelUsing(int id);
     }
 }

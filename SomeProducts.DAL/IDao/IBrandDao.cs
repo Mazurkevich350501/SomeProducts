@@ -10,5 +10,7 @@ namespace SomeProducts.DAL.IDao
         void RemoveBrand(int id);
 
         void CreateBrand(Brand brand);
+
+        bool IsBrandUsing(int id);
     }
 }

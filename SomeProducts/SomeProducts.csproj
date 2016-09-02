@@ -282,10 +282,6 @@
       <Project>{3ff100a8-aa3d-4814-a403-eaa90b31ad49}</Project>
       <Name>SomeProducts.PresentationServices</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SomeProductsDatabase\SomeProductsDatabase.sqlproj">
-      <Project>{1bca0973-5ef6-4d7c-92e2-bc99323e9edb}</Project>
-      <Name>SomeProductsDatabase</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

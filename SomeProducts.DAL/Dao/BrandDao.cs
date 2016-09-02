@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.DAL.Repository;
@@ -8,6 +10,7 @@ namespace SomeProducts.DAL.Dao
     public class BrandDao : IBrandDao
     {
         private readonly BrandRepository _repository = new BrandRepository();
+        private readonly ProductRepository _productRepository = new ProductRepository();
 
         public void CreateBrand(Brand brand)
         {
@@ -18,6 +21,11 @@ namespace SomeProducts.DAL.Dao
         public IEnumerable<Brand> GetAllItems()
         {
             return _repository.GetAllItems();
+        }
+
+        public bool IsBrandUsing(int id)
+        {
+            return _productRepository.GetAllItems().Any(p => p.BrandId == id);
         }
 
         public void RemoveBrand(int id)

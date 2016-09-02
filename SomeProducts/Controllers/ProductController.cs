@@ -11,8 +11,8 @@ namespace SomeProducts.Controllers
 {
     public class ProductController : Controller
     {
-        private IProductViewModelDao _productViewModelService = new ProductViewModelDao();
-        private IBrandModelDao _barndModelService = new BrandModelDao();
+        private readonly IProductViewModelDao _productViewModelService = new ProductViewModelDao();
+        private readonly IBrandModelDao _barndModelService = new BrandModelDao();
 
         // GET: Product
         [HttpGet]
@@ -41,7 +41,7 @@ namespace SomeProducts.Controllers
             {
                 SaveImage(model, Request);
                 _productViewModelService.CreateProductViewModel(model);
-                var productModel = _productViewModelService.GetLastProductViewMode();
+                var productModel = _productViewModelService.GetProductViewModel(1);//_productViewModelService.GetLastProductViewMode();
                 return Redirect(Url.Action("Edit", "Product", new { productModel.Product.ProductId }));
             }
             var newModel = _productViewModelService.GetProductViewModel(null);
@@ -98,17 +98,7 @@ namespace SomeProducts.Controllers
 
         public JsonResult IsBrandUsing(int id)
         {
-            /*using (ProductContext db = new ProductContext())
-            {
-                return Json(db.Products.Any(p => p.BrandId == id) , JsonRequestBehavior.AllowGet);  
-            }*/
-            return Json(true, JsonRequestBehavior.AllowGet);
-        }
-
-        private Dictionary<int, string> CreateBrandDictionary()
-        {
-            var brandsRepository = new BrandRepository();
-            return brandsRepository.GetAllItems().ToDictionary(b => b.BrandId, b => b.BrandName);
+            return Json(_barndModelService.IsBrandModelUsing(id), JsonRequestBehavior.AllowGet);
         }
 
         private void SaveImage(ProductViewModel model, HttpRequestBase request)
