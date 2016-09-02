@@ -87,17 +87,3 @@ function colorpickerItnitialization(){
         picker: true
     });
 }
-
-function setCreateAndModifiedDate(){
-	console.log(isEdit);
-	if(isEdit){
-		$('#' + modifiedDateId).val(new Date().toUTCString());
-	}
-	else{
-		$('#' + createDateId).val(new Date().toUTCString());
-	};
-}
-
-function addDateToForm(){
-	setCreateAndModifiedDate();
-}

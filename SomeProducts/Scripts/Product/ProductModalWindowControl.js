@@ -4,7 +4,6 @@ var brandChangesModel = {
     AddedBrands: []
 };
 var idCounter;
-console.log(new Date().toUTCString()) ;
 function startInit(){
     createBrandsDiv();
     brandChangesModel.RemovedBrands = [];
@@ -98,15 +97,9 @@ function removeBrandFromList(name, list){
 }
 
 function saveBrandsChanges() {
-    setCreateDate();
     postJSONData(JSON.stringify(brandChangesModel), saveBrandsChangesUrl);
 }
 
-function setCreateDate(){
-    brandChangesModel.AddedBrands.forEach(function(item, index, array){
-        item.CreateDate = new Date().toUTCString();
-    });
-}
 
 function postJSONData(JSONData, url) { 
     $.ajax({
