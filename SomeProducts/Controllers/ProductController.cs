@@ -30,7 +30,7 @@ namespace SomeProducts.Controllers
             var product = new BaseRepository<Product>().GetById(id);
             if(product == null)
             {
-                throw new HttpException(404, "Are you sure you're in the right place?");
+                return View("Error");
             }
             var model = new ProductViewModel()
             {
