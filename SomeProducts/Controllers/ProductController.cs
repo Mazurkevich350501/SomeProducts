@@ -105,6 +105,12 @@ namespace SomeProducts.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
+        private Dictionary<int, string> CreateBrandDictionary()
+        {
+            var brandsRepository = new BrandRepository();
+            return brandsRepository.GetAllItems().ToDictionary(b => b.BrandId, b => b.BrandName);
+        }
+
         private void SaveImage(ProductViewModel model, HttpRequestBase request)
         {
             if (Request.Files.Count > 0)
