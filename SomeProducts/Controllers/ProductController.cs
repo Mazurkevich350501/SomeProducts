@@ -42,7 +42,7 @@ namespace SomeProducts.Controllers
                 SaveImage(model, Request);
                 _productViewModelService.CreateProductViewModel(model);
                 var productModel = _productViewModelService.GetProductViewModel(1);//_productViewModelService.GetLastProductViewMode();
-                return Redirect(Url.Action("Edit", "Product", new { productModel.Product.ProductId }));
+                return Redirect(Url.Action("Edit", "Product", new {id = productModel.Product.ProductId }));
             }
             var newModel = _productViewModelService.GetProductViewModel(null);
             newModel.Product = model.Product;
@@ -62,8 +62,9 @@ namespace SomeProducts.Controllers
             return View("Create",newModel);
         }
 
-        public JsonResult SaveBrandsChanges(BrandsChangeModel changeModel)
+        public JsonResult SaveBrandsChanges(BrandsChangeModel ss)
         {
+            var changeModel = new BrandsChangeModel();
             if(changeModel != null)
             {
                 if(changeModel.RemovedBrands != null)
