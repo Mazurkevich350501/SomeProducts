@@ -1,4 +1,6 @@
 ﻿
+
+using System;
 using SomeProducts.DAL.Dao;
 using SomeProducts.PresentationServices.Models;
 using SomeProducts.DAL.IDao;
@@ -42,7 +44,7 @@ namespace SomeProducts.PresentationServices.Dao
         public void UpdateProductViewModel(ProductViewModel model)
         {
             var product = ProductCast(model);
-            product.CreateDate = _productService.GetProduct(product.ProductId).CreateDate;
+            product.CreateDate = _productService.GetCreateTime(product.ProductId);
             _productService.UpdateProduct(product);
         }
 

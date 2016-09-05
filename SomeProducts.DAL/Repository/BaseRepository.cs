@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using SomeProducts.DAL.Context;
+
 
 namespace SomeProducts.DAL.Repository
 {
@@ -17,7 +18,7 @@ namespace SomeProducts.DAL.Repository
 
         public void Create(TEntity item)
         {
-            item.CreateDate = DateTime.Now;
+            item.CreateDate = DateTime.UtcNow;
             _db.Set<TEntity>().Add(item);
         }
 
@@ -43,6 +44,11 @@ namespace SomeProducts.DAL.Repository
             return _db.Set<TEntity>().Find(id);
         }
 
+        public DateTime GetCreateTime(int id)
+        {
+            return _db.Set<TEntity>().Find(id).CreateDate;
+        }
+
         public TEntity GetLast()
         {
             return _db.Set<TEntity>().OrderByDescending(t => t.CreateDate).FirstOrDefault();
@@ -55,8 +61,8 @@ namespace SomeProducts.DAL.Repository
 
         public void Update(TEntity item)
         {
-            item.ModifiedDate = DateTime.Now;
-            _db.Entry(item).State = EntityState.Modified;
+            item.ModifiedDate = DateTime.UtcNow;
+            _db.Set<TEntity>().AddOrUpdate(item);
         }
     }
 }

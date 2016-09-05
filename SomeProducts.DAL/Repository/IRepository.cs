@@ -12,5 +12,6 @@ namespace SomeProducts.DAL.Repository
         void Delete(int id);
         void Save();
         T GetLast();
+        DateTime GetCreateTime(int id);
     }
 }

@@ -1,4 +1,5 @@
 ﻿
+using System;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.DAL.Repository;
@@ -35,6 +36,11 @@ namespace SomeProducts.DAL.Dao
         public Product GetLastProduct()
         {
             return _repository.GetLast();
+        }
+
+        public DateTime GetCreateTime(int id)
+        {
+            return _repository.GetCreateTime(id);
         }
     }
 }

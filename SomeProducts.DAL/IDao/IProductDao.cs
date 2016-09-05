@@ -1,4 +1,5 @@
-﻿using SomeProducts.DAL.Models;
+﻿using System;
+using SomeProducts.DAL.Models;
 
 namespace SomeProducts.DAL.IDao
 {
@@ -13,5 +14,7 @@ namespace SomeProducts.DAL.IDao
         void CreateProduct(Product product);
 
         void RemoveProduct(int id);
+
+        DateTime GetCreateTime(int id);
     }
 }
