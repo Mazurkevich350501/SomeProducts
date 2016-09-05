@@ -52,23 +52,6 @@
         $("#" + idParams.quantityId).val(0);
     }
 
-    function deleteProduct() {
-        var id = { productId: $("#" + productId).val() };
-    postRequest(JSON.stringify(id), deleteProductUrl);
-    }
-
-    function postRequest(data, url) {
-    $.ajax({
-            type: "POST",
-        url: url,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: data,
-        success: function (newUrl) {
-            window.location.replace(newUrl);
-        }
-    });
-    } 
     productNamespace.initPage = function(params) {
         
         colorpickerItnitialization();

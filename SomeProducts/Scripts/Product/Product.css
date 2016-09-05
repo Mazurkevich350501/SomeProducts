@@ -17,3 +17,8 @@
 .new-brand-input{
     margin-left: 10px;
 }
+
+.removing-modal-body {
+  text-align: center;
+  padding: 20px;
+}
