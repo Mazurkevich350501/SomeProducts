@@ -252,7 +252,7 @@
     <Content Include="Scripts\Product\ProductModalWindowControl.js" />
     <Content Include="Scripts\Product\ProductImageController.js" />
     <Content Include="Scripts\Product\RemovingModal.js" />
-    <Content Include="Scripts\Product\Utils.js" />
+    <Content Include="Scripts\Common\Utils.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />

@@ -1,17 +1,17 @@
-﻿(function() {
+﻿(function () {
     "use strict";
-    
+
     var imageNamespace = Utils.getNamespace("Image");
 
-    imageNamespace.initImage = function(params){
+    imageNamespace.initImage = function (params) {
         var image = {
-            data : $("#" + params.id.imageDataId).val(),
-            type : $("#" + params.id.imageTypeId).val()
+            data: $("#" + params.id.imageDataId).val(),
+            type: $("#" + params.id.imageTypeId).val()
         };
-        if(image.data !== "" && image.type !== ""){
+        if (image.data !== "" && image.type !== "") {
             $("#image").attr("src", "data:" + image.type + ";base64," + image.data);
         }
-        else{
+        else {
             $("#image").attr("src", "https://i.vimeocdn.com/portrait/1274237_300x300");
         }
     }
@@ -30,5 +30,5 @@
     if (window.File && window.FileReader && window.FileList && window.Blob) {
         document.querySelector("input[type=file]").addEventListener("change", onFileSelect, false);
     };
-   
+
 })();

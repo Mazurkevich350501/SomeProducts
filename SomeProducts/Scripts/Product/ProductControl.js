@@ -1,4 +1,4 @@
-﻿(function() {
+﻿(function () {
     "use strict";
 
     var productNamespace = Utils.getNamespace("Product");
@@ -8,24 +8,24 @@
         if (!checkValidity()) {
             e.preventDefault();
         }
-    checkQuantityValue();
+        checkQuantityValue();
     });
 
     function checkValidity() {
-    var result = true;
+        var result = true;
         $("input").each(function () {
             if (checkInputData(this) && !isFileInput(this.id)) {
                 showValidationMessage(this);
                 result = false;
             }
-    });
+        });
         $("textarea").each(function () {
             if (checkInputData(this)) {
-            showValidationMessage(this);
-            result = false;
+                showValidationMessage(this);
+                result = false;
             }
-    });
-    return result;
+        });
+        return result;
     }
 
     function checkInputData(obj) {
@@ -44,27 +44,26 @@
 
     function checkQuantityValue() {
         if ($("#" + idParams.quantityId).val() === "") {
-        setQuantityValue();
+            setQuantityValue();
+        }
     }
-    }   
 
     function setQuantityValue() {
         $("#" + idParams.quantityId).val(0);
     }
 
-    productNamespace.initPage = function(params) {
-        
-        colorpickerItnitialization();
+    productNamespace.initPage = function (params) {
+        colorpickerInitialization();
         idParams.imageDataId = params.id.imageDataId;
         idParams.imageTypeId = params.id.imageTypeId;
         idParams.quantityId = params.id.quantityId;
-        function colorpickerItnitialization() {
-            var id = "#" + params.id.   colorpickerId;
-    $(id).simplecolorpicker();
+        function colorpickerInitialization() {
+            var id = "#" + params.id.colorpickerId;
+            $(id).simplecolorpicker();
             $(id).simplecolorpicker("destroy");
-    $(id).simplecolorpicker({
-        picker: true
-    });
+            $(id).simplecolorpicker({
+                picker: true
+            });
         }
     }
 })();

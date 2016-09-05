@@ -1,24 +1,29 @@
 ﻿.description-text-area {
     padding-bottom: 10px;
 }
-.image-box{
+
+.image-box {
     max-width: 200px;
     max-height: 200px;
 }
-.buttun-left-margin{
+
+.buttun-left-margin {
     margin-left: 10px;
 }
- .field-validation-error{
-    color:red;
+
+.field-validation-error {
+    color: red;
 }
-.field-validation-valid{
-    color:red;
+
+.field-validation-valid {
+    color: red;
 }
-.new-brand-input{
+
+.new-brand-input {
     margin-left: 10px;
 }
 
 .removing-modal-body {
-  text-align: center;
-  padding: 20px;
+    text-align: center;
+    padding: 20px;
 }

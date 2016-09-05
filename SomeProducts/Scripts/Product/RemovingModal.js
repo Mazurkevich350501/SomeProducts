@@ -1,17 +1,15 @@
-﻿(function(){
+﻿(function () {
     var params = {};
-    
-    var RemovingModalNamespace = Utils.getNamespace("RemovingModal");
-    RemovingModalNamespace.initRemovingModal = function(newParams){
+
+    var removingModalNamespace = Utils.getNamespace("RemovingModal");
+    removingModalNamespace.initRemovingModal = function (newParams) {
         params = newParams;
     }
 
-    $("button[id='removeBtnId']").click(function(){
-        deleteProduct();
-    });
+    $("#removeBtnId").click(deleteProduct);
 
-    $("button[id='cancelDeleteBtnId']").click(function(){
-       
+    $("#cancelDeleteBtnId").click(function () {
+
         $("#RemovingModal").modal("hide");
     });
 
@@ -21,15 +19,15 @@
     }
 
     function postRequest(data, url) {
-    $.ajax({
+        $.ajax({
             type: "POST",
-        url: url,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: data,
-        success: function (newUrl) {
-            window.location.replace(newUrl);
-        }
-    });
-    } 
+            url: url,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: data,
+            success: function (newUrl) {
+                window.location.replace(newUrl);
+            }
+        });
+    }
 }());
