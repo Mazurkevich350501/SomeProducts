@@ -1,21 +1,22 @@
-﻿
-
-using System;
-using SomeProducts.DAL.Dao;
-using SomeProducts.PresentationServices.Models;
-using SomeProducts.DAL.IDao;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using SomeProducts.DAL.Dao;
+using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
-using SomeProducts.PresentationServices.IDao;
+using SomeProducts.PresentationServices.IPresentationSevices;
+using SomeProducts.PresentationServices.Models;
 
-namespace SomeProducts.PresentationServices.Dao
+namespace SomeProducts.PresentationServices.PresentaoinServices
 {
-    public class ProductViewModelDao : IProductViewModelDao
+    public class ProductViewModelPresentationService : IProductViewModelPresentationService
     {
         private readonly IProductDao _productService = new ProductDao();
         private readonly IBrandDao _brandService = new BrandDao();
 
+        public ProductViewModelPresentationService()
+        {
+            
+        }
         public void RemoveProductViewModel(int id)
         {
             _productService.RemoveProduct(id);

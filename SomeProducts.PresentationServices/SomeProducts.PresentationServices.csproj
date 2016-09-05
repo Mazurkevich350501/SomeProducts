@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=4.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.1.0\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -42,16 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dao\BrandModelDao.cs" />
-    <Compile Include="Dao\ProductViewModelDao.cs" />
-    <Compile Include="IDao\IBrandModelDao.cs" />
-    <Compile Include="IDao\IProductViewModelDao.cs" />
+    <Compile Include="PresentaoinServices\BrandModelPresentationService.cs" />
+    <Compile Include="PresentaoinServices\ProductViewModelPresentationService.cs" />
+    <Compile Include="IPresentationSevices\IBrandModelPresentationService.cs" />
+    <Compile Include="IPresentationSevices\IProductViewModelPresentationService.cs" />
     <Compile Include="Models\BrandModel.cs" />
     <Compile Include="Models\BrandsChangeModel.cs" />
     <Compile Include="Models\ProductColors.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
-    <Compile Include="PresentaoinServices\ProductPresentationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

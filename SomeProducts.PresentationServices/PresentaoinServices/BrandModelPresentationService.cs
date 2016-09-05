@@ -1,18 +1,21 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using SomeProducts.DAL.Dao;
-using SomeProducts.PresentationServices.Models;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
-using SomeProducts.PresentationServices.IDao;
-using System;
+using SomeProducts.PresentationServices.IPresentationSevices;
+using SomeProducts.PresentationServices.Models;
 
-namespace SomeProducts.PresentationServices.Dao
+namespace SomeProducts.PresentationServices.PresentaoinServices
 {
-    public class BrandModelDao : IBrandModelDao
+    public class BrandModelPresentationService : IBrandModelPresentationService
     {
         private readonly IBrandDao _brandSevice = new BrandDao();
+
+        public BrandModelPresentationService()
+        {
+            
+        }
         public void CreateBrand(BrandModel model)
         {
             var brand = new Brand() {BrandId = model.BrandId, BrandName = model.BrandName};

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using SomeProducts.PresentationServices.Models;
 
-namespace SomeProducts.PresentationServices.IDao
+namespace SomeProducts.PresentationServices.IPresentationSevices
 {
-    public interface IBrandModelDao
+    public interface IBrandModelPresentationService
     {
         IEnumerable<BrandModel> GetAllItems();
 

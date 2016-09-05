@@ -1,8 +1,8 @@
 ﻿using SomeProducts.PresentationServices.Models;
 
-namespace SomeProducts.PresentationServices.IDao
+namespace SomeProducts.PresentationServices.IPresentationSevices
 {
-    public interface IProductViewModelDao
+    public interface IProductViewModelPresentationService
     {
         ProductViewModel GetProductViewModel(int? id);
 
