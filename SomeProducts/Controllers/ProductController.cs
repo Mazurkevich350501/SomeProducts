@@ -64,23 +64,7 @@ namespace SomeProducts.Controllers
 
         public JsonResult SaveBrandsChanges(BrandsChangeModel changeModel)
         {
-            if(changeModel != null)
-            {
-                if(changeModel.RemovedBrands != null)
-                {
-                    foreach (var brand in changeModel.RemovedBrands)
-                    {
-                        _barndModelService.RemoveBrand(brand.BrandId);
-                    }
-                }
-                if(changeModel.AddedBrands != null)
-                {
-                    foreach (var brand in changeModel.AddedBrands)
-                    {
-                        _barndModelService.CreateBrand(brand);
-                    }
-                }
-            }
+            _barndModelService.SaveBrandChanges(changeModel);
             return GetBrandsList();
         }
 

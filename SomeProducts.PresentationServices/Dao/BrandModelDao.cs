@@ -6,6 +6,7 @@ using SomeProducts.PresentationServices.Models;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.PresentationServices.IDao;
+using System;
 
 namespace SomeProducts.PresentationServices.Dao
 {
@@ -33,5 +34,29 @@ namespace SomeProducts.PresentationServices.Dao
         {
             return _brandSevice.IsBrandUsing(id);
         }
+
+        public void SaveBrandChanges(BrandsChangeModel changeModel)
+        {
+            if (changeModel != null)
+            {
+                if (changeModel.RemovedBrands != null)
+                {
+                    foreach (var brand in changeModel.RemovedBrands)
+                    {
+                        RemoveBrand(brand.BrandId);
+                    }
+                }
+
+                if (changeModel.AddedBrands != null)
+                {
+                    foreach (var brand in changeModel.AddedBrands)
+                    {
+                        CreateBrand(brand);
+                    }
+                }
+            }
+
+        }
+
     }
 }

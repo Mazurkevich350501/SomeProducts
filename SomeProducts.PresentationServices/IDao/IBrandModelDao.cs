@@ -12,5 +12,7 @@ namespace SomeProducts.PresentationServices.IDao
         void CreateBrand(BrandModel model);
 
         bool IsBrandModelUsing(int id);
+
+        void SaveBrandChanges(BrandsChangeModel model);
     }
 }
