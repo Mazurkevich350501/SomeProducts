@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using SomeProducts.DAL.Models;
 using SomeProducts.PresentationServices.IDao;
-using System;
 
 namespace SomeProducts.PresentationServices.Dao
 {
@@ -42,7 +41,9 @@ namespace SomeProducts.PresentationServices.Dao
 
         public void UpdateProductViewModel(ProductViewModel model)
         {
-            _productService.UpdateProduct(ProductCast(model));
+            var product = ProductCast(model);
+            product.CreateDate = _productService.GetProduct(product.ProductId).CreateDate;
+            _productService.UpdateProduct(product);
         }
 
         public void CreateProductViewModel(ProductViewModel model)

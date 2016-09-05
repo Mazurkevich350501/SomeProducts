@@ -1,9 +1,9 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using SomeProducts.DAL.Repository;
 
 namespace SomeProducts.DAL.Models
 {
-    public class Product
+    public class Product : IDateModified
     {
         public int ProductId { get; set; }
 
@@ -20,5 +20,9 @@ namespace SomeProducts.DAL.Models
         public byte[] Image { get; set; }
 
         public string ImageType { get; set; }
+
+        public DateTime CreateDate { get; set; }
+
+        public DateTime? ModifiedDate { get; set; }
     }
 }

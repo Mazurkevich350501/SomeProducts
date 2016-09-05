@@ -11,8 +11,6 @@
 
 <form method="post" action=@Url.Action(isEdit ? "Edit" : "Create", "Product") enctype="multipart/form-data">
     @Html.HiddenFor(m => m.Product.ProductId)
-    @Html.HiddenFor(m => m.Product.CreateDate)
-    @Html.HiddenFor(m => m.Product.ModifiedDate)
     @Html.HiddenFor(m => m.Product.Image)
     @Html.HiddenFor(m => m.Product.ImageType)
     <div class="row">
@@ -52,7 +50,7 @@
         </div>
     </div>
     <div>
-        <input type="submit" class="btn btn-success" value=@(isEdit ? "Save" : "Create") onclick="addDateToForm()"/>
+        <input type="submit" class="btn btn-success" value=@(isEdit ? "Save" : "Create") />
         @if (isEdit)
         {
             <div id="delete-btn" class="btn btn-warning" onclick="deleteProduct()">Delete</div>
@@ -101,7 +99,6 @@
             var productNamespace = Utils.getNamespace("Product");
             var imageNamespace = Utils.getNamespace("Image");
             var modalWindowNamespace = Utils.getNamespace("ModalWindow");
-            console.log(modalWindowNamespace);
             productNamespace.initPage(params);
             imageNamespace.initImage(params);
             modalWindowNamespace.initModalWindow(params);

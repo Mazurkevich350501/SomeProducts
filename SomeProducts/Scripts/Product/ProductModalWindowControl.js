@@ -50,7 +50,6 @@
     function removeBrand(obj) {
         var id = obj.getAttribute('id').substring(4);
         var name = obj.getAttribute('data-name');
-        console.log(obj.getAttribute('data-info'));
         if (obj.getAttribute('data-info') === "newBrand") {
             removeBrandFromList(name, brandChangesModel.AddedBrands);
         removeRow(name, id);

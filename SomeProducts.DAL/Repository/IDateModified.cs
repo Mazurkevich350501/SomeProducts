@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SomeProducts.Repository
+namespace SomeProducts.DAL.Repository
 {
     public interface IDateModified
     {

@@ -1,13 +1,9 @@
-﻿using SomeProducts.Models.ProductModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
 
-namespace SomeProducts.Repository
+namespace SomeProducts.DAL.Repository
 {
-    interface IRepository<T> : IDisposable
+    internal interface IRepository<T> : IDisposable
     {
         IEnumerable<T> GetAllItems();
         T GetById(int id);
@@ -15,5 +11,6 @@ namespace SomeProducts.Repository
         void Update(T item);
         void Delete(int id);
         void Save();
+        T GetLast();
     }
 }

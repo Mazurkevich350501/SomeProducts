@@ -1,30 +1,31 @@
-﻿using SomeProducts.Models.ProductModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
+using SomeProducts.DAL.Context;
 
-namespace SomeProducts.Repository
+namespace SomeProducts.DAL.Repository
 {
     public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class, IDateModified
     {
-        private ProductContext db;
+        private readonly ProductContext _db;
 
         public BaseRepository()
         {
-            this.db = new ProductContext();
+            _db = new ProductContext();
         }
 
         public void Create(TEntity item)
         {
             item.CreateDate = DateTime.Now;
-            db.Set<TEntity>().Add(item);
+            _db.Set<TEntity>().Add(item);
         }
 
         public void Delete(int id)
         {
-            TEntity item = db.Set<TEntity>().Find(id);
+            var item = _db.Set<TEntity>().Find(id);
             if (item != null)
-                db.Set<TEntity>().Remove(item);
+                _db.Set<TEntity>().Remove(item);
         }
 
         public void Dispose()
@@ -34,23 +35,28 @@ namespace SomeProducts.Repository
 
         public IEnumerable<TEntity> GetAllItems()
         {
-            return db.Set<TEntity>();
+            return _db.Set<TEntity>();
         }
 
         public TEntity GetById(int id)
         {
-            return db.Set<TEntity>().Find(id);
+            return _db.Set<TEntity>().Find(id);
+        }
+
+        public TEntity GetLast()
+        {
+            return _db.Set<TEntity>().OrderByDescending(t => t.CreateDate).FirstOrDefault();
         }
 
         public void Save()
         {
-            db.SaveChanges();
+            _db.SaveChanges();
         }
 
         public void Update(TEntity item)
         {
             item.ModifiedDate = DateTime.Now;
-            db.Entry(item).State = EntityState.Modified;
+            _db.Entry(item).State = EntityState.Modified;
         }
     }
 }

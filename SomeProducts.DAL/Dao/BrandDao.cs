@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
@@ -9,8 +8,8 @@ namespace SomeProducts.DAL.Dao
 {
     public class BrandDao : IBrandDao
     {
-        private readonly BrandRepository _repository = new BrandRepository();
-        private readonly ProductRepository _productRepository = new ProductRepository();
+        private readonly BaseRepository<Brand> _repository = new BaseRepository<Brand>();
+        private readonly BaseRepository<Product> _productRepository = new BaseRepository<Product>();
 
         public void CreateBrand(Brand brand)
         {

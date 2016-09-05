@@ -1,5 +1,4 @@
 ﻿
-using System;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.DAL.Repository;
@@ -8,7 +7,7 @@ namespace SomeProducts.DAL.Dao
 {
     public class ProductDao : IProductDao
     {
-        private readonly ProductRepository _repository = new ProductRepository();
+        private readonly BaseRepository<Product> _repository = new BaseRepository<Product>();
 
         public void UpdateProduct(Product product)
         {
