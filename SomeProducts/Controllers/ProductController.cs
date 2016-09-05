@@ -2,8 +2,7 @@
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using SomeProducts.PresentationServices.Dao;
-using SomeProducts.PresentationServices.IDao;
+using SomeProducts.PresentationServices.IPresentationSevices;
 using SomeProducts.PresentationServices.Models;
 
 
@@ -11,8 +10,14 @@ namespace SomeProducts.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly IProductViewModelDao _productViewModelService = new ProductViewModelDao();
-        private readonly IBrandModelDao _barndModelService = new BrandModelDao();
+        private readonly IProductViewModelPresentationService _productViewModelService;
+        private readonly IBrandModelPresentationService _barndModelService;
+
+        public ProductController(IProductViewModelPresentationService productViewModelService, IBrandModelPresentationService barndModelService)
+        {
+            _productViewModelService = productViewModelService;
+            _barndModelService = barndModelService;
+        }
 
         // GET: Product
         [HttpGet]

@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using System.Web.Mvc;
+using Microsoft.Owin;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(SomeProducts.Startup))]
@@ -8,7 +9,7 @@ namespace SomeProducts
     {
         public void Configuration(IAppBuilder app)
         {
-
+           ControllerBuilder.Current.SetControllerFactory(typeof(CustomControllerFactory));
         }
     }
 }

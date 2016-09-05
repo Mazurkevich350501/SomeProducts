@@ -195,9 +195,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\ContainerConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="CustomControllerFactory.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -247,9 +249,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\Product\ProductControl.js" />
     <Content Include="Scripts\Product\Product.css" />
-    <Content Include="Scripts\Product\ProductColorpicker.js" />
     <Content Include="Scripts\Product\ProductModalWindowControl.js" />
     <Content Include="Scripts\Product\ProductImageController.js" />
+    <Content Include="Scripts\Product\RemovingModal.js" />
     <Content Include="Scripts\Product\Utils.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
