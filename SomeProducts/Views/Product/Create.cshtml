@@ -104,6 +104,8 @@
             params.id.imageDataId = '@Html.IdFor(m => m.Product.Image)';
             params.id.imageTypeId = '@Html.IdFor(m => m.Product.ImageType)';
             params.id.quantityId = '@Html.IdFor(m => m.Product.Quantity)';
+            params.id.productNameId = '@Html.IdFor(m => m.Product.Name)';
+            params.id.descriptionId = '@Html.IdFor(m => m.Product.Description)';
             params.id.productId = '@Html.IdFor(m => m.Product.ProductId)';
             params.url.deleteProductUrl = '@Url.Action("Delete", "Product")';
             params.url.getBrandsListUrl = '@Url.Action("GetBrandsList", "Product")';

@@ -14,7 +14,7 @@
     function checkValidity() {
         var result = true;
         $("input").each(function () {
-            if (checkInputData(this) && !isFileInput(this.id)) {
+            if (checkInputData(this) && isProductValidationField(this.id)) {
                 showValidationMessage(this);
                 result = false;
             }
@@ -32,13 +32,15 @@
         return validationExp.test($(obj).val());
     }
 
-    function isFileInput(inputId) {
-        return (inputId === idParams.imageDataId || inputId === idParams.imageTypeId);
+    function isProductValidationField(id) {
+        console.log()
+        return (id === idParams.productNameId || id === idParams.quantityId || id === idParams.descriptionId);
     }
 
 
     function showValidationMessage(obj) {
         $("span[class='field-validation-valid']").empty();
+        $("span[class='field-validation-error']").empty();
         $("#" + obj.id + "_Validation").append("Used illegal characters");
     }
 
@@ -53,17 +55,16 @@
     }
 
     productNamespace.initPage = function (params) {
+        idParams = params.id;
         colorpickerInitialization();
-        idParams.imageDataId = params.id.imageDataId;
-        idParams.imageTypeId = params.id.imageTypeId;
-        idParams.quantityId = params.id.quantityId;
-        function colorpickerInitialization() {
-            var id = "#" + params.id.colorpickerId;
-            $(id).simplecolorpicker();
-            $(id).simplecolorpicker("destroy");
-            $(id).simplecolorpicker({
-                picker: true
-            });
-        }
+    }
+
+    function colorpickerInitialization() {
+        var id = "#" + idParams.colorpickerId;
+        $(id).simplecolorpicker();
+        $(id).simplecolorpicker("destroy");
+        $(id).simplecolorpicker({
+            picker: true
+        });
     }
 })();
