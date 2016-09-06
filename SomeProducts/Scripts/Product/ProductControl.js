@@ -2,7 +2,7 @@
     "use strict";
 
     var productNamespace = Utils.getNamespace("Product");
-    var validationExp = /[\!@_%<>\$\^\[\]\+\-\/\{\}]/;
+
     var idParams = {};
     $("input[type='submit']").click(function (e) {
         if (!checkValidity()) {
@@ -14,22 +14,18 @@
     function checkValidity() {
         var result = true;
         $("input").each(function () {
-            if (checkInputData(this) && isProductValidationField(this.id)) {
+            if (Utils.checkValidityData($(this).val()) && isProductValidationField(this.id)) {
                 showValidationMessage(this);
                 result = false;
             }
         });
         $("textarea").each(function () {
-            if (checkInputData(this)) {
+            if (Utils.checkValidityData($(this).val()) && isProductValidationField(this.id)) {
                 showValidationMessage(this);
                 result = false;
             }
         });
         return result;
-    }
-
-    function checkInputData(obj) {
-        return validationExp.test($(obj).val());
     }
 
     function isProductValidationField(id) {

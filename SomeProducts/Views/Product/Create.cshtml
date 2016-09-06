@@ -23,12 +23,12 @@
             @Html.ValidationMessageFor(m => m.Product.Description, "", new { id = (@Html.IdFor(m => m.Product.Description) + "_Validation") })
             <div class="row description-text-area">
                 <h4 class="col-lg-3">Description</h4>
-                @Html.TextAreaFor(m => m.Product.Description, new { @class = "form-control col-lg-5"})
+                @Html.TextAreaFor(m => m.Product.Description, new { @class = "form-control col-lg-5" })
             </div>
             @Html.ValidationMessageFor(m => m.Product.BrandId, "", new { id = (@Html.IdFor(m => m.Product.BrandId) + "_Validation") })
             <div class="row">
                 <h4 class="col-lg-3">Brand*</h4>
-                @Html.DropDownListFor(m => m.Product.BrandId, new SelectList(Model.Brands, "Key", "Value", Model.Product.BrandId), new { @class= "btn col-lg-5 btn-default dropdown-toggle" })            
+                @Html.DropDownListFor(m => m.Product.BrandId, new SelectList(Model.Brands, "Key", "Value", Model.Product.BrandId), new { @class = "btn col-lg-5 btn-default dropdown-toggle" })
                 <button type="button" id="brandEditBtn" class="btn btn-info buttun-left-margin" data-toggle="modal" data-target="#BrandModal">Edit</button>
             </div>
             @Html.ValidationMessageFor(m => m.Product.Color, "", new { id = (@Html.IdFor(m => m.Product.Color) + "_Validation") })
@@ -39,14 +39,15 @@
             @Html.ValidationMessageFor(m => m.Product.Quantity, "", new { id = (@Html.IdFor(m => m.Product.Quantity) + "_Validation") })
             <div class="row">
                 <h4 class="col-lg-3">Quantity</h4>
-                @Html.TextBoxFor(m => m.Product.Quantity, new { type = "number", @class = "form-control col-lg-5"})
+                @Html.TextBoxFor(m => m.Product.Quantity, new { type = "number", @class = "form-control col-lg-5" })
             </div>
         </div>
         <div class="col-lg-4">
-            <img class="image-box" id="image" />
-        <div>
-            <input type="file" name="file" id="file" />
-        </div>
+            <img class="image-box" id="image" src="~/Resources/emptyImage.jpg" />
+            <div>
+                <span id="imageMessageId" class="field-validation-error"></span>
+                <input type="file" name="file" id="file" accept="image/*" />
+            </div>
         </div>
     </div>
     <div>
@@ -55,9 +56,9 @@
         {
             <div id="delete-btn" class="btn btn-warning" data-toggle="modal" data-target="#RemovingModal">Delete</div>
         }
-    </div> 
+    </div>
 </form>
-    
+
 <div id="BrandModal" class="modal fade" role="dialog">
     <div class="modal-dialog" id="modal_dialog">
         <div class="modal-content">
@@ -71,7 +72,7 @@
                         <input class="new-brand-input form-control col-lg-10" id="newBrandName" />
                         <button class="btn btn-success glyphicon glyphicon-plus-sign buttun-left-margin" id="addBtnId"></button>
                     </div>
-                </div>   
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-success" id="saveBtnId">Save</button>
@@ -86,10 +87,10 @@
             <div class="modal-header">
                 <h4 class="modal-title">Do you want to delete this product?</h4>
             </div>
-            <div class="removing-modal-body">
+            <div class="modal-body-central">
                 <button class="btn btn-danger" id="removeBtnId">Delete</button>
                 <button class="btn btn-default" id="cancelDeleteBtnId">Cancel</button>
-            </div>   
+            </div>
         </div>
     </div>
 </div>
@@ -97,8 +98,8 @@
 @section scripts
 {
     <script>
-        $(function() {
-            var params = { id: {} , url: {}};
+        $(function () {
+            var params = { id: {}, url: {} };
             params.id.colorpickerId = '@Html.IdFor(m => m.Product.Color)';
             params.id.brandDropdownId = '@Html.IdFor(m => m.Product.BrandId)';
             params.id.imageDataId = '@Html.IdFor(m => m.Product.Image)';

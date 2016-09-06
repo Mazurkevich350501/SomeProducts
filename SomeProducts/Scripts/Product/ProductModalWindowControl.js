@@ -163,7 +163,7 @@
             });
         }
 
-        if (/[\!@_%<>\$\^\[\]\+\-\/\{\}]/.test(brandName)) {
+        if (Utils.checkValidityData(brandName)) {
             message = "Used illegal characters";
         }
         return message;
