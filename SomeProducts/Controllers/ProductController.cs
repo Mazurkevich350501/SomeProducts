@@ -23,15 +23,15 @@ namespace SomeProducts.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            ProductViewModel model = _productViewModelService.GetProductViewModel(null);
+            ProductViewModel model = _productViewModelService.GetProductViewModel();
             return View(model);
         }
-        
+
         [HttpGet]
         public ActionResult Edit(int id)
         {
             var productModel = _productViewModelService.GetProductViewModel(id);
-            if(productModel == null)
+            if (productModel == null)
             {
                 return View("Error");
             }
@@ -47,9 +47,9 @@ namespace SomeProducts.Controllers
                 SaveImage(model, Request);
                 _productViewModelService.CreateProductViewModel(model);
                 var productModel = _productViewModelService.GetLastProductViewMode();
-                return Redirect(Url.Action("Edit", "Product", new {id = productModel.Product.ProductId }));
+                return Redirect(Url.Action("Edit", "Product", new { id = productModel.Product.ProductId }));
             }
-            var newModel = _productViewModelService.GetProductViewModel(null);
+            var newModel = _productViewModelService.GetProductViewModel();
             newModel.Product = model.Product;
             return View(newModel);
         }
@@ -62,9 +62,9 @@ namespace SomeProducts.Controllers
                 SaveImage(model, Request);
                 _productViewModelService.UpdateProductViewModel(model);
             }
-            var newModel = _productViewModelService.GetProductViewModel(null);
+            var newModel = _productViewModelService.GetProductViewModel();
             newModel.Product = model.Product;
-            return View("Create",newModel);
+            return View("Create", newModel);
         }
 
         public JsonResult SaveBrandsChanges(BrandsChangeModel changeModel)
@@ -76,7 +76,7 @@ namespace SomeProducts.Controllers
         [HttpPost]
         public JsonResult Delete(int productId)
         {
-           _productViewModelService.RemoveProductViewModel(productId);
+            _productViewModelService.RemoveProductViewModel(productId);
             return Json(Url.Action("Create", "Product"), JsonRequestBehavior.AllowGet);
         }
 
@@ -101,7 +101,7 @@ namespace SomeProducts.Controllers
                     image.InputStream.Read(model.Product.Image, 0, image.ContentLength);
                     model.Product.ImageType = image.ContentType;
                 }
-            }     
+            }
         }
     }
 }

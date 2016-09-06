@@ -39,7 +39,7 @@
             @Html.ValidationMessageFor(m => m.Product.Quantity, "", new { id = (@Html.IdFor(m => m.Product.Quantity) + "_Validation") })
             <div class="row">
                 <h4 class="col-lg-3">Quantity</h4>
-                @Html.TextBoxFor(m => m.Product.Quantity, new { @class = "form-control col-lg-5" })
+                @Html.TextBoxFor(m => m.Product.Quantity, new { type = "number", @class = "form-control col-lg-5"})
             </div>
         </div>
         <div class="col-lg-4">

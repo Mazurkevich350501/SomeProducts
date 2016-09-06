@@ -23,7 +23,7 @@ namespace SomeProducts.PresentationServices.Models
             };
 
         }
-        public Dictionary<string, string> Colors {get;set;}
+        public Dictionary<string, string> Colors { get; set; }
 
         public static implicit operator Dictionary<object, object>(ProductColors v)
         {

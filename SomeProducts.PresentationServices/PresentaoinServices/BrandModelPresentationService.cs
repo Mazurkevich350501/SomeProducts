@@ -14,11 +14,11 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
 
         public BrandModelPresentationService()
         {
-            
+
         }
         public void CreateBrand(BrandModel model)
         {
-            var brand = new Brand() {BrandId = model.BrandId, BrandName = model.BrandName};
+            var brand = new Brand() { BrandId = model.BrandId, BrandName = model.BrandName };
             _brandSevice.CreateBrand(brand);
         }
 
@@ -30,7 +30,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
         public IEnumerable<BrandModel> GetAllItems()
         {
             var brandList = _brandSevice.GetAllItems().ToList();
-            return brandList.Select(brand => new BrandModel() {BrandId = brand.BrandId, BrandName = brand.BrandName}).ToList();
+            return brandList.Select(brand => new BrandModel() { BrandId = brand.BrandId, BrandName = brand.BrandName }).ToList();
         }
 
         public bool IsBrandModelUsing(int id)

@@ -4,7 +4,7 @@ namespace SomeProducts.PresentationServices.IPresentationSevices
 {
     public interface IProductViewModelPresentationService
     {
-        ProductViewModel GetProductViewModel(int? id);
+        ProductViewModel GetProductViewModel(int? id = null);
 
         ProductViewModel GetLastProductViewMode();
 

@@ -7,7 +7,7 @@ namespace SomeProducts.PresentationServices.Models
         public int BrandId;
         [Required]
         [MaxLength(200, ErrorMessage = "Name cannot be longer than 200 characters.")]
-        [Display(Name = "Product name")]
+        [Display(Name = "Brand name")]
         public string BrandName;
     }
 }

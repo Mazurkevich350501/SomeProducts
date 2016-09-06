@@ -15,14 +15,14 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
 
         public ProductViewModelPresentationService()
         {
-            
+
         }
         public void RemoveProductViewModel(int id)
         {
             _productService.RemoveProduct(id);
         }
 
-        public ProductViewModel GetProductViewModel(int? id)
+        public ProductViewModel GetProductViewModel(int? id = null)
         {
             ProductModel productModel;
             if (id != null)
@@ -94,10 +94,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
                     Quantity = model.Quantity,
                 };
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
 
         public ProductViewModel GetLastProductViewMode()

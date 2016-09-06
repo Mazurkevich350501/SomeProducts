@@ -33,7 +33,6 @@
     }
 
     function isProductValidationField(id) {
-        console.log()
         return (id === idParams.productNameId || id === idParams.quantityId || id === idParams.descriptionId);
     }
 
