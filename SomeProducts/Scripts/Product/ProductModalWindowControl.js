@@ -6,117 +6,121 @@
         RemovedBrands: [],
         AddedBrands: []
     };
+
     var idCounter;
     var params = {};
+
     var modalWindowNamespace = Utils.getNamespace("ModalWindow");
     modalWindowNamespace.initModalWindow = function (newParams) {
         params = newParams;
     }
-
     $("#saveBtnId").click(saveBrandsChanges);
     $("#addBtnId").click(addNewBrand);
 
     function startInit() {
-        createBrandsDiv();
         brandChangesModel.RemovedBrands = [];
         brandChangesModel.AddedBrands = [];
         brandsList = [];
         idCounter = 1;
     }
 
-    function createBrandsDiv() {
-        $("#newBrandValidation").empty();
-        $("#modal-content").remove();
-        $("#modal-body").append("<div id='modal-content'/>");
-    }
 
     $("document").ready(function () {
         $("#brandEditBtn").click(function () {
             $.getJSON(params.url.getBrandsListUrl, function (brands) {
                 startInit();
-                brands.forEach(function (item, i, brands) {
-                    addBrandTolist(item.BrandId, item.BrandName, brandsList);
-                    showBrand(item.BrandId, item.BrandName, "dbBrand");
+                brands.forEach(function (item) {
+                    addToBrandsList(item.BrandName, item.BrandId, "dbBrand");
                 });
+                showBrandsList();
             });
         });
     });
 
-    function removeBrand(obj) {
-        var id = obj.getAttribute("id").substring(4);
-        var name = obj.getAttribute("data-name");
-        if (obj.getAttribute("data-info") === "newBrand") {
-            removeBrandFromList(name, brandChangesModel.AddedBrands);
-            removeRow(name, id);
-        }
-        else {
-            $.getJSON(params.url.isBrandUsingUrl + "/" + id, function (isUsing) {
-                if (!isUsing) {
-                    addBrandTolist(id, $("#lbl-" + id).text(), brandChangesModel.RemovedBrands);
-                    removeRow(name, id);
-                }
+    function addToBrandsList(brandName, brandId, type) {
+        brandsList.push({
+            brandName: brandName,
+            brandId: brandId,
+            type: type
+        });
+
+        if (type === "newBrand") {
+            brandChangesModel.AddedBrands.push({
+                brandName: brandName,
+                brandId: 0
             });
         }
     }
 
-    function removeRow(name, id) {
-        removeBrandFromList(name, brandsList);
-        $("#row-" + id).remove();
+    function removeFromBrandsList(brandName, type) {
+        function removeBrand(list, brandName){
+            list.find(function (element, index, array){
+                if (element.brandName === brandName) {
+                    array.splice(index, 1);
+                    return true;
+                }
+            });
+        }
+        if (type === "dbBrand") {
+            brandsList.find(function (element, index, array) {
+                if (element.brandName === brandName) {
+                    $.getJSON(params.url.isBrandUsingUrl + "/" + element.brandId, function (isUsing) {
+                        if (!isUsing) {
+                            array.splice(index, 1);
+                            brandChangesModel.RemovedBrands.push({
+                                brandId: element.brandId,
+                                brandName: brandName
+                            });
+                            showBrandsList();
+                        }
+                    });
+                }
+            });
+        }
+        else {
+            removeBrand(brandsList, brandName);
+            removeBrand(brandChangesModel.AddedBrands, brandName);
+            showBrandsList();
+        }
+    }
+
+    function showBrandsList() {
+        $("#modal-content").empty();
+        $("#brandsTemplate").tmpl(brandsList).appendTo("#modal-content");
+        $("button[data-selector='removeBtn']").click(removeBrand);
     }
 
     function addNewBrand() {
-        var brandName = document.getElementById("newBrandName").value;
+        var brandName = $("#newBrandName").val();
         if (checkForValidity(brandName)) {
-            addBrandTolist(0, brandName, brandChangesModel.AddedBrands);
-            addBrandTolist(0, brandName, brandsList);
-            showBrand("0" + idCounter, document.getElementById("newBrandName").value, "newBrand");
-            document.getElementById("newBrandName").value = "";
-            idCounter++;
+            addToBrandsList(brandName, idCounter++, "newBrand");
+            $("#newBrandName").val("");
         }
         else {
             showErrorMessage(getErrorMessage(brandName));
         }
+        showBrandsList();
     }
 
-    function showBrand(brandId, brandName, info) {
-        var rowId = "#row-" + brandId;
-        $("#modal-content").append("<div class='row' id='row-" + brandId + "'/>");
-        $(rowId).append("<h4 class='col-lg-10' id='lbl-" + brandId + "'>" + brandName + "</h4>");
-        $(rowId).append("<button class='btn btn-warning glyphicon glyphicon-minus-sign' data-info='" + info + "' data-name='" + brandName + "' id='btn-" + brandId + "'/>");
-        $("#btn-" + brandId).click(function () {
-            removeBrand(this);
-        });
-    }
-
-    function addBrandTolist(id, name, list) {
-        var brandModel = {};
-        brandModel.BrandId = id;
-        brandModel.BrandName = name;
-        list.push(brandModel);
-    }
-
-    function removeBrandFromList(name, list) {
-        list.find(function (element, index, array) {
-            if (element.BrandName === name) {
-                array.splice(index, 1);
-                return true;
-            } else {
-                return false;
-            }
-        });
+    function removeBrand(e) {
+        var object = e.target;
+        removeFromBrandsList(object.getAttribute("data-name"), object.getAttribute("data-type"));
+        showBrandsList();
     }
 
     function saveBrandsChanges() {
+        console.log(JSON.stringify({ brandChangesModel }));
         postJsonData(JSON.stringify(brandChangesModel), params.url.saveBrandsChangesUrl);
     }
 
-    function postJsonData(JSONData, url) {
+    function postJsonData(jsonData, url) {
         $.ajax({
             type: "POST",
             url: url,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            data: JSONData,
+            data: jsonData,
+            traditional: true,
             success: function (data) {
                 setBrandDropdownItems(data);
                 closeModalWindow();
@@ -127,7 +131,7 @@
     function setBrandDropdownItems(items) {
         var id = "#" + params.id.brandDropdownId;
         $(id).find("option").remove();
-        items.forEach(function (item, index, array) {
+        items.forEach(function (item) {
             addOptionToSelectBox(id, item.BrandId, item.BrandName);
         });
     }
@@ -156,8 +160,8 @@
             message = "Brand name is empty.";
         }
         if (brandsList.length !== 0) {
-            brandsList.forEach(function (brand, index, array) {
-                if (brand.BrandName === brandName) {
+            brandsList.forEach(function (brand) {
+                if (brand.brandName === brandName) {
                     message = "Brand name already exists.";
                 }
             });

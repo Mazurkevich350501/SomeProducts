@@ -15,7 +15,6 @@
 
     Utils.checkValidityData = function(data)
     {
-        console.log(validationExp.test(data));
         return validationExp.test(data);
     }
 }());

@@ -2,7 +2,14 @@
 
 namespace SomeProducts.PresentationServices.Models
 {
-    public class ProductModel
+    public interface IImageModel
+    {
+        byte[] Image { get; set; }
+
+        string ImageType { get; set; }
+    }
+
+    public class ProductModel : IImageModel
     {
         public int ProductId { get; set; }
 
