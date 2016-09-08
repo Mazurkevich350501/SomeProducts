@@ -69,7 +69,7 @@ namespace SomeProducts.Controllers
 
         public JsonResult SaveBrandsChanges(BrandsChangeModel changeModel)
         {
-            //_barndModelService.SaveBrandChanges(changeModel);
+            _barndModelService.SaveBrandChanges(changeModel);
             return GetBrandsList();
         }
 
