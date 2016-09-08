@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SomeProducts.DAL.Repository
 {
-    internal interface IRepository<T> : IDisposable
+    public interface IRepository<T> : IDisposable
     {
         IEnumerable<T> GetAllItems();
         T GetById(int id);

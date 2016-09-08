@@ -283,6 +283,10 @@
       <Project>{fd9275ab-b7e3-4a8c-9359-8eddfabd13c7}</Project>
       <Name>SomeProducts.CrossCutting</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SomeProducts.DAL\SomeProducts.DAL.csproj">
+      <Project>{7234c738-6ba2-457e-bd8b-475408570312}</Project>
+      <Name>SomeProducts.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SomeProducts.PresentationServices\SomeProducts.PresentationServices.csproj">
       <Project>{3ff100a8-aa3d-4814-a403-eaa90b31ad49}</Project>
       <Name>SomeProducts.PresentationServices</Name>

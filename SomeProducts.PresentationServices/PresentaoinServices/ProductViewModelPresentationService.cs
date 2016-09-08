@@ -10,13 +10,15 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
 {
     public class ProductViewModelPresentationService : IProductViewModelPresentationService
     {
-        private readonly IProductDao _productService = new ProductDao();
-        private readonly IBrandDao _brandService = new BrandDao();
+        private readonly IProductDao _productService;
+        private readonly IBrandDao _brandService;
 
-        public ProductViewModelPresentationService()
+        public ProductViewModelPresentationService(IProductDao productService, IBrandDao brandService)
         {
-
+            _productService = productService;
+            _brandService = brandService;
         }
+
         public void RemoveProductViewModel(int id)
         {
             _productService.RemoveProduct(id);

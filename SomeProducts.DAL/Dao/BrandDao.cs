@@ -8,8 +8,14 @@ namespace SomeProducts.DAL.Dao
 {
     public class BrandDao : IBrandDao
     {
-        private readonly BaseRepository<Brand> _repository = new BaseRepository<Brand>();
-        private readonly BaseRepository<Product> _productRepository = new BaseRepository<Product>();
+        private readonly IRepository<Brand> _repository;
+        private readonly IRepository<Product> _productRepository;
+
+        public BrandDao(IRepository<Brand> repository, IRepository<Product> productRepository)
+        {
+            _repository = repository;
+            _productRepository = productRepository;
+        }
 
         public void CreateBrand(Brand brand)
         {

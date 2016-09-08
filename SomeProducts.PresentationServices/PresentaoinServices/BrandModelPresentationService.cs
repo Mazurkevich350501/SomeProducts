@@ -10,12 +10,13 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
 {
     public class BrandModelPresentationService : IBrandModelPresentationService
     {
-        private readonly IBrandDao _brandSevice = new BrandDao();
+        private readonly IBrandDao _brandSevice;
 
-        public BrandModelPresentationService()
+        public BrandModelPresentationService(IBrandDao brandSevice)
         {
-
+            _brandSevice = brandSevice;
         }
+
         public void CreateBrand(BrandModel model)
         {
             var brand = new Brand() { BrandId = model.BrandId, BrandName = model.BrandName };

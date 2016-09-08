@@ -8,7 +8,12 @@ namespace SomeProducts.DAL.Dao
 {
     public class ProductDao : IProductDao
     {
-        private readonly BaseRepository<Product> _repository = new BaseRepository<Product>();
+        private readonly IRepository<Product> _repository;
+
+        public ProductDao(IRepository<Product> repository)
+        {
+            _repository = repository;
+        }
 
         public void UpdateProduct(Product product)
         {
