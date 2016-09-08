@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3FF100A8-AA3D-4814-A403-EAA90B31AD49}</ProjectGuid>
+    <ProjectGuid>{FD9275AB-B7E3-4A8C-9359-8EDDFABD13C7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SomeProducts.PresentationServices</RootNamespace>
-    <AssemblyName>SomeProducts.PresentationServices</AssemblyName>
+    <RootNamespace>SomeProducts.CrossCutting</RootNamespace>
+    <AssemblyName>SomeProducts.CrossCutting</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,14 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\packages\Autofac.4.1.0\lib\net45\Autofac.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,31 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PresentaoinServices\BrandModelPresentationService.cs" />
-    <Compile Include="PresentaoinServices\ProductViewModelPresentationService.cs" />
-    <Compile Include="IPresentationSevices\IBrandModelPresentationService.cs" />
-    <Compile Include="IPresentationSevices\IProductViewModelPresentationService.cs" />
-    <Compile Include="Models\BrandModel.cs" />
-    <Compile Include="Models\BrandsChangeModel.cs" />
-    <Compile Include="Models\ProductColors.cs" />
-    <Compile Include="Models\ProductViewModel.cs" />
-    <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Utils\ImageUtils.cs" />
+    <Compile Include="Intefaces\IImageModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SomeProducts.CrossCutting\SomeProducts.CrossCutting.csproj">
-      <Project>{fd9275ab-b7e3-4a8c-9359-8eddfabd13c7}</Project>
-      <Name>SomeProducts.CrossCutting</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SomeProducts.DAL\SomeProducts.DAL.csproj">
-      <Project>{7234C738-6BA2-457E-BD8B-475408570312}</Project>
-      <Name>SomeProducts.DAL</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

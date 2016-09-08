@@ -1,14 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SomeProducts.CrossCutting.Intefaces;
+using System.ComponentModel.DataAnnotations;
 
 namespace SomeProducts.PresentationServices.Models
 {
-    public interface IImageModel
-    {
-        byte[] Image { get; set; }
-
-        string ImageType { get; set; }
-    }
-
     public class ProductModel : IImageModel
     {
         public int ProductId { get; set; }

@@ -4,7 +4,7 @@ using System.Web;
 using System.Web.Mvc;
 using SomeProducts.PresentationServices.IPresentationSevices;
 using SomeProducts.PresentationServices.Models;
-
+using SomeProducts.CrossCutting.Utils;
 
 namespace SomeProducts.Controllers
 {
@@ -44,7 +44,7 @@ namespace SomeProducts.Controllers
         {
             if (ModelState.IsValid)
             {
-                SaveImage(model.Product, Request);
+                ImageUtils.AddImageToModel(model.Product, Request);
                 _productViewModelService.CreateProductViewModel(model);
                 var productModel = _productViewModelService.GetLastProductViewMode();
                 return Redirect(Url.Action("Edit", "Product", new { id = productModel.Product.ProductId }));
@@ -59,7 +59,7 @@ namespace SomeProducts.Controllers
         {
             if (ModelState.IsValid)
             {
-                SaveImage(model.Product, Request);
+                ImageUtils.AddImageToModel(model.Product, Request);
                 _productViewModelService.UpdateProductViewModel(model);
             }
             var newModel = _productViewModelService.GetProductViewModel();
@@ -88,20 +88,6 @@ namespace SomeProducts.Controllers
         public JsonResult IsBrandUsing(int id)
         {
             return Json(_barndModelService.IsBrandModelUsing(id), JsonRequestBehavior.AllowGet);
-        }
-
-        private void SaveImage(IImageModel model, HttpRequestBase request)
-        {
-            if (Request.Files.Count > 0)
-            {
-                var image = request.Files[0];
-                if (image != null && image.ContentLength > 0)
-                {
-                    model.Image = new byte[image.ContentLength];
-                    image.InputStream.Read(model.Image, 0, image.ContentLength);
-                    model.ImageType = image.ContentType;
-                }
-            }
         }
     }
 }
