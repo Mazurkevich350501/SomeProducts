@@ -24,7 +24,7 @@ namespace SomeProducts.Controllers
         public ActionResult Create()
         {
             ProductViewModel model = _productViewModelService.GetProductViewModel();
-            return View(model);
+            return View("Create",model);
         }
 
         [HttpGet]
@@ -47,7 +47,7 @@ namespace SomeProducts.Controllers
                 ImageUtils.AddImageToModel(model.Product, Request);
                 _productViewModelService.CreateProductViewModel(model);
                 var productModel = _productViewModelService.GetLastProductViewMode();
-                return Redirect(Url.Action("Edit", "Product", new { id = productModel.Product.ProductId }));
+                return RedirectToAction("Edit", "Product", new { id = productModel.Product.ProductId });
             }
             var newModel = _productViewModelService.GetProductViewModel();
             newModel.Product = model.Product;

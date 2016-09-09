@@ -14,13 +14,13 @@ namespace SomeProducts
         public static IContainer CreateContainer()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterType<BaseRepository<Product>>().As<IRepository<Product>>().InstancePerRequest();
-            builder.RegisterType<BaseRepository<Brand>>().As<IRepository<Brand>>().InstancePerRequest();
-            builder.RegisterType<ProductDao>().As<IProductDao>().InstancePerRequest();
-            builder.RegisterType<BrandDao>().As<IBrandDao>().InstancePerRequest();
-            builder.RegisterType<ProductViewModelPresentationService>().As<IProductViewModelPresentationService>().InstancePerRequest();
-            builder.RegisterType<BrandModelPresentationService>().As<IBrandModelPresentationService>().InstancePerRequest();
-            builder.RegisterType<ProductController>().As<ProductController>().InstancePerRequest();
+            builder.RegisterType<BaseRepository<Product>>().As<IRepository<Product>>();
+            builder.RegisterType<BaseRepository<Brand>>().As<IRepository<Brand>>();
+            builder.RegisterType<ProductDao>().As<IProductDao>();
+            builder.RegisterType<BrandDao>().As<IBrandDao>();
+            builder.RegisterType<ProductViewModelPresentationService>().As<IProductViewModelPresentationService>();
+            builder.RegisterType<BrandModelPresentationService>().As<IBrandModelPresentationService>();
+            builder.RegisterType<ProductController>().As<ProductController>();
             return builder.Build();
         }
     }

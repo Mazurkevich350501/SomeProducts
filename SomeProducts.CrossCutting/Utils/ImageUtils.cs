@@ -8,7 +8,7 @@ namespace SomeProducts.CrossCutting.Utils
 
         public static void AddImageToModel(IImageModel model, HttpRequestBase request)
         {
-            if (request.Files.Count > 0)
+            if (request != null && request.Files.Count > 0)
             {
                 var image = request.Files[0];
                 if (image != null && image.ContentLength > 0)
