@@ -10,18 +10,18 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
 {
     public class ProductViewModelPresentationService : IProductViewModelPresentationService
     {
-        private readonly IProductDao _productService;
-        private readonly IBrandDao _brandService;
+        private readonly IProductDao _productDao;
+        private readonly IBrandDao _brandDao;
 
         public ProductViewModelPresentationService(IProductDao productService, IBrandDao brandService)
         {
-            _productService = productService;
-            _brandService = brandService;
+            _productDao = productService;
+            _brandDao = brandService;
         }
 
         public void RemoveProductViewModel(int id)
         {
-            _productService.RemoveProduct(id);
+            _productDao.RemoveProduct(id);
         }
 
         public ProductViewModel GetProductViewModel(int? id = null)
@@ -29,7 +29,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
             ProductModel productModel;
             if (id != null)
             {
-                var product = _productService.GetProduct(id.Value);
+                var product = _productDao.GetProduct(id.Value);
                 productModel = ProductModelCast(product);
             }
             else
@@ -47,18 +47,18 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
         public void UpdateProductViewModel(ProductViewModel model)
         {
             var product = ProductCast(model);
-            product.CreateDate = _productService.GetCreateTime(product.ProductId);
-            _productService.UpdateProduct(product);
+            product.CreateDate = _productDao.GetCreateTime(product.ProductId);
+            _productDao.UpdateProduct(product);
         }
 
         public void CreateProductViewModel(ProductViewModel model)
         {
-            _productService.CreateProduct(ProductCast(model));
+            _productDao.CreateProduct(ProductCast(model));
         }
 
         private Dictionary<int, string> CreateBrandDictionary()
         {
-            return _brandService.GetAllItems().ToDictionary(b => b.BrandId, b => b.BrandName);
+            return _brandDao.GetAllItems().ToDictionary(b => b.BrandId, b => b.BrandName);
         }
 
         private static Product ProductCast(ProductViewModel model)
@@ -103,7 +103,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
         {
             return new ProductViewModel()
             {
-                Product = ProductModelCast(_productService.GetLastProduct()),
+                Product = ProductModelCast(_productDao.GetLastProduct()),
                 Brands = CreateBrandDictionary(),
                 Colors = new ProductColors().Colors
             };

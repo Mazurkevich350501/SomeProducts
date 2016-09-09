@@ -1,6 +1,5 @@
 ﻿
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using SomeProducts.PresentationServices.IPresentationSevices;
 using SomeProducts.PresentationServices.Models;
@@ -24,7 +23,7 @@ namespace SomeProducts.Controllers
         public ActionResult Create()
         {
             ProductViewModel model = _productViewModelService.GetProductViewModel();
-            return View("Create",model);
+            return View(model);
         }
 
         [HttpGet]
