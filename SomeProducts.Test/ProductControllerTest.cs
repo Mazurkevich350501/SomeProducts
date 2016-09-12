@@ -15,6 +15,7 @@ namespace SomeProducts.Test
         private Mock<IBrandModelPresentationService> _brandModelService;
         private Mock<IProductViewModelPresentationService> _productModelService;
         private ProductController _controller;
+        private List<BrandModel> _allBrands;
 
         [TestInitialize]
         public void TestInitialize()
@@ -22,6 +23,12 @@ namespace SomeProducts.Test
             _productModelService = new Mock<IProductViewModelPresentationService>();
             _brandModelService = new Mock<IBrandModelPresentationService>();
             _controller = new ProductController(_productModelService.Object, _brandModelService.Object);
+
+            _allBrands = new List<BrandModel>
+            {
+                new BrandModel() {BrandId = 1, BrandName = "name1"},
+                new BrandModel() {BrandId = 2, BrandName = "name2"}
+            };
         }
 
         [TestMethod]
@@ -122,7 +129,7 @@ namespace SomeProducts.Test
 
         [TestMethod]
         public void Edit_Save_Should_Return_EditView_And_Saved_ProductViewModel()
-        { 
+        {
             var product = new ProductViewModel { Product = new ProductModel() { ProductId = 5 } };
             var newProduct = new ProductViewModel()
             {
@@ -141,19 +148,16 @@ namespace SomeProducts.Test
         }
 
         [TestMethod]
-        public void Delete_Should_Return_Create_Url()
+        public void Delete_Should_Return_Create_Url_And_Call_RemoveViewBrandModel()
         {
-            var allBrands = new List<BrandModel>
-            {
-                new BrandModel() {BrandId = 1, BrandName = "name1"},
-                new BrandModel() {BrandId = 2, BrandName = "name2"}
-            };
-            _brandModelService.Setup(s => s.GetAllItems()).Returns(allBrands);
+            var isCalledRemoveProductViewModel = false;
+            _productModelService.Setup(s => s.RemoveProductViewModel(It.IsAny<int>()))
+                .Callback(() => isCalledRemoveProductViewModel = true);
 
-            var result = _controller.GetBrandsList();
+            var result = _controller.Delete(1);
 
-            Assert.IsNotNull(result);
-            CollectionAssert.AreEqual(allBrands, (List<BrandModel>)result.Data);
+            Assert.AreEqual("", result.Data);
+            Assert.IsTrue(isCalledRemoveProductViewModel);
         }
 
         [TestMethod]
@@ -164,6 +168,32 @@ namespace SomeProducts.Test
             var result = _controller.IsBrandUsing(5);
 
             Assert.AreEqual(true, result.Data);
+        }
+
+        [TestMethod]
+        public void GetBrandsList_Should_Return_All_Brands()
+        {
+            _brandModelService.Setup(s => s.GetAllItems()).Returns(_allBrands);
+
+            var result = _controller.GetBrandsList();
+
+            Assert.IsNotNull(result);
+            CollectionAssert.AreEqual(_allBrands, (List<BrandModel>)result.Data);
+        }
+
+        [TestMethod]
+        public void SaveBrandChanges_Should_Call_SaveBrandChanges_And_Return_BrandList()
+        {
+            var isCalledSaveBrandChanges = false;
+            _brandModelService.Setup(s => s.SaveBrandChanges(It.IsAny<BrandsChangeModel>()))
+                .Callback(() => isCalledSaveBrandChanges = true);
+            _brandModelService.Setup(s => s.GetAllItems()).Returns(_allBrands);
+
+            var result = _controller.SaveBrandsChanges(null);
+
+            Assert.IsTrue(isCalledSaveBrandChanges);
+            Assert.IsNotNull(result);
+            CollectionAssert.AreEqual(_allBrands, (List<BrandModel>)result.Data);
         }
     }
 }

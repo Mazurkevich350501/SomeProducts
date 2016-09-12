@@ -17,6 +17,7 @@ namespace SomeProducts.DAL.Dao
             _productRepository = productRepository;
         }
 
+
         public void CreateBrand(Brand brand)
         {
             _repository.Create(brand);

@@ -17,6 +17,7 @@ namespace SomeProducts.PresentationServices.Test
         private ProductViewModelPresentationService _productService;
         private Mock<IProductDao> _productDao;
         private Mock<IBrandDao> _brandDao;
+        private ProductViewModel _productViewModel;
         private Product _product;
         private List<Brand> _brandList;
         private Dictionary<string, string> _colors;
@@ -47,6 +48,18 @@ namespace SomeProducts.PresentationServices.Test
             };
 
             _colors = new ProductColors().Colors;
+
+            _productViewModel = new ProductViewModel()
+            {
+                Product = new ProductModel()
+                {
+                    ProductId = 5,
+                    Name = "Name",
+                    BrandId = 5,
+                    Quantity = 5,
+                },
+                Colors = _colors
+            };
         }
 
         private static void ProductModelAssert(Product expected, ProductModel actual)
@@ -78,7 +91,7 @@ namespace SomeProducts.PresentationServices.Test
         {
             _brandDao.Setup(d => d.GetAllItems()).Returns(_brandList);
             _productDao.Setup(d => d.GetProduct(_product.ProductId)).Returns(_product);
-            
+
             var result = _productService.GetProductViewModel(_product.ProductId);
 
             Assert.IsNotNull(result);
@@ -99,6 +112,45 @@ namespace SomeProducts.PresentationServices.Test
             CollectionAssert.AreEqual(_colors, result.Colors);
             CollectionAssert.AreEqual(_brandList.ToDictionary(b => b.BrandId, b => b.BrandName), result.Brands);
             ProductModelAssert(_product, result.Product);
+        }
+
+        [TestMethod]
+        public void UpdateProductViewModel_Should_Add_CreateDate()
+        {
+            var createDate = new DateTime();
+            _productDao.Setup(d => d.UpdateProduct(It.IsAny<Product>()))
+                .Callback<Product>((product) =>
+                {
+                    createDate = product.CreateDate;
+                });
+
+            _productService.UpdateProductViewModel(_productViewModel);
+
+            Assert.IsTrue(DateTime.Compare(createDate, DateTime.Now.Subtract(TimeSpan.FromSeconds(10))) < 0);
+        }
+
+        [TestMethod]
+        public void CreateProductViewModel_Should_Create_Product()
+        {
+            var product = new Product();
+            _productDao.Setup(d => d.CreateProduct(It.IsAny<Product>()))
+                .Callback<Product>(p => product = p);
+
+            _productService.CreateProductViewModel(_productViewModel);
+
+            ProductModelAssert(product, _productViewModel.Product);
+        }
+
+        [TestMethod]
+        public void RemoveProductViewModel_Should_Remove_Product()
+        {
+            var removedId = 0;
+            _productDao.Setup(d => d.RemoveProduct(It.IsAny<int>()))
+                .Callback<int>(id => removedId = id);
+
+            _productService.RemoveProductViewModel(5);
+
+            Assert.AreEqual(5, removedId);
         }
     }
 }

@@ -1,5 +1,6 @@
 database/*
 packages/*
+TestResults/*
 */.bin/*
 */bin/*
 */obj/*
