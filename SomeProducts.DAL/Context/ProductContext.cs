@@ -5,7 +5,7 @@ namespace SomeProducts.DAL.Context
 {
     public class ProductContext : DbContext
     {
-        public ProductContext() : base("DefaultConnection")
+        public ProductContext(string baseString) : base(baseString)
         {
         }
 

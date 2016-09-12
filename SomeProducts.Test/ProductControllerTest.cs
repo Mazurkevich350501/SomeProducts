@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Security.Policy;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using System.Web.WebPages;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -150,13 +153,17 @@ namespace SomeProducts.Test
         [TestMethod]
         public void Delete_Should_Return_Create_Url_And_Call_RemoveViewBrandModel()
         {
+            const string testUrl = "testUrl/testUrl";
             var isCalledRemoveProductViewModel = false;
+            var urlHelperMock = new Mock<UrlHelper>();
+            _controller.Url = urlHelperMock.Object;
+            urlHelperMock.Setup(x => x.Action("Create", "Product")).Returns(testUrl);
             _productModelService.Setup(s => s.RemoveProductViewModel(It.IsAny<int>()))
-                .Callback(() => isCalledRemoveProductViewModel = true);
+                .Callback(() => { isCalledRemoveProductViewModel = true; });
 
             var result = _controller.Delete(1);
 
-            Assert.AreEqual("", result.Data);
+            Assert.AreEqual(testUrl, result.Data);
             Assert.IsTrue(isCalledRemoveProductViewModel);
         }
 

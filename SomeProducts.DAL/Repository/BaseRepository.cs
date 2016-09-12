@@ -13,7 +13,7 @@ namespace SomeProducts.DAL.Repository
 
         public BaseRepository()
         {
-            _db = new ProductContext();
+            _db = new ProductContext("DefaultConnection");
         }
 
         public void Create(TEntity item)
