@@ -1,4 +1,4 @@
-﻿(function () {
+(function () {
     "use strict";
 
     var brandsList;
@@ -92,7 +92,7 @@
 
     function addNewBrand() {
         var brandName = $("#newBrandName").val();
-        if (checkForValidity(brandName)) {
+        if (Validate(brandName)) {
             addToBrandsList(brandName, idCounter++, "newBrand");
             $("#newBrandName").val("");
         }
@@ -144,7 +144,7 @@
         $("#BrandModal").modal("hide");
     }
 
-    function checkForValidity(brandName) {
+    function validate(brandName) {
         $("#newBrandValidation").empty();
         if (getErrorMessage(brandName) === "") {
             return true;

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SomeProducts.DAL.Dao;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.PresentationServices.IPresentationSevices;
@@ -58,7 +57,12 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
 
         private Dictionary<int, string> CreateBrandDictionary()
         {
-            return _brandDao.GetAllItems().ToDictionary(b => b.BrandId, b => b.BrandName);
+            var brands = _brandDao.GetAllItems();
+            if (brands != null)
+            {
+                return brands.ToDictionary(b => b.BrandId, b => b.BrandName);
+            }
+            return new Dictionary<int, string>();
         }
 
         private static Product ProductCast(ProductViewModel model)

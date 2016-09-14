@@ -236,7 +236,7 @@
     <Content Include="bower_components\jquery-simplecolorpicker\bower.json" />
     <Content Include="bower_components\jquery-simplecolorpicker\README.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\ColorPicker\spectrum.css" />
+    <Content Include="Stylesheets\spectrum.css" />
     <Content Include="Scripts\ColorPicker\spectrum.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -247,7 +247,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\Product\ProductControl.js" />
-    <Content Include="Scripts\Product\Product.css" />
+    <Content Include="Stylesheets\Product.css" />
     <Content Include="Scripts\Product\ProductModalWindowControl.js" />
     <Content Include="Scripts\Product\ProductImageController.js" />
     <Content Include="Scripts\Product\RemovingModal.js" />
