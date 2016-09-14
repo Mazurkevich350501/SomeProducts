@@ -10,7 +10,7 @@ using SomeProducts.DAL.Repository;
 namespace SomeProducts.DAL.Test
 {
     [TestClass]
-    public class brandDaoTest
+    public class BrandDaoTest
     {
         private Mock<IRepository<Brand>> _brandRepository;
         private Mock<IRepository<Product>> _productRepository;

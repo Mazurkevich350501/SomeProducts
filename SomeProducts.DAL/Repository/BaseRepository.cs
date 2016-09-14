@@ -9,11 +9,17 @@ namespace SomeProducts.DAL.Repository
 {
     public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class, IDateModified
     {
+        private string v;
         private readonly ProductContext _db;
 
         public BaseRepository()
         {
             _db = new ProductContext("DefaultConnection");
+        }
+
+        public BaseRepository(string connection)
+        {
+            _db = new ProductContext(connection);
         }
 
         public void Create(TEntity item)
