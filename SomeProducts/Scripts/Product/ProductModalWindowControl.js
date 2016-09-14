@@ -92,7 +92,7 @@
 
     function addNewBrand() {
         var brandName = $("#newBrandName").val();
-        if (Validate(brandName)) {
+        if (validate(brandName)) {
             addToBrandsList(brandName, idCounter++, "newBrand");
             $("#newBrandName").val("");
         }

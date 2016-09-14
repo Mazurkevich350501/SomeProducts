@@ -1,6 +1,6 @@
 ﻿(function () {
     "use strict";
-
+    
     var imageNamespace = Utils.getNamespace("Image");
 
     imageNamespace.initImage = function (params) {
