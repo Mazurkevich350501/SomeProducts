@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Security.Policy;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using System.Web.WebPages;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -131,8 +128,9 @@ namespace SomeProducts.Test
         }
 
         [TestMethod]
-        public void Edit_Save_Should_Return_EditView_And_Saved_ProductViewModel()
+        public void Edit_Save_Should_Return_EditView_If_ProductViewModel_Is_Not_Valid()
         {
+
             var product = new ProductViewModel { Product = new ProductModel() { ProductId = 5 } };
             var newProduct = new ProductViewModel()
             {
@@ -140,6 +138,7 @@ namespace SomeProducts.Test
                 Colors = new ProductColors().Colors,
                 Brands = new Dictionary<int, string>()
             };
+            _controller.ModelState.AddModelError("Name", "Product Id is not valid.");
             _productModelService.Setup(p => p.GetProductViewModel(It.IsAny<int?>())).Returns(newProduct);
 
             var result = _controller.Edit(product) as ViewResult;
@@ -148,6 +147,20 @@ namespace SomeProducts.Test
             Assert.AreEqual("Create", result.ViewName);
             Assert.AreEqual(newProduct, result.Model);
 
+        }
+
+        [TestMethod]
+        public void Edit_Save_Should_Redirect_To_Edit_If_ProductViewModel_Is_Not_Valid()
+        {
+
+            var product = new ProductViewModel { Product = new ProductModel() { ProductId = 5 } };
+
+            var result = _controller.Edit(product) as RedirectToRouteResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Edit", result.RouteValues["Action"]);
+            Assert.AreEqual("Product", result.RouteValues["Controller"]);
+            Assert.AreEqual(product.Product.ProductId, result.RouteValues["id"]);
         }
 
         [TestMethod]

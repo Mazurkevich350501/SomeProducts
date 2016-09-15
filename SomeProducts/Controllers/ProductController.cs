@@ -60,7 +60,9 @@ namespace SomeProducts.Controllers
             {
                 ImageUtils.AddImageToModel(model.Product, Request);
                 _productViewModelService.UpdateProductViewModel(model);
+                return RedirectToAction("Edit", "Product", new { id = model.Product.ProductId });
             }
+
             var newModel = _productViewModelService.GetProductViewModel();
             newModel.Product = model.Product;
             return View("Create", newModel);

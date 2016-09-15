@@ -223,13 +223,13 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bower_components\jquery-simplecolorpicker\demo.html" />
-    <Content Include="bower_components\jquery-simplecolorpicker\jquery.simplecolorpicker-fontawesome.css" />
-    <Content Include="bower_components\jquery-simplecolorpicker\jquery.simplecolorpicker-glyphicons.css" />
-    <Content Include="bower_components\jquery-simplecolorpicker\jquery.simplecolorpicker-regularfont.css" />
-    <Content Include="bower_components\jquery-simplecolorpicker\jquery.simplecolorpicker.css" />
-    <Content Include="bower_components\jquery-simplecolorpicker\jquery.simplecolorpicker.js" />
-    <Content Include="bower_components\jquery-simplecolorpicker\LICENSE.txt" />
+    <Content Include="BowerComponents\jquery-simplecolorpicker\demo.html" />
+    <Content Include="BowerComponents\jquery-simplecolorpicker\jquery.simplecolorpicker-fontawesome.css" />
+    <Content Include="BowerComponents\jquery-simplecolorpicker\jquery.simplecolorpicker-glyphicons.css" />
+    <Content Include="BowerComponents\jquery-simplecolorpicker\jquery.simplecolorpicker-regularfont.css" />
+    <Content Include="BowerComponents\jquery-simplecolorpicker\jquery.simplecolorpicker.css" />
+    <Content Include="BowerComponents\jquery-simplecolorpicker\jquery.simplecolorpicker.js" />
+    <Content Include="BowerComponents\jquery-simplecolorpicker\LICENSE.txt" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -247,10 +247,10 @@
     <None Include=".bin\bower.cmd" />
     <None Include=".bin\git.cmd" />
     <None Include=".bin\node.cmd" />
-    <Content Include="bower_components\jquery-simplecolorpicker\.bower.json" />
-    <Content Include="bower_components\jquery-simplecolorpicker\.gitignore" />
-    <Content Include="bower_components\jquery-simplecolorpicker\bower.json" />
-    <Content Include="bower_components\jquery-simplecolorpicker\README.md" />
+    <Content Include="BowerComponents\jquery-simplecolorpicker\.bower.json" />
+    <Content Include="BowerComponents\jquery-simplecolorpicker\.gitignore" />
+    <Content Include="BowerComponents\jquery-simplecolorpicker\bower.json" />
+    <Content Include="BowerComponents\jquery-simplecolorpicker\README.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -264,7 +264,7 @@
     <Content Include="Stylesheets\Product.css" />
     <Content Include="Scripts\Product\ProductModalWindowControl.js" />
     <Content Include="Scripts\Product\ProductImageController.js" />
-    <Content Include="Scripts\Product\RemovingModal.js" />
+    <Content Include="Scripts\Product\RemovingModalWindow.js" />
     <Content Include="Scripts\Common\Utils.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
