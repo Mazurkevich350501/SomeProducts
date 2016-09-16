@@ -20,10 +20,18 @@
 }
 
 .new-brand-input {
-    margin-left: 10px;
+    max-width: none;
+    width: 95%;
 }
 
 .modal-body-central {
     text-align: center;
     padding: 20px;
+}
+
+.brand-edit-input {
+    border: 0;
+    outline: none;
+    max-width: none;
+    width: 97%;
 }
