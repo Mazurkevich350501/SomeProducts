@@ -100,7 +100,7 @@ namespace SomeProducts.Test
         [TestMethod]
         public void Edit_Should_Redirect_To_ErrorView_If_Id_Is_Not_Correct()
         {
-            _productModelService.Setup(p => p.GetProductViewModel(It.IsAny<int?>())).Returns(null as ProductViewModel);
+            _productModelService.Setup(p => p.GetProductViewModel(It.IsAny<int?>())).Returns(new ProductViewModel());
 
             var result = _controller.Edit(5) as ViewResult;
 
@@ -152,8 +152,8 @@ namespace SomeProducts.Test
         [TestMethod]
         public void Edit_Save_Should_Redirect_To_Edit_If_ProductViewModel_Is_Valid()
         {
-
             var product = new ProductViewModel { Product = new ProductModel() { Id = 5 } };
+            _productModelService.Setup(s => s.UpdateProductViewModel(It.IsAny<ProductViewModel>())).Returns(true);
 
             var result = _controller.Edit(product) as RedirectToRouteResult;
 
