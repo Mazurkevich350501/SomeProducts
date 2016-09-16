@@ -7,9 +7,8 @@ using SomeProducts.DAL.Context;
 
 namespace SomeProducts.DAL.Repository
 {
-    public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class, IDateModified
+    public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class, IDateModified, IIdentify
     {
-        private string v;
         private readonly ProductContext _db;
 
         public BaseRepository()
@@ -65,10 +64,16 @@ namespace SomeProducts.DAL.Repository
             _db.SaveChanges();
         }
 
-        public void Update(TEntity item)
+        public bool Update(TEntity item)
         {
-            item.ModifiedDate = DateTime.UtcNow;
-            _db.Set<TEntity>().AddOrUpdate(item);
+            var lastItemVersion = GetById(item.Id).RowVersion;
+            if (lastItemVersion.SequenceEqual(item.RowVersion))
+            {
+                item.ModifiedDate = DateTime.UtcNow;
+                _db.Set<TEntity>().AddOrUpdate(item);
+                return true;
+            }
+            return false;
         }
     }
 }

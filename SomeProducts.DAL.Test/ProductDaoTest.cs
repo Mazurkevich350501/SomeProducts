@@ -21,7 +21,7 @@ namespace SomeProducts.DAL.Test
             _productDao = new ProductDao(_productRepository.Object);
             _product = new Product()
             {
-                ProductId = 5,
+                Id = 5,
                 Name = "Name",
                 BrandId = 5,
                 Quantity = 5,
@@ -50,7 +50,7 @@ namespace SomeProducts.DAL.Test
         {
             _productRepository.Setup(r => r.GetById(It.IsAny<int>())).Returns(_product);
 
-            var result = _productDao.GetProduct(_product.ProductId);
+            var result = _productDao.GetProduct(_product.Id);
 
             Assert.AreEqual(_product, result);
         }
@@ -72,9 +72,9 @@ namespace SomeProducts.DAL.Test
             _productRepository.Setup(r => r.Delete(It.IsAny<int>()))
                 .Callback<int>(id => deletedId = id);
 
-            _productDao.RemoveProduct(_product.ProductId);
+            _productDao.RemoveProduct(_product.Id);
 
-            Assert.AreEqual(_product.ProductId, deletedId);
+            Assert.AreEqual(_product.Id, deletedId);
         }
 
         [TestMethod]
@@ -95,7 +95,7 @@ namespace SomeProducts.DAL.Test
             _productRepository.Setup(r => r.GetCreateTime(It.IsAny<int>()))
                 .Returns(_product.CreateDate);
 
-            var result = _productDao.GetCreateTime(_product.ProductId);
+            var result = _productDao.GetCreateTime(_product.Id);
 
             Assert.AreEqual(_product.CreateDate, result);
         }

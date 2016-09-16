@@ -31,7 +31,7 @@ namespace SomeProducts.PresentationServices.Test
 
             _product = new Product()
             {
-                ProductId = 5,
+                Id = 5,
                 Name = "Name",
                 BrandId = 5,
                 Quantity = 5,
@@ -43,8 +43,8 @@ namespace SomeProducts.PresentationServices.Test
 
             _brandList = new List<Brand>
             {
-                new Brand() {BrandId = 1, BrandName = "name1"},
-                new Brand() {BrandId = 2, BrandName = "name2"}
+                new Brand() {Id = 1, Name = "name1"},
+                new Brand() {Id = 2, Name = "name2"}
             };
 
             _colors = new ProductColors().Colors;
@@ -53,7 +53,7 @@ namespace SomeProducts.PresentationServices.Test
             {
                 Product = new ProductModel()
                 {
-                    ProductId = 5,
+                    Id = 5,
                     Name = "Name",
                     BrandId = 5,
                     Quantity = 5,
@@ -64,7 +64,7 @@ namespace SomeProducts.PresentationServices.Test
 
         private static void ProductModelAssert(Product expected, ProductModel actual)
         {
-            Assert.AreEqual(expected.ProductId, actual.ProductId);
+            Assert.AreEqual(expected.Id, actual.Id);
             Assert.AreEqual(expected.Name, actual.Name);
             Assert.AreEqual(expected.BrandId, actual.BrandId);
             Assert.AreEqual(expected.Color, actual.Color);
@@ -82,7 +82,7 @@ namespace SomeProducts.PresentationServices.Test
 
             Assert.IsNotNull(result);
             CollectionAssert.AreEqual(_colors, result.Colors);
-            CollectionAssert.AreEqual(_brandList.ToDictionary(b => b.BrandId, b => b.BrandName), result.Brands);
+            CollectionAssert.AreEqual(_brandList.ToDictionary(b => b.Id, b => b.Name), result.Brands);
             ProductModelAssert(new Product(), result.Product);
         }
 
@@ -90,13 +90,13 @@ namespace SomeProducts.PresentationServices.Test
         public void GetProductViewModel_Should_Return_ProductViewModel_If_Id_Is_Not_Null()
         {
             _brandDao.Setup(d => d.GetAllItems()).Returns(_brandList);
-            _productDao.Setup(d => d.GetProduct(_product.ProductId)).Returns(_product);
+            _productDao.Setup(d => d.GetProduct(_product.Id)).Returns(_product);
 
-            var result = _productService.GetProductViewModel(_product.ProductId);
+            var result = _productService.GetProductViewModel(_product.Id);
 
             Assert.IsNotNull(result);
             CollectionAssert.AreEqual(_colors, result.Colors);
-            CollectionAssert.AreEqual(_brandList.ToDictionary(b => b.BrandId, b => b.BrandName), result.Brands);
+            CollectionAssert.AreEqual(_brandList.ToDictionary(b => b.Id, b => b.Name), result.Brands);
             ProductModelAssert(_product, result.Product);
         }
 
@@ -110,7 +110,7 @@ namespace SomeProducts.PresentationServices.Test
 
             Assert.IsNotNull(result);
             CollectionAssert.AreEqual(_colors, result.Colors);
-            CollectionAssert.AreEqual(_brandList.ToDictionary(b => b.BrandId, b => b.BrandName), result.Brands);
+            CollectionAssert.AreEqual(_brandList.ToDictionary(b => b.Id, b => b.Name), result.Brands);
             ProductModelAssert(_product, result.Product);
         }
 
@@ -127,6 +127,26 @@ namespace SomeProducts.PresentationServices.Test
             _productService.UpdateProductViewModel(_productViewModel);
 
             Assert.IsTrue(DateTime.Compare(createDate, DateTime.Now.Subtract(TimeSpan.FromSeconds(10))) < 0);
+        }
+
+        [TestMethod]
+        public void UpdateProductViewModel_Should_Return_False_If_Not_Updated()
+        {
+            _productDao.Setup(d => d.UpdateProduct(It.IsAny<Product>())).Returns(false);
+            
+            var result = _productService.UpdateProductViewModel(_productViewModel);
+
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void UpdateProductViewModel_Should_Return_True_If_Updated()
+        {
+            _productDao.Setup(d => d.UpdateProduct(It.IsAny<Product>())).Returns(true);
+
+            var result = _productService.UpdateProductViewModel(_productViewModel);
+
+            Assert.IsTrue(result);
         }
 
         [TestMethod]

@@ -3,7 +3,7 @@
 @model  SomeProducts.PresentationServices.Models.ProductViewModel
 
 @{
-    bool isEdit = Model.Product.ProductId != 0;
+    bool isEdit = Model.Product.Id != 0;
     var title = isEdit ? "Edit" : "Create";
     ViewBag.Title = title;
 }
@@ -11,7 +11,8 @@
 <h2>@title</h2>
 
 <form method="post" action=@Url.Action(isEdit ? "Edit" : "Create", "Product") enctype="multipart/form-data">
-    @Html.HiddenFor(m => m.Product.ProductId)
+    @Html.HiddenFor(m => m.Product.Id)
+    @Html.HiddenFor(m => m.Product.Version)
     @Html.HiddenFor(m => m.Product.Image)
     @Html.HiddenFor(m => m.Product.ImageType)
     <div class="row">
@@ -100,9 +101,9 @@
 @section scripts
 {
     <script id="brandsTemplate" type="text/x-jQuery-tmpl">
-    <div class="row" id="row-${brandId}">
-        <h4 class="col-lg-10" id="lbl-${brandId}">${brandName}</h4>
-        <button class="btn btn-warning glyphicon glyphicon-minus-sign" data-type="${type}" data-name="${brandName}" data-selector="removeBtn"></button>
+    <div class="row" id="row-${d}">
+        <h4 class="col-lg-10" id="lbl-${id}">${name}</h4>
+        <button class="btn btn-warning glyphicon glyphicon-minus-sign" data-type="${type}" data-name="${name}" data-selector="removeBtn"></button>
     </div>
 </script>
 
@@ -116,7 +117,7 @@
             params.id.quantityId = '@Html.IdFor(m => m.Product.Quantity)';
             params.id.productNameId = '@Html.IdFor(m => m.Product.Name)';
             params.id.descriptionId = '@Html.IdFor(m => m.Product.Description)';
-            params.id.productId = '@Html.IdFor(m => m.Product.ProductId)';
+            params.id.productId = '@Html.IdFor(m => m.Product.Id)';
             params.url.deleteProductUrl = '@Url.Action("Delete", "Product")';
             params.url.getBrandsListUrl = '@Url.Action("GetBrandsList", "Product")';
             params.url.isBrandUsingUrl = '@Url.Action("IsBrandUsing", "Product")';

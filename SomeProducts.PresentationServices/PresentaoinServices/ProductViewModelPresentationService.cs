@@ -43,16 +43,16 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
             };
         }
 
-        public void UpdateProductViewModel(ProductViewModel model)
+        public bool UpdateProductViewModel(ProductViewModel model)
         {
-            var product = ProductCast(model);
-            product.CreateDate = _productDao.GetCreateTime(product.ProductId);
-            _productDao.UpdateProduct(product);
+            var product = ProductCast(model.Product);
+            product.CreateDate = _productDao.GetCreateTime(product.Id);
+            return _productDao.UpdateProduct(product);
         }
 
         public void CreateProductViewModel(ProductViewModel model)
         {
-            _productDao.CreateProduct(ProductCast(model));
+            _productDao.CreateProduct(ProductCast(model.Product));
         }
 
         private Dictionary<int, string> CreateBrandDictionary()
@@ -60,25 +60,26 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
             var brands = _brandDao.GetAllItems();
             if (brands != null)
             {
-                return brands.ToDictionary(b => b.BrandId, b => b.BrandName);
+                return brands.ToDictionary(b => b.Id, b => b.Name);
             }
             return new Dictionary<int, string>();
         }
 
-        private static Product ProductCast(ProductViewModel model)
+        private static Product ProductCast(ProductModel model)
         {
             if (model != null)
             {
                 return new Product()
                 {
-                    BrandId = model.Product.BrandId,
-                    Color = model.Product.Color,
-                    Description = model.Product.Description,
-                    Image = model.Product.Image,
-                    ImageType = model.Product.ImageType,
-                    Name = model.Product.Name,
-                    ProductId = model.Product.ProductId,
-                    Quantity = model.Product.Quantity
+                    BrandId = model.BrandId,
+                    Color = model.Color,
+                    Description = model.Description,
+                    Image = model.Image,
+                    ImageType = model.ImageType,
+                    Name = model.Name,
+                    Id = model.Id,
+                    Quantity = model.Quantity,
+                    RowVersion = model.Version
                 };
             }
             return null;
@@ -90,7 +91,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
             {
                 return new ProductModel()
                 {
-                    ProductId = model.ProductId,
+                    Id = model.Id,
                     Name = model.Name,
                     BrandId = model.BrandId,
                     Color = model.Color,
@@ -98,6 +99,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
                     Image = model.Image,
                     ImageType = model.ImageType,
                     Quantity = model.Quantity,
+                    Version = model.RowVersion
                 };
             }
             return null;

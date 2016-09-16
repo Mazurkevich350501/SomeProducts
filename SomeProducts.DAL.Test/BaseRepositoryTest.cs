@@ -18,8 +18,8 @@ namespace SomeProducts.DAL.Test
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            _brand = new Brand() { BrandName = "name" };
-            _repository = new BaseRepository<Brand>("TestConnection");
+            _brand = new Brand() { Name = "name" };
+            _repository = new BaseRepository<Brand>("Test");
         }
 
         [TestCleanup]
@@ -28,7 +28,7 @@ namespace SomeProducts.DAL.Test
             var brands = _repository.GetAllItems();
             foreach (var brand in brands)
             {
-                _repository.Delete(brand.BrandId);
+                _repository.Delete(brand.Id);
             }
             _repository.Save();
         }
@@ -42,7 +42,7 @@ namespace SomeProducts.DAL.Test
             var result = _repository.GetLast();
 
             Assert.IsNotNull(_brand);
-            Assert.AreEqual(_brand.BrandName, result.BrandName);
+            Assert.AreEqual(_brand.Name, result.Name);
         }
 
         [TestMethod]
@@ -61,9 +61,9 @@ namespace SomeProducts.DAL.Test
         {
             var brands = new List<Brand>()
             {
-                new Brand() {BrandName = "name1"},
-                new Brand() {BrandName = "name2"},
-                new Brand() {BrandName = "name3"}
+                new Brand() {Name = "name1"},
+                new Brand() {Name = "name2"},
+                new Brand() {Name = "name3"}
             };
             foreach (var brand in brands)
             {
@@ -75,7 +75,7 @@ namespace SomeProducts.DAL.Test
 
             foreach (var brand in brands)
             {
-                Assert.AreEqual(brand.BrandName, result.Find( b => b.BrandName == brand.BrandName).BrandName);   
+                Assert.AreEqual(brand.Name, result.Find( b => b.Name == brand.Name).Name);   
             }
         }
 
@@ -85,13 +85,13 @@ namespace SomeProducts.DAL.Test
             _repository.Create(_brand);
             _repository.Save();
             var brand = _repository.GetLast();
-            brand.BrandName = "name2";
+            brand.Name = "name2";
 
             _repository.Update(brand);
             _repository.Save();
-            var result = _repository.GetById(brand.BrandId);
+            var result = _repository.GetById(brand.Id);
 
-            Assert.AreEqual(brand.BrandName, result.BrandName);
+            Assert.AreEqual(brand.Name, result.Name);
         }
 
         [TestMethod]
@@ -100,11 +100,11 @@ namespace SomeProducts.DAL.Test
             _repository.Create(_brand);
             _repository.Save();
             var brand = _repository.GetLast();
-            brand.BrandName = "name2";
+            brand.Name = "name2";
 
             _repository.Update(brand);
             _repository.Save();
-            var result = _repository.GetById(brand.BrandId);
+            var result = _repository.GetById(brand.Id);
 
             Assert.IsNotNull(result.ModifiedDate);
             Assert.IsTrue(DateTime.Compare(DateTime.UtcNow.Subtract(TimeSpan.FromSeconds(10)), result.ModifiedDate.Value) < 0);
@@ -117,7 +117,7 @@ namespace SomeProducts.DAL.Test
             _repository.Save();
 
             var brand = _repository.GetLast();
-            var result = _repository.GetCreateTime(brand.BrandId);
+            var result = _repository.GetCreateTime(brand.Id);
 
             Assert.AreEqual(brand.CreateDate, result);
         }

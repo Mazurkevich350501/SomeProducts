@@ -25,8 +25,8 @@ namespace SomeProducts.DAL.Test
             _brandDao = new BrandDao(_brandRepository.Object, _productRepository.Object);
             _brand = new Brand()
             {
-                BrandId = 5,
-                BrandName = "name",
+                Id = 5,
+                Name = "name",
                 CreateDate = DateTime.Now
             };
         }
@@ -38,9 +38,9 @@ namespace SomeProducts.DAL.Test
             _brandRepository.Setup(r => r.Delete(It.IsAny<int>()))
                 .Callback<int>(id => deletedId = id);
 
-            _brandDao.RemoveBrand(_brand.BrandId);
+            _brandDao.RemoveBrand(_brand.Id);
 
-            Assert.AreEqual(_brand.BrandId, deletedId);
+            Assert.AreEqual(_brand.Id, deletedId);
         }
 
         [TestMethod]

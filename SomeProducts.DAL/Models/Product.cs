@@ -1,11 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using SomeProducts.DAL.Repository;
 
 namespace SomeProducts.DAL.Models
 {
-    public class Product : IDateModified
+    public class Product : IDateModified, IIdentify
     {
-        public int ProductId { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
@@ -24,5 +25,8 @@ namespace SomeProducts.DAL.Models
         public DateTime CreateDate { get; set; }
 
         public DateTime? ModifiedDate { get; set; }
+
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
     }
 }

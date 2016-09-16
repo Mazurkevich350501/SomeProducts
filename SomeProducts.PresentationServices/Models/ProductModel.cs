@@ -5,7 +5,7 @@ namespace SomeProducts.PresentationServices.Models
 {
     public class ProductModel : IImageModel
     {
-        public int ProductId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [MaxLength(200, ErrorMessage = "Name cannot be longer than 200 characters.")]
@@ -29,5 +29,7 @@ namespace SomeProducts.PresentationServices.Models
         public byte[] Image { get; set; }
 
         public string ImageType { get; set; }
+
+        public byte[] Version { get; set; }
     }
 }

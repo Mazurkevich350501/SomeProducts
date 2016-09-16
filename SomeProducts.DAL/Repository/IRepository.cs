@@ -8,7 +8,7 @@ namespace SomeProducts.DAL.Repository
         IEnumerable<T> GetAllItems();
         T GetById(int id);
         void Create(T item);
-        void Update(T item);
+        bool Update(T item);
         void Delete(int id);
         void Save();
         T GetLast();

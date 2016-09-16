@@ -9,7 +9,7 @@ namespace SomeProducts.DAL.IDao
 
         Product GetLastProduct();
 
-        void UpdateProduct(Product product);
+        bool UpdateProduct(Product product);
 
         void CreateProduct(Product product);
 

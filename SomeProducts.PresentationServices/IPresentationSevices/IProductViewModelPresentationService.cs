@@ -12,6 +12,6 @@ namespace SomeProducts.PresentationServices.IPresentationSevices
 
         void RemoveProductViewModel(int id);
 
-        void UpdateProductViewModel(ProductViewModel model);
+        bool UpdateProductViewModel(ProductViewModel model);
     }
 }

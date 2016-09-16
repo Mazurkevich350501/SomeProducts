@@ -28,8 +28,8 @@ namespace SomeProducts.PresentationServices.Test
         {
             var brands = new List<Brand>
             {
-                new Brand() {BrandId = 1, BrandName = "Name1"},
-                new Brand() {BrandId = 2, BrandName = "Name2"}
+                new Brand() {Id = 1, Name = "Name1"},
+                new Brand() {Id = 2, Name = "Name2"}
             };
             _brandDao.Setup(d => d.GetAllItems()).Returns(brands);
 
@@ -46,14 +46,14 @@ namespace SomeProducts.PresentationServices.Test
             {
                 AddedBrands = new List<BrandModel>()
                 {
-                    new BrandModel() {BrandId = 0, BrandName = "Name01"},
-                    new BrandModel() {BrandId = 0, BrandName = "Name02"}
+                    new BrandModel() {Id = 0, Name = "Name01"},
+                    new BrandModel() {Id = 0, Name = "Name02"}
                 },
                 RemovedBrands = new List<BrandModel>()
                 {
-                    new BrandModel() {BrandId = 1, BrandName = "Name1"},
-                    new BrandModel() {BrandId = 2, BrandName = "Name2"},
-                    new BrandModel() {BrandId = 3, BrandName = "Name3"}
+                    new BrandModel() {Id = 1, Name = "Name1"},
+                    new BrandModel() {Id = 2, Name = "Name2"},
+                    new BrandModel() {Id = 3, Name = "Name3"}
                 }
             };
             var addedList = new List<BrandModel>();
@@ -62,12 +62,12 @@ namespace SomeProducts.PresentationServices.Test
             _brandDao.Setup(d => d.CreateBrand(It.IsAny<Brand>()))
                 .Callback<Brand>((Brand brand) =>
                 {
-                    if (brand.BrandId == 0)
+                    if (brand.Id == 0)
                     {
                         addedList.Add(new BrandModel()
                         {
-                            BrandId = brand.BrandId,
-                            BrandName = brand.BrandName
+                            Id = brand.Id,
+                            Name = brand.Name
                         });
                     }
                 });
@@ -84,11 +84,11 @@ namespace SomeProducts.PresentationServices.Test
 
             foreach (var brand in changeModel.RemovedBrands)
             {
-                Assert.AreEqual(brand.BrandId, removedIdList.Find(id => id == brand.BrandId));
+                Assert.AreEqual(brand.Id, removedIdList.Find(id => id == brand.Id));
             }
             foreach (var brand in changeModel.AddedBrands)
             {
-                Assert.AreEqual(brand.BrandName, addedList.Find(b => b.BrandName == brand.BrandName).BrandName);
+                Assert.AreEqual(brand.Name, addedList.Find(b => b.Name == brand.Name).Name);
             }
         }
     }

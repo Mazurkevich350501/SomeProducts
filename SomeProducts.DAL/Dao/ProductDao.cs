@@ -15,10 +15,11 @@ namespace SomeProducts.DAL.Dao
             _repository = repository;
         }
 
-        public void UpdateProduct(Product product)
+        public bool UpdateProduct(Product product)
         {
-            _repository.Update(product);
+            var result = _repository.Update(product);
             _repository.Save();
+            return result;
         }
 
         public Product GetProduct(int id)

@@ -18,7 +18,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
 
         public void CreateBrand(BrandModel model)
         {
-            var brand = new Brand() { BrandId = model.BrandId, BrandName = model.BrandName };
+            var brand = new Brand() { Id = model.Id, Name = model.Name, RowVersion = model.Version};
             _brandSevice.CreateBrand(brand);
         }
 
@@ -30,7 +30,12 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
         public IEnumerable<BrandModel> GetAllItems()
         {
             var brandList = _brandSevice.GetAllItems().ToList();
-            return brandList.Select(brand => new BrandModel() { BrandId = brand.BrandId, BrandName = brand.BrandName }).ToList();
+            return brandList.Select(brand => new BrandModel()
+            {
+                Id = brand.Id,
+                Name = brand.Name,
+                Version = brand.RowVersion
+            }).ToList();
         }
 
         public bool IsBrandModelUsing(int id)
@@ -46,7 +51,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
                 {
                     foreach (var brand in changeModel.RemovedBrands)
                     {
-                        RemoveBrand(brand.BrandId);
+                        RemoveBrand(brand.Id);
                     }
                 }
 

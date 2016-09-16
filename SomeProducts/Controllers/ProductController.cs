@@ -1,4 +1,5 @@
 ﻿
+
 using System.Linq;
 using System.Web.Mvc;
 using SomeProducts.PresentationServices.IPresentationSevices;
@@ -30,9 +31,9 @@ namespace SomeProducts.Controllers
         public ActionResult Edit(int id)
         {
             var productModel = _productViewModelService.GetProductViewModel(id);
-            if (productModel == null)
+            if (productModel.Product == null)
             {
-                return View("Error");
+                return View("Error", (object)"Product was not found");
             }
             return View("Create", productModel);
         }
@@ -46,7 +47,7 @@ namespace SomeProducts.Controllers
                 ImageUtils.AddImageToModel(model.Product, Request);
                 _productViewModelService.CreateProductViewModel(model);
                 var productModel = _productViewModelService.GetLastProductViewMode();
-                return RedirectToAction("Edit", "Product", new { id = productModel.Product.ProductId });
+                return RedirectToAction("Edit", "Product", new { id = productModel.Product.Id });
             }
             var newModel = _productViewModelService.GetProductViewModel();
             newModel.Product = model.Product;
@@ -59,8 +60,12 @@ namespace SomeProducts.Controllers
             if (ModelState.IsValid)
             {
                 ImageUtils.AddImageToModel(model.Product, Request);
-                _productViewModelService.UpdateProductViewModel(model);
-                return RedirectToAction("Edit", "Product", new { id = model.Product.ProductId });
+                var result = _productViewModelService.UpdateProductViewModel(model);
+                if (result)
+                {
+                    return RedirectToAction("Edit", "Product", new { id = model.Product.Id });
+                }
+                return View("Error", (object)"Product already has changed");
             }
 
             var newModel = _productViewModelService.GetProductViewModel();

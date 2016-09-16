@@ -26,8 +26,8 @@ namespace SomeProducts.Test
 
             _allBrands = new List<BrandModel>
             {
-                new BrandModel() {BrandId = 1, BrandName = "name1"},
-                new BrandModel() {BrandId = 2, BrandName = "name2"}
+                new BrandModel() {Id = 1, Name = "name1"},
+                new BrandModel() {Id = 2, Name = "name2"}
             };
         }
 
@@ -57,7 +57,7 @@ namespace SomeProducts.Test
                 Product = new ProductModel()
                 {
                     BrandId = 5,
-                    ProductId = 5,
+                    Id = 5,
                     Name = "name",
                     Quantity = 5
                 },
@@ -71,7 +71,7 @@ namespace SomeProducts.Test
             Assert.IsNotNull(result);
             Assert.AreEqual("Product", result.RouteValues["controller"]);
             Assert.AreEqual("Edit", result.RouteValues["action"]);
-            Assert.AreEqual(product.Product.ProductId, result.RouteValues["id"]);
+            Assert.AreEqual(product.Product.Id, result.RouteValues["id"]);
         }
 
         [TestMethod]
@@ -88,7 +88,7 @@ namespace SomeProducts.Test
                 Brands = new Dictionary<int, string>()
             };
             _productModelService.Setup(s => s.GetProductViewModel(It.IsAny<int?>())).Returns(product);
-            _controller.ModelState.AddModelError("ProductId", "Product Id is not valid.");
+            _controller.ModelState.AddModelError("Id", "Product Id is not valid.");
 
             var result = _controller.Create(product) as ViewResult;
 
@@ -114,7 +114,7 @@ namespace SomeProducts.Test
             const int id = 5;
             var product = new ProductViewModel
             {
-                Product = new ProductModel() { ProductId = id },
+                Product = new ProductModel() { Id = id },
                 Colors = new ProductColors().Colors,
                 Brands = new Dictionary<int, string>()
             };
@@ -131,7 +131,7 @@ namespace SomeProducts.Test
         public void Edit_Save_Should_Return_EditView_If_ProductViewModel_Is_Not_Valid()
         {
 
-            var product = new ProductViewModel { Product = new ProductModel() { ProductId = 5 } };
+            var product = new ProductViewModel { Product = new ProductModel() { Id = 5 } };
             var newProduct = new ProductViewModel()
             {
                 Product = new ProductModel(),
@@ -150,17 +150,28 @@ namespace SomeProducts.Test
         }
 
         [TestMethod]
-        public void Edit_Save_Should_Redirect_To_Edit_If_ProductViewModel_Is_Not_Valid()
+        public void Edit_Save_Should_Redirect_To_Edit_If_ProductViewModel_Is_Valid()
         {
 
-            var product = new ProductViewModel { Product = new ProductModel() { ProductId = 5 } };
+            var product = new ProductViewModel { Product = new ProductModel() { Id = 5 } };
 
             var result = _controller.Edit(product) as RedirectToRouteResult;
 
             Assert.IsNotNull(result);
             Assert.AreEqual("Edit", result.RouteValues["Action"]);
             Assert.AreEqual("Product", result.RouteValues["Controller"]);
-            Assert.AreEqual(product.Product.ProductId, result.RouteValues["id"]);
+            Assert.AreEqual(product.Product.Id, result.RouteValues["id"]);
+        }
+
+        [TestMethod]
+        public void Edit_Save_Should_Redirect_To_ErrorView_If_Product_Alredy_Has_Change()
+        {
+            _productModelService.Setup(p => p.UpdateProductViewModel(It.IsAny<ProductViewModel>())).Returns(false);
+
+            var result = _controller.Edit(new ProductViewModel()) as ViewResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Error", result.ViewName);
         }
 
         [TestMethod]

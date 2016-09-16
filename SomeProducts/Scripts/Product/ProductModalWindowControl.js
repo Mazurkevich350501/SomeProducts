@@ -13,7 +13,7 @@
     var modalWindowNamespace = Utils.getNamespace("ModalWindow");
     modalWindowNamespace.initModalWindow = function (newParams) {
         params = newParams;
-    }
+    };
     $("#saveBtnId").click(saveBrandsChanges);
     $("#addBtnId").click(addNewBrand);
 
@@ -30,46 +30,47 @@
             $.getJSON(params.url.getBrandsListUrl, function (brands) {
                 startInit();
                 brands.forEach(function (item) {
-                    addToBrandsList(item.BrandName, item.BrandId, "dbBrand");
+                    addToBrandsList(item.Name, item.Id, "dbBrand");
                 });
                 showBrandsList();
             });
         });
     });
 
-    function addToBrandsList(brandName, brandId, type) {
+    function addToBrandsList(name, id, type) {
         brandsList.push({
-            brandName: brandName,
-            brandId: brandId,
+            name: name,
+            id: id,
             type: type
         });
 
         if (type === "newBrand") {
             brandChangesModel.AddedBrands.push({
-                brandName: brandName,
-                brandId: 0
+                name: name,
+                id: 0
             });
         }
     }
 
-    function removeFromBrandsList(brandName, type) {
-        function removeBrand(list, brandName){
-            list.find(function (element, index, array){
-                if (element.brandName === brandName) {
+    function removeFromBrandsList(name, type) {
+        function removeBrand(list, name){
+            list.find(function (element, index, array) {
+                if (element.name === name) {
                     array.splice(index, 1);
                     return true;
                 }
+                return false;
             });
         }
         if (type === "dbBrand") {
             brandsList.find(function (element, index, array) {
-                if (element.brandName === brandName) {
-                    $.getJSON(params.url.isBrandUsingUrl + "/" + element.brandId, function (isUsing) {
+                if (element.name === name) {
+                    $.getJSON(params.url.isBrandUsingUrl + "/" + element.id, function (isUsing) {
                         if (!isUsing) {
                             array.splice(index, 1);
                             brandChangesModel.RemovedBrands.push({
-                                brandId: element.brandId,
-                                brandName: brandName
+                                id: element.id,
+                                name: name
                             });
                             showBrandsList();
                         }
@@ -78,8 +79,8 @@
             });
         }
         else {
-            removeBrand(brandsList, brandName);
-            removeBrand(brandChangesModel.AddedBrands, brandName);
+            removeBrand(brandsList, name);
+            removeBrand(brandChangesModel.AddedBrands, name);
             showBrandsList();
         }
     }
@@ -91,13 +92,13 @@
     }
 
     function addNewBrand() {
-        var brandName = $("#newBrandName").val();
-        if (validate(brandName)) {
-            addToBrandsList(brandName, idCounter++, "newBrand");
+        var name = $("#newBrandName").val();
+        if (validate(name)) {
+            addToBrandsList(name, idCounter++, "newBrand");
             $("#newBrandName").val("");
         }
         else {
-            showErrorMessage(getErrorMessage(brandName));
+            showErrorMessage(getErrorMessage(name));
         }
         showBrandsList();
     }
@@ -109,7 +110,6 @@
     }
 
     function saveBrandsChanges() {
-        console.log(JSON.stringify({ brandChangesModel }));
         postJsonData(JSON.stringify(brandChangesModel), params.url.saveBrandsChangesUrl);
     }
 
@@ -132,7 +132,7 @@
         var id = "#" + params.id.brandDropdownId;
         $(id).find("option").remove();
         items.forEach(function (item) {
-            addOptionToSelectBox(id, item.BrandId, item.BrandName);
+            addOptionToSelectBox(id, item.Id, item.Name);
         });
     }
 
@@ -144,9 +144,9 @@
         $("#BrandModal").modal("hide");
     }
 
-    function validate(brandName) {
+    function validate(name) {
         $("#newBrandValidation").empty();
-        if (getErrorMessage(brandName) === "") {
+        if (getErrorMessage(name) === "") {
             return true;
         }
         else {
@@ -154,20 +154,20 @@
         }
     }
 
-    function getErrorMessage(brandName) {
+    function getErrorMessage(name) {
         var message = "";
-        if (brandName === "") {
+        if (name === "") {
             message = "Brand name is empty.";
         }
         if (brandsList.length !== 0) {
             brandsList.forEach(function (brand) {
-                if (brand.brandName === brandName) {
+                if (brand.name === name) {
                     message = "Brand name already exists.";
                 }
             });
         }
 
-        if (Utils.checkValidityData(brandName)) {
+        if (Utils.checkValidityData(name)) {
             message = "Used illegal characters";
         }
         return message;
