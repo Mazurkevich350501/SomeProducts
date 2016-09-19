@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
@@ -38,6 +39,16 @@ namespace SomeProducts.DAL.Dao
         {
             _repository.Delete(id);
             _repository.Save();
+        }
+
+        public DateTime GetCreateTime(int id)
+        {
+            return _repository.GetCreateTime(id);
+        }
+
+        public bool UpdateBrand(Brand brand)
+        {
+            return  _repository.Update(brand);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SomeProducts.DAL.Models;
 
 namespace SomeProducts.DAL.IDao
@@ -12,5 +13,9 @@ namespace SomeProducts.DAL.IDao
         void CreateBrand(Brand brand);
 
         bool IsBrandUsing(int id);
+
+        DateTime GetCreateTime(int id);
+
+        bool UpdateBrand(Brand brand);
     }
 }

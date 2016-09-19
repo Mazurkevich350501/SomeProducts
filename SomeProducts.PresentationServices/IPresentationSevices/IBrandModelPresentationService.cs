@@ -14,5 +14,7 @@ namespace SomeProducts.PresentationServices.IPresentationSevices
         bool IsBrandModelUsing(int id);
 
         void SaveBrandChanges(BrandsChangeModel model);
+
+        bool UbdateBrandModel(BrandModel model);
     }
 }

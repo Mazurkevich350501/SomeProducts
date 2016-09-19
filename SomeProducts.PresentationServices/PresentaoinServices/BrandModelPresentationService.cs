@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
@@ -18,7 +19,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
 
         public void CreateBrand(BrandModel model)
         {
-            var brand = new Brand() { Id = model.Id, Name = model.Name, RowVersion = model.Version};
+            var brand = new Brand() { Id = model.Id, Name = model.Name, RowVersion = model.Version };
             _brandSevice.CreateBrand(brand);
         }
 
@@ -62,9 +63,26 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
                         CreateBrand(brand);
                     }
                 }
+
+                if (changeModel.EditedBrands != null)
+                {
+                    foreach (var brand in changeModel.EditedBrands)
+                    {
+                        UbdateBrandModel(brand);
+                    }
+                }
             }
 
         }
 
+        public bool UbdateBrandModel(BrandModel model)
+        {
+            return _brandSevice.UpdateBrand(new Brand()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                RowVersion = model.Version
+            });
+        }
     }
 }

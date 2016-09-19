@@ -5,7 +5,7 @@
     var removedIds;
     var idCounter;
     var params = {};
-    var isValidate = false;
+    var isValid = true;
 
     var modalWindowNamespace = Utils.getNamespace("ModalWindow");
     modalWindowNamespace.initModalWindow = function (newParams) {
@@ -25,7 +25,7 @@
             $.getJSON(params.url.getBrandsListUrl, function (brands) {
                 startInit();
                 brands.forEach(function (item) {
-                    addToBrandsList(item.Name, item.Id, "dbBrand", item.version);
+                    addToBrandsList(item.Name, item.Id, "dbBrand", item.Version);
                 });
                 showBrandsList();
             });
@@ -88,19 +88,26 @@
     }
 
     function editBrand(e) {
-        var id = e.target.getAttribute("data-id");
-        var name = $(e.target).val();
-        if (validate(name, id)) {
-            editBrandList(id, name);
-            showBrandsList();
-        }
-        else {
-            showErrorMessage("brandValidation-" + id, getErrorMessage(name, id));
-        }
+        isValid = true;
+        editBrandList($(e.target).attr("data-id"), $(e.target).val());
+        brandListValidation();
+    }
+
+    function brandListValidation(){
+        $("input[class='brand-edit-input']").each(function(index, element){
+            var id = $(element).attr("data-id");
+            var name = $(element).val();
+            $("#brandValidation-" + id).empty();
+            if (!validate(name, id)) {
+                isValid = false;
+                showErrorMessage("brandValidation-" + id, getErrorMessage(name, id));
+            }
+        });
     }
 
     function addNewBrand() {
         var name = $("#newBrandName").val();
+        $("#newBrandValidation").empty();
         if (validate(name, 0)) {
             addToBrandsList(name, idCounter--, "newBrand");
             $("#newBrandName").val("");
@@ -109,6 +116,7 @@
             showErrorMessage("newBrandValidation", getErrorMessage(name, 0));
         }
         showBrandsList();
+        brandListValidation();
     }
 
     function removeBrand(e) {
@@ -118,7 +126,7 @@
     }
 
     function saveBrandsChanges() {
-        if (isValidate) {
+        if (isValid) {
             postJsonData(JSON.stringify(getBrandChangeModel()), params.url.saveBrandsChangesUrl);
         }
     }
@@ -182,12 +190,11 @@
     }
 
     function validate(name, id) {
-        $("#newBrandValidation").empty();
         if (getErrorMessage(name, id) === "") {
-            return isValidate = true;
+            return true;
         }
         else {
-            return isValidate = false;
+            return false;
         }
     }
 
