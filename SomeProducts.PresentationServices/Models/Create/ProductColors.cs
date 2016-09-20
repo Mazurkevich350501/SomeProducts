@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SomeProducts.PresentationServices.Models
+namespace SomeProducts.PresentationServices.Models.Create
 {
     public class ProductColors
     {

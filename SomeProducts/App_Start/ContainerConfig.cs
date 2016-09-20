@@ -4,8 +4,10 @@ using SomeProducts.DAL.Dao;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.DAL.Repository;
-using SomeProducts.PresentationServices.IPresentationSevices;
-using SomeProducts.PresentationServices.PresentaoinServices;
+using SomeProducts.PresentationServices.IPresentationSevices.Create;
+using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
+using SomeProducts.PresentationServices.PresentaoinServices.Create;
+using SomeProducts.PresentationServices.PresentaoinServices.ProductTable;
 
 namespace SomeProducts
 {
@@ -21,6 +23,8 @@ namespace SomeProducts
             builder.RegisterType<ProductViewModelPresentationService>().As<IProductViewModelPresentationService>();
             builder.RegisterType<BrandModelPresentationService>().As<IBrandModelPresentationService>();
             builder.RegisterType<ProductController>().As<ProductController>();
+            builder.RegisterType<ProductTablePresentationService>().As<IProductTablePresentationService>();
+            builder.RegisterType<ProductTableController>().As<ProductTableController>();
             return builder.Build();
         }
     }

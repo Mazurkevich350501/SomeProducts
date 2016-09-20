@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using SomeProducts.DAL.Models;
 
 namespace SomeProducts.DAL.IDao
@@ -16,5 +17,7 @@ namespace SomeProducts.DAL.IDao
         void RemoveProduct(int id);
 
         DateTime GetCreateTime(int id);
+
+        ICollection<Product> GetAllProducts();
     }
 }

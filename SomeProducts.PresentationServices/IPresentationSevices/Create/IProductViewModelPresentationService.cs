@@ -1,6 +1,6 @@
-﻿using SomeProducts.PresentationServices.Models;
+﻿using SomeProducts.PresentationServices.Models.Create;
 
-namespace SomeProducts.PresentationServices.IPresentationSevices
+namespace SomeProducts.PresentationServices.IPresentationSevices.Create
 {
     public interface IProductViewModelPresentationService
     {

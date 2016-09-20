@@ -5,8 +5,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
-using SomeProducts.PresentationServices.Models;
-using SomeProducts.PresentationServices.PresentaoinServices;
+using SomeProducts.PresentationServices.Models.Create;
+using SomeProducts.PresentationServices.PresentaoinServices.Create;
 
 namespace SomeProducts.PresentationServices.Test
 {

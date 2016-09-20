@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SomeProducts.PresentationServices.Models
+namespace SomeProducts.PresentationServices.Models.Create
 {
     public class BrandModel
     {

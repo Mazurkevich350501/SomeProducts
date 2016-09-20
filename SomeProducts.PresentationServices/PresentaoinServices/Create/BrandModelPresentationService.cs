@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
-using SomeProducts.PresentationServices.IPresentationSevices;
-using SomeProducts.PresentationServices.Models;
+using SomeProducts.PresentationServices.IPresentationSevices.Create;
+using SomeProducts.PresentationServices.Models.Create;
 
-namespace SomeProducts.PresentationServices.PresentaoinServices
+namespace SomeProducts.PresentationServices.PresentaoinServices.Create
 {
     public class BrandModelPresentationService : IBrandModelPresentationService
     {

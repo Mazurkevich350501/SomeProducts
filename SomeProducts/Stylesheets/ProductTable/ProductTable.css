@@ -1,0 +1,10 @@
+﻿.product-table-div {
+    max-height: 500px; 
+    overflow-y: scroll;
+}
+
+.product-table-image {
+    max-height: 80px;
+    max-width: 80px;
+    border: 6px solid white;
+}

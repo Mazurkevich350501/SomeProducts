@@ -1,0 +1,47 @@
+﻿@model SomeProducts.PresentationServices.Models.ProductTable.ProductTableViewModel
+@{
+    ViewBag.Title = "ProductTable";
+    <h2>ProductTable</h2>
+    <div class="product-table-div">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Description</th>
+                    <th>Brand</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model.Products)
+                {
+                    <tr>
+                        <th>
+                            @if (@product.Image != null)
+                            {
+                                <img class="product-table-image" style="border: 6px solid @product.Color;"
+                                     src="data:@product.ImageType;base64,@Convert.ToBase64String(product.Image)" alt="" />
+                            }
+                            else
+                            {
+                                <img class="product-table-image" style="border: 6px solid @product.Color;"
+                                     src="~/Resources/emptyImage.jpg" alt="" />
+                            }
+                            @Html.DisplayFor(p => product.Name)
+                        </th>
+                        <th>@Html.DisplayFor(p => product.Description)</th>
+                        <th>@Html.DisplayFor(p => product.Brand)</th>
+                        <th>@Html.DisplayFor(p => product.Quantity)</th>
+                        <th></th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+}
+
+@section stylesheets
+{
+    @Styles.Render("~/Product/ProductTable/css")
+}

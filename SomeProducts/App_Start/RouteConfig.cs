@@ -16,7 +16,7 @@ namespace SomeProducts
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Product", action = "Create", id = UrlParameter.Optional }
+                defaults: new { controller = "ProductTable", action = "Show", id = UrlParameter.Optional }
             );
         }
     }

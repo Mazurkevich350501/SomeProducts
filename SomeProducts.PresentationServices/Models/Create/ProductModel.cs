@@ -1,7 +1,7 @@
-﻿using SomeProducts.CrossCutting.Intefaces;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using SomeProducts.CrossCutting.Intefaces;
 
-namespace SomeProducts.PresentationServices.Models
+namespace SomeProducts.PresentationServices.Models.Create
 {
     public class ProductModel : IImageModel
     {
