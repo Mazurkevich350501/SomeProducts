@@ -81,7 +81,8 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
             {
                 Id = model.Id,
                 Name = model.Name,
-                RowVersion = model.Version
+                RowVersion = model.Version,
+                CreateDate = _brandSevice.GetCreateTime(model.Id)
             });
         }
     }

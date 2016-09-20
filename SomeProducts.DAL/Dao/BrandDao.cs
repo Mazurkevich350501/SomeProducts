@@ -48,7 +48,12 @@ namespace SomeProducts.DAL.Dao
 
         public bool UpdateBrand(Brand brand)
         {
-            return  _repository.Update(brand);
+            if (_repository.Update(brand))
+            {
+                _repository.Save();
+                return true;   
+            }
+            return false;
         }
     }
 }
