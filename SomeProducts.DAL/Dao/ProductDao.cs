@@ -55,10 +55,15 @@ namespace SomeProducts.DAL.Dao
         {
             return _repository.GetAllItems().ToList();
         }
-        
-        public ICollection<Product> GetSortedProducts(int from, int count, string sortingOption)
+
+        public ICollection<Product> GetSortedProducts(string sortingOption)
         {
-            return _repository.GetAllItems().OrderBy(p => p.Name).Skip(from).Take(count).ToList();
+            if (sortingOption.Substring(0, 3) == "rev")
+            {
+                return _repository.GetAllItems().OrderByDescending(p => p.GetType().GetProperty(sortingOption.Replace("rev", "")).GetValue(p)).ToList();
+            }
+
+            return _repository.GetAllItems().OrderBy(p => p.GetType().GetProperty(sortingOption).GetValue(p)).ToList();
         }
     }
 }

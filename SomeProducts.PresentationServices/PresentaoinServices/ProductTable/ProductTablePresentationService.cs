@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using PagedList;
 using SomeProducts.DAL.IDao;
 using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
@@ -21,7 +19,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable
         public ProductTableViewModel GetTablePage(PageInfo info)
         {
             var model = new ProductTableViewModel();
-            var productList = _dao.GetSortedProducts(0, 100, info.SortingOption);
+            var productList = _dao.GetSortedProducts(info.SortingOption);
             var tableList = productList.Select(ProductTableModelCast).ToList();
             model.Products = tableList.ToPagedList(info.Page, info.ProductCount);
             model.PageInfo = info;

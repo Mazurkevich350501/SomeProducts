@@ -20,6 +20,6 @@ namespace SomeProducts.DAL.IDao
 
         ICollection<Product> GetAllProducts();
 
-        ICollection<Product> GetSortedProducts(int from, int count, string sortingOption);
+        ICollection<Product> GetSortedProducts(string sortingOption);
     }
 }
