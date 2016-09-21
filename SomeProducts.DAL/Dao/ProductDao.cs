@@ -55,5 +55,10 @@ namespace SomeProducts.DAL.Dao
         {
             return _repository.GetAllItems().ToList();
         }
+        
+        public ICollection<Product> GetSortedProducts(int from, int count, string sortingOption)
+        {
+            return _repository.GetAllItems().OrderBy(p => p.Name).Skip(from).Take(count).ToList();
+        }
     }
 }

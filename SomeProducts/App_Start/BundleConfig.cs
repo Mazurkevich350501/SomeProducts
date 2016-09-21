@@ -38,6 +38,10 @@ namespace SomeProducts
 
             bundles.Add(new StyleBundle("~/Product/ProductTable/css").Include(
                 "~/Stylesheets/ProductTable/ProductTable.css"));
+
+            bundles.Add((new ScriptBundle("~/Product/ProductTable/Scripts").Include(
+                "~/Scripts/Common/Utils.js", 
+                "~/Scripts/ProductTable/ProductTableController.js")));
         }
     }
 }

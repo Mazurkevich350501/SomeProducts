@@ -1,47 +1,70 @@
-﻿@model SomeProducts.PresentationServices.Models.ProductTable.ProductTableViewModel
-@{
-    ViewBag.Title = "ProductTable";
-    <h2>ProductTable</h2>
-    <div class="product-table-div">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Product Name</th>
-                    <th>Description</th>
-                    <th>Brand</th>
-                    <th>Quantity</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var product in Model.Products)
-                {
-                    <tr>
-                        <th>
-                            @if (@product.Image != null)
-                            {
-                                <img class="product-table-image" style="border: 6px solid @product.Color;"
-                                     src="data:@product.ImageType;base64,@Convert.ToBase64String(product.Image)" alt="" />
-                            }
-                            else
-                            {
-                                <img class="product-table-image" style="border: 6px solid @product.Color;"
-                                     src="~/Resources/emptyImage.jpg" alt="" />
-                            }
-                            @Html.DisplayFor(p => product.Name)
-                        </th>
-                        <th>@Html.DisplayFor(p => product.Description)</th>
-                        <th>@Html.DisplayFor(p => product.Brand)</th>
-                        <th>@Html.DisplayFor(p => product.Quantity)</th>
-                        <th></th>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+﻿@using PagedList.Mvc
+@model SomeProducts.PresentationServices.Models.ProductTable.ProductTableViewModel
 
+
+<div class="product-table-div">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Description</th>
+                <th>Brand</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var product in Model.Products)
+        {
+            <tr>
+                <th>
+                    @if (@product.Image != null)
+                    {
+                        <img class="product-table-image" style="border: 6px solid @product.Color;"
+                             src="data:@product.ImageType;base64,@Convert.ToBase64String(product.Image)" alt=""/>
+                    }
+                    else
+                    {
+                        <img class="product-table-image" style="border: 6px solid @product.Color;"
+                             src="~/Resources/emptyImage.jpg" alt=""/>
+                    }
+                    @Html.DisplayFor(p => product.Name)
+                </th>
+                <th>@Html.DisplayFor(p => product.Description)</th>
+                <th>@Html.DisplayFor(p => product.Brand)</th>
+                <th>@Html.DisplayFor(p => product.Quantity)</th>
+                <th></th>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+<div class="row">
+    <div class="col-xs-6">
+        @Html.PagedListPager(Model.Products, page => Url.Action("Show", "ProductTable", new { page, count = @Model.PageInfo.ProductCount, by = @Model.PageInfo.SortingOption }))
+    </div>
+    <div class="dropdown col-xs-1">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+            Products count: @Model.PageInfo.ProductCount
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            @for (var i = 1; i < 5; i++)
+            {
+                <li><a class="dropdown-item" href=@Url.Action("Show", "ProductTable", new {page = Model.PageInfo.Page, count = i*5, by = Model.PageInfo.SortingOption})>@(i*5)</a></li>
+            }
+        </ul>
+    </div>
+</div>
+
+
+
+@section scripts
+{
+    @Styles.Render("~/Product/ProductTable/script")
 }
 
 @section stylesheets
 {
     @Styles.Render("~/Product/ProductTable/css")
 }
+

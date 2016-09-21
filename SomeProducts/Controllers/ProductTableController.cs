@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using PagedList;
 using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
 using SomeProducts.PresentationServices.Models.ProductTable;
 
@@ -18,9 +15,16 @@ namespace SomeProducts.Controllers
         }
 
         // GET: ProductTable
-        public ActionResult Show()
+        public ActionResult Show(int? page, int? count, string by)
         {
-            return View("ProductTable", _service.GetTablePage(0,0));
+            var pageInfo = new PageInfo()
+            {
+                Page = page ?? 1,
+                ProductCount = count ?? 5,
+                SortingOption = by ?? "Name"
+            };
+            var model = _service.GetTablePage(pageInfo);
+            return View("ProductTable", model);
         }
     }
 }

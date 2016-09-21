@@ -19,5 +19,7 @@ namespace SomeProducts.DAL.IDao
         DateTime GetCreateTime(int id);
 
         ICollection<Product> GetAllProducts();
+
+        ICollection<Product> GetSortedProducts(int from, int count, string sortingOption);
     }
 }

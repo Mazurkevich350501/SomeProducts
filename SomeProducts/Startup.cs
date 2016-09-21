@@ -8,7 +8,7 @@ namespace SomeProducts
     public partial class Startup
     {
         public void Configuration(IAppBuilder app)
-       {
+        {
            ControllerBuilder.Current.SetControllerFactory(typeof(CustomControllerFactory));
         }
     }
