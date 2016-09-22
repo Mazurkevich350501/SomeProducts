@@ -1,5 +1,5 @@
-﻿using SomeProducts.CrossCutting.Intefaces;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using SomeProducts.CrossCutting.Interfaces;
 
 namespace SomeProducts.PresentationServices.Models
 {

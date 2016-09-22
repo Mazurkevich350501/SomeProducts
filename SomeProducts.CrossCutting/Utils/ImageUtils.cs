@@ -1,5 +1,5 @@
 ﻿using System.Web;
-using SomeProducts.CrossCutting.Intefaces;
+using SomeProducts.CrossCutting.Interfaces;
 
 namespace SomeProducts.CrossCutting.Utils
 {
