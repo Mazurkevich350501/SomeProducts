@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using SomeProducts.DAL.Repository;
 
 namespace SomeProducts.DAL.Models
@@ -13,6 +14,9 @@ namespace SomeProducts.DAL.Models
         public string Description { get; set; }
 
         public int BrandId { get; set; }
+
+        [ForeignKey("BrandId")]
+        public virtual Brand Brand { get; set; }
 
         public string Color { get; set; }
 

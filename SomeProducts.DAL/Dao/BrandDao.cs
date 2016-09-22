@@ -32,7 +32,7 @@ namespace SomeProducts.DAL.Dao
 
         public bool IsBrandUsing(int id)
         {
-            return _productRepository.GetAllItems().Any(p => p.BrandId == id);
+            return _productRepository.GetAllItems().Any(p => p.Brand.Id == id);
         }
 
         public void RemoveBrand(int id)
@@ -54,6 +54,11 @@ namespace SomeProducts.DAL.Dao
                 return true;   
             }
             return false;
+        }
+
+        public Brand GetById(int id)
+        {
+            return _repository.GetById(id);
         }
     }
 }

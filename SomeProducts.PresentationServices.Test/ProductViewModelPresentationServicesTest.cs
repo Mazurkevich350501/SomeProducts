@@ -33,7 +33,7 @@ namespace SomeProducts.PresentationServices.Test
             {
                 Id = 5,
                 Name = "Name",
-                BrandId = 5,
+                Brand = new Brand() {Id = 5, Name = "BrName"},
                 Quantity = 5,
                 Color = "#ffffff",
                 Description = "Description",
