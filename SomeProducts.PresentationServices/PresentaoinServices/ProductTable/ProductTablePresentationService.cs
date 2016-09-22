@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using PagedList;
 using SomeProducts.DAL.IDao;
@@ -22,10 +23,13 @@ namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable
         {
             var model = new ProductTableViewModel();
             var productList = GetSortedProducts(info.SortingOption);
-
             var tableList = productList.Select(ProductTableModelCast).ToList();
-            model.Products = tableList.ToPagedList(info.Page, info.ProductCount);
+            info.ProductCount = GetValidProductCountValue(info, 5, 20, 10);
+            info.Page = info.Page < 0 ? 1 : info.Page;
+
             model.PageInfo = info;
+            model.Products = tableList.ToPagedList(info.Page, info.ProductCount);
+
             return model;
         }
 
@@ -41,20 +45,35 @@ namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable
             return result;
         }
 
+        private static string GetShortString(string str, int length)
+        {
+            if (str == null || length < 0) return null;
+            return str.Length < length
+                ? str
+                : str.Substring(0, length) + "...";
+        }
+
         private static ProductTableModel ProductTableModelCast(Product product)
         {
             if (product == null) return null;
             return new ProductTableModel()
             {
-                Brand = product.Brand.Name,
-                Name = product.Name,
+                Brand = GetShortString(product.Brand.Name, 50),
+                Name = GetShortString(product.Name, 50),
                 Quantity = product.Quantity,
-                Description = product.Description,
+                Description = GetShortString(product.Description, 100),
                 Color = product.Color,
                 Image = product.Image,
                 ImageType = product.ImageType,
                 Id = product.Id
             };
+        }
+
+        private static int GetValidProductCountValue(PageInfo info, int minValue, int maxValue, int defaultvalue)
+        {
+            return info.ProductCount < 0 || maxValue < minValue || info.ProductCount > maxValue
+                ? defaultvalue
+                : info.ProductCount;
         }
     }
 }
