@@ -1,5 +1,4 @@
 ﻿
-
 using System.Linq;
 using System.Web.Mvc;
 using SomeProducts.CrossCutting.Utils;
@@ -75,7 +74,7 @@ namespace SomeProducts.Controllers
 
         public JsonResult SaveBrandsChanges(BrandsChangeModel changeModel)
         {
-            //_barndModelService.SaveBrandChanges(changeModel);
+            _barndModelService.SaveBrandChanges(changeModel);
             return GetBrandsList();
         }
 

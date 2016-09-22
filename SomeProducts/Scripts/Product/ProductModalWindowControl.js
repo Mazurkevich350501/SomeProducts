@@ -25,7 +25,8 @@
             $.getJSON(params.url.getBrandsListUrl, function (brands) {
                 startInit();
                 brands.forEach(function (item) {
-                    addToBrandsList(item.Name, item.Id, "dbBrand", item.Version);
+                    var version = btoa(String.fromCharCode.apply(null, new Uint8Array(item.Version)));
+                    addToBrandsList(item.Name, item.Id, "dbBrand", version);
                 });
                 showBrandsList();
             });

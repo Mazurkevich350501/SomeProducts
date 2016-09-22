@@ -17,5 +17,7 @@ namespace SomeProducts.DAL.IDao
         DateTime GetCreateTime(int id);
 
         bool UpdateBrand(Brand brand);
+
+        Brand GetById(int id);
     }
 }

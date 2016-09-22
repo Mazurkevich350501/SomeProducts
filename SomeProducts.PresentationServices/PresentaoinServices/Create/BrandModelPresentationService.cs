@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using System.Linq;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
@@ -80,7 +81,8 @@ namespace SomeProducts.PresentationServices.PresentaoinServices.Create
             {
                 Id = model.Id,
                 Name = model.Name,
-                RowVersion = model.Version
+                RowVersion = model.Version,
+                CreateDate = _brandSevice.GetCreateTime(model.Id)
             });
         }
     }

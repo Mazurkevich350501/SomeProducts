@@ -72,8 +72,8 @@ namespace SomeProducts.DAL.Test
         {
             var productList = new List<Product>
             {
-                new Product() {BrandId = 1},
-                new Product() {BrandId = 2}
+                new Product() {Brand = new Brand() {Id = 1, Name = "name1"}},
+                new Product() {Brand = new Brand() {Id = 2, Name = "name2"}}
             };
             _productRepository.Setup(r => r.GetAllItems())
                 .Returns(productList);

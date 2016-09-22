@@ -11,6 +11,6 @@
     [ModifiedDate] DATETIME NULL, 
     [RowVersion] ROWVERSION NOT NULL , 
     CONSTRAINT [PK_Products_ProductId] PRIMARY KEY CLUSTERED ([Id] ASC),
-    FOREIGN KEY ([BrandId]) REFERENCES [dbo].[Brands] ([Id])
+    CONSTRAINT [FK_Products_Brands_BrandId] FOREIGN KEY ([BrandId]) REFERENCES [dbo].[Brands] ([Id])
 );
 
