@@ -1,4 +1,5 @@
-﻿using SomeProducts.CrossCutting.Interfaces;
+﻿using System.ComponentModel.DataAnnotations;
+using SomeProducts.CrossCutting.Interfaces;
 
 namespace SomeProducts.PresentationServices.Models.Create
 {

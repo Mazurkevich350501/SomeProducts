@@ -58,12 +58,11 @@ namespace SomeProducts.DAL.Dao
 
         public ICollection<Product> GetSortedProducts(string sortingOption)
         {
-            if (sortingOption.Substring(0, 3) == "rev")
-            {
-                return _repository.GetAllItems().OrderByDescending(p => p.GetType().GetProperty(sortingOption.Replace("rev", "")).GetValue(p)).ToList();
-            }
-
             return _repository.GetAllItems().OrderBy(p => p.GetType().GetProperty(sortingOption).GetValue(p)).ToList();
+        }
+        public ICollection<Product> GetSortedByBrandsProducts(string sortingOption)
+        {
+            return _repository.GetAllItems().OrderBy(p => p.Brand.GetType().GetProperty(sortingOption).GetValue(p.Brand)).ToList();
         }
     }
 }

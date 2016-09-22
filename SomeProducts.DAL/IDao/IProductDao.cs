@@ -21,5 +21,7 @@ namespace SomeProducts.DAL.IDao
         ICollection<Product> GetAllProducts();
 
         ICollection<Product> GetSortedProducts(string sortingOption);
+
+        ICollection<Product> GetSortedByBrandsProducts(string sortingOption);
     }
 }

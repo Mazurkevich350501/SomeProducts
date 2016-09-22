@@ -68,6 +68,7 @@
     <Compile Include="Models\Create\ProductViewModel.cs" />
     <Compile Include="Models\Create\ProductModel.cs" />
     <Compile Include="PresentaoinServices\ProductTable\ProductTablePresentationService.cs" />
+    <Compile Include="PresentaoinServices\ProductTable\SortingOptionHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
