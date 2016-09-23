@@ -15,7 +15,7 @@ namespace SomeProducts.DAL.Models
 
         public int BrandId { get; set; }
 
-        [ForeignKey("BrandId")]
+        [ForeignKey(nameof(BrandId))]
         public virtual Brand Brand { get; set; }
 
         public string Color { get; set; }
