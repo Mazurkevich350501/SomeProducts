@@ -20,10 +20,17 @@
         idCounter = -1;
     }
 
+    function cleanNewBrandInput()
+    {
+        $("#newBrandValidation").empty();
+        $("#newBrandName").val("");
+    }
+
     $("document").ready(function () {
         $("#brandEditBtn").click(function () {
             $.getJSON(params.url.getBrandsListUrl, function (brands) {
                 startInit();
+                cleanNewBrandInput();
                 brands.forEach(function (item) {
                     var version = btoa(String.fromCharCode.apply(null, new Uint8Array(item.Version)));
                     addToBrandsList(item.Name, item.Id, "dbBrand", version);
@@ -111,7 +118,7 @@
         $("#newBrandValidation").empty();
         if (validate(name, 0)) {
             addToBrandsList(name, idCounter--, "newBrand");
-            $("#newBrandName").val("");
+            cleanNewBrandInput();
         }
         else {
             showErrorMessage("newBrandValidation", getErrorMessage(name, 0));
