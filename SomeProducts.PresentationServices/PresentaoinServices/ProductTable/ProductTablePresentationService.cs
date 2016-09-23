@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using PagedList;
 using SomeProducts.DAL.IDao;
 using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
 using SomeProducts.PresentationServices.Models.ProductTable;
 using SomeProducts.DAL.Models;
+using System;
+using System.Collections;
+using SomeProducts.PresentationServices.PresentaoinServices.ProductTable.SortingOption;
 
 namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable
 {
@@ -18,31 +20,31 @@ namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable
             _dao = dao;
         }
 
-
         public ProductTableViewModel GetTablePage(PageInfo info)
         {
+            InitPageInfo(info);
+            var sortingOption = SortingOptionHelper.GetOptionValue(info.SortingOption);
             var model = new ProductTableViewModel();
-            var productList = GetSortedProducts(info.SortingOption);
-            var tableList = productList.Select(ProductTableModelCast).ToList();
-            info.ProductCount = GetValidProductCountValue(info, 5, 20, 10);
-            info.Page = info.Page < 0 ? 1 : info.Page;
-
+            var productList = GetSortedProducts(sortingOption).ToPagedList(info.Page, info.ProductCount);
+            var tableList = productList.Select(ProductTableModelCast);
+            model.Products = new StaticPagedList<ProductTableModel>(tableList, info.Page, info.ProductCount, info.TotalProductCount);
             model.PageInfo = info;
-            model.Products = tableList.ToPagedList(info.Page, info.ProductCount);
 
             return model;
         }
 
-        private IEnumerable<Product> GetSortedProducts(string sortingOption)
+        private void InitPageInfo(PageInfo info)
         {
-            var sortedBy = SortingOptionHelper.GetOptionValue(sortingOption);
-            var sortingParam = sortedBy.Replace("rev", "");
-            var result = sortingParam == "BrandName" ? 
-                _dao.GetSortedByBrandsProducts(sortingParam.Replace("Brand","")).ToList() : 
-                _dao.GetSortedProducts(sortingParam).ToList();
-            if (sortedBy.Substring(0, 3) == "rev") result.Reverse();
+            info.ProductCount = GetValidProductCountValue(info, 5, 20, 10);
+            info.Page = info.Page < 0 ? 1 : info.Page;
+            info.TotalProductCount = _dao.GetProductCount();
+        }
 
-            return result;
+        private IEnumerable<Product> GetSortedProducts(SortingOption.SortingOption option)
+        {
+            return option.Order == Order.Original
+                ? _dao.GetSortedProducts(option.Option)
+                : _dao.GetDescendingSortedProducts(option.Option);
         }
 
         private static string GetShortString(string str, int length)

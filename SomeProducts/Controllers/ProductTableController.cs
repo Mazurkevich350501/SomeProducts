@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using PagedList;
 using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
 using SomeProducts.PresentationServices.Models.ProductTable;
 

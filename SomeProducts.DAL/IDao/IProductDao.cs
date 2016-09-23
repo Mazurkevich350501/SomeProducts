@@ -18,10 +18,12 @@ namespace SomeProducts.DAL.IDao
 
         DateTime GetCreateTime(int id);
 
-        ICollection<Product> GetAllProducts();
+        int GetProductCount();
 
-        ICollection<Product> GetSortedProducts(string sortingOption);
+        IEnumerable<Product> GetAllProducts();
 
-        ICollection<Product> GetSortedByBrandsProducts(string sortingOption);
+        IEnumerable<Product> GetSortedProducts(string sortingOption);
+
+        IEnumerable<Product> GetDescendingSortedProducts(string sortingOption);
     }
 }

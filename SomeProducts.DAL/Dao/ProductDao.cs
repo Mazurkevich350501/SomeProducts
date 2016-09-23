@@ -51,18 +51,23 @@ namespace SomeProducts.DAL.Dao
             return _repository.GetCreateTime(id);
         }
 
-        public ICollection<Product> GetAllProducts()
+        public IEnumerable<Product> GetAllProducts()
         {
-            return _repository.GetAllItems().ToList();
+            return _repository.GetAllItems();
         }
 
-        public ICollection<Product> GetSortedProducts(string sortingOption)
+        public int GetProductCount()
         {
-            return _repository.GetAllItems().OrderBy(p => p.GetType().GetProperty(sortingOption).GetValue(p)).ToList();
+            return GetAllProducts().Count();
         }
-        public ICollection<Product> GetSortedByBrandsProducts(string sortingOption)
+
+        public IEnumerable<Product> GetSortedProducts(string sortingOption)
         {
-            return _repository.GetAllItems().OrderBy(p => p.Brand.GetType().GetProperty(sortingOption).GetValue(p.Brand)).ToList();
+            return _repository.GetAllItems().OrderBy(p => p.GetType().GetProperty(sortingOption).GetValue(p));
+        }
+        public IEnumerable<Product> GetDescendingSortedProducts(string sortingOption)
+        {
+            return _repository.GetAllItems().OrderByDescending(p => p.GetType().GetProperty(sortingOption).GetValue(p));
         }
     }
 }

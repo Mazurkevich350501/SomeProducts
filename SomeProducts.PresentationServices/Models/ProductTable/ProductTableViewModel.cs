@@ -1,6 +1,5 @@
 ﻿
 using PagedList;
-using System.Collections.Generic;
 
 namespace SomeProducts.PresentationServices.Models.ProductTable
 {
