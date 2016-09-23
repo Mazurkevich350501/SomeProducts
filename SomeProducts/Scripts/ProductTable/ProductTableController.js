@@ -10,14 +10,14 @@
     };
 
     $("document").ready(function () {
-        setSortColor();
+        setSortSymbol();
         $("div[data-type='sort']").click(sorting);
     });
 
-    function setSortColor() {
+    function setSortSymbol() {
         var id = sortingOption.replace("rev", "").toLowerCase();
-        var isRev = sortingOption.substring(0, 2) === "rev";
-        $("#th-" + id).attr("color", isRev ? "blue" : "green");
+        var isRev = sortingOption.substring(0, 3) === "rev";
+        $("#th-" + id).append(isRev ? "&uarr;" : "&darr;");
     }
 
     function sorting(e) {

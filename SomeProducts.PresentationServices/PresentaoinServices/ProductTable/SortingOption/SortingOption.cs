@@ -1,11 +1,7 @@
 ﻿
 namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable.SortingOption
 {
-    public enum Order
-    {
-        Reverse = int.MinValue,
-        Original = int.MaxValue, 
-    }
+    public enum Order { Reverse, Original }
 
 
     public class SortingOption
