@@ -5,56 +5,67 @@
 <div class="product-table-div">
     <table class="table">
         <thead>
-            <tr>
-                <th>
-                    <div id="th-name" data-type="sort" data-name="Name">
-                        Product Name
-                    </div>
-                </th>
-                <th>Description</th>
-                <th>
-                    <div id="th-brand" data-type="sort" data-name="Brand">
-                        Brand
-                    </div>
-                </th>
-                <th>
-                    <div id="th-quantity" data-type="sort" data-name="Quantity">
-                        Quantity
-                    </div>
-                </th>
-            </tr>
+        <tr>
+            <th>
+                
+            </th>
+            <th>
+                <div id="th-name" data-type="sort" data-name="Name">
+                    Product Name
+                </div>
+            </th>
+            <th>Description</th>
+            <th>
+                <div id="th-brand" data-type="sort" data-name="Brand">
+                    Brand
+                </div>
+            </th>
+            <th>
+                <div id="th-quantity" data-type="sort" data-name="Quantity">
+                    Quantity
+                </div>
+            </th>
+        </tr>
         </thead>
         <tbody>
             @foreach (var product in Model.Products)
             {
                 <tr>
-                    <th style="word-wrap: break-word; max-width: 200px;">
+                    <th>
                         @if (@product.Image != null)
                         {
                             <img class="product-table-image" style="border: 6px solid @product.Color;"
-                                 src="data:@product.ImageType;base64,@Convert.ToBase64String(product.Image)" alt=""/>
+                                 src="data:@product.ImageType;base64,@Convert.ToBase64String(product.Image)" alt="" />
                         }
                         else
                         {
                             <img class="product-table-image" style="border: 6px solid @product.Color;"
-                                 src="~/Resources/emptyImage.jpg" alt=""/>
+                                 src="~/Resources/emptyImage.jpg" alt="" />
                         }
+                    </th>
+                    <th>
                         @Html.DisplayFor(p => product.Name)
                     </th>
-                    <th style="word-wrap: break-word; max-width: 200px;">@Html.DisplayFor(p => product.Description)</th>
-                    <th style="word-wrap: break-word; max-width: 200px;">@Html.DisplayFor(p => product.Brand)</th>
-                    <th style="word-wrap: break-word; max-width: 200px;">@Html.DisplayFor(p => product.Quantity)</th>
+                    <th>
+                        @Html.DisplayFor(p => product.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(p => product.Brand)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(p => product.Quantity)
+                    </th>
                 </tr>
             }
         </tbody>
     </table>
 </div>
 <div class="row">
-    <div class="col-xs-6">
+    <div class="col-xs-4">
         @Html.PagedListPager(Model.Products, page => Url.Action("Show", "ProductTable", new { page, count = @Model.PageInfo.ProductCount, by = @Model.PageInfo.SortingOption }))
     </div>
-    <div class="dropdown col-xs-1" style="padding-top: 20px">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+    <div class="dropdown col-xs-1 product-counter">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
             Products count: @Model.PageInfo.ProductCount
             <span class="caret"></span>
         </button>

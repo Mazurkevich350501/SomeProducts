@@ -1,10 +1,48 @@
 ﻿.product-table-div {
-    max-height: 500px; 
-    overflow-y: scroll;
+    margin: 40px 0 30px 0; 
 }
 
 .product-table-image {
     max-height: 80px;
     max-width: 80px;
     border: 6px solid white;
+}
+
+.product-counter {
+    margin-top: 20px;
+}
+
+table {
+    max-width: 1000px;
+    border: 2px solid #357ebd;
+}
+
+thead th {
+    color: whitesmoke;
+    background: #428bca;
+}
+
+tbody th {
+    font-weight: normal;
+    font-style: italic;
+    word-wrap: break-word;
+    max-width: 200px;
+}
+
+thead, tbody {
+     display: block;
+}
+
+tbody {
+    max-height: 500px;       /* Just for the demo          */
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
+}
+
+th {
+    -moz-min-width: 200px;
+    -ms-min-width: 200px;
+    -o-min-width: 200px;
+    -webkit-min-width: 200px;
+    min-width: 200px;
 }

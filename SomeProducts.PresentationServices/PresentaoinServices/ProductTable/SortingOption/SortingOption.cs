@@ -16,7 +16,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable.Sor
             Option = option;
         }
 
-        public Order Order { get; }
+        public Order Order { get; set; }
 
         public string Option { get; }
     }
