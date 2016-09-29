@@ -1,11 +1,17 @@
 ﻿(function () {
     "use strict";
 
-    var url, presentUrl, sortingOption;
+    var filrers = ["Name", "Description", "Brand_Name", "Quantity"];
+    filrers.forEach(function(item){
+        $("#" + item + "ParameterId").val($("#" + item + "ParameterId").attr("value"))
+        console.log($("#" + item + "ParameterId").val());
+    });
+
+    var urlWhithoutBy, presentUrl, sortingOption;
 
     var productTableNamespace = Utils.getNamespace("ProductTable");
     productTableNamespace.init = function (params) {
-        url = params.url;
+        urlWhithoutBy = params.url;
         presentUrl = params.presentUrl;
         sortingOption = params.sortingOption;
     };
@@ -27,7 +33,11 @@
         if (sortingOption === newSoringOption) {
             newSoringOption = "rev" + newSoringOption;
         }
-        document.location.replace(url + "&by=" + newSoringOption);
+        var redirectUrl = urlWhithoutBy.indexOf("filterJson") < 0 
+            ? urlWhithoutBy + "&by=" + newSoringOption
+            : urlWhithoutBy.substring(0, urlWhithoutBy.indexOf("filterJson")) 
+                + "&by=" + newSoringOption + "&" + urlWhithoutBy.substring(urlWhithoutBy.indexOf("filterJson"));
+        document.location.replace(redirectUrl);
     }
 
     function filterProduct() {

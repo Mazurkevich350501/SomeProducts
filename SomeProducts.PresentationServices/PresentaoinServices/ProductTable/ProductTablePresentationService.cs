@@ -26,7 +26,8 @@ namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable
             var sortingOption = SortingOptionHelper.GetOptionValue(pageInfo.SortingOption);
             var productList = GetFilteredAndSortedProducts(sortingOption, filterInfo)
                 .ToPagedList(pageInfo.Page, pageInfo.ProductCount);
-            var tableList = productList.Select(ProductTableModelCast);
+            var tableList = productList.Select(ProductTableModelCast).AsQueryable();
+            pageInfo.TotalProductCount = tableList.Count();
 
             return new ProductTableViewModel
             {
