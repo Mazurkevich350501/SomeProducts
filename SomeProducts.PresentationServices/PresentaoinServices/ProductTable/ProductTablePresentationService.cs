@@ -34,9 +34,37 @@ namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable
                     new StaticPagedList<ProductTableModel>(tableList, pageInfo.Page, pageInfo.ProductCount,
                         pageInfo.TotalProductCount),
                 PageInfo = pageInfo,
-                FilterInfo = filterInfo,
+                FilterInfo = InitFilterInfo(filterInfo),
                 NumberFilterParameter = GetNumberFilterParameter(),
                 StringFilterParameter = GetStringFilterParameter()
+            };
+        }
+
+        private FilterInfo InitFilterInfo(FilterInfo filterInfo)
+        {
+            var result = GetDefaultFilterInfo();
+            if (filterInfo?.Filters != null)
+            {
+                foreach (var filter in filterInfo.Filters)
+                {
+                    result.Filters.First(f => f.Option == filter.Option).Parameter = filter.Parameter;
+                    result.Filters.First(f => f.Option == filter.Option).Value = filter.Value;
+                }
+            }
+            return result;
+        }
+
+        private FilterInfo GetDefaultFilterInfo()
+        {
+            return new FilterInfo()
+            {
+                Filters = new List<Filter>()
+                {
+                    new Filter() {Option = "Name"},
+                    new Filter() {Option = "Description"},
+                    new Filter() {Option = "Brand_Name"},
+                    new Filter() {Option = "Quantity"},
+                }
             };
         }
 

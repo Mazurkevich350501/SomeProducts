@@ -1,5 +1,5 @@
 ﻿.product-table-div {
-    margin: 40px 0 30px 0; 
+    margin: 40px 0 30px 0;
 }
 
 .product-table-image {
@@ -17,6 +17,10 @@ table {
     border: 2px solid #357ebd;
 }
 
+select {
+    max-width: 20px;
+}
+
 thead th {
     color: whitesmoke;
     background: #428bca;
@@ -30,13 +34,13 @@ tbody th {
 }
 
 thead, tbody {
-     display: block;
+    display: block;
 }
 
 tbody {
-    max-height: 500px;       /* Just for the demo          */
-    overflow-y: auto;    /* Trigger vertical scroll    */
-    overflow-x: hidden;  /* Hide the horizontal scroll */
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 th {

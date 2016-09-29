@@ -19,7 +19,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable.Sor
             };
         }
 
-        public static PresentaoinServices.ProductTable.SortingOption.SortingOption GetOptionValue(string key)
+        public static SortingOption GetOptionValue(string key)
         {
             Order order;
             if (key.Substring(0, 3) == "rev")
@@ -35,7 +35,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable.Sor
                 ? SortingOptionDictionary[key]
                 : nameof(Product.Name);
 
-            return new PresentaoinServices.ProductTable.SortingOption.SortingOption(order, option);
+            return new SortingOption(order, option);
         }
 
         public static IQueryable<T> Sort<T>(this IQueryable<T> query, string option, bool direction)
@@ -44,8 +44,10 @@ namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable.Sor
             var parameter = Expression.Parameter(query.ElementType, "p");
             MemberExpression memberAccess = null;
             foreach (var property in option.Split('.'))
-                memberAccess = MemberExpression.Property
+                memberAccess = Expression.Property
                    (memberAccess ?? ((Expression)parameter), property);
+
+            if (memberAccess == null) return query;
             var orderByLambda = Expression.Lambda(memberAccess, parameter);
             var result = Expression.Call(
                       typeof(Queryable),

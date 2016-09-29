@@ -21,13 +21,14 @@ namespace SomeProducts.CrossCutting.Filter
             var parameter = Expression.Parameter(query.ElementType, "p");
 
             MemberExpression memberAccess = null;
-            foreach (var property in filterParam.Option.Split('.'))
+            foreach (var property in filterParam.Option.Split('_'))
                 memberAccess = Expression.Property
                    (memberAccess ?? ((Expression)parameter), property);
 
             var filter = Expression.Constant(memberAccess != null && memberAccess.Type.BaseType != typeof(string)
                 ? Convert.ChangeType(filterParam.Value, memberAccess.Type) : filterParam.Value);
 
+            if (memberAccess == null) return query;
             Expression condition;
             LambdaExpression lambda = null;
             switch (filterParam.Parameter)
@@ -65,18 +66,22 @@ namespace SomeProducts.CrossCutting.Filter
                     lambda = Expression.Lambda(condition, parameter);
                     break;
                 case FilterParameter.IsNull:
+                    condition = Expression.Equal(memberAccess, Expression.Constant(null));
+                    lambda = Expression.Lambda(condition, parameter);
                     break;
                 case FilterParameter.IsNotNull:
+                    condition = Expression.NotEqual(memberAccess, Expression.Constant(null));
+                    lambda = Expression.Lambda(condition, parameter);
                     break;
                 case FilterParameter.DoesNotContain:
                     break;
                 case FilterParameter.IsEmty:
-                    condition = Expression.Call(memberAccess,
-                        typeof(string).GetMethod("Equals", new[] { typeof(string) }),
-                        Expression.Constant(""));
+                    condition = Expression.Equal(memberAccess, Expression.Constant(""));
                     lambda = Expression.Lambda(condition, parameter);
                     break;
                 case FilterParameter.IsNotEmty:
+                    condition = Expression.NotEqual(memberAccess, Expression.Constant(""));
+                    lambda = Expression.Lambda(condition, parameter);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(filterParam.Option), filterParam.Option, null);
