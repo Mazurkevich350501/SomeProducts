@@ -2,7 +2,7 @@
 @model  SomeProducts.PresentationServices.Models.Create.ProductViewModel
 
 @{
-    bool isEdit = Model.Product.Id != 0;
+    var isEdit = Model.Product.Id != 0;
     var title = isEdit ? "Edit" : "Create";
     ViewBag.Title = title;
 }
@@ -107,7 +107,7 @@
         <p class="brand-validation-error" id="brandValidation-${id}"></p>
         <div class="row" id="row-${id}">
             <div class="col-xs-10">
-                <h4><input class="brand-edit-input" type="text" data-id="${id}" value="${name}"/></h4>
+                <h4><input class="brand-edit-input" type="text" data-id="${id}" value="${name}" /></h4>
             </div>
             <button class="btn btn-warning glyphicon glyphicon-minus-sign" data-id="${id}" data-selector="removeBtn"></button>
         </div>
@@ -129,10 +129,10 @@
             params.url.isBrandUsingUrl = '@Url.Action("IsBrandUsing", "Product")';
             params.url.saveBrandsChangesUrl = '@Url.Action("SaveBrandsChanges", "Product")';
 
-            var productNamespace = Utils.getNamespace("Product");
-            var imageNamespace = Utils.getNamespace("Image");
-            var modalWindowNamespace = Utils.getNamespace("ModalWindow");
-            var removingModalNamespace = Utils.getNamespace("RemovingModal");
+            var productNamespace = window.Utils.getNamespace("Product");
+            var imageNamespace = window.Utils.getNamespace("Image");
+            var modalWindowNamespace = window.Utils.getNamespace("ModalWindow");
+            var removingModalNamespace = window.Utils.getNamespace("RemovingModal");
             productNamespace.initPage(params);
             imageNamespace.initImage(params);
             modalWindowNamespace.initModalWindow(params);

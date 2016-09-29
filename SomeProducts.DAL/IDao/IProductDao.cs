@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SomeProducts.CrossCutting.Filter;
 using SomeProducts.DAL.Models;
 
 namespace SomeProducts.DAL.IDao
@@ -21,9 +22,5 @@ namespace SomeProducts.DAL.IDao
         int GetProductCount();
 
         IEnumerable<Product> GetAllProducts();
-
-        IEnumerable<Product> GetSortedProducts(string sortingOption);
-
-        IEnumerable<Product> GetDescendingSortedProducts(string sortingOption);
     }
 }

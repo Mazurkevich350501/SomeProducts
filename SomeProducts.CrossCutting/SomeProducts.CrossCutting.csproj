@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Filter\Filter.cs" />
+    <Compile Include="Filter\FilterInfo.cs" />
+    <Compile Include="Filter\DataFiltration.cs" />
     <Compile Include="Interfaces\IImageModel.cs" />
     <Compile Include="Utils\ImageUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

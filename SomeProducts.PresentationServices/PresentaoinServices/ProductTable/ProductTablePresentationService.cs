@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using System.Linq;
 using PagedList;
+using SomeProducts.CrossCutting.Filter;
 using SomeProducts.DAL.IDao;
 using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
 using SomeProducts.PresentationServices.Models.ProductTable;
 using SomeProducts.DAL.Models;
-using System;
-using System.Collections;
 using SomeProducts.PresentationServices.PresentaoinServices.ProductTable.SortingOption;
 
 namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable
@@ -20,17 +20,24 @@ namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable
             _dao = dao;
         }
 
-        public ProductTableViewModel GetTablePage(PageInfo info)
+        public ProductTableViewModel GetTablePage(PageInfo pageInfo, FilterInfo filterInfo)
         {
-            InitPageInfo(info);
-            var sortingOption = SortingOptionHelper.GetOptionValue(info.SortingOption);
-            var model = new ProductTableViewModel();
-            var productList = GetSortedProducts(sortingOption).ToPagedList(info.Page, info.ProductCount);
+            InitPageInfo(pageInfo);
+            var sortingOption = SortingOptionHelper.GetOptionValue(pageInfo.SortingOption);
+            var productList = GetFilteredAndSortedProducts(sortingOption, filterInfo)
+                .ToPagedList(pageInfo.Page, pageInfo.ProductCount);
             var tableList = productList.Select(ProductTableModelCast);
-            model.Products = new StaticPagedList<ProductTableModel>(tableList, info.Page, info.ProductCount, info.TotalProductCount);
-            model.PageInfo = info;
 
-            return model;
+            return new ProductTableViewModel
+            {
+                Products =
+                    new StaticPagedList<ProductTableModel>(tableList, pageInfo.Page, pageInfo.ProductCount,
+                        pageInfo.TotalProductCount),
+                PageInfo = pageInfo,
+                FilterInfo = filterInfo,
+                NumberFilterParameter = GetNumberFilterParameter(),
+                StringFilterParameter = GetStringFilterParameter()
+            };
         }
 
         private void InitPageInfo(PageInfo info)
@@ -40,11 +47,9 @@ namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable
             info.TotalProductCount = _dao.GetProductCount();
         }
 
-        private IEnumerable<Product> GetSortedProducts(SortingOption.SortingOption option)
+        private IQueryable<Product> GetFilteredAndSortedProducts(SortingOption.SortingOption option, FilterInfo info)
         {
-            return option.Order == Order.Original
-                ? _dao.GetSortedProducts(option.Option)
-                : _dao.GetDescendingSortedProducts(option.Option);
+            return _dao.GetAllProducts().AsQueryable().GetFilteredProuct(info).Sort(option.Option, option.Order == Order.Reverse);
         }
 
         private static string GetShortString(string str, int length)
@@ -76,6 +81,33 @@ namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable
             return info.ProductCount < 0 || maxValue < minValue || info.ProductCount > maxValue
                 ? defaultvalue
                 : info.ProductCount;
+        }
+
+        public IDictionary<FilterParameter, string> GetNumberFilterParameter()
+        {
+            return new Dictionary<FilterParameter, string>()
+            {
+                {FilterParameter.IsEqualTo, "Is equal to"},
+                {FilterParameter.IsNotEqualTo, "Is not equal to"},
+                {FilterParameter.IsGreaterThanOrEqualTo, "Is greate than or equal to"},
+                {FilterParameter.IsLessThenOrEqualTo, "Is less then or equal to"},
+                {FilterParameter.IsLessThen, "Is less then"}
+            };
+        }
+
+        public IDictionary<FilterParameter, string> GetStringFilterParameter()
+        {
+            return new Dictionary<FilterParameter, string>()
+            {
+                {FilterParameter.IsEqualTo, "Is equal to"},
+                {FilterParameter.IsNotEqualTo, "Is not equal to"},
+                {FilterParameter.Contains, "Contains"},
+                {FilterParameter.DoesNotContain, "Does not contain"},
+                {FilterParameter.IsEmty, "Is emty"},
+                {FilterParameter.IsNotEmty, "Is not emty"},
+                {FilterParameter.IsNull, "Is null"},
+                {FilterParameter.IsNotNull, "Is not null"},
+            };
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿
+using SomeProducts.CrossCutting.Filter;
+
 namespace SomeProducts.PresentationServices.Models.ProductTable
 {
     public class PageInfo

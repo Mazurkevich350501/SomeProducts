@@ -10,10 +10,10 @@ namespace SomeProducts.DAL.AutofacModule
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<BaseRepository<Product>>().As<IRepository<Product>>().InstancePerRequest();
-            builder.RegisterType<BaseRepository<Brand>>().As<IRepository<Brand>>().InstancePerRequest();
-            builder.RegisterType<ProductDao>().As<IProductDao>().InstancePerRequest();
-            builder.RegisterType<BrandDao>().As<IBrandDao>().InstancePerRequest();
+            builder.RegisterType<BaseRepository<Product>>().As<IRepository<Product>>();
+            builder.RegisterType<BaseRepository<Brand>>().As<IRepository<Brand>>();
+            builder.RegisterType<ProductDao>().As<IProductDao>();
+            builder.RegisterType<BrandDao>().As<IBrandDao>();
         }
     }
 }
