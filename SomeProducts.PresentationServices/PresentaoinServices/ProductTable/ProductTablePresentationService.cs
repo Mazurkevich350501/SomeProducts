@@ -24,11 +24,10 @@ namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable
         {
             InitPageInfo(pageInfo);
             var sortingOption = SortingOptionHelper.GetOptionValue(pageInfo.SortingOption);
-            var productList = GetFilteredAndSortedProducts(sortingOption, filterInfo)
-                .ToPagedList(pageInfo.Page, pageInfo.ProductCount);
-            var tableList = productList.Select(ProductTableModelCast).AsQueryable();
-            pageInfo.TotalProductCount = tableList.Count();
-
+            var productList = GetFilteredAndSortedProducts(sortingOption, filterInfo);
+            pageInfo.TotalProductCount = productList.Count();
+            var tableList = productList.ToPagedList(pageInfo.Page, pageInfo.ProductCount).Select(ProductTableModelCast).AsQueryable();
+            
             return new ProductTableViewModel
             {
                 Products =
@@ -41,7 +40,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable
             };
         }
 
-        private FilterInfo InitFilterInfo(FilterInfo filterInfo)
+        private static FilterInfo InitFilterInfo(FilterInfo filterInfo)
         {
             var result = GetDefaultFilterInfo();
             if (filterInfo?.Filters != null)
@@ -55,7 +54,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable
             return result;
         }
 
-        private FilterInfo GetDefaultFilterInfo()
+        private static FilterInfo GetDefaultFilterInfo()
         {
             return new FilterInfo()
             {

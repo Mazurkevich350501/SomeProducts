@@ -8,9 +8,10 @@ namespace SomeProducts.CrossCutting.Filter
     {
         public static IQueryable<T> GetFilteredProuct<T>(this IQueryable<T> query, FilterInfo filters)
         {
-            return filters?.Filters != null
+            var a = filters?.Filters != null
                 ? filters.Filters.Aggregate(query, (current, filter) => current.Where(filter))
                 : query;
+            return a;
         }
 
         public static IQueryable<T> Where<T>(this IQueryable<T> query, Filter filterParam)
@@ -30,7 +31,7 @@ namespace SomeProducts.CrossCutting.Filter
 
             if (memberAccess == null) return query;
             Expression condition;
-            LambdaExpression lambda = null;
+            LambdaExpression lambda;
             switch (filterParam.Parameter)
             {
                 case FilterParameter.IsEqualTo:
@@ -74,6 +75,10 @@ namespace SomeProducts.CrossCutting.Filter
                     lambda = Expression.Lambda(condition, parameter);
                     break;
                 case FilterParameter.DoesNotContain:
+                    condition = Expression.Not(Expression.Call(memberAccess,
+                        typeof(string).GetMethod("Contains", new[] { typeof(string) }),
+                        Expression.Constant(filterParam.Value)));
+                    lambda = Expression.Lambda(condition, parameter);
                     break;
                 case FilterParameter.IsEmty:
                     condition = Expression.Equal(memberAccess, Expression.Constant(""));

@@ -255,9 +255,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include=".bin\bower.cmd" />
-    <None Include=".bin\git.cmd" />
-    <None Include=".bin\node.cmd" />
     <Content Include="BowerComponents\jquery-simplecolorpicker\.bower.json" />
     <Content Include="BowerComponents\jquery-simplecolorpicker\.gitignore" />
     <Content Include="BowerComponents\jquery-simplecolorpicker\bower.json" />
