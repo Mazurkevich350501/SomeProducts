@@ -9,6 +9,7 @@
 }
 
 .product-counter {
+    padding-left: -50px
     margin-top: 20px;
 }
 
@@ -17,9 +18,7 @@ table {
     border: 2px solid #357ebd;
 }
 
-select {
-    max-width: 20px;
-}
+
 
 thead th {
     color: whitesmoke;
@@ -50,4 +49,19 @@ th {
     -o-min-width: 200px;
     -webkit-min-width: 200px;
     min-width: 200px;
+}
+
+.filters-container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    max-width: 1040px;
+}
+
+.filter-param-select {
+    max-width: 20px;
+    padding: 7px;
+}
+
+.filter-option-input-div {
+    padding-right: 2px;
 }
