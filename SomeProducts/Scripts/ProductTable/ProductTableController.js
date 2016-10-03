@@ -2,14 +2,10 @@
     "use strict";
 
     var filrers = ["Name", "Description", "Brand_Name", "Quantity"];
-    filrers.forEach(function(item){
-        $("#" + item + "ParameterId").val($("#" + item + "ParameterId").attr("value"))
-        console.log($("#" + item + "ParameterId").val());
-    });
 
     var urlWhithoutBy, presentUrl, sortingOption;
 
-    var productTableNamespace = Utils.getNamespace("ProductTable");
+    var productTableNamespace = window.Utils.getNamespace("ProductTable");
     productTableNamespace.init = function (params) {
         urlWhithoutBy = params.url;
         presentUrl = params.presentUrl;
@@ -20,6 +16,9 @@
         setSortSymbol();
         $("div[data-type='sort']").click(sorting);
         $("#FilterBtn").click(filterProduct);
+        filrers.forEach(function(item){
+            $("#" + item + "ParameterId").val($("#" + item + "ParameterId").attr("value"));
+        });
     });
 
     function setSortSymbol() {
@@ -44,7 +43,6 @@
         var filterInfo = {
             Filters: []
         }
-        var filrers = ["Name", "Description", "Brand_Name", "Quantity"];
         filrers.forEach(function (intem) {
             var filter = getFilter(intem);
             if (filter !== null) {
@@ -72,7 +70,6 @@
             case "IsNull":
             case "IsNotNull":
                 return true;
-                break;
             default:
                 return false;
         }

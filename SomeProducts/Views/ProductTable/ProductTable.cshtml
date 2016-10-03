@@ -62,25 +62,25 @@
 </div>
 
 <div class="product-table-div">
-    <table class="table">
+    <table class="table" id="productTable">
         <thead>
             <tr>
                 <th>
 
                 </th>
                 <th>
-                    <div id="th-name" data-type="sort" data-name="Name">
+                    <div id="th-name" data-type="sort" data-name="Name" class="pointer">
                         Product Name
                     </div>
                 </th>
                 <th>Description</th>
                 <th>
-                    <div id="th-brand" data-type="sort" data-name="Brand">
+                    <div id="th-brand" data-type="sort" data-name="Brand" class="pointer">
                         Brand
                     </div>
                 </th>
                 <th>
-                    <div id="th-quantity" data-type="sort" data-name="Quantity">
+                    <div id="th-quantity" data-type="sort" data-name="Quantity" class="pointer">
                         Quantity
                     </div>
                 </th>
@@ -89,7 +89,7 @@
         <tbody>
             @foreach (var product in Model.Products)
             {
-                <tr>
+                <tr onclick="window.open('@Url.Action("Edit", "Product", new {id = product.Id})')" class="pointer">
                     <th>
                         @if (@product.Image != null)
                         {
