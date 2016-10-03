@@ -1,0 +1,13 @@
+﻿@model SomeProducts.PresentationServices.Models.Account.RegistrationViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+
+<form method="post" action=@Url.Action("Register", "Account") enctype="multipart/form-data">
+    Name @Html.TextBoxFor(m => m.Name, new {@class = "form-control"})
+    Password @Html.TextBoxFor(m => m.Password, new { @class = "form-control", type = "password"})
+    Confirm password @Html.TextBoxFor(m => m.ConfirmPassword, new { @class = "form-control", type = "password" })
+    <input type="submit" value="Register"/>
+</form>
