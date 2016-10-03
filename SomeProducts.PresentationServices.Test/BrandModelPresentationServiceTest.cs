@@ -6,6 +6,7 @@ using Moq;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.PresentationServices.Models;
+using SomeProducts.PresentationServices.Models.Brand;
 using SomeProducts.PresentationServices.PresentaoinServices;
 
 namespace SomeProducts.PresentationServices.Test
@@ -60,7 +61,7 @@ namespace SomeProducts.PresentationServices.Test
             var removedIdList = new List<int>();
 
             _brandDao.Setup(d => d.CreateBrand(It.IsAny<Brand>()))
-                .Callback<Brand>((Brand brand) =>
+                .Callback<Brand>(brand =>
                 {
                     if (brand.Id == 0)
                     {
@@ -71,12 +72,12 @@ namespace SomeProducts.PresentationServices.Test
                         });
                     }
                 });
-            _brandDao.Setup(d => d.RemoveBrand(It.IsAny<int>()))
-                .Callback<int>((int id) =>
+            _brandDao.Setup(d => d.RemoveBrand(It.IsAny<Brand>()))
+                .Callback<Brand>(brand =>
                 {
-                    if (id > 0 && id < 4)
+                    if (brand.Id > 0 && brand.Id < 4)
                     {
-                        removedIdList.Add(id);
+                        removedIdList.Add(brand.Id);
                     }
                 });
 

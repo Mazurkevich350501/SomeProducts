@@ -5,7 +5,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SomeProducts.Controllers;
 using SomeProducts.PresentationServices.IPresentationSevices;
-using SomeProducts.PresentationServices.Models;
+using SomeProducts.PresentationServices.Models.Brand;
+using SomeProducts.PresentationServices.Models.Product;
 
 namespace SomeProducts.Test
 {
@@ -37,7 +38,7 @@ namespace SomeProducts.Test
             var product = new ProductViewModel
             {
                 Product = new ProductModel(),
-                Colors = new ProductColors().Colors,
+                Colors = ProductColors.Colors,
                 Brands = new Dictionary<int, string>()
             };
             _productModelService.Setup(p => p.GetProductViewModel(It.IsAny<int?>())).Returns(product);
@@ -61,7 +62,7 @@ namespace SomeProducts.Test
                     Name = "name",
                     Quantity = 5
                 },
-                Colors = new ProductColors().Colors,
+                Colors = ProductColors.Colors,
                 Brands = new Dictionary<int, string>()
             };
             _productModelService.Setup(s => s.GetLastProductViewMode()).Returns(product);
@@ -84,7 +85,7 @@ namespace SomeProducts.Test
                     Description = "description",
                     ImageType = "imageType"
                 },
-                Colors = new ProductColors().Colors,
+                Colors = ProductColors.Colors,
                 Brands = new Dictionary<int, string>()
             };
             _productModelService.Setup(s => s.GetProductViewModel(It.IsAny<int?>())).Returns(product);
@@ -115,7 +116,7 @@ namespace SomeProducts.Test
             var product = new ProductViewModel
             {
                 Product = new ProductModel() { Id = id },
-                Colors = new ProductColors().Colors,
+                Colors = ProductColors.Colors,
                 Brands = new Dictionary<int, string>()
             };
             _productModelService.Setup(p => p.GetProductViewModel(It.IsAny<int?>())).Returns(product);
@@ -135,7 +136,7 @@ namespace SomeProducts.Test
             var newProduct = new ProductViewModel()
             {
                 Product = new ProductModel(),
-                Colors = new ProductColors().Colors,
+                Colors = ProductColors.Colors,
                 Brands = new Dictionary<int, string>()
             };
             _controller.ModelState.AddModelError("Name", "Product Id is not valid.");

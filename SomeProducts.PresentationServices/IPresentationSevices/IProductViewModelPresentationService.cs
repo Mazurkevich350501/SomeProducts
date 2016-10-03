@@ -1,4 +1,4 @@
-﻿using SomeProducts.PresentationServices.Models;
+﻿using SomeProducts.PresentationServices.Models.Product;
 
 namespace SomeProducts.PresentationServices.IPresentationSevices
 {

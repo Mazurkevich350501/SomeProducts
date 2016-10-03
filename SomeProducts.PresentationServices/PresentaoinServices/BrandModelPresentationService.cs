@@ -4,7 +4,7 @@ using System.Linq;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.PresentationServices.IPresentationSevices;
-using SomeProducts.PresentationServices.Models;
+using SomeProducts.PresentationServices.Models.Brand;
 
 namespace SomeProducts.PresentationServices.PresentaoinServices
 {
@@ -23,9 +23,9 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
             _brandSevice.CreateBrand(brand);
         }
 
-        public void RemoveBrand(int id)
+        public void RemoveBrand(BrandModel brand)
         {
-            _brandSevice.RemoveBrand(id);
+            _brandSevice.RemoveBrand(_brandSevice.GetById(brand.Id));
         }
 
         public IEnumerable<BrandModel> GetAllItems()
@@ -52,7 +52,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
                 {
                     foreach (var brand in changeModel.RemovedBrands)
                     {
-                        RemoveBrand(brand.Id);
+                        RemoveBrand(brand);
                     }
                 }
 

@@ -35,10 +35,10 @@ namespace SomeProducts.DAL.Test
         public void RemoveBrand_Should_Remove_Brand_By_Id()
         {
             var deletedId = 0;
-            _brandRepository.Setup(r => r.Delete(It.IsAny<int>()))
+            _brandRepository.Setup(r => r.Delete(It.IsAny<Brand>()))
                 .Callback<int>(id => deletedId = id);
 
-            _brandDao.RemoveBrand(_brand.Id);
+            _brandDao.RemoveBrand(_brand);
 
             Assert.AreEqual(_brand.Id, deletedId);
         }

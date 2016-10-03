@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Web.Mvc;
 using SomeProducts.PresentationServices.IPresentationSevices;
-using SomeProducts.PresentationServices.Models;
 using SomeProducts.CrossCutting.Utils;
+using SomeProducts.PresentationServices.Models.Brand;
+using SomeProducts.PresentationServices.Models.Product;
 
 namespace SomeProducts.Controllers
 {

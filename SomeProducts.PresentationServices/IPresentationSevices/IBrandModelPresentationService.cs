@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SomeProducts.PresentationServices.Models;
+using SomeProducts.PresentationServices.Models.Brand;
 
 namespace SomeProducts.PresentationServices.IPresentationSevices
 {
@@ -7,7 +7,7 @@ namespace SomeProducts.PresentationServices.IPresentationSevices
     {
         IEnumerable<BrandModel> GetAllItems();
 
-        void RemoveBrand(int id);
+        void RemoveBrand(BrandModel brand);
 
         void CreateBrand(BrandModel model);
 

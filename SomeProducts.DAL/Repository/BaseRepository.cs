@@ -11,9 +11,9 @@ namespace SomeProducts.DAL.Repository
     {
         private readonly ProductContext _db;
 
-        public BaseRepository()
+        public BaseRepository(ProductContext db)
         {
-            _db = new ProductContext("DefaultConnection");
+            _db = db;
         }
 
         public BaseRepository(string connection)
@@ -27,13 +27,11 @@ namespace SomeProducts.DAL.Repository
             _db.Set<TEntity>().Add(item);
         }
 
-        public void Delete(int id)
+        public void Delete(TEntity item)
         {
-            var item = _db.Set<TEntity>().Find(id);
-            if (item != null)
-                _db.Set<TEntity>().Remove(item);
+            _db.Set<TEntity>().Remove(item);
         }
-
+        
         public void Dispose()
         {
             GC.SuppressFinalize(this);

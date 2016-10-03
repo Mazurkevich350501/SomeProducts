@@ -8,7 +8,7 @@ namespace SomeProducts.DAL.IDao
     {
         IEnumerable<Brand> GetAllItems();
 
-        void RemoveBrand(int id);
+        void RemoveBrand(Brand brand);
 
         void CreateBrand(Brand brand);
 

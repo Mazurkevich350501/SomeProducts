@@ -28,7 +28,7 @@ namespace SomeProducts.DAL.Test
             var brands = _repository.GetAllItems();
             foreach (var brand in brands)
             {
-                _repository.Delete(brand.Id);
+                _repository.Delete(brand);
             }
             _repository.Save();
         }

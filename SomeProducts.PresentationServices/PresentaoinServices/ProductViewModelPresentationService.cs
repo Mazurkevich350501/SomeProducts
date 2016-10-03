@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using System.Linq;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.PresentationServices.IPresentationSevices;
-using SomeProducts.PresentationServices.Models;
+using SomeProducts.PresentationServices.Models.Product;
 
 namespace SomeProducts.PresentationServices.PresentaoinServices
 {
@@ -20,7 +21,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
 
         public void RemoveProductViewModel(int id)
         {
-            _productDao.RemoveProduct(id);
+            _productDao.RemoveProduct(_productDao.GetProduct(id));
         }
 
         public ProductViewModel GetProductViewModel(int? id = null)
@@ -39,7 +40,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
             {
                 Product = productModel,
                 Brands = CreateBrandDictionary(),
-                Colors = new ProductColors().Colors
+                Colors = ProductColors.Colors
             };
         }
 
@@ -111,7 +112,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
             {
                 Product = ProductModelCast(_productDao.GetLastProduct()),
                 Brands = CreateBrandDictionary(),
-                Colors = new ProductColors().Colors
+                Colors = ProductColors.Colors
             };
         }
     }
