@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using SomeProducts.DAL.Context;
 using SomeProducts.DAL.Models;
 using SomeProducts.DAL.Repository;
 
@@ -81,6 +82,10 @@ namespace SomeProducts.DAL.Dao
                 _repository.Update(user);
                 _repository.Save();
             });
+        }
+        public static UserDao Create()
+        {
+            return new UserDao(new UserRepository(new ProductContext()));
         }
     }
 }

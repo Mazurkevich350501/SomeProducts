@@ -8,6 +8,7 @@ using SomeProducts.PresentationServices.Models.Product;
 
 namespace SomeProducts.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly IProductViewModelPresentationService _productViewModelService;

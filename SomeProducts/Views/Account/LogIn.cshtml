@@ -1,11 +1,12 @@
-﻿@model SomeProducts.PresentationServices.Models.Account.RegistrationViewModel
+﻿
+@model SomeProducts.PresentationServices.Models.Account.LogInUserModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "LogIn";
 }
 
-<h2>Register</h2>
+<h2>LogIn</h2>
 
-<form method="post" action=@Url.Action("Register", "Account") enctype="multipart/form-data">
+<form method="post" action=@Url.Action("LogIn", "Account") enctype="multipart/form-data">
     @Html.ValidationMessage("Error")
     <div>
         @Html.LabelFor(m => m.Name)
@@ -18,16 +19,13 @@
             @Html.ValidationMessageFor(m => m.Password)
             @Html.TextBoxFor(m => m.Password, new {@class = "form-control", type = "password"})
         </div>
-        @Html.LabelFor(m => m.ConfirmPassword)
-        <div class="input-div">
-            @Html.ValidationMessageFor(m => m.ConfirmPassword)
-            @Html.TextBoxFor(m => m.ConfirmPassword, new {@class = "form-control", type = "password"})
-        </div>
     </div>
     <div class="btn-div">
-        <input class="btn btn-info" type="submit" value="Register" />
+        <input class="btn btn-info" type="submit" value="SignIn"/>
+        <a class="btn btn-default" href="@Url.Action("Register", "Account")">Register</a>
     </div>
 </form>
+
 
 @section stylesheets
 {

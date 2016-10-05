@@ -1,7 +1,9 @@
 ﻿
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using SomeProducts.DAL.Models;
+using SomeProducts.PresentationServices.Authorize;
 using SomeProducts.PresentationServices.Models.Account;
 
 namespace SomeProducts.PresentationServices.PresentaoinServices
@@ -15,9 +17,20 @@ namespace SomeProducts.PresentationServices.PresentaoinServices
             _manager = manager;
         }
 
-        public Task<User> LogInAsync(LogInUserModel model)
+        public async Task<bool> LogIn(LogInUserModel model, IAuthenticationManager authentication)
         {
-            return _manager.FindAsync(model.Name, model.Password);
+            var user = await _manager.FindAsync(model.Name, model.Password);
+            if (user == null) return false;
+
+            authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            var identity = await _manager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            authentication.SignIn(new AuthenticationProperties() { IsPersistent = false }, identity);
+            return true;
+        }
+        
+        public Task<IdentityResult> PasswordValidateAsync(string password)
+        {
+            return _manager.PasswordValidator.ValidateAsync(password);
         }
 
         public Task<IdentityResult> CreateAsync(RegistrationViewModel model)

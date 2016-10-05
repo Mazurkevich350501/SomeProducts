@@ -35,6 +35,13 @@ namespace SomeProducts
             bundles.Add(new StyleBundle("~/Product/Create/css").Include(
                 "~/Stylesheets/Product.css",
                 "~/BowerComponents/jquery-simplecolorpicker/jquery.simplecolorpicker.css"));
+
+            bundles.Add(new StyleBundle("~/Accounnt/Auth/css").Include(
+                "~/Stylesheets/AccountAuth/AccountAuth.css"));
+
+            bundles.Add(new ScriptBundle("~/Accounnt/Auth/Scripts").Include(
+                "~/Scripts/Common/Utils.js",
+                "~/Scripts/AccountAuth/Validation.js"));
         }
     }
 }

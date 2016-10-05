@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace SomeProducts.PresentationServices.Models.Account
@@ -13,7 +15,8 @@ namespace SomeProducts.PresentationServices.Models.Account
         public string Password { get; set; }
 
         [Required]
-        [Compare(nameof(Password), ErrorMessage = "Passwords dont confirm")]
+        [DisplayName("Confirm password")]
+        [Compare(nameof(Password), ErrorMessage = "Password don't confirm")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
     }
