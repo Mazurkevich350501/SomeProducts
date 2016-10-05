@@ -29,7 +29,7 @@ namespace SomeProducts.PresentationServices.Authorize
             return Task<User>.Factory.StartNew(() =>
             {
                 var result = Store.FindByNameAsync(userName).Result;
-                return PasswordHasher.VerifyHashedPassword(result.Password, password) == PasswordVerificationResult.SuccessRehashNeeded
+                return PasswordHasher.VerifyHashedPassword(result?.Password, password) == PasswordVerificationResult.SuccessRehashNeeded
                 ? result
                 : null;
             });
