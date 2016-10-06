@@ -16,7 +16,7 @@
         setSortSymbol();
         $("div[data-type='sort']").click(sorting);
         $("#FilterBtn").click(filterProduct);
-        filrers.forEach(function(item){
+        filrers.forEach(function (item) {
             $("#" + item + "ParameterId").val($("#" + item + "ParameterId").attr("value"));
         });
     });
@@ -32,9 +32,9 @@
         if (sortingOption === newSoringOption) {
             newSoringOption = "rev" + newSoringOption;
         }
-        var redirectUrl = urlWhithoutBy.indexOf("filterJson") < 0 
+        var redirectUrl = urlWhithoutBy.indexOf("filterJson") < 0
             ? urlWhithoutBy + "&by=" + newSoringOption
-            : urlWhithoutBy.substring(0, urlWhithoutBy.indexOf("filterJson")) 
+            : urlWhithoutBy.substring(0, urlWhithoutBy.indexOf("filterJson"))
                 + "&by=" + newSoringOption + "&" + urlWhithoutBy.substring(urlWhithoutBy.indexOf("filterJson"));
         document.location.replace(redirectUrl);
     }

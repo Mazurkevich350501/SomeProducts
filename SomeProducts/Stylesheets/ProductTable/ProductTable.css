@@ -1,4 +1,9 @@
-﻿.product-table-div {
+﻿.modal-body-central {
+    text-align: center;
+    padding: 20px;
+}
+
+.product-table-div {
     margin: 40px 0 30px 0;
 }
 
@@ -9,7 +14,7 @@
 }
 
 .product-counter {
-    padding-left: -50px
+    padding-left: -50px;
     margin-top: 20px;
 }
 
@@ -17,12 +22,22 @@
     cursor: pointer;
 }
 
+.th-remove {
+    max-width: 50px;
+}
+
+    .th-remove button {
+        color: red;
+        border: none;
+        background: white;
+        width: 30px;
+        height: 30px;
+    }
+
 table {
     max-width: 1000px;
     border: 2px solid #357ebd;
 }
-
-
 
 thead th {
     color: whitesmoke;
@@ -57,7 +72,7 @@ th {
 .filters-container {
     padding-top: 10px;
     padding-bottom: 10px;
-    max-width: 1040px;
+    max-width: 1090px;
 }
 
 .filter-param-select {

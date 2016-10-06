@@ -41,7 +41,8 @@ namespace SomeProducts
 
             bundles.Add((new ScriptBundle("~/Product/ProductTable/Scripts").Include(
                 "~/Scripts/Common/Utils.js", 
-                "~/Scripts/ProductTable/ProductTableController.js")));
+                "~/Scripts/ProductTable/ProductTableController.js",
+                "~/Scripts/ProductTable/RemovingModalWindow.js")));
         }
     }
 }

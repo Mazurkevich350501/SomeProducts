@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SomeProducts.DAL.Repository
 {
     public interface IRepository<T> : IDisposable
     {
-        IEnumerable<T> GetAllItems();
+        IQueryable<T> GetAllItems();
         T GetById(int id);
         void Create(T item);
         bool Update(T item);

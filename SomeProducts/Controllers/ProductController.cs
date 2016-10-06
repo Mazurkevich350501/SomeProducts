@@ -82,8 +82,7 @@ namespace SomeProducts.Controllers
         public JsonResult Delete(int productId)
         {
             _productViewModelService.RemoveProductViewModel(productId);
-            var a = Url.Action("Create", "Product");
-            return Json(a, JsonRequestBehavior.AllowGet);
+            return Json(Url.Action("Create", "Product"), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetBrandsList()

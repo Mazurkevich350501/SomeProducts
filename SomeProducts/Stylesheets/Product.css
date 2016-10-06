@@ -11,8 +11,8 @@
     margin-left: 10px;
 }
 
-.field-validation-error,  
-.brand-validation-error{
+.field-validation-error,
+.brand-validation-error {
     color: red;
 }
 

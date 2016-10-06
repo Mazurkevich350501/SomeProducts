@@ -39,7 +39,7 @@ namespace SomeProducts.DAL.Repository
             GC.SuppressFinalize(this);
         }
 
-        public IEnumerable<TEntity> GetAllItems()
+        public IQueryable<TEntity> GetAllItems()
         {
             return _db.Set<TEntity>();
         }
