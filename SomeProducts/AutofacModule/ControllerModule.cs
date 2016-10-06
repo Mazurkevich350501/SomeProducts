@@ -9,6 +9,7 @@ namespace SomeProducts.AutofacModule
         {
             builder.RegisterType<ProductController>().As<ProductController>();
             builder.RegisterType<AccountController>().As<AccountController>();
+            builder.RegisterType<ErrorController>().As<ErrorController>();
         }
     }
 }
