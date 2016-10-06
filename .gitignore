@@ -12,3 +12,4 @@ TestResults/*
 .vs/config/*
 *.dacpac
 *dbmdl
+*/Log

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using SomeProducts.CrossCutting.ProjectLogger;
 using SomeProducts.PresentationServices.Models.Account;
 using SomeProducts.PresentationServices.PresentaoinServices;
 
