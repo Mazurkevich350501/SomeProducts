@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SomeProducts.PresentationServices.Models.Create
 {
-    public class ProductColors
+    public static class ProductColors
     {
-        public ProductColors()
+        static ProductColors()
         {
             Colors = new Dictionary<string, string>
             {
@@ -23,11 +22,7 @@ namespace SomeProducts.PresentationServices.Models.Create
             };
 
         }
-        public Dictionary<string, string> Colors { get; set; }
 
-        public static implicit operator Dictionary<object, object>(ProductColors v)
-        {
-            throw new NotImplementedException();
-        }
+        public static Dictionary<string, string> Colors { get; }
     }
-}
+} 

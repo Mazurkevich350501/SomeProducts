@@ -43,6 +43,7 @@
     <Compile Include="Filter\FilterInfo.cs" />
     <Compile Include="Filter\DataFiltration.cs" />
     <Compile Include="Interfaces\IImageModel.cs" />
+    <Compile Include="ProjectLogger\ProjectLogger.cs" />
     <Compile Include="Utils\ImageUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

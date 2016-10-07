@@ -1,9 +1,9 @@
 ﻿
 using System;
-using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using SomeProducts.DAL.Models;
 using SomeProducts.DAL.Context;
+using System.Linq;
 
 namespace SomeProducts.DAL.Repository
 {
@@ -31,9 +31,9 @@ namespace SomeProducts.DAL.Repository
             _db.Dispose();
         }
 
-        public IEnumerable<User> GetAllItems()
+        public IQueryable<User> GetAllItems()
         {
-            return _db.Users;
+            return _db.Users.AsQueryable();
         }
 
         public User GetById(int id)

@@ -60,8 +60,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authorize\AccountManager.cs" />
+    <Compile Include="Authorize\AccountPasswordHasher.cs" />
     <Compile Include="AutofacModule\PresentationServiceModule.cs" />
     <Compile Include="IPresentationSevices\ProductTable\IProductTablePresentationService.cs" />
+    <Compile Include="Models\Account\LogInUserModel.cs" />
+    <Compile Include="Models\Account\RegistrationViewModel.cs" />
     <Compile Include="Models\ProductTable\PageInfo.cs" />
     <Compile Include="Models\ProductTable\ProductTableModel.cs" />
     <Compile Include="Models\ProductTable\ProductTableViewModel.cs" />
@@ -77,6 +81,7 @@
     <Compile Include="PresentaoinServices\ProductTable\ProductTablePresentationService.cs" />
     <Compile Include="PresentaoinServices\ProductTable\SortingOption\SortingOption.cs" />
     <Compile Include="PresentaoinServices\ProductTable\SortingOption\SortingOptionHelper.cs" />
+    <Compile Include="PresentaoinServices\UserPresentationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

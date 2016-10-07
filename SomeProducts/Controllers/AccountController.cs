@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using SomeProducts.CrossCutting.ProjectLogger;
 using SomeProducts.PresentationServices.Models.Account;
 using SomeProducts.PresentationServices.PresentaoinServices;
 
@@ -36,7 +35,7 @@ namespace SomeProducts.Controllers
                     result = await _userManager.CreateAsync(model);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Create", "Product");
+                        return RedirectToAction("LogIn", "Account");
                     }
                 }
                 ModelState.AddModelError("Error", result.Errors.First());
@@ -59,7 +58,7 @@ namespace SomeProducts.Controllers
 
             if (await _userManager.LogIn(model, HttpContext.GetOwinContext().Authentication))
             {
-                return RedirectToAction("Create", "Product");
+                return RedirectToAction("Show", "ProductTable");
             }
 
             ModelState.AddModelError("Error", "Invalid username or password.");
@@ -71,7 +70,7 @@ namespace SomeProducts.Controllers
         public ActionResult LogOff()
         {
             HttpContext.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Create", "Product");
+            return RedirectToAction("LogIn", "Account");
         }
 
     }

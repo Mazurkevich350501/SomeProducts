@@ -3,8 +3,11 @@
 using Autofac;
 using Microsoft.Owin;
 using SomeProducts.PresentationServices.Authorize;
-using SomeProducts.PresentationServices.IPresentationSevices;
+using SomeProducts.PresentationServices.IPresentationSevices.Create;
+using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
 using SomeProducts.PresentationServices.PresentaoinServices;
+using SomeProducts.PresentationServices.PresentaoinServices.Create;
+using SomeProducts.PresentationServices.PresentaoinServices.ProductTable;
 
 namespace SomeProducts.PresentationServices.AutofacModule
 {
@@ -17,6 +20,7 @@ namespace SomeProducts.PresentationServices.AutofacModule
             builder.RegisterType<UserPresentationService>().As<UserPresentationService>();
             builder.RegisterType<ProductViewModelPresentationService>().As<IProductViewModelPresentationService>();
             builder.RegisterType<BrandModelPresentationService>().As<IBrandModelPresentationService>();
+            builder.RegisterType<ProductTablePresentationService>().As<IProductTablePresentationService>();
         }
     }
 }

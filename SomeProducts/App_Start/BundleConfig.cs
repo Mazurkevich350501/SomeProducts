@@ -36,12 +36,20 @@ namespace SomeProducts
                 "~/Stylesheets/Product.css",
                 "~/BowerComponents/jquery-simplecolorpicker/jquery.simplecolorpicker.css"));
 
-            bundles.Add(new StyleBundle("~/Accounnt/Auth/css").Include(
+            bundles.Add(new StyleBundle("~/Account/Auth/css").Include(
                 "~/Stylesheets/AccountAuth/AccountAuth.css"));
 
-            bundles.Add(new ScriptBundle("~/Accounnt/Auth/Scripts").Include(
+            bundles.Add(new ScriptBundle("~/Account/Auth/Scripts").Include(
                 "~/Scripts/Common/Utils.js",
                 "~/Scripts/AccountAuth/Validation.js"));
+
+            bundles.Add(new StyleBundle("~/Product/ProductTable/css").Include(
+                "~/Stylesheets/ProductTable/ProductTable.css"));
+
+            bundles.Add((new ScriptBundle("~/Product/ProductTable/Scripts").Include(
+                "~/Scripts/Common/Utils.js",
+                "~/Scripts/ProductTable/ProductTableController.js",
+                "~/Scripts/ProductTable/RemovingModalWindow.js")));
         }
     }
 }

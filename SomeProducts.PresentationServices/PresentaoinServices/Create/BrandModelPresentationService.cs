@@ -23,9 +23,14 @@ namespace SomeProducts.PresentationServices.PresentaoinServices.Create
             _brandSevice.CreateBrand(brand);
         }
 
-        public void RemoveBrand(int id)
+        public void RemoveBrand(BrandModel model)
         {
-            _brandSevice.RemoveBrand(id);
+            _brandSevice.RemoveBrand(new Brand()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                RowVersion = model.Version
+            });
         }
 
         public IEnumerable<BrandModel> GetAllItems()
@@ -52,7 +57,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices.Create
                 {
                     foreach (var brand in changeModel.RemovedBrands)
                     {
-                        RemoveBrand(brand.Id);
+                        RemoveBrand(brand);
                     }
                 }
 
