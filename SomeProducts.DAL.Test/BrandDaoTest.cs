@@ -60,7 +60,7 @@ namespace SomeProducts.DAL.Test
         {
             var brandList = new List<Brand>() { _brand, _brand, _brand };
             _brandRepository.Setup(r => r.GetAllItems())
-                .Returns(brandList);
+                .Returns(brandList.AsQueryable());
 
             var result = _brandDao.GetAllItems();
 
@@ -76,7 +76,7 @@ namespace SomeProducts.DAL.Test
                 new Product() {Brand = new Brand() {Id = 2, Name = "name2"}}
             };
             _productRepository.Setup(r => r.GetAllItems())
-                .Returns(productList);
+                .Returns(productList.AsQueryable());
 
             var trueResult = _brandDao.IsBrandUsing(2);
             var falseResult = _brandDao.IsBrandUsing(3);
