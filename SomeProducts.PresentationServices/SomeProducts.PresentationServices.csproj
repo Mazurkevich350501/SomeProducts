@@ -69,8 +69,6 @@
     <Compile Include="Models\ProductTable\PageInfo.cs" />
     <Compile Include="Models\ProductTable\ProductTableModel.cs" />
     <Compile Include="Models\ProductTable\ProductTableViewModel.cs" />
-    <Compile Include="PresentaoinServices\Create\BrandModelPresentationService.cs" />
-    <Compile Include="PresentaoinServices\Create\ProductViewModelPresentationService.cs" />
     <Compile Include="IPresentationSevices\Create\IBrandModelPresentationService.cs" />
     <Compile Include="IPresentationSevices\Create\IProductViewModelPresentationService.cs" />
     <Compile Include="Models\Create\BrandModel.cs" />
@@ -78,10 +76,12 @@
     <Compile Include="Models\Create\ProductColors.cs" />
     <Compile Include="Models\Create\ProductViewModel.cs" />
     <Compile Include="Models\Create\ProductModel.cs" />
-    <Compile Include="PresentaoinServices\ProductTable\ProductTablePresentationService.cs" />
-    <Compile Include="PresentaoinServices\ProductTable\SortingOption\SortingOption.cs" />
-    <Compile Include="PresentaoinServices\ProductTable\SortingOption\SortingOptionHelper.cs" />
-    <Compile Include="PresentaoinServices\UserPresentationService.cs" />
+    <Compile Include="PresentationServices\Create\BrandModelPresentationService.cs" />
+    <Compile Include="PresentationServices\Create\ProductViewModelPresentationService.cs" />
+    <Compile Include="PresentationServices\ProductTable\ProductTablePresentationService.cs" />
+    <Compile Include="PresentationServices\ProductTable\SortingOption\SortingOption.cs" />
+    <Compile Include="PresentationServices\ProductTable\SortingOption\SortingOptionHelper.cs" />
+    <Compile Include="PresentationServices\UserPresentationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

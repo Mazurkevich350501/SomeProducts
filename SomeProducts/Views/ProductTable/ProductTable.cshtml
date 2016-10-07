@@ -25,7 +25,6 @@
 }
 
 <div>
-
     <div class="row filters-container">
         @for (var i = 0; i < Model.FilterInfo.Filters.Count; i++)
         {
@@ -39,25 +38,33 @@
                                id="@(Model.FilterInfo.Filters.ToArray()[i].Option)ValueId"
                                value="@Model.FilterInfo.Filters.ToArray()[i].Value" />
                     </div>
-                        <div>
-                            @if (Model.FilterInfo.Filters.ToArray()[i].Option == "Quantity")
-                            {
-                                @Html.DropDownListFor(m => m.FilterInfo.Filters.ToArray()[i].Parameter, new SelectList(Model.NumberFilterParameter, "Key", "Value"),
-                                    new { @class = "btn btn-default dropdown-toggle filter-param-select",
-                                        id = $"{Model.FilterInfo.Filters.ToArray()[i].Option}ParameterId",
-                                        value = Model.FilterInfo.Filters.ToArray()[i].Parameter })
-                            }
-                            else
-                            {
-                                @Html.DropDownListFor(m => m.FilterInfo.Filters.ToArray()[i].Parameter, new SelectList(Model.StringFilterParameter, "Key", "Value"),
-                                    new { @class = "btn btn-default dropdown-toggle filter-param-select",
-                                        id = $"{Model.FilterInfo.Filters.ToArray()[i].Option}ParameterId",
-                                        value = Model.FilterInfo.Filters.ToArray()[i].Parameter })
-                            }
-                        </div>
+                    <div>
+                        @if (Model.FilterInfo.Filters.ToArray()[i].Option == "Quantity")
+                        {
+                            @Html.DropDownListFor(m => m.FilterInfo.Filters.ToArray()[i].Parameter, new SelectList(Model.NumberFilterParameter, "Key", "Value"),
+                                new { @class = "btn btn-default dropdown-toggle filter-param-select",
+                                    id = $"{Model.FilterInfo.Filters.ToArray()[i].Option}ParameterId",
+                                    value = Model.FilterInfo.Filters.ToArray()[i].Parameter })
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(m => m.FilterInfo.Filters.ToArray()[i].Parameter, new SelectList(Model.StringFilterParameter, "Key", "Value"),
+                                new { @class = "btn btn-default dropdown-toggle filter-param-select",
+                                    id = $"{Model.FilterInfo.Filters.ToArray()[i].Option}ParameterId",
+                                    value = Model.FilterInfo.Filters.ToArray()[i].Parameter })
+                        }
+                    </div>
                 </div>
             </div>
         }
+    </div>
+    <div class="row filters-container">
+        <div class="col-xs-11">
+            <button class="btn btn-primary" id="FilterBtn">Filter</button>
+        </div>
+        <div class="col-xs-1">
+            <button class="btn btn-default" id="clearFiltersBtnId">Clear</button>
+        </div>
     </div>
 </div>
 
@@ -139,9 +146,6 @@
                 <li><a class="dropdown-item" href=@Url.Action("Show", "ProductTable", new {page = Model.PageInfo.Page, count = i*5, by = Model.PageInfo.SortingOption, filterJson = info})>@(i*5)</a></li>
             }
         </ul>
-    </div>
-    <div class="col-xs-1 product-counter">
-        <button class="btn btn-primary" id="FilterBtn">Filter</button>
     </div>
 </div>
 

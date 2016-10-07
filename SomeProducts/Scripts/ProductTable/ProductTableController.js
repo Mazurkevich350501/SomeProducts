@@ -16,6 +16,7 @@
         setSortSymbol();
         $("div[data-type='sort']").click(sorting);
         $("#FilterBtn").click(filterProduct);
+        $("#clearFiltersBtnId").click(clearFilters);
         filrers.forEach(function (item) {
             $("#" + item + "ParameterId").val($("#" + item + "ParameterId").attr("value"));
         });
@@ -73,5 +74,12 @@
             default:
                 return false;
         }
+    }
+
+    function clearFilters(){
+        filrers.forEach(function (item) {
+            $("input").val("");
+            $("#" + item + "ParameterId").val("IsEqualTo");
+        });
     }
 }());
