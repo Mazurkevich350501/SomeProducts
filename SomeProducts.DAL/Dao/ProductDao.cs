@@ -5,7 +5,6 @@ using System.Linq;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.DAL.Repository;
-using SomeProducts.CrossCutting.Filter;
 
 namespace SomeProducts.DAL.Dao
 {

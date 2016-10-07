@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using SomeProducts.CrossCutting.Filter;
 using SomeProducts.DAL.Models;
 
 namespace SomeProducts.DAL.IDao
