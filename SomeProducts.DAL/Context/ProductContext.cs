@@ -5,11 +5,14 @@ namespace SomeProducts.DAL.Context
 {
     public class ProductContext : DbContext
     {
-        public ProductContext(string baseString) : base(baseString)
+        public ProductContext(string baseString = "DefaultConnection") : base(baseString)
         {
         }
 
         public DbSet<Product> Products { set; get; }
+
         public DbSet<Brand> Brands { set; get; }
+
+        public DbSet<User> Users { set; get; }
     }
 }

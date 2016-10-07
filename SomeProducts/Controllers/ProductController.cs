@@ -1,12 +1,14 @@
 ﻿
 using System.Linq;
 using System.Web.Mvc;
+using SomeProducts.PresentationServices.IPresentationSevices;
 using SomeProducts.CrossCutting.Utils;
 using SomeProducts.PresentationServices.IPresentationSevices.Create;
 using SomeProducts.PresentationServices.Models.Create;
 
 namespace SomeProducts.Controllers
 {
+    [Authorize]
     public class ProductController : Controller
     {
         private readonly IProductViewModelPresentationService _productViewModelService;

@@ -30,9 +30,9 @@ namespace SomeProducts.DAL.Dao
             return _repository.GetById(id);
         }
 
-        public void RemoveProduct(int id)
+        public void RemoveProduct(Product product)
         {
-            _repository.Delete(id);
+            _repository.Delete(product);
             _repository.Save();
         }
 

@@ -69,10 +69,10 @@ namespace SomeProducts.DAL.Test
         public void RemoveProduct_Should_Remove_Product_By_Id()
         {
             var deletedId = 0;
-            _productRepository.Setup(r => r.Delete(It.IsAny<int>()))
+            _productRepository.Setup(r => r.Delete(It.IsAny<Product>()))
                 .Callback<int>(id => deletedId = id);
 
-            _productDao.RemoveProduct(_product.Id);
+            _productDao.RemoveProduct(_product);
 
             Assert.AreEqual(_product.Id, deletedId);
         }

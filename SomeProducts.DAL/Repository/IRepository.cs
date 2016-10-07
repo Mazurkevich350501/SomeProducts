@@ -10,7 +10,7 @@ namespace SomeProducts.DAL.Repository
         T GetById(int id);
         void Create(T item);
         bool Update(T item);
-        void Delete(int id);
+        void Delete(T item);
         void Save();
         T GetLast();
         DateTime GetCreateTime(int id);

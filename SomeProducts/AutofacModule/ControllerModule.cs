@@ -8,7 +8,8 @@ namespace SomeProducts.AutofacModule
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<ProductController>().As<ProductController>();
-            builder.RegisterType<ProductTableController>().As<ProductTableController>();
+            builder.RegisterType<AccountController>().As<AccountController>();
+            builder.RegisterType<ErrorController>().As<ErrorController>();
         }
     }
 }

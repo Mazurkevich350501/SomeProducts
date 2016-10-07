@@ -7,7 +7,7 @@ namespace SomeProducts.PresentationServices.IPresentationSevices.Create
     {
         IEnumerable<BrandModel> GetAllItems();
 
-        void RemoveBrand(int id);
+        void RemoveBrand(BrandModel brand);
 
         void CreateBrand(BrandModel model);
 

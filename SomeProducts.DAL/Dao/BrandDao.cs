@@ -35,9 +35,9 @@ namespace SomeProducts.DAL.Dao
             return _productRepository.GetAllItems().Any(p => p.Brand.Id == id);
         }
 
-        public void RemoveBrand(int id)
+        public void RemoveBrand(Brand brand)
         {
-            _repository.Delete(id);
+            _repository.Delete(brand);
             _repository.Save();
         }
 

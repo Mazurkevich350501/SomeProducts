@@ -46,7 +46,7 @@ namespace SomeProducts.PresentationServices.Test
                 new Brand() {Id = 2, Name = "name2"}
             };
 
-            _colors = new ProductColors().Colors;
+            _colors = ProductColors.Colors;
 
             _productViewModel = new ProductViewModel()
             {
@@ -164,8 +164,8 @@ namespace SomeProducts.PresentationServices.Test
         public void RemoveProductViewModel_Should_Remove_Product()
         {
             var removedId = 0;
-            _productDao.Setup(d => d.RemoveProduct(It.IsAny<int>()))
-                .Callback<int>(id => removedId = id);
+            _productDao.Setup(d => d.RemoveProduct(It.IsAny<Product>()))
+                .Callback<Product>(p => removedId = p.Id);
 
             _productService.RemoveProductViewModel(5);
 

@@ -15,7 +15,7 @@ namespace SomeProducts.DAL.IDao
 
         void CreateProduct(Product product);
 
-        void RemoveProduct(int id);
+        void RemoveProduct(Product product);
 
         DateTime GetCreateTime(int id);
 

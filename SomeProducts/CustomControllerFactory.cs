@@ -9,7 +9,9 @@ namespace SomeProducts
     {
         protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
         {
-            return (IController)MvcApplication.Container.Resolve(controllerType);
+            return controllerType != null
+                ? (IController) MvcApplication.Container.Resolve(controllerType)
+                : null;
         }
     }
 }

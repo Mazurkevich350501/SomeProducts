@@ -1,10 +1,10 @@
 ﻿
 
 using Autofac;
-using SomeProducts.PresentationServices.IPresentationSevices.Create;
-using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
-using SomeProducts.PresentationServices.PresentaoinServices.Create;
-using SomeProducts.PresentationServices.PresentaoinServices.ProductTable;
+using Microsoft.Owin;
+using SomeProducts.PresentationServices.Authorize;
+using SomeProducts.PresentationServices.IPresentationSevices;
+using SomeProducts.PresentationServices.PresentaoinServices;
 
 namespace SomeProducts.PresentationServices.AutofacModule
 {
@@ -12,9 +12,11 @@ namespace SomeProducts.PresentationServices.AutofacModule
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<OwinContext>().As<IOwinContext>();
+            builder.RegisterType<AccountManager>().As<AccountManager>();
+            builder.RegisterType<UserPresentationService>().As<UserPresentationService>();
             builder.RegisterType<ProductViewModelPresentationService>().As<IProductViewModelPresentationService>();
             builder.RegisterType<BrandModelPresentationService>().As<IBrandModelPresentationService>();
-            builder.RegisterType<ProductTablePresentationService>().As<IProductTablePresentationService>();
         }
     }
 }
