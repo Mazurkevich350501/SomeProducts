@@ -6,7 +6,7 @@ using Moq;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.PresentationServices.Models.Create;
-using SomeProducts.PresentationServices.PresentaoinServices.Create;
+using SomeProducts.PresentationServices.PresentationServices.Create;
 
 namespace SomeProducts.PresentationServices.Test
 {

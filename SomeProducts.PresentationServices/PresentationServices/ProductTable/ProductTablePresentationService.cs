@@ -1,15 +1,14 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using PagedList;
 using SomeProducts.CrossCutting.Filter;
 using SomeProducts.DAL.IDao;
+using SomeProducts.DAL.Models;
 using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
 using SomeProducts.PresentationServices.Models.ProductTable;
-using SomeProducts.DAL.Models;
-using SomeProducts.PresentationServices.PresentaoinServices.ProductTable.SortingOption;
+using SomeProducts.PresentationServices.PresentationServices.ProductTable.SortingOption;
 
-namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable
+namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
 {
     public class ProductTablePresentationService : IProductTablePresentationService
     {

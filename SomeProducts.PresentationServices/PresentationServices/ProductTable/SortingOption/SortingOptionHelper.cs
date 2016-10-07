@@ -3,7 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using SomeProducts.DAL.Models;
 
-namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable.SortingOption
+namespace SomeProducts.PresentationServices.PresentationServices.ProductTable.SortingOption
 {
     public static class SortingOptionHelper
     {
@@ -19,7 +19,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable.Sor
             };
         }
 
-        public static SortingOption GetOptionValue(string key)
+        public static PresentationServices.ProductTable.SortingOption.SortingOption GetOptionValue(string key)
         {
             Order order;
             if (key.Substring(0, 3) == "rev")
@@ -35,7 +35,7 @@ namespace SomeProducts.PresentationServices.PresentaoinServices.ProductTable.Sor
                 ? SortingOptionDictionary[key]
                 : nameof(Product.Name);
 
-            return new SortingOption(order, option);
+            return new PresentationServices.ProductTable.SortingOption.SortingOption(order, option);
         }
 
         public static IQueryable<T> Sort<T>(this IQueryable<T> query, string option, bool direction)

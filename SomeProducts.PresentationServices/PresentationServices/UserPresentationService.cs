@@ -1,12 +1,11 @@
-﻿
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using SomeProducts.DAL.Models;
 using SomeProducts.PresentationServices.Authorize;
 using SomeProducts.PresentationServices.Models.Account;
 
-namespace SomeProducts.PresentationServices.PresentaoinServices
+namespace SomeProducts.PresentationServices.PresentationServices
 {
     public class UserPresentationService
     {

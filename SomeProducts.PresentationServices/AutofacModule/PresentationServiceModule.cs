@@ -5,9 +5,9 @@ using Microsoft.Owin;
 using SomeProducts.PresentationServices.Authorize;
 using SomeProducts.PresentationServices.IPresentationSevices.Create;
 using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
-using SomeProducts.PresentationServices.PresentaoinServices;
-using SomeProducts.PresentationServices.PresentaoinServices.Create;
-using SomeProducts.PresentationServices.PresentaoinServices.ProductTable;
+using SomeProducts.PresentationServices.PresentationServices;
+using SomeProducts.PresentationServices.PresentationServices.Create;
+using SomeProducts.PresentationServices.PresentationServices.ProductTable;
 
 namespace SomeProducts.PresentationServices.AutofacModule
 {
