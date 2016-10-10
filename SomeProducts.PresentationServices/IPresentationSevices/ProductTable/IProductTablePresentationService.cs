@@ -1,7 +1,7 @@
 ﻿
 
 using System.Collections.Generic;
-using SomeProducts.CrossCutting.Filter;
+using SomeProducts.CrossCutting.Filter.Model;
 using SomeProducts.PresentationServices.Models.ProductTable;
 
 namespace SomeProducts.PresentationServices.IPresentationSevices.ProductTable

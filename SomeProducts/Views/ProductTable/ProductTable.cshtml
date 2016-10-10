@@ -1,28 +1,6 @@
-﻿@using System.Web.Script.Serialization
-@using PagedList.Mvc
-@using SomeProducts.CrossCutting.Filter
-@using FilterInfo = SomeProducts.CrossCutting.Filter.FilterInfo
-@using Filter = SomeProducts.CrossCutting.Filter.Filter
+﻿@using PagedList.Mvc
+
 @model SomeProducts.PresentationServices.Models.ProductTable.ProductTableViewModel
-@{
-    var filters = new List<Filter>();
-    foreach (var filter in Model.FilterInfo.Filters)
-    {
-        if (filter.Parameter == FilterParameter.IsEmty || filter.Parameter == FilterParameter.IsNotEmty
-            || filter.Parameter == FilterParameter.IsNotNull || filter.Parameter == FilterParameter.IsNull)
-        {
-            filters.Add(filter);
-        }
-        else if (filter.Value != null)
-        {
-            filters.Add(filter);
-        }
-    }
-    var info = new JavaScriptSerializer().Serialize(new FilterInfo
-    {
-        Filters = filters
-    });
-}
 
 <div>
     <div class="row filters-container">
@@ -34,7 +12,7 @@
                 </h4>
                 <div class="row">
                     <div class="col-xs-10 filter-option-input-div">
-                        <input class="form-control @(Model.FilterInfo.Filters.ToArray()[i].Option == "Quantity" ? "numbre" : "")" 
+                        <input class="form-control @(Model.FilterInfo.Filters.ToArray()[i].Option == "Quantity" ? "numbre" : "")"
                                id="@(Model.FilterInfo.Filters.ToArray()[i].Option)ValueId"
                                value="@Model.FilterInfo.Filters.ToArray()[i].Value" />
                     </div>
@@ -42,16 +20,22 @@
                         @if (Model.FilterInfo.Filters.ToArray()[i].Option == "Quantity")
                         {
                             @Html.DropDownListFor(m => m.FilterInfo.Filters.ToArray()[i].Parameter, new SelectList(Model.NumberFilterParameter, "Key", "Value"),
-                                new { @class = "btn btn-default dropdown-toggle filter-param-select",
+                                new
+                                {
+                                    @class = "btn btn-default dropdown-toggle filter-param-select",
                                     id = $"{Model.FilterInfo.Filters.ToArray()[i].Option}ParameterId",
-                                    value = Model.FilterInfo.Filters.ToArray()[i].Parameter })
+                                    value = Model.FilterInfo.Filters.ToArray()[i].Parameter
+                                })
                         }
                         else
                         {
                             @Html.DropDownListFor(m => m.FilterInfo.Filters.ToArray()[i].Parameter, new SelectList(Model.StringFilterParameter, "Key", "Value"),
-                                new { @class = "btn btn-default dropdown-toggle filter-param-select",
+                                new
+                                {
+                                    @class = "btn btn-default dropdown-toggle filter-param-select",
                                     id = $"{Model.FilterInfo.Filters.ToArray()[i].Option}ParameterId",
-                                    value = Model.FilterInfo.Filters.ToArray()[i].Parameter })
+                                    value = Model.FilterInfo.Filters.ToArray()[i].Parameter
+                                })
                         }
                     </div>
                 </div>
@@ -97,35 +81,35 @@
         <tbody>
             @foreach (var product in Model.Products)
             {
-                <tr onclick="window.open('@Url.Action("Edit", "Product", new {id = product.Id})')" class="pointer">
-                    <th>
-                        @if (@product.Image != null)
+            <tr onclick="window.open('@Url.Action("Edit", "Product", new {id = product.Id})')" class="pointer">
+                <th>
+                    @if (@product.Image != null)
                         {
-                            <img class="product-table-image" style="border: 6px solid @product.Color;"
-                                 src="data:@product.ImageType;base64,@Convert.ToBase64String(product.Image)" alt="" />
+                        <img class="product-table-image" style="border: 6px solid @product.Color;"
+                             src="data:@product.ImageType;base64,@Convert.ToBase64String(product.Image)" alt="" />
                         }
                         else
                         {
-                            <img class="product-table-image" style="border: 6px solid @product.Color;"
-                                 src="~/Resources/emptyImage.jpg" alt="" />
+                        <img class="product-table-image" style="border: 6px solid @product.Color;"
+                             src="~/Resources/emptyImage.jpg" alt="" />
                         }
-                    </th>
-                    <th>
-                        @Html.DisplayFor(p => product.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayFor(p => product.Description)
-                    </th>
-                    <th>
-                        @Html.DisplayFor(p => product.Brand)
-                    </th>
-                    <th>
-                        @Html.DisplayFor(p => product.Quantity)
-                    </th>
-                    <th class="th-remove">
-                        <button class="glyphicon glyphicon-remove" data-id="@product.Id"></button>
-                    </th>
-                </tr>
+                </th>
+                <th>
+                    @Html.DisplayFor(p => product.Name)
+                </th>
+                <th>
+                    @Html.DisplayFor(p => product.Description)
+                </th>
+                <th>
+                    @Html.DisplayFor(p => product.Brand)
+                </th>
+                <th>
+                    @Html.DisplayFor(p => product.Quantity)
+                </th>
+                <th class="th-remove">
+                    <button class="glyphicon glyphicon-remove" data-id="@product.Id"></button>
+                </th>
+            </tr>
             }
         </tbody>
     </table>
@@ -133,7 +117,7 @@
 
 <div class="row filters-container">
     <div class="col-xs-5">
-        @Html.PagedListPager(Model.Products, page => Url.Action("Show", "ProductTable", new {page, count = @Model.PageInfo.ProductCount, by = @Model.PageInfo.SortingOption, filterJson = info}))
+        @Html.PagedListPager(Model.Products, page => Url.Action("Show", "ProductTable", new { page, count = @Model.PageInfo.ProductCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters }))
     </div>
     <div class="dropdown col-xs-6 product-counter">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -143,7 +127,7 @@
         <ul class="dropdown-menu">
             @for (var i = 1; i < 5; i++)
             {
-                <li><a class="dropdown-item" href=@Url.Action("Show", "ProductTable", new {page = Model.PageInfo.Page, count = i*5, by = Model.PageInfo.SortingOption, filterJson = info})>@(i*5)</a></li>
+                <li><a class="dropdown-item" href=@Url.Action("Show", "ProductTable", new {page = Model.PageInfo.Page, count = i*5, by = Model.PageInfo.SortingOption, filter = Model.JsonFilters })>@(i * 5)</a></li>
             }
         </ul>
     </div>
@@ -169,7 +153,7 @@
     <script>
         $(function () {
             var params = {
-                url: '@Url.Action("Show", "ProductTable", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ProductCount, filterJson = info })',
+                url: '@Url.Action("Show", "ProductTable", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ProductCount, filter = Model.JsonFilters })',
                 presentUrl: '@Url.Action("Show", "ProductTable", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ProductCount, by = @Model.PageInfo.SortingOption})',
                 sortingOption: '@Model.PageInfo.SortingOption',
                 deleteProductUrl: '@Url.Action("Delete", "Product")'

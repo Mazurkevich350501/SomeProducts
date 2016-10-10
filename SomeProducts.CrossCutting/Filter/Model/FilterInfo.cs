@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SomeProducts.CrossCutting.Filter
+namespace SomeProducts.CrossCutting.Filter.Model
 {
     public class FilterInfo
     {

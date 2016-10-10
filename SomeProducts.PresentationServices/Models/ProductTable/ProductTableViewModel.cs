@@ -1,7 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using PagedList;
-using SomeProducts.CrossCutting.Filter;
+using SomeProducts.CrossCutting.Filter.Model;
 
 namespace SomeProducts.PresentationServices.Models.ProductTable
 {
@@ -12,6 +12,8 @@ namespace SomeProducts.PresentationServices.Models.ProductTable
         public PageInfo PageInfo { get; set; }
 
         public FilterInfo FilterInfo { get; set; }
+
+        public string JsonFilters { get; set; }
 
         public IDictionary<FilterParameter, string> NumberFilterParameter { get; set; }
 

@@ -1,5 +1,5 @@
 ﻿
-namespace SomeProducts.CrossCutting.Filter
+namespace SomeProducts.CrossCutting.Filter.Model
 {
     public enum FilterParameter
     {

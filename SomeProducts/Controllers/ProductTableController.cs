@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
-using System.Web.Script.Serialization;
+using SomeProducts.CrossCutting.Filter.Model;
 using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
 using SomeProducts.PresentationServices.Models.ProductTable;
-using FilterInfo = SomeProducts.CrossCutting.Filter.FilterInfo;
+using FilterInfo = SomeProducts.CrossCutting.Filter.Model.FilterInfo;
 
 namespace SomeProducts.Controllers
 {
@@ -16,12 +16,10 @@ namespace SomeProducts.Controllers
         }
 
         [HttpGet]
-        public ActionResult Show(int? page, int? count, string by, string filterJson)
+        public ActionResult Show(int? page, int? count, string by, 
+            [ModelBinder(typeof(FilterInfoModelBinder))]FilterInfo filter)
         {
-            var filterInfo = filterJson != null 
-                ? new JavaScriptSerializer().Deserialize<FilterInfo>(filterJson) 
-                : null;
-            var model = _service.GetTablePage(GetPageInfo(page, count, by), filterInfo);
+            var model = _service.GetTablePage(GetPageInfo(page, count, by), filter);
             return View("ProductTable", model);
         }
 

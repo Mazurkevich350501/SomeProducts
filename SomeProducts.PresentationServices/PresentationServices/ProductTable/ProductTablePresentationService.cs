@@ -2,11 +2,13 @@
 using System.Linq;
 using PagedList;
 using SomeProducts.CrossCutting.Filter;
+using SomeProducts.CrossCutting.Filter.Model;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
 using SomeProducts.PresentationServices.Models.ProductTable;
 using SomeProducts.PresentationServices.PresentationServices.ProductTable.SortingOption;
+using Newtonsoft.Json;
 
 namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
 {
@@ -26,17 +28,38 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
             var productList = GetFilteredAndSortedProducts(sortingOption, filterInfo);
             pageInfo.TotalProductCount = productList.Count();
             var tableList = productList.ToPagedList(pageInfo.Page, pageInfo.ProductCount).Select(ProductTableModelCast).AsQueryable();
-            
-            return new ProductTableViewModel
+
+
+            var result = new ProductTableViewModel
             {
-                Products =
-                    new StaticPagedList<ProductTableModel>(tableList, pageInfo.Page, pageInfo.ProductCount,
-                        pageInfo.TotalProductCount),
+                Products = new StaticPagedList<ProductTableModel>(tableList, pageInfo.Page, pageInfo.ProductCount,
+                    pageInfo.TotalProductCount),
                 PageInfo = pageInfo,
                 FilterInfo = InitFilterInfo(filterInfo),
-                NumberFilterParameter = GetNumberFilterParameter(),
-                StringFilterParameter = GetStringFilterParameter()
+                StringFilterParameter = GetStringFilterParameter(),
+                NumberFilterParameter = GetNumberFilterParameter()
             };
+            result.JsonFilters = GetReturnedJsonFilterList(result.FilterInfo.Filters);
+
+            return result;
+        }
+
+        private static string GetReturnedJsonFilterList(IEnumerable<Filter> list)
+        {
+            var filters = new List<Filter>();
+            foreach (var filter in list)
+            {
+                if (filter.Parameter == FilterParameter.IsEmty || filter.Parameter == FilterParameter.IsNotEmty
+                    || filter.Parameter == FilterParameter.IsNotNull || filter.Parameter == FilterParameter.IsNull)
+                {
+                    filters.Add(filter);
+                }
+                else if (filter.Value != null)
+                {
+                    filters.Add(filter);
+                }
+            }
+            return JsonConvert.SerializeObject(filters);
         }
 
         private static FilterInfo InitFilterInfo(FilterInfo filterInfo)

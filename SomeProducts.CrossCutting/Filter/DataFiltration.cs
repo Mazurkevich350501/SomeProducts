@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using SomeProducts.CrossCutting.Filter.Model;
 
 namespace SomeProducts.CrossCutting.Filter
 {
@@ -14,7 +15,7 @@ namespace SomeProducts.CrossCutting.Filter
             return a;
         }
 
-        public static IQueryable<T> Where<T>(this IQueryable<T> query, Filter filterParam)
+        public static IQueryable<T> Where<T>(this IQueryable<T> query, Model.Filter filterParam)
         {
             if (filterParam == null)
                 return query;

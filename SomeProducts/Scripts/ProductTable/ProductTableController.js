@@ -33,10 +33,11 @@
         if (sortingOption === newSoringOption) {
             newSoringOption = "rev" + newSoringOption;
         }
-        var redirectUrl = urlWhithoutBy.indexOf("filterJson") < 0
+        console.log(urlWhithoutBy.indexOf("filter"));
+        var redirectUrl = urlWhithoutBy.indexOf("filter") < 0
             ? urlWhithoutBy + "&by=" + newSoringOption
-            : urlWhithoutBy.substring(0, urlWhithoutBy.indexOf("filterJson"))
-                + "&by=" + newSoringOption + "&" + urlWhithoutBy.substring(urlWhithoutBy.indexOf("filterJson"));
+            : urlWhithoutBy.substring(0, urlWhithoutBy.indexOf("filter"))
+                + "&by=" + newSoringOption + "&" + urlWhithoutBy.substring(urlWhithoutBy.indexOf("filter"));
         document.location.replace(redirectUrl);
     }
 
@@ -50,7 +51,7 @@
                 filterInfo.Filters.push(filter);
             }
         });
-        document.location.replace(presentUrl + "&filterJson=" + JSON.stringify(filterInfo));
+        document.location.replace(presentUrl + "&filter=" + encodeURIComponent(JSON.stringify(filterInfo.Filters)));
     }
 
     function getFilter(option) {
@@ -76,7 +77,7 @@
         }
     }
 
-    function clearFilters(){
+    function clearFilters() {
         filrers.forEach(function (item) {
             $("input").val("");
             $("#" + item + "ParameterId").val("IsEqualTo");
