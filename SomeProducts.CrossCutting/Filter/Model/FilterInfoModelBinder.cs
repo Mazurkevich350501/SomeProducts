@@ -10,7 +10,7 @@ namespace SomeProducts.CrossCutting.Filter.Model
         public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
         {
             var request = controllerContext.HttpContext.Request;
-            var jsonResult = request.QueryString["filter"];
+            var jsonResult = request.QueryString[bindingContext.ModelName];
             return jsonResult != null
                 ? new FilterInfo() {
                     Filters = JsonConvert.DeserializeObject<List<Filter>>(jsonResult)
