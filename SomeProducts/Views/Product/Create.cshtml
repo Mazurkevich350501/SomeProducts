@@ -53,7 +53,7 @@
     </div>
     <div>
         <input type="submit" class="btn btn-success" value=@(isEdit ? "Save" : "Create") />
-        @if (isEdit)
+        @if (isEdit && User.IsInRole("Admin"))
         {
             <div id="delete-btn" class="btn btn-warning" data-toggle="modal" data-target="#RemovingModal">Delete</div>
         }

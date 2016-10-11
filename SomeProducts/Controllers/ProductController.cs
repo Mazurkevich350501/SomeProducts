@@ -7,7 +7,7 @@ using SomeProducts.PresentationServices.Models.Create;
 
 namespace SomeProducts.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin, User")]
     public class ProductController : Controller
     {
         private readonly IProductViewModelPresentationService _productViewModelService;
@@ -21,7 +21,6 @@ namespace SomeProducts.Controllers
 
         // GET: Product
         [HttpGet]
-        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ProductViewModel model = _productViewModelService.GetProductViewModel();
@@ -81,6 +80,7 @@ namespace SomeProducts.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public JsonResult Delete(int productId)
         {
             _productViewModelService.RemoveProductViewModel(productId);

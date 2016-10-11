@@ -21,7 +21,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Create new product", "Create", "Product")</li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Create new product", "Create", "Product")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
