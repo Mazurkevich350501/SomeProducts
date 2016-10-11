@@ -1,7 +1,6 @@
 ﻿
 using System.Linq;
 using System.Web.Mvc;
-using SomeProducts.PresentationServices.IPresentationSevices;
 using SomeProducts.CrossCutting.Utils;
 using SomeProducts.PresentationServices.IPresentationSevices.Create;
 using SomeProducts.PresentationServices.Models.Create;
@@ -22,6 +21,7 @@ namespace SomeProducts.Controllers
 
         // GET: Product
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ProductViewModel model = _productViewModelService.GetProductViewModel();

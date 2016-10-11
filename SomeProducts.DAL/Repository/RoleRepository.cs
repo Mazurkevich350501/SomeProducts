@@ -1,30 +1,29 @@
-﻿
-using System;
+﻿using System;
 using System.Data.Entity.Migrations;
-using SomeProducts.DAL.Models;
-using SomeProducts.DAL.Context;
 using System.Linq;
+using SomeProducts.DAL.Context;
+using SomeProducts.DAL.Models;
 using SomeProducts.DAL.Repository.Interface;
 
 namespace SomeProducts.DAL.Repository
 {
-    public class UserRepository : IRepository<User>
+    public class RoleRepository : IRepository<Role>
     {
         private readonly ProductContext _db;
 
-        public UserRepository(ProductContext db)
+        public RoleRepository(ProductContext db)
         {
             _db = db;
         }
 
-        public void Create(User user)
+        public void Create(Role role)
         {
-            _db.Users.Add(user);
+            _db.Roles.Add(role);
         }
 
-        public void Delete(User user)
+        public void Delete(Role role)
         {
-            _db.Users.Remove(_db.Users.Find(user));
+            _db.Roles.Remove(_db.Roles.Find(role));
         }
 
         public void Dispose()
@@ -32,22 +31,22 @@ namespace SomeProducts.DAL.Repository
             _db.Dispose();
         }
 
-        public IQueryable<User> GetAllItems()
+        public IQueryable<Role> GetAllItems()
         {
-            return _db.Users.AsQueryable();
+            return _db.Roles.AsQueryable();
         }
 
-        public User GetById(int id)
+        public Role GetById(int id)
         {
-           return _db.Users.Find(id);
+            return _db.Roles.Find(id);
         }
-        
+
         public DateTime GetCreateTime(int id)
         {
             throw new NotImplementedException();
         }
 
-        public User GetLast()
+        public Role GetLast()
         {
             throw new NotImplementedException();
         }
@@ -57,9 +56,9 @@ namespace SomeProducts.DAL.Repository
             _db.SaveChanges();
         }
 
-        public bool Update(User user)
+        public bool Update(Role role)
         {
-            _db.Users.AddOrUpdate(user);
+            _db.Roles.AddOrUpdate(role);
             return true;
         }
     }

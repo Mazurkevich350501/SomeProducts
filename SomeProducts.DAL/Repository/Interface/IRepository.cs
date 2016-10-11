@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
-namespace SomeProducts.DAL.Repository
+namespace SomeProducts.DAL.Repository.Interface
 {
     public interface IRepository<T> : IDisposable
     {

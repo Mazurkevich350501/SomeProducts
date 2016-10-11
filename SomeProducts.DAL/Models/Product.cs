@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using SomeProducts.DAL.Repository;
+using SomeProducts.DAL.Repository.Interface;
 
 namespace SomeProducts.DAL.Models
 {

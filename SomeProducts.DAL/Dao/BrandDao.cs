@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
-using SomeProducts.DAL.Repository;
+using SomeProducts.DAL.Repository.Interface;
 
 namespace SomeProducts.DAL.Dao
 {

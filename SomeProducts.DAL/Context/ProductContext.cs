@@ -14,5 +14,7 @@ namespace SomeProducts.DAL.Context
         public DbSet<Brand> Brands { set; get; }
 
         public DbSet<User> Users { set; get; }
+
+        public DbSet<Role> Roles { get; set; }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using SomeProducts.DAL.Context;
+using SomeProducts.DAL.Repository.Interface;
 
 
 namespace SomeProducts.DAL.Repository
@@ -34,7 +34,7 @@ namespace SomeProducts.DAL.Repository
         
         public void Dispose()
         {
-            GC.SuppressFinalize(this);
+            _db.Dispose();
         }
 
         public IQueryable<TEntity> GetAllItems()

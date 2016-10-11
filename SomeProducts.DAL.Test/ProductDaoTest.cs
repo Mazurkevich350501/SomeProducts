@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SomeProducts.DAL.Dao;
 using SomeProducts.DAL.Models;
-using SomeProducts.DAL.Repository;
+using SomeProducts.DAL.Repository.Interface;
 
 namespace SomeProducts.DAL.Test
 {

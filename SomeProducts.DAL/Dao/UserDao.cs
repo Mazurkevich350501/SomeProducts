@@ -1,28 +1,31 @@
 ﻿
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
-using SomeProducts.DAL.Context;
 using SomeProducts.DAL.Models;
-using SomeProducts.DAL.Repository;
+using SomeProducts.DAL.Repository.Interface;
 
 namespace SomeProducts.DAL.Dao
 {
-    public class UserDao : IUserPasswordStore<User, int>
+    public class UserDao : IUserPasswordStore<User, int> , IUserRoleStore<User, int>
     {
-        private readonly IRepository<User> _repository;
+        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<Role> _roleRepository;
 
-        public UserDao(IRepository<User> repository)
+        public UserDao(IRepository<User> userRepository, IRepository<Role> roleRepository)
         {
-            _repository = repository;
+            _userRepository = userRepository;
+            _roleRepository = roleRepository;
         }
 
         public Task CreateAsync(User user)
         {
-            return Task.Factory.StartNew(() =>
+            return Task.Factory.StartNew(async () =>
             {
-                _repository.Create(user);
-                _repository.Save();
+                _userRepository.Create(user);
+                await AddToRoleAsync(user, "user");
+                _userRepository.Save();
             });
         }
 
@@ -30,37 +33,37 @@ namespace SomeProducts.DAL.Dao
         {
             return Task.Factory.StartNew(() =>
             {
-                _repository.Delete(user);
-                _repository.Save();
+                _userRepository.Delete(user);
+                _userRepository.Save();
             });
         }
 
         public void Dispose()
         {
-            _repository.Dispose();
+            _userRepository.Dispose();
         }
 
         public Task<User> FindByIdAsync(int userId)
         {
-            return Task.Factory.StartNew(() => _repository.GetAllItems().FirstOrDefault(u => u.Id == userId));
+            return Task.Factory.StartNew(() => _userRepository.GetAllItems().FirstOrDefault(u => u.Id == userId));
         }
 
         public Task<User> FindByNameAsync(string userName)
         {
-            return Task.Factory.StartNew(() => _repository.GetAllItems().FirstOrDefault(u => u.UserName == userName));
+            return Task.Factory.StartNew(() => _userRepository.GetAllItems().FirstOrDefault(u => u.UserName == userName));
         }
 
         public Task<string> GetPasswordHashAsync(User user)
         {
             return Task.Factory.StartNew(() => 
-                _repository.GetAllItems().FirstOrDefault(u => u.UserName == user.UserName)?.Password);
+                _userRepository.GetAllItems().FirstOrDefault(u => u.UserName == user.UserName)?.Password);
         }
 
         public Task<bool> HasPasswordAsync(User user)
         {
             return Task.Factory.StartNew(() =>
             {
-                return _repository.GetAllItems().FirstOrDefault(u => 
+                return _userRepository.GetAllItems().FirstOrDefault(u => 
                     u.UserName == user.UserName)?.Password != null;  
             });
         }
@@ -69,7 +72,7 @@ namespace SomeProducts.DAL.Dao
         {
             return Task.Factory.StartNew(() =>
             {
-                var dbUser = _repository.GetAllItems().FirstOrDefault(u => u.UserName == user.UserName);
+                var dbUser = _userRepository.GetAllItems().FirstOrDefault(u => u.UserName == user.UserName);
                 if(dbUser == null) return;
                 UpdateAsync(user);
             });
@@ -79,13 +82,47 @@ namespace SomeProducts.DAL.Dao
         {
             return Task.Factory.StartNew(() =>
             {
-                _repository.Update(user);
-                _repository.Save();
+                _userRepository.Update(user);
+                _userRepository.Save();
             });
         }
-        public static UserDao Create()
+
+        public Task AddToRoleAsync(User user, string roleName)
         {
-            return new UserDao(new UserRepository(new ProductContext()));
+            return Task.Factory.StartNew(() =>
+            {
+                var role = _roleRepository.GetAllItems().FirstOrDefault(r => r.Name == roleName);
+                if (role == null) return;
+                if (user.Roles == null) user.Roles = new List<Role>();
+                user.Roles.Add(role);
+                _roleRepository.Save();
+            });
+        }
+
+        public Task RemoveFromRoleAsync(User user, string roleName)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                var role = _roleRepository.GetAllItems().FirstOrDefault(r => r.Name == roleName);
+                if (role != null)
+                {
+                    user.Roles.Remove(role);
+                }
+                _roleRepository.Save();
+            });
+        }
+
+        public Task<IList<string>> GetRolesAsync(User user)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                return (IList<string>)user.Roles.Select(role => role.Name).ToList();
+            });
+        }
+
+        public Task<bool> IsInRoleAsync(User user, string roleName)
+        {
+            return Task.Factory.StartNew(() => user.Roles.Any(r => r.Name == roleName ));
         }
     }
 }
