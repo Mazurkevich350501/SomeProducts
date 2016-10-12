@@ -1,0 +1,178 @@
+﻿@using System.Text.RegularExpressions
+@using PagedList.Mvc
+@model SomeProducts.PresentationServices.Models.Admin.UserTableViewModel
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>Users</h2>
+
+<div>
+    <div class="row filters-container">
+        @for (var i = 0; i < Model.FilterInfo.Filters.Count; i++)
+        {
+        <div class="col-xs-3">
+            <h4>
+                @Regex.Split(Model.FilterInfo.Filters.ToArray()[i].Option, @"(?<!^)(?=[A-Z])")[0]
+            </h4>
+            <div class="row">
+                <div class="col-xs-10 filter-option-input-div">
+                    <input class="form-control @(Model.FilterInfo.Filters.ToArray()[i].Option == "Quantity" ? "numbre" : "")"
+                           id="@(Model.FilterInfo.Filters.ToArray()[i].Option)ValueId"
+                           value="@Model.FilterInfo.Filters.ToArray()[i].Value" />
+                </div>
+                <div>
+                    @if (Model.FilterInfo.Filters.ToArray()[i].Option == "Id")
+                        {
+                        @Html.DropDownListFor(m => m.FilterInfo.Filters.ToArray()[i].Parameter, new SelectList(Model.NumberFilterParameter, "Key", "Value"),
+                                new
+                                {
+                                    @class = "btn btn-default dropdown-toggle filter-param-select",
+                                    id = $"{Model.FilterInfo.Filters.ToArray()[i].Option}ParameterId",
+                                    value = Model.FilterInfo.Filters.ToArray()[i].Parameter
+                                })
+                        }
+                        else
+                        {
+                        @Html.DropDownListFor(m => m.FilterInfo.Filters.ToArray()[i].Parameter, new SelectList(Model.StringFilterParameter, "Key", "Value"),
+                                new
+                                {
+                                    @class = "btn btn-default dropdown-toggle filter-param-select",
+                                    id = $"{Model.FilterInfo.Filters.ToArray()[i].Option}ParameterId",
+                                    value = Model.FilterInfo.Filters.ToArray()[i].Parameter
+                                })
+                        }
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+    <div class="row filters-container">
+        <div class="col-xs-1">
+            <button class="btn btn-primary" id="FilterBtn">Filter</button>
+        </div>
+        <div class="col-xs-1">
+            <button class="btn btn-default" id="clearFiltersBtnId">Clear</button>
+        </div>
+    </div>
+</div>
+
+<div class="product-table-div">
+    <table class="table" id="productTable">
+        <thead>
+            <tr>
+                <th>
+                    <div id="th-id" data-type="sort" data-name="Id" class="pointer">
+                        Id
+                    </div>
+                </th>
+                <th>
+                    <div id="th-name" data-type="sort" data-name="Name" class="pointer">
+                        Name
+                    </div>
+                </th>
+                <th>
+                    <div data-name="roles">
+                        Roles
+                    </div>
+                </th>
+                <th class="th-setAdmin"></th>
+                <th class="th-remove"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+
+                <tr>
+                    <th>
+                        @Html.DisplayFor(p => user.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayFor(p => user.Name)
+                    </th>
+                    <th>
+                        @Html.Raw(string.Join(", ", user.Roles)).ToHtmlString()
+                    </th>
+                    <th class="th-setAdmin">
+                        <button class="btn btn-default" data-id="@user.Id" 
+                                id=@($"setAdminBtn{user.Id}")
+                                style=@($"background-color:red;")>Admin</button>
+                    </th>
+                    <th class="th-remove">
+                        <button class="glyphicon glyphicon-remove" data-id="@user.Id"></button>
+                    </th>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="row filters-container">
+    <div class="col-xs-5">
+        @Html.PagedListPager(Model.Users, page => Url.Action("Users", "Admin", new { page, count = @Model.PageInfo.ProductCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters }))
+    </div>
+    <div class="dropdown col-xs-6 product-counter">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+            Products count: @Model.PageInfo.ProductCount
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            @for (var i = 1; i < 5; i++)
+            {
+                <li><a class="dropdown-item" href=@Url.Action("Users", "Admin", new { page = Model.PageInfo.Page, count = i * 5, by = Model.PageInfo.SortingOption, filter = Model.JsonFilters })>@(i * 5)</a></li>
+            }
+        </ul>
+    </div>
+</div>
+
+<div id="RemovingModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Do you want to delete this product?</h4>
+            </div>
+            <div class="modal-body-central">
+                <button class="btn btn-danger" id="removeBtnId">Delete</button>
+                <button class="btn btn-default" id="cancelDeleteBtnId">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="SetAdminModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Do you want to change admin role for this user?</h4>
+            </div>
+            <div class="modal-body-central">
+                <button class="btn btn-success" id="setAdminBtnId">Confirm</button>
+                <button class="btn btn-default" id="cancelSetAdminBtnId">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script>
+        $(function () {
+            var params = {
+                url: '@Url.Action("Users", "Admin", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ProductCount, filter = Model.JsonFilters })',
+                presentUrl: '@Url.Action("Users", "Admin", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ProductCount, by = @Model.PageInfo.SortingOption})',
+                sortingOption: '@Model.PageInfo.SortingOption',
+                changeAdminRoleUrl: '@Url.Action("ChangeUserAdminRole", "Admin")'
+            };
+            var productTableNamespace = window.Utils.getNamespace("ProductTable");
+            productTableNamespace.init(params);
+            var removingModalNamespace = window.Utils.getNamespace("RemovingModal");
+            removingModalNamespace.initRemovingModal(params);
+        });
+    </script>
+    @Scripts.Render("~/Product/Admin/Scripts")
+}
+
+@section stylesheets
+{
+    @Styles.Render("~/Product/Admin/css")
+}

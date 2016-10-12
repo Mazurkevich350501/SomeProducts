@@ -50,6 +50,14 @@ namespace SomeProducts
                 "~/Scripts/Common/Utils.js",
                 "~/Scripts/ProductTable/ProductTableController.js",
                 "~/Scripts/ProductTable/RemovingModalWindow.js")));
+
+            bundles.Add(new StyleBundle("~/Product/Admin/css").Include(
+               "~/Stylesheets/Admin/UserTable.css"));
+
+            bundles.Add((new ScriptBundle("~/Product/Admin/Scripts").Include(
+                "~/Scripts/Common/Utils.js",
+                "~/Scripts/Admin/UserTableController.js",
+                "~/Scripts/Admin/ModalWindow.js")));
         }
     }
 }

@@ -85,6 +85,8 @@
     <Compile Include="Filter\Model\FilterInfoModelBinder.cs" />
     <Compile Include="Interfaces\IImageModel.cs" />
     <Compile Include="ProjectLogger\ProjectLogger.cs" />
+    <Compile Include="Sorting\SortingOption\SortingOption.cs" />
+    <Compile Include="Sorting\SortingOption\SortingOptionHelper.cs" />
     <Compile Include="Utils\ImageUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

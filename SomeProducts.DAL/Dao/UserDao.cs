@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
+using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.DAL.Repository.Interface;
 
 namespace SomeProducts.DAL.Dao
 {
-    public class UserDao : IUserPasswordStore<User, int> , IUserRoleStore<User, int>
+    public class UserDao : IUserDao
     {
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Role> _roleRepository;
@@ -84,6 +84,7 @@ namespace SomeProducts.DAL.Dao
             {
                 _userRepository.Update(user);
                 _userRepository.Save();
+                _roleRepository.Save();
             });
         }
 
@@ -95,6 +96,8 @@ namespace SomeProducts.DAL.Dao
                 if (role == null) return;
                 if (user.Roles == null) user.Roles = new List<Role>();
                 user.Roles.Add(role);
+                _userRepository.Update(user);
+                _userRepository.Save();
                 _roleRepository.Save();
             });
         }
@@ -107,8 +110,10 @@ namespace SomeProducts.DAL.Dao
                 if (role != null)
                 {
                     user.Roles.Remove(role);
+                    _userRepository.Update(user);
+                    _userRepository.Save();
+                    _roleRepository.Save();
                 }
-                _roleRepository.Save();
             });
         }
 
@@ -116,13 +121,25 @@ namespace SomeProducts.DAL.Dao
         {
             return Task.Factory.StartNew(() =>
             {
-                return (IList<string>)user.Roles.Select(role => role.Name).ToList();
+                return user.Roles != null
+                    ? (IList<string>) user.Roles.Select(role => role.Name).ToList()
+                    : new List<string>();
             });
         }
 
         public Task<bool> IsInRoleAsync(User user, string roleName)
         {
             return Task.Factory.StartNew(() => user.Roles.Any(r => r.Name == roleName ));
+        }
+
+        public int GetUserCount()
+        {
+            return _userRepository.GetAllItems().Count();
+        }
+
+        public IQueryable<User> GetAllUsers()
+        {
+            return _userRepository.GetAllItems();
         }
     }
 }

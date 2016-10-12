@@ -23,6 +23,7 @@ namespace SomeProducts.DAL.AutofacModule
             builder.RegisterType<ProductDao>().As<IProductDao>();
             builder.RegisterType<BrandDao>().As<IBrandDao>();
             builder.RegisterType<UserDao>().As<IUserStore<User, int>>();
+            builder.RegisterType<UserDao>().As<IUserDao>();
             builder.RegisterType<RoleDao>().As<IRoleStore<Role, int>>();
         }
     }

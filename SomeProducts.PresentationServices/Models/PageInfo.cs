@@ -1,7 +1,5 @@
 ﻿
-using SomeProducts.CrossCutting.Filter;
-
-namespace SomeProducts.PresentationServices.Models.ProductTable
+namespace SomeProducts.PresentationServices.Models
 {
     public class PageInfo
     {

@@ -57,6 +57,7 @@
     <Compile Include="IDao\IProductDao.cs" />
     <Compile Include="Dao\BrandDao.cs" />
     <Compile Include="Dao\ProductDao.cs" />
+    <Compile Include="IDao\IUserTablePresentationService.cs" />
     <Compile Include="Models\Brand.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Context\ProductContext.cs" />

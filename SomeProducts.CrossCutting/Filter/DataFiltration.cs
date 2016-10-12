@@ -2,12 +2,13 @@
 using System.Linq;
 using System.Linq.Expressions;
 using SomeProducts.CrossCutting.Filter.Model;
+using System.Collections.Generic;
 
 namespace SomeProducts.CrossCutting.Filter
 {
     public static class DataFiltration
     {
-        public static IQueryable<T> GetFilteredProuct<T>(this IQueryable<T> query, FilterInfo filters)
+        public static IQueryable<T> GetFilteredProduct<T>(this IQueryable<T> query, FilterInfo filters)
         {
             var a = filters?.Filters != null
                 ? filters.Filters.Aggregate(query, (current, filter) => current.Where(filter))
@@ -96,6 +97,33 @@ namespace SomeProducts.CrossCutting.Filter
             var result = Expression.Call(typeof(Queryable), "Where", new[] { query.ElementType }, query.Expression, lambda);
 
             return query.Provider.CreateQuery<T>(result);
+        }
+
+        public static IDictionary<FilterParameter, string> GetNumberFilterParameter()
+        {
+            return new Dictionary<FilterParameter, string>()
+            {
+                {FilterParameter.IsEqualTo, "Is equal to"},
+                {FilterParameter.IsNotEqualTo, "Is not equal to"},
+                {FilterParameter.IsGreaterThanOrEqualTo, "Is greate than or equal to"},
+                {FilterParameter.IsLessThenOrEqualTo, "Is less then or equal to"},
+                {FilterParameter.IsLessThen, "Is less then"}
+            };
+        }
+
+        public static IDictionary<FilterParameter, string> GetStringFilterParameter()
+        {
+            return new Dictionary<FilterParameter, string>()
+            {
+                {FilterParameter.IsEqualTo, "Is equal to"},
+                {FilterParameter.IsNotEqualTo, "Is not equal to"},
+                {FilterParameter.Contains, "Contains"},
+                {FilterParameter.DoesNotContain, "Does not contain"},
+                {FilterParameter.IsEmty, "Is emty"},
+                {FilterParameter.IsNotEmty, "Is not emty"},
+                {FilterParameter.IsNull, "Is null"},
+                {FilterParameter.IsNotNull, "Is not null"},
+            };
         }
     }
 }

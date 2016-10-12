@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using SomeProducts.CrossCutting.Filter.Model;
 using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
-using SomeProducts.PresentationServices.Models.ProductTable;
+using SomeProducts.PresentationServices.Models;
 using FilterInfo = SomeProducts.CrossCutting.Filter.Model.FilterInfo;
 
 namespace SomeProducts.Controllers
