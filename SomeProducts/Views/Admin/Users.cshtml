@@ -95,9 +95,13 @@
                         @Html.Raw(string.Join(", ", user.Roles)).ToHtmlString()
                     </th>
                     <th class="th-setAdmin">
-                        <button class="btn btn-default" data-id="@user.Id" 
+                        @{
+                            var setAdminBtnColor = user.Roles.Contains("Admin")
+                                ? "green" : "red";
+                        }
+                        <button class="btn btn-default" data-id="@user.Id"
                                 id=@($"setAdminBtn{user.Id}")
-                                style=@($"background-color:red;")>Admin</button>
+                                style=@($"background-color:{setAdminBtnColor};")>Admin</button>
                     </th>
                     <th class="th-remove">
                         <button class="glyphicon glyphicon-remove" data-id="@user.Id"></button>
@@ -132,10 +136,15 @@
             <div class="modal-header">
                 <h4 class="modal-title">Do you want to delete this product?</h4>
             </div>
-            <div class="modal-body-central">
-                <button class="btn btn-danger" id="removeBtnId">Delete</button>
-                <button class="btn btn-default" id="cancelDeleteBtnId">Cancel</button>
-            </div>
+                <form method="post" action=@Url.Action("RemoveUser", "Admin") enctype="multipart/form-data">
+                    @Html.Hidden("userId", 0)
+                    @Html.Hidden("redirectUrl", @Url.Action("Users", "Admin", new { page = @Model.PageInfo.Page,
+                        count = @Model.PageInfo.ProductCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters }))
+                    <div class="modal-body-central">
+                        <input type="submit" class="btn btn-danger" id="removeBtnId" value="Delete"/>
+                        <button class="btn btn-default" id="cancelDeleteBtnId">Cancel</button>
+                    </div>
+                </form>
         </div>
     </div>
 </div>

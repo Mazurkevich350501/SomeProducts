@@ -12,6 +12,7 @@ using SomeProducts.PresentationServices.IPresentationSevices.Admin;
 using SomeProducts.PresentationServices.Models;
 using SomeProducts.PresentationServices.Models.Admin;
 using System.Threading.Tasks;
+using System;
 
 namespace SomeProducts.PresentationServices.PresentationServices.Admin
 {
@@ -161,6 +162,11 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
         public async Task<bool> IsUserAdmin(int userId)
         {
             return await _dao.IsInRoleAsync(await _dao.FindByIdAsync(userId), "Admin");
+        }
+
+        public async Task RemoveUser(int userId)
+        {
+            await _dao.DeleteAsync(await _dao.FindByIdAsync(userId));
         }
     }
 }

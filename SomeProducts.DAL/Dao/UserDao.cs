@@ -41,6 +41,7 @@ namespace SomeProducts.DAL.Dao
         public void Dispose()
         {
             _userRepository.Dispose();
+            _roleRepository.Dispose();
         }
 
         public Task<User> FindByIdAsync(int userId)

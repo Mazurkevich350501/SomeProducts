@@ -1,5 +1,5 @@
 ﻿(function () {
-    var activId;
+    var activeId;
     var deleteProductUrl;
     var changeAdminRoleUrl;
 
@@ -11,7 +11,7 @@
 
     $("th[class='th-remove']>button").click(function (e) {
         $("#RemovingModal").modal("show");
-        activId = parseInt($(e.target).attr("data-id"));
+        activeId = parseInt($(e.target).attr("data-id"));
         event.cancelBubble = true;
     });
 
@@ -20,12 +20,12 @@
     });
 
     $("#removeBtnId").click(function () {
-        postRequest(JSON.stringify({ productId: activId }), deleteProductUrl);
+        $("#userId").val(activeId);
     });
 
     $("th[class='th-setAdmin']>button").click(function (e) {
         $("#SetAdminModal").modal("show");
-        activId = parseInt($(e.target).attr("data-id"));
+        activeId = parseInt($(e.target).attr("data-id"));
     });
 
     $("#cancelSetAdminBtnId").click(function () {
@@ -33,11 +33,11 @@
     });
 
     $("#setAdminBtnId").click(function () {
-        postRequest(JSON.stringify({ userId: activId }), changeAdminRoleUrl);
+        postRequest(JSON.stringify({ userId: activeId }), changeAdminRoleUrl);
     });
 
     function setButtonColor(isAdmin) {
-        var button = $("#setAdminBtn" + activId);
+        var button = $("#setAdminBtn" + activeId);
         if (isAdmin) {
             button.css("background-color", "green");
         }

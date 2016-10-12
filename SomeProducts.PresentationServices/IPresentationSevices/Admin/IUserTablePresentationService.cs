@@ -10,6 +10,8 @@ namespace SomeProducts.PresentationServices.IPresentationSevices.Admin
     {
         UserTableViewModel GetUserTableViewModel(PageInfo pageInfo, FilterInfo filterInfo);
 
+        Task RemoveUser(int userId);
+
         Task ChangeAdminRole(int userId);
 
         Task<bool> IsUserAdmin(int userId);

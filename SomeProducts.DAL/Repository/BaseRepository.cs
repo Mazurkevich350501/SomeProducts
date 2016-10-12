@@ -20,7 +20,10 @@ namespace SomeProducts.DAL.Repository
         {
             _db = new ProductContext(connection);
         }
-
+        ~BaseRepository()
+        {
+            Dispose();
+        }
         public void Create(TEntity item)
         {
             item.CreateDate = DateTime.UtcNow;

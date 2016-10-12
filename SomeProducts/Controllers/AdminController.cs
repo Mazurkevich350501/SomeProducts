@@ -1,4 +1,5 @@
 ﻿
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using SomeProducts.CrossCutting.Filter.Model;
 using SomeProducts.PresentationServices.IPresentationSevices.Admin;
@@ -34,10 +35,17 @@ namespace SomeProducts.Controllers
         }
 
         [HttpPost]
-        public async System.Threading.Tasks.Task<JsonResult> ChangeUserAdminRole(int userId)
+        public async Task<JsonResult> ChangeUserAdminRole(int userId)
         {
             await _service.ChangeAdminRole(userId);
             return Json(await _service.IsUserAdmin(userId), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> RemoveUser(int userId, string redirectUrl)
+        {
+            await _service.RemoveUser(userId);
+            return Redirect(redirectUrl);
         }
     }
 }

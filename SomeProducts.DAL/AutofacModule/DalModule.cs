@@ -13,7 +13,7 @@ namespace SomeProducts.DAL.AutofacModule
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ProductContext>().As<ProductContext>();
+            builder.RegisterType<ProductContext>().As<ProductContext>().SingleInstance();
             builder.RegisterType<UserRepository>().As<IRepository<User>>();
             builder.RegisterType<RoleRepository>().As<IRepository<Role>>();
 
