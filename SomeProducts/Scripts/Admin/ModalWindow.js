@@ -15,8 +15,9 @@
         event.cancelBubble = true;
     });
 
-    $("#cancelDeleteBtnId").click(function () {
+    $("#cancelDeleteBtnId").click(function (e) {
         $("#RemovingModal").modal("hide");
+        e.preventDefault();
     });
 
     $("#removeBtnId").click(function () {

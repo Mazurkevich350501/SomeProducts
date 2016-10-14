@@ -18,8 +18,7 @@ namespace SomeProducts.Controllers
             _productViewModelService = productViewModelService;
             _barndModelService = barndModelService;
         }
-
-        // GET: Product
+        
         [HttpGet]
         public ActionResult Create()
         {
@@ -37,8 +36,7 @@ namespace SomeProducts.Controllers
             }
             return View("Create", productModel);
         }
-
-        // POST: /Product/Create
+        
         [HttpPost]
         public ActionResult Create(ProductViewModel model)
         {
@@ -81,10 +79,10 @@ namespace SomeProducts.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public JsonResult Delete(int productId)
+        public ActionResult Delete(int productId, string redirectUrl)
         {
             _productViewModelService.RemoveProductViewModel(productId);
-            return Json(Url.Action("Show", "ProductTable"), JsonRequestBehavior.AllowGet);
+            return Redirect(redirectUrl);
         }
 
         public JsonResult GetBrandsList()
