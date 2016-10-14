@@ -32,7 +32,7 @@ namespace SomeProducts.Controllers
         public async Task<JsonResult> ChangeUserAdminRole(int userId)
         {
             await _service.ChangeAdminRole(userId);
-            return Json(await _service.GetUserRoles(userId), JsonRequestBehavior.AllowGet);
+            return Json(await _service.GetUserRoles(userId));
         }
 
         [HttpPost]

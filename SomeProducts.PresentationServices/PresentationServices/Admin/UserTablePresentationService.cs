@@ -45,17 +45,19 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
             var sortingOption = SortingOptionHelper.GetOptionValue(pageInfo.SortingOption, OptionDictionary);
             var productList = GetFilteredAndSortedUsers(sortingOption, filterInfo);
             var tableList = productList.ToPagedList(pageInfo.Page, pageInfo.ItemsCount).Select(UserTableModelCast).AsQueryable();
+            var newFilter = InitFilterInfo(filterInfo);
+            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option);
 
             var result = new UserTableViewModel
             {
-                Users = new StaticPagedList<UserModel>(tableList, pageInfo.Page, pageInfo.ItemsCount,
-                    pageInfo.TotalItemsCount),
-                PageInfo = SetPageInfo(pageInfo, sortingOption.Option),
-                FilterInfo = InitFilterInfo(filterInfo),
+                Users = new StaticPagedList<UserModel>(
+                    tableList, newPageInfo.Page, newPageInfo.ItemsCount, newPageInfo.TotalItemsCount),
+                PageInfo = newPageInfo,
+                FilterInfo = newFilter,
+                JsonFilters = DataFiltration.GetReturnedJsonFilterList(newFilter.Filters),
                 StringFilterParameter = DataFiltration.GetStringFilterParameter(),
                 NumberFilterParameter = DataFiltration.GetNumberFilterParameter()
             };
-            result.JsonFilters = DataFiltration.GetReturnedJsonFilterList(result.FilterInfo.Filters);
 
             return result;
         }

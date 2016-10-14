@@ -46,17 +46,19 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
             var sortingOption = SortingOptionHelper.GetOptionValue(pageInfo.SortingOption, SortingOptionDictionary);
             var productList = GetFilteredAndSortedProducts(sortingOption, filterInfo);
             var tableList = productList.ToPagedList(pageInfo.Page, pageInfo.ItemsCount).Select(ProductTableModelCast).AsQueryable();
-           
+            var newFilter = InitFilterInfo(filterInfo);
+            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option);
+
             var result = new ProductTableViewModel
             {
-                Products = new StaticPagedList<ProductTableModel>(tableList, pageInfo.Page, pageInfo.ItemsCount,
-                    pageInfo.TotalItemsCount),
-                PageInfo = SetPageInfo(pageInfo, sortingOption.Option),
-                FilterInfo = InitFilterInfo(filterInfo),
+                Products = new StaticPagedList<ProductTableModel>(
+                    tableList, newPageInfo.Page, newPageInfo.ItemsCount, newPageInfo.TotalItemsCount),
+                PageInfo = newPageInfo,
+                FilterInfo = newFilter,
+                JsonFilters = DataFiltration.GetReturnedJsonFilterList(newFilter.Filters),
                 StringFilterParameter = DataFiltration.GetStringFilterParameter(),
                 NumberFilterParameter = DataFiltration.GetNumberFilterParameter()
             };
-            result.JsonFilters = DataFiltration.GetReturnedJsonFilterList(result.FilterInfo.Filters);
 
             return result;
         }
