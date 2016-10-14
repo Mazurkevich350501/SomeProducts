@@ -123,11 +123,11 @@
 
 <div class="row filters-container">
     <div class="col-xs-5">
-        @Html.PagedListPager(Model.Products, page => Url.Action("Show", "ProductTable", new { page, count = @Model.PageInfo.ProductCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters }))
+        @Html.PagedListPager(Model.Products, page => Url.Action("Show", "ProductTable", new { page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters }))
     </div>
     <div class="dropdown col-xs-6 product-counter">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-            Products count: @Model.PageInfo.ProductCount
+            Products count: @Model.PageInfo.ItemsCount
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
@@ -159,8 +159,8 @@
     <script>
         $(function () {
             var params = {
-                url: '@Url.Action("Show", "ProductTable", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ProductCount, filter = Model.JsonFilters })',
-                presentUrl: '@Url.Action("Show", "ProductTable", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ProductCount, by = @Model.PageInfo.SortingOption})',
+                url: '@Url.Action("Show", "ProductTable", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, filter = Model.JsonFilters })',
+                presentUrl: '@Url.Action("Show", "ProductTable", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption})',
                 sortingOption: '@Model.PageInfo.SortingOption',
                 deleteProductUrl: '@Url.Action("Delete", "Product")'
             };

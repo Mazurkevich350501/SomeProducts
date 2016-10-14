@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using SomeProducts.DAL.Models;
+using SomeProducts.PresentationServices.Models.Account;
 
 namespace SomeProducts.PresentationServices.Authorize
 {
@@ -33,6 +34,15 @@ namespace SomeProducts.PresentationServices.Authorize
                 ? result
                 : null;
             });
+        }
+        public static User UserCast(RegistrationViewModel model)
+        {
+            if (model.ConfirmPassword != model.Password) return null;
+            return new User()
+            {
+                UserName = model.Name,
+                Password = model.Password
+            };
         }
     }
 }

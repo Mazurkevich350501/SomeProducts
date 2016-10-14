@@ -3,6 +3,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using SomeProducts.CrossCutting.Filter.Model;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace SomeProducts.CrossCutting.Filter
 {
@@ -124,6 +125,24 @@ namespace SomeProducts.CrossCutting.Filter
                 {FilterParameter.IsNull, "Is null"},
                 {FilterParameter.IsNotNull, "Is not null"},
             };
+        }
+
+        public static string GetReturnedJsonFilterList(IEnumerable<Model.Filter> list)
+        {
+            var filters = new List<Model.Filter>();
+            foreach (var filter in list)
+            {
+                if (filter.Parameter == FilterParameter.IsEmty || filter.Parameter == FilterParameter.IsNotEmty
+                    || filter.Parameter == FilterParameter.IsNotNull || filter.Parameter == FilterParameter.IsNull)
+                {
+                    filters.Add(filter);
+                }
+                else if (filter.Value != null)
+                {
+                    filters.Add(filter);
+                }
+            }
+            return JsonConvert.SerializeObject(filters);
         }
     }
 }

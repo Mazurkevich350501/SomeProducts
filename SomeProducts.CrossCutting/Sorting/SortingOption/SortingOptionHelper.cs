@@ -1,4 +1,6 @@
 ﻿
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -25,6 +27,26 @@ namespace SomeProducts.CrossCutting.Sorting.SortingOption
                       Expression.Quote(orderByLambda));
 
             return query.Provider.CreateQuery<T>(result);
+        }
+
+        public static SortingOption GetOptionValue(string key, Dictionary<string, string> optionDictionary)
+        {
+            key = key ?? "";
+            Order order;
+            if (key.Length > 3 && key.Substring(0, 3) == "rev")
+            {
+                order = Order.Reverse;
+                key = key.Remove(0, 3);
+            }
+            else
+            {
+                order = Order.Original;
+            }
+            var option = optionDictionary.Keys.Any(k => k == key)
+                ? optionDictionary[key]
+                : optionDictionary.Values.First();
+
+            return new SortingOption(order, option);
         }
     }
 }

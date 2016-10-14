@@ -18,20 +18,14 @@ namespace SomeProducts.Controllers
             _service = service;
         }
 
-        public ActionResult Users(int? page, int? count, string by,
+        public ActionResult Users(
+            int? page,
+            int? count,
+            string by,
             [ModelBinder(typeof(FilterInfoModelBinder))]FilterInfo filter)
         {
-            return View(_service.GetUserTableViewModel(GetPageInfo(page, count, by), filter));
-        }
-
-        private static PageInfo GetPageInfo(int? page, int? count, string by)
-        {
-            return new PageInfo()
-            {
-                Page = page ?? 1,
-                ProductCount = count ?? 5,
-                SortingOption = by ?? "Name"
-            };
+            var pageInfo = new PageInfo(page, count, by);
+            return View(_service.GetUserTableViewModel(pageInfo, filter));
         }
 
         [HttpPost]

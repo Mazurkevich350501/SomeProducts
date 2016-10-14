@@ -67,7 +67,7 @@
                     </div>
                 </th>
                 <th>
-                    <div id="th-name" data-type="sort" data-name="Name" class="pointer">
+                    <div id="th-username" data-type="sort" data-name="UserName" class="pointer">
                         Name
                     </div>
                 </th>
@@ -114,11 +114,11 @@
 
 <div class="row filters-container">
     <div class="col-xs-5">
-        @Html.PagedListPager(Model.Users, page => Url.Action("Users", "Admin", new { page, count = @Model.PageInfo.ProductCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters }))
+        @Html.PagedListPager(Model.Users, page => Url.Action("Users", "Admin", new { page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters }))
     </div>
     <div class="dropdown col-xs-6 product-counter">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-            Products count: @Model.PageInfo.ProductCount
+            Products count: @Model.PageInfo.ItemsCount
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
@@ -139,7 +139,7 @@
                 <form method="post" action=@Url.Action("RemoveUser", "Admin") enctype="multipart/form-data">
                     @Html.Hidden("userId", 0)
                     @Html.Hidden("redirectUrl", @Url.Action("Users", "Admin", new { page = @Model.PageInfo.Page,
-                        count = @Model.PageInfo.ProductCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters }))
+                        count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters }))
                     <div class="modal-body-central">
                         <input type="submit" class="btn btn-danger" id="removeBtnId" value="Delete"/>
                         <button class="btn btn-default" id="cancelDeleteBtnId">Cancel</button>
@@ -162,13 +162,14 @@
         </div>
     </div>
 </div>
+
 @section scripts
 {
     <script>
         $(function () {
             var params = {
-                url: '@Url.Action("Users", "Admin", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ProductCount, filter = Model.JsonFilters })',
-                presentUrl: '@Url.Action("Users", "Admin", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ProductCount, by = @Model.PageInfo.SortingOption})',
+                url: '@Url.Action("Users", "Admin", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, filter = Model.JsonFilters })',
+                presentUrl: '@Url.Action("Users", "Admin", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption})',
                 sortingOption: '@Model.PageInfo.SortingOption',
                 changeAdminRoleUrl: '@Url.Action("ChangeUserAdminRole", "Admin")'
             };

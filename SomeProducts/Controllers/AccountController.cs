@@ -4,18 +4,19 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using SomeProducts.PresentationServices.Authorize;
 using SomeProducts.PresentationServices.Models.Account;
-using SomeProducts.PresentationServices.PresentationServices;
 
 namespace SomeProducts.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserPresentationService _userManager;
+        private readonly AccountManager _manager;
 
-        public AccountController(UserPresentationService userManager)
+        public AccountController(AccountManager userManager)
         {
-            _userManager = userManager;
+            _manager = userManager;
         }
 
         [AllowAnonymous]
@@ -30,10 +31,10 @@ namespace SomeProducts.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _userManager.PasswordValidateAsync(model.Password);
+                var result = await _manager.PasswordValidator.ValidateAsync(model.Password);
                 if (result.Succeeded)
                 {
-                    result = await _userManager.CreateAsync(model);
+                    result = await _manager.CreateAsync(AccountManager.UserCast(model));
                     if (result.Succeeded)
                     {
                         return RedirectToAction("LogIn", "Account");
@@ -56,8 +57,7 @@ namespace SomeProducts.Controllers
         public async Task<ActionResult> LogIn(LogInUserModel model, string returnUrl)
         {
             if (!ModelState.IsValid) return View(model);
-
-            if (await _userManager.LogIn(model, HttpContext.GetOwinContext().Authentication))
+            if (await LogIn(model))
             {
                 return RedirectToAction("Show", "ProductTable");
             }
@@ -75,5 +75,16 @@ namespace SomeProducts.Controllers
             return RedirectToAction("LogIn", "Account");
         }
 
+        private async Task<bool> LogIn(LogInUserModel userModel)
+        {
+            var user = await _manager.FindAsync(userModel.Name, userModel.Password);
+            if (user == null) return false;
+
+            HttpContext.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            var identity = await _manager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            HttpContext.GetOwinContext()
+                .Authentication.SignIn(new AuthenticationProperties() { IsPersistent = false }, identity);
+            return true;
+        }
     }
 }

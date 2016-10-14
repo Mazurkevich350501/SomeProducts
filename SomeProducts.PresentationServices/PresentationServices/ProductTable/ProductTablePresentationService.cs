@@ -7,7 +7,6 @@ using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
 using SomeProducts.PresentationServices.Models.ProductTable;
-using Newtonsoft.Json;
 using SomeProducts.CrossCutting.Sorting.SortingOption;
 using SomeProducts.PresentationServices.Models;
 
@@ -17,6 +16,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
     {
         private readonly IProductDao _dao;
         private static readonly Dictionary<string, string> SortingOptionDictionary;
+        private static readonly List<Filter> Filters;
 
         public ProductTablePresentationService(IProductDao dao)
         {
@@ -27,55 +27,50 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
         {
             SortingOptionDictionary = new Dictionary<string, string>
             {
-                {"Brand", $"{nameof(Product.Brand)}.{nameof(Brand.Name)}"},
                 {"Name", nameof(Product.Name)},
+                {"Brand", $"{nameof(Product.Brand)}.{nameof(Brand.Name)}"},
                 {"Quantity", nameof(Product.Quantity)},
+            };
+
+            Filters = new List<Filter>
+            {
+                new Filter() {Option = "Name"},
+                new Filter() {Option = "Description"},
+                new Filter() {Option = "Brand_Name"},
+                new Filter() {Option = "Quantity"},
             };
         }
 
         public ProductTableViewModel GetTablePage(PageInfo pageInfo, FilterInfo filterInfo)
         {
-            InitPageInfo(pageInfo);
-            var sortingOption = GetOptionValue(pageInfo.SortingOption);
+            var sortingOption = SortingOptionHelper.GetOptionValue(pageInfo.SortingOption, SortingOptionDictionary);
             var productList = GetFilteredAndSortedProducts(sortingOption, filterInfo);
-            var tableList = productList.ToPagedList(pageInfo.Page, pageInfo.ProductCount).Select(ProductTableModelCast).AsQueryable();
-
-
+            var tableList = productList.ToPagedList(pageInfo.Page, pageInfo.ItemsCount).Select(ProductTableModelCast).AsQueryable();
+           
             var result = new ProductTableViewModel
             {
-                Products = new StaticPagedList<ProductTableModel>(tableList, pageInfo.Page, pageInfo.ProductCount,
-                    pageInfo.TotalProductCount),
-                PageInfo = pageInfo,
+                Products = new StaticPagedList<ProductTableModel>(tableList, pageInfo.Page, pageInfo.ItemsCount,
+                    pageInfo.TotalItemsCount),
+                PageInfo = SetPageInfo(pageInfo, sortingOption.Option),
                 FilterInfo = InitFilterInfo(filterInfo),
                 StringFilterParameter = DataFiltration.GetStringFilterParameter(),
                 NumberFilterParameter = DataFiltration.GetNumberFilterParameter()
             };
-            result.JsonFilters = GetReturnedJsonFilterList(result.FilterInfo.Filters);
+            result.JsonFilters = DataFiltration.GetReturnedJsonFilterList(result.FilterInfo.Filters);
 
             return result;
         }
 
-        private static string GetReturnedJsonFilterList(IEnumerable<Filter> list)
+        private PageInfo SetPageInfo(PageInfo pageInfo, string option)
         {
-            var filters = new List<Filter>();
-            foreach (var filter in list)
-            {
-                if (filter.Parameter == FilterParameter.IsEmty || filter.Parameter == FilterParameter.IsNotEmty
-                    || filter.Parameter == FilterParameter.IsNotNull || filter.Parameter == FilterParameter.IsNull)
-                {
-                    filters.Add(filter);
-                }
-                else if (filter.Value != null)
-                {
-                    filters.Add(filter);
-                }
-            }
-            return JsonConvert.SerializeObject(filters);
+            pageInfo.SortingOption = option;
+            pageInfo.TotalItemsCount = _dao.GetProductCount();
+            return pageInfo;
         }
 
         private static FilterInfo InitFilterInfo(FilterInfo filterInfo)
         {
-            var result = GetDefaultFilterInfo();
+            var result = new FilterInfo(Filters);
             if (filterInfo?.Filters != null)
             {
                 foreach (var filter in filterInfo.Filters)
@@ -86,28 +81,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
             }
             return result;
         }
-
-        private static FilterInfo GetDefaultFilterInfo()
-        {
-            return new FilterInfo()
-            {
-                Filters = new List<Filter>()
-                {
-                    new Filter() {Option = "Name"},
-                    new Filter() {Option = "Description"},
-                    new Filter() {Option = "Brand_Name"},
-                    new Filter() {Option = "Quantity"},
-                }
-            };
-        }
-
-        private void InitPageInfo(PageInfo info)
-        {
-            info.ProductCount = GetValidProductCountValue(info, 5, 20, 10);
-            info.Page = info.Page < 0 ? 1 : info.Page;
-            info.TotalProductCount = _dao.GetProductCount();
-        }
-
+        
         private IQueryable<Product> GetFilteredAndSortedProducts(SortingOption option, FilterInfo info)
         {
             return _dao.GetAllProducts().AsQueryable().GetFilteredProduct(info).Sort(option.Option, option.Order == Order.Reverse);
@@ -135,32 +109,6 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
                 ImageType = product.ImageType,
                 Id = product.Id
             };
-        }
-
-        private static int GetValidProductCountValue(PageInfo info, int minValue, int maxValue, int defaultvalue)
-        {
-            return info.ProductCount < 0 || maxValue < minValue || info.ProductCount > maxValue
-                ? defaultvalue
-                : info.ProductCount;
-        }
-
-        public static SortingOption GetOptionValue(string key)
-        {
-            Order order;
-            if (key.Length > 3 && key.Substring(0, 3) == "rev")
-            {
-                order = Order.Reverse;
-                key = key.Remove(0, 3);
-            }
-            else
-            {
-                order = Order.Original;
-            }
-            var option = SortingOptionDictionary.Keys.Any(k => k == key)
-                ? SortingOptionDictionary[key]
-                : nameof(Product.Name);
-
-            return new SortingOption(order, option);
         }
     }
 }

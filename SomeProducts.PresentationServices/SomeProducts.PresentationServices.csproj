@@ -87,7 +87,6 @@
     <Compile Include="PresentationServices\Create\BrandModelPresentationService.cs" />
     <Compile Include="PresentationServices\Create\ProductViewModelPresentationService.cs" />
     <Compile Include="PresentationServices\ProductTable\ProductTablePresentationService.cs" />
-    <Compile Include="PresentationServices\UserPresentationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
