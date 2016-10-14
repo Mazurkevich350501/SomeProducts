@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using SomeProducts.Attribute;
 using SomeProducts.CrossCutting.Filter.Model;
 using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
 using SomeProducts.PresentationServices.Models.ProductTable;
@@ -16,6 +17,7 @@ namespace SomeProducts.Controllers
         }
 
         [HttpGet]
+        [AuthorizeRole(UserRole.Admin, UserRole.User)]
         public ActionResult Show(int? page, int? count, string by, 
             [ModelBinder(typeof(FilterInfoModelBinder))]FilterInfo filter)
         {
