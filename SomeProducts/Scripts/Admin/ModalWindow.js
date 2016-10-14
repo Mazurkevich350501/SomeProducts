@@ -37,15 +37,21 @@
         postRequest(JSON.stringify({ userId: activeId }), changeAdminRoleUrl);
     });
 
-    function setButtonColor(isAdmin) {
+    function setButtonColor(roles) {
         var button = $("#setAdminBtn" + activeId);
-        if (isAdmin) {
+        if (roles.indexOf("Admin") !== -1) {
             button.css("background-color", "green");
         }
         else {
             button.css("background-color", "red");
         }
         $("#SetAdminModal").modal("hide");
+    }
+
+    function showUserRoles(roles){
+        var rolesItem = rolesItem = $("#tr-" + activeId + ">th").eq(2);
+        rolesItem.empty();
+        rolesItem.append(roles.join());
     }
 
     function postRequest(data, url) {
@@ -55,7 +61,10 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: data,
-            success: setButtonColor
+            success: function(result){
+                setButtonColor(result);
+                showUserRoles(result);
+            }
         });
     }
 }());

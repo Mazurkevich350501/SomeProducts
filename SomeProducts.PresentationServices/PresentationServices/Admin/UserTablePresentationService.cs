@@ -110,14 +110,14 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
             }
         }
 
-        public async Task<bool> IsUserAdmin(int userId)
-        {
-            return await _dao.IsInRoleAsync(await _dao.FindByIdAsync(userId), "Admin");
-        }
-
         public async Task RemoveUser(int userId)
         {
             await _dao.DeleteAsync(await _dao.FindByIdAsync(userId));
+        }
+
+        public async Task<IList<string>> GetUserRoles(int userId)
+        {
+            return await _dao.GetRolesAsync(await _dao.FindByIdAsync(userId));
         }
     }
 }

@@ -84,7 +84,7 @@
             @foreach (var user in Model.Users)
             {
 
-                <tr>
+                <tr id="tr-@user.Id">
                     <th>
                         @Html.DisplayFor(p => user.Id)
                     </th>

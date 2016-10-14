@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using SomeProducts.CrossCutting.Filter.Model;
 using SomeProducts.PresentationServices.Models;
@@ -13,7 +14,7 @@ namespace SomeProducts.PresentationServices.IPresentationSevices.Admin
         Task RemoveUser(int userId);
 
         Task ChangeAdminRole(int userId);
-
-        Task<bool> IsUserAdmin(int userId);
+        
+        Task<IList<string>> GetUserRoles(int userId);
     }
 }
