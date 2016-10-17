@@ -1,6 +1,7 @@
 ﻿
 using System.Linq;
 using System.Web.Mvc;
+using SomeProducts.Attribute;
 using SomeProducts.CrossCutting.Utils;
 using SomeProducts.PresentationServices.IPresentationSevices.Create;
 using SomeProducts.PresentationServices.Models.Create;
@@ -78,7 +79,7 @@ namespace SomeProducts.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [AuthorizeRole(UserRole.Admin)]
         public ActionResult Delete(int productId, string redirectUrl)
         {
             _productViewModelService.RemoveProductViewModel(productId);

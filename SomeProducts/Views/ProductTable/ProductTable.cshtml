@@ -82,7 +82,7 @@
             @foreach (var product in Model.Products)
             {
 
-                <tr @(User.IsInRole("Admin") || User.IsInRole("User")
+                <tr @(User.IsInRole(nameof(UserRole.Admin)) || User.IsInRole("User")
                           ? $"onclick=window.open('{ Url.Action("Edit", "Product", new {id = product.Id})}')" : "") 
                     class="pointer">
                     <th>
@@ -110,7 +110,7 @@
                         @Html.DisplayFor(p => product.Quantity)
                     </th>
                     <th class="th-remove">
-                        @if (User.IsInRole("Admin"))
+                        @if (User.IsInRole(nameof(UserRole.Admin)))
                         {
                             <button class="glyphicon glyphicon-remove" data-id="@product.Id"></button>
                         }

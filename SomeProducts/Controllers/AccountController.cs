@@ -59,7 +59,11 @@ namespace SomeProducts.Controllers
             if (!ModelState.IsValid) return View(model);
             if (await LogIn(model))
             {
-                return RedirectToAction("Show", "ProductTable");
+                if (returnUrl == null)
+                {
+                    return RedirectToAction("Show", "ProductTable");
+                }
+                return Redirect(returnUrl);
             }
 
             ModelState.AddModelError("Error", "Invalid username or password.");

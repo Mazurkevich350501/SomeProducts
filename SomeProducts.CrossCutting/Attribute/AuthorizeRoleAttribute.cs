@@ -21,6 +21,11 @@ namespace SomeProducts.Attribute
              {UserRole.User, nameof(UserRole.User) }
         };
 
+        public AuthorizeRoleAttribute()
+        {
+            _userRoles = null;
+        }
+
         public AuthorizeRoleAttribute(params UserRole[] userRoles)
         {
             _userRoles = userRoles;
@@ -29,13 +34,8 @@ namespace SomeProducts.Attribute
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             var isAuthorized = base.AuthorizeCore(httpContext);
-            if (!isAuthorized)
-            {
-                return false;
-            }
-
-            var res = _userRoles.Any(role => httpContext.User.IsInRole(RolesDictionary[role]));
-            return res;
+            return  _userRoles?.Any(role => httpContext.User.IsInRole(RolesDictionary[role])) 
+                ?? isAuthorized;
         }
     }
 }

@@ -102,13 +102,13 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
         public async Task ChangeAdminRole(int userId)
         {
             var user = await _dao.FindByIdAsync(userId);
-            if (await  _dao.IsInRoleAsync(user, "Admin"))
+            if (await  _dao.IsInRoleAsync(user, nameof(UserRole.Admin)))
             {
-                await _dao.RemoveFromRoleAsync(user, "Admin");
+                await _dao.RemoveFromRoleAsync(user, nameof(UserRole.Admin));
             }
             else
             {
-                await _dao.AddToRoleAsync(user, "Admin");
+                await _dao.AddToRoleAsync(user, nameof(UserRole.Admin));
             }
         }
 

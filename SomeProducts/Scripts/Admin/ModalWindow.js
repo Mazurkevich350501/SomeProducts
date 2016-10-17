@@ -49,7 +49,7 @@
     }
 
     function showUserRoles(roles){
-        var rolesItem = rolesItem = $("#tr-" + activeId + ">th").eq(2);
+        var rolesItem = $("#tr-" + activeId + ">th").eq(2);
         rolesItem.empty();
         rolesItem.append(roles.join());
     }

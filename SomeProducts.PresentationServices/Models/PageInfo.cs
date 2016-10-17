@@ -29,7 +29,7 @@ namespace SomeProducts.PresentationServices.Models
             }
             set
             {
-                _itemsCount = value < 0 || value > 20
+                _itemsCount = value < 0
                 ? 5
                 : value;
             }

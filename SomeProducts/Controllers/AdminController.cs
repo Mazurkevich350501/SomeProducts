@@ -1,6 +1,7 @@
 ﻿
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using SomeProducts.Attribute;
 using SomeProducts.CrossCutting.Filter.Model;
 using SomeProducts.PresentationServices.IPresentationSevices.Admin;
 using SomeProducts.PresentationServices.Models;
@@ -8,7 +9,7 @@ using FilterInfo = SomeProducts.CrossCutting.Filter.Model.FilterInfo;
 
 namespace SomeProducts.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [AuthorizeRole(UserRole.Admin)]
     public class AdminController : Controller
     {
         private readonly IUserTablePresentationService _service;
