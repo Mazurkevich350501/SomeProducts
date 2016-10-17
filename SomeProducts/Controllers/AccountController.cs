@@ -27,6 +27,7 @@ namespace SomeProducts.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegistrationViewModel model)
         {
             if (ModelState.IsValid)
@@ -54,6 +55,7 @@ namespace SomeProducts.Controllers
         
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> LogIn(LogInUserModel model, string returnUrl)
         {
             if (!ModelState.IsValid) return View(model);

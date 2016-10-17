@@ -30,6 +30,7 @@ namespace SomeProducts.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<JsonResult> ChangeUserAdminRole(int userId)
         {
             await _service.ChangeAdminRole(userId);
@@ -37,6 +38,7 @@ namespace SomeProducts.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemoveUser(int userId, string redirectUrl)
         {
             await _service.RemoveUser(userId);

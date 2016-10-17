@@ -39,6 +39,7 @@ namespace SomeProducts.Controllers
         }
         
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(ProductViewModel model)
         {
             if (ModelState.IsValid)
@@ -54,6 +55,7 @@ namespace SomeProducts.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(ProductViewModel model)
         {
             if (ModelState.IsValid)
@@ -80,6 +82,7 @@ namespace SomeProducts.Controllers
 
         [HttpPost]
         [AuthorizeRole(UserRole.Admin)]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int productId, string redirectUrl)
         {
             _productViewModelService.RemoveProductViewModel(productId);

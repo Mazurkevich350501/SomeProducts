@@ -10,6 +10,7 @@
 <h2>@title</h2>
 
 <form method="post" action=@Url.Action(isEdit ? "Edit" : "Create", "Product") enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.Product.Id)
     @Html.HiddenFor(m => m.Product.Version)
     @Html.HiddenFor(m => m.Product.Image)
