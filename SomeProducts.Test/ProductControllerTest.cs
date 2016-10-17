@@ -175,13 +175,13 @@ namespace SomeProducts.Test
         }
 
         [TestMethod]
-        public void Delete_Should_Return_Create_Url_And_Call_RemoveViewBrandModel()
+        public void Delete_Should_Return_ShowProductTable_Url_And_Call_RemoveViewBrandModel()
         {
             const string testUrl = "testUrl/testUrl";
             var isCalledRemoveProductViewModel = false;
             var urlHelperMock = new Mock<UrlHelper>();
             _controller.Url = urlHelperMock.Object;
-            urlHelperMock.Setup(x => x.Action("Create", "Product")).Returns(testUrl);
+            urlHelperMock.Setup(x => x.Action("Show", "ProductTable")).Returns(testUrl);
             _productModelService.Setup(s => s.RemoveProductViewModel(It.IsAny<int>()))
                 .Callback(() => { isCalledRemoveProductViewModel = true; });
 

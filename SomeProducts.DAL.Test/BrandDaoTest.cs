@@ -36,7 +36,7 @@ namespace SomeProducts.DAL.Test
         {
             var deletedId = 0;
             _brandRepository.Setup(r => r.Delete(It.IsAny<Brand>()))
-                .Callback<int>(id => deletedId = id);
+                .Callback<Brand>(brand => deletedId = brand.Id);
 
             _brandDao.RemoveBrand(_brand);
 

@@ -166,8 +166,9 @@ namespace SomeProducts.PresentationServices.Test
             var removedId = 0;
             _productDao.Setup(d => d.RemoveProduct(It.IsAny<Product>()))
                 .Callback<Product>(p => removedId = p.Id);
-
-            _productService.RemoveProductViewModel(5);
+            _productDao.Setup(d => d.GetProduct(It.IsAny<int>()))
+                .Returns(_product);
+            _productService.RemoveProductViewModel(_product.Id);
 
             Assert.AreEqual(5, removedId);
         }

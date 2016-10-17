@@ -19,7 +19,8 @@ namespace SomeProducts.DAL.Test
         public static void ClassInitialize(TestContext context)
         {
             _brand = new Brand() { Name = "name" };
-            _repository = new BaseRepository<Brand>("Test");
+            AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory));
+            _repository = new BaseRepository<Brand>("name=Test");
         }
 
         [TestCleanup]

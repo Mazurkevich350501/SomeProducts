@@ -70,7 +70,7 @@ namespace SomeProducts.DAL.Test
         {
             var deletedId = 0;
             _productRepository.Setup(r => r.Delete(It.IsAny<Product>()))
-                .Callback<int>(id => deletedId = id);
+                .Callback<Product>(product => deletedId = product.Id);
 
             _productDao.RemoveProduct(_product);
 
