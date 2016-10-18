@@ -7,23 +7,36 @@ namespace SomeProducts.PresentationServices.Models.Create
     {
         public int Id { get; set; }
 
-        [Required]
-        [MaxLength(200, ErrorMessage = "Name cannot be longer than 200 characters.")]
-        [Display(Name = "Product name")]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource),
+            ErrorMessageResourceName = "RequiredField")]
+        [MaxLength(200, 
+            ErrorMessageResourceType = typeof(Resources.Resource),
+            ErrorMessageResourceName = "Long200Characters")]
+        [Display(Name = "Name", ResourceType = typeof(Resources.Resource))]
         public string Name { get; set; }
 
+        [Display(Name = "Description", ResourceType = typeof(Resources.Resource))]
         public string Description { get; set; }
 
-        [Required]
-        [Range(1, double.PositiveInfinity, ErrorMessage = "The {0} field is required")]
-        [Display(Name = "Brand")]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource),
+            ErrorMessageResourceName = "RequiredField")]
+        [Range(1, 
+            double.PositiveInfinity, 
+            ErrorMessageResourceType = typeof(Resources.Resource),
+            ErrorMessageResourceName = "RequiredField")]
+        [Display(Name = "Brand", ResourceType = typeof(Resources.Resource))]
         public int BrandId { get; set; }
 
-        [Required]
-
+        [Required( ErrorMessageResourceType = typeof(Resources.Resource),
+            ErrorMessageResourceName = "RequiredField")]
+        [Display(Name = "Color", ResourceType = typeof(Resources.Resource))]
         public string Color { get; set; }
 
-        [Range(0, double.PositiveInfinity, ErrorMessage = "The {0} should be positive")]
+        [Range(0,
+            double.PositiveInfinity, 
+            ErrorMessageResourceType = typeof(Resources.Resource),
+            ErrorMessageResourceName = "PositiveValue")]
+        [Display(Name = "Quantity", ResourceType = typeof(Resources.Resource))]
         public int Quantity { get; set; }
 
         public byte[] Image { get; set; }

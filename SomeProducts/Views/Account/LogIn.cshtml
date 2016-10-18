@@ -1,11 +1,12 @@
 ﻿
 @model SomeProducts.PresentationServices.Models.Account.LogInUserModel
+@using R = Resources.Resource;
 @{
-    ViewBag.Title = "LogIn";
+    ViewBag.Title = R.LogIn;
     string returnUrl = ViewBag.ReturnUrl ?? Url.Action("Show", "ProductTable");
 }
 
-<h2>LogIn</h2>
+<h2>@R.LogIn</h2>
 
 <form method="post" action=@Url.Action("LogIn", "Account") enctype="multipart/form-data">
     @Html.AntiForgeryToken()
@@ -24,8 +25,8 @@
         </div>
     </div>
     <div class="btn-div">
-        <input class="btn btn-info" type="submit" value="SignIn"/>
-        <a class="btn btn-default" href="@Url.Action("Register", "Account")">Register</a>
+        <input class="btn btn-info" type="submit" value="@R.SignIn"/>
+        <a class="btn btn-default" href="@Url.Action("Register", "Account")">@R.Register</a>
     </div>
 </form>
 

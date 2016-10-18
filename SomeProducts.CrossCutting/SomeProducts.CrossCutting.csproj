@@ -86,6 +86,16 @@
     <Compile Include="Filter\Model\FilterInfoModelBinder.cs" />
     <Compile Include="Interfaces\IImageModel.cs" />
     <Compile Include="ProjectLogger\ProjectLogger.cs" />
+    <Compile Include="Resources\Resource.Designer.cs">
+      <DependentUpon>Resource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resources\Resource.ru.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.ru.resx</DependentUpon>
+    </Compile>
     <Compile Include="Sorting\SortingOption\SortingOption.cs" />
     <Compile Include="Sorting\SortingOption\SortingOptionHelper.cs" />
     <Compile Include="Utils\ImageUtils.cs" />
@@ -94,6 +104,19 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Resource.ru.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+      <LastGenOutput>Resource.ru.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Resource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

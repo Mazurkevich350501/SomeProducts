@@ -7,8 +7,9 @@
     max-height: 200px;
 }
 
-.buttun-left-margin {
+.btn-left-margin {
     margin-left: 10px;
+    width: 40px;
 }
 
 .field-validation-error,

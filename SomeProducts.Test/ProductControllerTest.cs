@@ -175,7 +175,7 @@ namespace SomeProducts.Test
         }
 
         [TestMethod]
-        public void Delete_Should_Return_ShowProductTable_Url_And_Call_RemoveViewBrandModel()
+        public void Delete_Should_Call_RemoveViewBrandModel()
         {
             const string testUrl = "testUrl/testUrl";
             var isCalledRemoveProductViewModel = false;
@@ -185,9 +185,8 @@ namespace SomeProducts.Test
             _productModelService.Setup(s => s.RemoveProductViewModel(It.IsAny<int>()))
                 .Callback(() => { isCalledRemoveProductViewModel = true; });
 
-            var result = _controller.Delete(1);
-
-            Assert.AreEqual(testUrl, result.Data);
+            _controller.Delete(1, null);
+            
             Assert.IsTrue(isCalledRemoveProductViewModel);
         }
 

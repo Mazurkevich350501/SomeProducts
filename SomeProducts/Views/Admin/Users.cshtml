@@ -1,11 +1,12 @@
 ﻿@using System.Text.RegularExpressions
 @using PagedList.Mvc
+@using R = Resources.Resource
 @model SomeProducts.PresentationServices.Models.Admin.UserTableViewModel
 @{
     ViewBag.Title = "Users";
 }
 
-<h2>Users</h2>
+<h2>@R.Users</h2>
 
 <div>
     <div class="row filters-container">
@@ -48,11 +49,9 @@
         }
     </div>
     <div class="row filters-container">
-        <div class="col-xs-1">
-            <button class="btn btn-primary" id="FilterBtn">Filter</button>
-        </div>
-        <div class="col-xs-1">
-            <button class="btn btn-default" id="clearFiltersBtnId">Clear</button>
+        <div class="col-xs-3">
+            <button class="btn btn-primary" id="FilterBtn">@R.Filter</button>
+            <button class="btn btn-default" id="clearFiltersBtnId">@R.Clear</button>
         </div>
     </div>
 </div>
@@ -68,12 +67,12 @@
                 </th>
                 <th>
                     <div id="th-username" data-type="sort" data-name="UserName" class="pointer">
-                        Name
+                        @R.Name
                     </div>
                 </th>
                 <th>
                     <div data-name="roles">
-                        Roles
+                        @R.Roles
                     </div>
                 </th>
                 <th class="th-setAdmin"></th>
@@ -102,7 +101,7 @@
                             <button class="btn btn-default" data-id="@user.Id"
                                     id=@($"setAdminBtn{user.Id}")
                                     style=@($"background-color:{setAdminBtnColor};")>
-                                Admin
+                                @R.Admin
                             </button>
                         }
                         
@@ -125,7 +124,7 @@
     </div>
     <div class="dropdown col-xs-6 product-counter">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-            Products count: @Model.PageInfo.ItemsCount
+            @R.ItemsCount: @Model.PageInfo.ItemsCount
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
@@ -141,7 +140,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Do you want to delete this product?</h4>
+                <h4 class="modal-title">@R.DeleteUserQestion</h4>
             </div>
             <form method="post" action=@Url.Action("RemoveUser", "Admin") enctype="multipart/form-data">
                 @Html.AntiForgeryToken()
@@ -152,8 +151,8 @@
                     count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters
                 }))
                 <div class="modal-body-central">
-                    <input type="submit" class="btn btn-danger" id="removeBtnId" value="Delete"/>
-                    <button class="btn btn-default" id="cancelDeleteBtnId">Cancel</button>
+                    <input type="submit" class="btn btn-danger" id="removeBtnId" value="@R.Delete"/>
+                    <button class="btn btn-default" id="cancelDeleteBtnId">@R.Cancel</button>
                 </div>
             </form>
         </div>
@@ -164,11 +163,11 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Do you want to change admin role for this user?</h4>
+                <h4 class="modal-title">@R.ChangeAdminRoleQestion</h4>
             </div>
             <div class="modal-body-central">
-                <button class="btn btn-success" id="setAdminBtnId">Confirm</button>
-                <button class="btn btn-default" id="cancelSetAdminBtnId">Cancel</button>
+                <button class="btn btn-success" id="setAdminBtnId">@R.Confirm</button>
+                <button class="btn btn-default" id="cancelSetAdminBtnId">@R.Cancel</button>
             </div>
         </div>
     </div>

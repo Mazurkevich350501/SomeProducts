@@ -1,9 +1,10 @@
 ﻿@model SomeProducts.PresentationServices.Models.Account.RegistrationViewModel
+@using R = Resources.Resource
 @{
     ViewBag.Title = "Register";
 }
 
-<h2>Register</h2>
+<h2>@R.Register</h2>
 
 <form method="post" action=@Url.Action("Register", "Account") enctype="multipart/form-data">
     @Html.AntiForgeryToken()
@@ -26,7 +27,7 @@
         </div>
     </div>
     <div class="btn-div">
-        <input class="btn btn-info" type="submit" value="Register" />
+        <input class="btn btn-info" type="submit" value="@R.Register" />
     </div>
 </form>
 

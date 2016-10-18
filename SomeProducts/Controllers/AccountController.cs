@@ -1,4 +1,5 @@
 ﻿
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -86,6 +87,12 @@ namespace SomeProducts.Controllers
             return RedirectToAction("LogIn", "Account");
         }
 
+        [HttpGet]
+        public ActionResult ChangeCulture(string lang, string returnUrl)
+        {
+            Session["Culture"] = new CultureInfo(lang);
+            return Redirect(returnUrl);
+        }
         private async Task<bool> LogIn(LogInUserModel userModel)
         {
             var user = await _manager.FindAsync(userModel.Name, userModel.Password);

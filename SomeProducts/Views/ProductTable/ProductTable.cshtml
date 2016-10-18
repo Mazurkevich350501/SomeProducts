@@ -1,5 +1,5 @@
 ﻿@using PagedList.Mvc
-
+@using R = Resources.Resource
 @model SomeProducts.PresentationServices.Models.ProductTable.ProductTableViewModel
 
 <div>
@@ -12,7 +12,7 @@
             </h4>
             <div class="row">
                 <div class="col-xs-10 filter-option-input-div">
-                    <input class="form-control @(Model.FilterInfo.Filters.ToArray()[i].Option == "Quantity" ? "numbre" : "")"
+                    <input class="form-control @(Model.FilterInfo.Filters.ToArray()[i].Option == "Quantity" ? "number" : "")"
                            id="@(Model.FilterInfo.Filters.ToArray()[i].Option)ValueId"
                            value="@Model.FilterInfo.Filters.ToArray()[i].Value" />
                 </div>
@@ -43,11 +43,9 @@
         }
     </div>
     <div class="row filters-container">
-        <div class="col-xs-11">
-            <button class="btn btn-primary" id="FilterBtn">Filter</button>
-        </div>
-        <div class="col-xs-1">
-            <button class="btn btn-default" id="clearFiltersBtnId">Clear</button>
+        <div class="col-xs-3">
+            <button class="btn btn-primary" id="FilterBtn">@R.Filter</button>
+            <button class="btn btn-default" id="clearFiltersBtnId">@R.Clear</button>
         </div>
     </div>
 </div>
@@ -61,18 +59,18 @@
                 </th>
                 <th>
                     <div id="th-name" data-type="sort" data-name="Name" class="pointer">
-                        Product Name
+                        @R.Name
                     </div>
                 </th>
-                <th>Description</th>
+                <th>@R.Description</th>
                 <th>
                     <div id="th-brand" data-type="sort" data-name="Brand" class="pointer">
-                        Brand
+                        @R.Brand
                     </div>
                 </th>
                 <th>
                     <div id="th-quantity" data-type="sort" data-name="Quantity" class="pointer">
-                        Quantity
+                        @R.Quantity
                     </div>
                 </th>
                 <th class="th-remove"></th>
@@ -127,7 +125,7 @@
     </div>
     <div class="dropdown col-xs-6 product-counter">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-            Products count: @Model.PageInfo.ItemsCount
+            @R.ItemsCount: @Model.PageInfo.ItemsCount
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
@@ -143,7 +141,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Do you want to delete this product?</h4>
+                <h4 class="modal-title">@R.DeleteProductQestion</h4>
             </div>
             <form method="post" action=@Url.Action("Delete", "Product") enctype="multipart/form-data">
                 @Html.Hidden("productId", 0)
@@ -155,8 +153,8 @@
                    filter = Model.JsonFilters
                }))
                 <div class="modal-body-central">
-                    <input type="submit" class="btn btn-danger" id="removeBtnId" value="Delete" />
-                    <button class="btn btn-default" id="cancelDeleteBtnId">Cancel</button>
+                    <input type="submit" class="btn btn-danger" id="removeBtnId" value="@R.Delete" />
+                    <button class="btn btn-default" id="cancelDeleteBtnId">@R.Cancel</button>
                 </div>
             </form>
         </div>
