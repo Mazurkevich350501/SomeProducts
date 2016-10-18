@@ -8,7 +8,7 @@ namespace SomeProducts.DAL.Context
         public ProductContext(string baseString = "DefaultConnection") : base(baseString)
         {
         }
-
+        
         public DbSet<Product> Products { set; get; }
 
         public DbSet<Brand> Brands { set; get; }

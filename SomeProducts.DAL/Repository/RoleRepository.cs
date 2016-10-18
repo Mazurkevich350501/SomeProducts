@@ -16,6 +16,11 @@ namespace SomeProducts.DAL.Repository
             _db = db;
         }
 
+        ~RoleRepository()
+        {
+            Dispose();
+        }
+
         public void Create(Role role)
         {
             _db.Roles.Add(role);

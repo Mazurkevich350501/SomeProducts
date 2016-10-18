@@ -7,64 +7,72 @@ using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
 using SomeProducts.PresentationServices.Models.ProductTable;
-using SomeProducts.PresentationServices.PresentationServices.ProductTable.SortingOption;
-using Newtonsoft.Json;
+using SomeProducts.CrossCutting.Sorting.SortingOption;
+using SomeProducts.PresentationServices.Models;
 
 namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
 {
     public class ProductTablePresentationService : IProductTablePresentationService
     {
         private readonly IProductDao _dao;
+        private static readonly Dictionary<string, string> SortingOptionDictionary;
+        private static readonly List<Filter> Filters;
 
         public ProductTablePresentationService(IProductDao dao)
         {
             _dao = dao;
         }
 
+        static ProductTablePresentationService()
+        {
+            SortingOptionDictionary = new Dictionary<string, string>
+            {
+                {"Name", nameof(Product.Name)},
+                {"Brand", $"{nameof(Product.Brand)}.{nameof(Brand.Name)}"},
+                {"Quantity", nameof(Product.Quantity)},
+            };
+
+            Filters = new List<Filter>
+            {
+                new Filter() {Option = "Name"},
+                new Filter() {Option = "Description"},
+                new Filter() {Option = "Brand_Name"},
+                new Filter() {Option = "Quantity"},
+            };
+        }
+
         public ProductTableViewModel GetTablePage(PageInfo pageInfo, FilterInfo filterInfo)
         {
-            InitPageInfo(pageInfo);
-            var sortingOption = SortingOptionHelper.GetOptionValue(pageInfo.SortingOption);
+            var sortingOption = SortingOptionHelper.GetOptionValue(pageInfo.SortingOption, SortingOptionDictionary);
             var productList = GetFilteredAndSortedProducts(sortingOption, filterInfo);
-            pageInfo.TotalProductCount = productList.Count();
-            var tableList = productList.ToPagedList(pageInfo.Page, pageInfo.ProductCount).Select(ProductTableModelCast).AsQueryable();
-
+            var tableList = productList.ToPagedList(pageInfo.Page, pageInfo.ItemsCount).Select(ProductTableModelCast).AsQueryable();
+            var newFilter = InitFilterInfo(filterInfo);
+            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option);
 
             var result = new ProductTableViewModel
             {
-                Products = new StaticPagedList<ProductTableModel>(tableList, pageInfo.Page, pageInfo.ProductCount,
-                    pageInfo.TotalProductCount),
-                PageInfo = pageInfo,
-                FilterInfo = InitFilterInfo(filterInfo),
-                StringFilterParameter = GetStringFilterParameter(),
-                NumberFilterParameter = GetNumberFilterParameter()
+                Products = new StaticPagedList<ProductTableModel>(
+                    tableList, newPageInfo.Page, newPageInfo.ItemsCount, newPageInfo.TotalItemsCount),
+                PageInfo = newPageInfo,
+                FilterInfo = newFilter,
+                JsonFilters = DataFiltration.GetReturnedJsonFilterList(newFilter.Filters),
+                StringFilterParameter = DataFiltration.GetStringFilterParameter(),
+                NumberFilterParameter = DataFiltration.GetNumberFilterParameter()
             };
-            result.JsonFilters = GetReturnedJsonFilterList(result.FilterInfo.Filters);
 
             return result;
         }
 
-        private static string GetReturnedJsonFilterList(IEnumerable<Filter> list)
+        private PageInfo SetPageInfo(PageInfo pageInfo, string option)
         {
-            var filters = new List<Filter>();
-            foreach (var filter in list)
-            {
-                if (filter.Parameter == FilterParameter.IsEmty || filter.Parameter == FilterParameter.IsNotEmty
-                    || filter.Parameter == FilterParameter.IsNotNull || filter.Parameter == FilterParameter.IsNull)
-                {
-                    filters.Add(filter);
-                }
-                else if (filter.Value != null)
-                {
-                    filters.Add(filter);
-                }
-            }
-            return JsonConvert.SerializeObject(filters);
+            pageInfo.SortingOption = option;
+            pageInfo.TotalItemsCount = _dao.GetProductCount();
+            return pageInfo;
         }
 
         private static FilterInfo InitFilterInfo(FilterInfo filterInfo)
         {
-            var result = GetDefaultFilterInfo();
+            var result = new FilterInfo(Filters);
             if (filterInfo?.Filters != null)
             {
                 foreach (var filter in filterInfo.Filters)
@@ -75,31 +83,10 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
             }
             return result;
         }
-
-        private static FilterInfo GetDefaultFilterInfo()
+        
+        private IQueryable<Product> GetFilteredAndSortedProducts(SortingOption option, FilterInfo info)
         {
-            return new FilterInfo()
-            {
-                Filters = new List<Filter>()
-                {
-                    new Filter() {Option = "Name"},
-                    new Filter() {Option = "Description"},
-                    new Filter() {Option = "Brand_Name"},
-                    new Filter() {Option = "Quantity"},
-                }
-            };
-        }
-
-        private void InitPageInfo(PageInfo info)
-        {
-            info.ProductCount = GetValidProductCountValue(info, 5, 20, 10);
-            info.Page = info.Page < 0 ? 1 : info.Page;
-            info.TotalProductCount = _dao.GetProductCount();
-        }
-
-        private IQueryable<Product> GetFilteredAndSortedProducts(SortingOption.SortingOption option, FilterInfo info)
-        {
-            return _dao.GetAllProducts().AsQueryable().GetFilteredProuct(info).Sort(option.Option, option.Order == Order.Reverse);
+            return _dao.GetAllProducts().AsQueryable().GetFilteredProduct(info).Sort(option.Option, option.Order == Order.Reverse);
         }
 
         private static string GetShortString(string str, int length)
@@ -123,40 +110,6 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
                 Image = product.Image,
                 ImageType = product.ImageType,
                 Id = product.Id
-            };
-        }
-
-        private static int GetValidProductCountValue(PageInfo info, int minValue, int maxValue, int defaultvalue)
-        {
-            return info.ProductCount < 0 || maxValue < minValue || info.ProductCount > maxValue
-                ? defaultvalue
-                : info.ProductCount;
-        }
-
-        public IDictionary<FilterParameter, string> GetNumberFilterParameter()
-        {
-            return new Dictionary<FilterParameter, string>()
-            {
-                {FilterParameter.IsEqualTo, "Is equal to"},
-                {FilterParameter.IsNotEqualTo, "Is not equal to"},
-                {FilterParameter.IsGreaterThanOrEqualTo, "Is greate than or equal to"},
-                {FilterParameter.IsLessThenOrEqualTo, "Is less then or equal to"},
-                {FilterParameter.IsLessThen, "Is less then"}
-            };
-        }
-
-        public IDictionary<FilterParameter, string> GetStringFilterParameter()
-        {
-            return new Dictionary<FilterParameter, string>()
-            {
-                {FilterParameter.IsEqualTo, "Is equal to"},
-                {FilterParameter.IsNotEqualTo, "Is not equal to"},
-                {FilterParameter.Contains, "Contains"},
-                {FilterParameter.DoesNotContain, "Does not contain"},
-                {FilterParameter.IsEmty, "Is emty"},
-                {FilterParameter.IsNotEmty, "Is not emty"},
-                {FilterParameter.IsNull, "Is null"},
-                {FilterParameter.IsNotNull, "Is not null"},
             };
         }
     }

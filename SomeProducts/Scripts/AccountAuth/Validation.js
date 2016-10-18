@@ -9,7 +9,7 @@
     function checkValidity() {
         var result = true;
         $("span[class='field-validation-error']").empty();
-        $("input").each(function () {
+        $("div[class='input-div']>input").each(function () {
             if (window.Utils.checkValidityData($(this).val())) {
                 console.log($(this).val());
                 console.log(window.Utils.checkValidityData($(this).val()));

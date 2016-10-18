@@ -10,6 +10,7 @@
 <h2>@title</h2>
 
 <form method="post" action=@Url.Action(isEdit ? "Edit" : "Create", "Product") enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.Product.Id)
     @Html.HiddenFor(m => m.Product.Version)
     @Html.HiddenFor(m => m.Product.Image)
@@ -53,7 +54,7 @@
     </div>
     <div>
         <input type="submit" class="btn btn-success" value=@(isEdit ? "Save" : "Create") />
-        @if (isEdit && User.IsInRole("Admin"))
+        @if (isEdit && User.IsInRole(nameof(UserRole.Admin)))
         {
             <div id="delete-btn" class="btn btn-warning" data-toggle="modal" data-target="#RemovingModal">Delete</div>
         }
@@ -93,13 +94,19 @@
             <div class="modal-header">
                 <h4 class="modal-title">Do you want to delete this product?</h4>
             </div>
-            <div class="modal-body-central">
-                <button class="btn btn-danger" id="removeBtnId">Delete</button>
-                <button class="btn btn-default" id="cancelDeleteBtnId">Cancel</button>
-            </div>
+            <form method="post" action=@Url.Action("Delete", "Product") enctype="multipart/form-data">
+                @Html.Hidden("productId", Model.Product.Id)
+                @Html.Hidden("redirectUrl", @Url.Action("Show", "ProductTable"))
+                <div class="modal-body-central">
+                    <input type="submit" class="btn btn-danger" id="removeBtnId" value="Delete" />
+                    <button class="btn btn-default" id="cancelDeleteBtnId">Cancel</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
+
 
 @section scripts
 {
@@ -124,7 +131,6 @@
             params.id.productNameId = '@Html.IdFor(m => m.Product.Name)';
             params.id.descriptionId = '@Html.IdFor(m => m.Product.Description)';
             params.id.productId = '@Html.IdFor(m => m.Product.Id)';
-            params.url.deleteProductUrl = '@Url.Action("Delete", "Product")';
             params.url.getBrandsListUrl = '@Url.Action("GetBrandsList", "Product")';
             params.url.isBrandUsingUrl = '@Url.Action("IsBrandUsing", "Product")';
             params.url.saveBrandsChangesUrl = '@Url.Action("SaveBrandsChanges", "Product")';
@@ -132,11 +138,11 @@
             var productNamespace = window.Utils.getNamespace("Product");
             var imageNamespace = window.Utils.getNamespace("Image");
             var modalWindowNamespace = window.Utils.getNamespace("ModalWindow");
-            var removingModalNamespace = window.Utils.getNamespace("RemovingModal");
+            
             productNamespace.initPage(params);
             imageNamespace.initImage(params);
             modalWindowNamespace.initModalWindow(params);
-            removingModalNamespace.initRemovingModal(params);
+            
         });
 
     </script>

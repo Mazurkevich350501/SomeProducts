@@ -2,11 +2,14 @@
 @model SomeProducts.PresentationServices.Models.Account.LogInUserModel
 @{
     ViewBag.Title = "LogIn";
+    string returnUrl = ViewBag.ReturnUrl ?? Url.Action("Show", "ProductTable");
 }
 
 <h2>LogIn</h2>
 
 <form method="post" action=@Url.Action("LogIn", "Account") enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    @Html.Hidden("returnUrl", returnUrl)
     @Html.ValidationMessage("Error")
     <div>
         @Html.LabelFor(m => m.Name)

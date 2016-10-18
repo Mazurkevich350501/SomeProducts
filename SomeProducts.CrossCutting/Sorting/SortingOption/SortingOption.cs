@@ -1,5 +1,5 @@
 ﻿
-namespace SomeProducts.PresentationServices.PresentationServices.ProductTable.SortingOption
+namespace SomeProducts.CrossCutting.Sorting.SortingOption
 {
     public enum Order { Reverse, Original }
 

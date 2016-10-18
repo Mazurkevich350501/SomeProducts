@@ -1,6 +1,7 @@
 ﻿
 using System.Linq;
 using System.Web.Mvc;
+using SomeProducts.Attribute;
 using SomeProducts.CrossCutting.Utils;
 using SomeProducts.PresentationServices.IPresentationSevices.Create;
 using SomeProducts.PresentationServices.Models.Create;
@@ -18,8 +19,7 @@ namespace SomeProducts.Controllers
             _productViewModelService = productViewModelService;
             _barndModelService = barndModelService;
         }
-
-        // GET: Product
+        
         [HttpGet]
         public ActionResult Create()
         {
@@ -37,9 +37,9 @@ namespace SomeProducts.Controllers
             }
             return View("Create", productModel);
         }
-
-        // POST: /Product/Create
+        
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(ProductViewModel model)
         {
             if (ModelState.IsValid)
@@ -55,6 +55,7 @@ namespace SomeProducts.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Edit(ProductViewModel model)
         {
             if (ModelState.IsValid)
@@ -80,11 +81,12 @@ namespace SomeProducts.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public JsonResult Delete(int productId)
+        [AuthorizeRole(UserRole.Admin)]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int productId, string redirectUrl)
         {
             _productViewModelService.RemoveProductViewModel(productId);
-            return Json(Url.Action("Show", "ProductTable"), JsonRequestBehavior.AllowGet);
+            return Redirect(redirectUrl);
         }
 
         public JsonResult GetBrandsList()

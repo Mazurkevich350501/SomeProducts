@@ -11,11 +11,10 @@ namespace SomeProducts.CrossCutting.Filter.Model
         {
             var request = controllerContext.HttpContext.Request;
             var jsonResult = request.QueryString[bindingContext.ModelName];
-            return jsonResult != null
-                ? new FilterInfo() {
-                    Filters = JsonConvert.DeserializeObject<List<Filter>>(jsonResult)
-                }
-                : null;
+            if (jsonResult == null) return null;
+
+            var filtersList = JsonConvert.DeserializeObject<List<Filter>>(jsonResult);
+            return new FilterInfo(filtersList);
         }
     }
 }

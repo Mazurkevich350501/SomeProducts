@@ -1,0 +1,93 @@
+﻿.modal-body-central {
+    text-align: center;
+    padding: 20px;
+}
+
+.product-table-div {
+    margin: 40px 0 30px 0;
+}
+
+.product-table-image {
+    max-height: 80px;
+    max-width: 80px;
+    border: 6px solid white;
+}
+
+.product-counter {
+    padding-left: -50px;
+    margin-top: 20px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.th-setAdmin {
+    max-width: 100px;
+}
+
+    .th-setAdmin button {
+        background-color: red;
+        color: white;
+    }
+
+.th-remove {
+    max-width: 50px;
+}
+
+    .th-remove button {
+        color: red;
+        border: none;
+        background: white;
+        width: 30px;
+        height: 30px;
+    }
+
+table {
+    max-width: 1000px;
+    border: 2px solid #357ebd;
+}
+
+thead th {
+    color: whitesmoke;
+    background: #428bca;
+}
+
+tbody th {
+    font-weight: normal;
+    font-style: italic;
+    word-wrap: break-word;
+}
+
+thead, tbody {
+    display: block;
+}
+
+tbody {
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+th {
+    -moz-min-width: 200px;
+    -ms-min-width: 200px;
+    -o-min-width: 200px;
+    -webkit-min-width: 200px;
+    min-width: 300px;
+}
+
+.filters-container {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    max-width: 1090px;
+}
+
+.filter-param-select {
+    max-width: 20px;
+    padding: 7px;
+}
+
+.filter-option-input-div {
+    padding-right: 2px;
+}

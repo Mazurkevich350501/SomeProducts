@@ -1,5 +1,5 @@
 ﻿(function () {
-    var deletedId;
+    var activeId;
     var deleteProductUrl;
 
     var removingModalNamespace = Utils.getNamespace("RemovingModal");
@@ -9,28 +9,17 @@
 
     $("th[class='th-remove']>button").click(function (e) {
         $("#RemovingModal").modal("show");
-        deletedId = parseInt($(e.target).attr("data-id"));
+        activeId = parseInt($(e.target).attr("data-id"));
         event.cancelBubble = true;
     });
 
-    $("#cancelDeleteBtnId").click(function () {
+    $("#cancelDeleteBtnId").click(function (e) {
         $("#RemovingModal").modal("hide");
+        e.preventDefault();
     });
 
     $("#removeBtnId").click(function () {
-        postRequest(JSON.stringify({ productId: deletedId }), deleteProductUrl);
+        $("#productId").val(activeId);
     });
 
-    function postRequest(data, url) {
-        $.ajax({
-            type: "POST",
-            url: url,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            data: data,
-            success: function (newUrl) {
-                window.location.reload();
-            }
-        });
-    }
 }());

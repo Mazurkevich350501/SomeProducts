@@ -79,12 +79,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attribute\AuthorizeRoleAttribute.cs" />
     <Compile Include="Filter\Model\Filter.cs" />
     <Compile Include="Filter\Model\FilterInfo.cs" />
     <Compile Include="Filter\DataFiltration.cs" />
     <Compile Include="Filter\Model\FilterInfoModelBinder.cs" />
     <Compile Include="Interfaces\IImageModel.cs" />
     <Compile Include="ProjectLogger\ProjectLogger.cs" />
+    <Compile Include="Sorting\SortingOption\SortingOption.cs" />
+    <Compile Include="Sorting\SortingOption\SortingOptionHelper.cs" />
     <Compile Include="Utils\ImageUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

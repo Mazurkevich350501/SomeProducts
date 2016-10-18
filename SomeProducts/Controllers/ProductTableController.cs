@@ -2,7 +2,7 @@
 using SomeProducts.Attribute;
 using SomeProducts.CrossCutting.Filter.Model;
 using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
-using SomeProducts.PresentationServices.Models.ProductTable;
+using SomeProducts.PresentationServices.Models;
 using FilterInfo = SomeProducts.CrossCutting.Filter.Model.FilterInfo;
 
 namespace SomeProducts.Controllers
@@ -17,22 +17,15 @@ namespace SomeProducts.Controllers
         }
 
         [HttpGet]
-        [AuthorizeRole(UserRole.Admin, UserRole.User)]
-        public ActionResult Show(int? page, int? count, string by, 
+        public ActionResult Show(
+            int? page,
+            int? count,
+            string by, 
             [ModelBinder(typeof(FilterInfoModelBinder))]FilterInfo filter)
         {
-            var model = _service.GetTablePage(GetPageInfo(page, count, by), filter);
+            var pageInfo = new PageInfo(page, count, by);
+            var model = _service.GetTablePage(pageInfo, filter);
             return View("ProductTable", model);
-        }
-
-        private static PageInfo GetPageInfo(int? page, int? count, string by)
-        {
-            return new PageInfo()
-            {
-                Page = page ?? 1,
-                ProductCount = count ?? 5,
-                SortingOption = by ?? "Name"
-            };
         }
     }
 }

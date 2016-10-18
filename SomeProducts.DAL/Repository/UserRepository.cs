@@ -17,6 +17,11 @@ namespace SomeProducts.DAL.Repository
             _db = db;
         }
 
+        ~UserRepository()
+        {
+            Dispose();
+        }
+
         public void Create(User user)
         {
             _db.Users.Add(user);
@@ -24,7 +29,7 @@ namespace SomeProducts.DAL.Repository
 
         public void Delete(User user)
         {
-            _db.Users.Remove(_db.Users.Find(user));
+            _db.Users.Remove(_db.Users.Find(user.Id));
         }
 
         public void Dispose()
