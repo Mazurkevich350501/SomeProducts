@@ -30,10 +30,12 @@ namespace SomeProducts.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<JsonResult> ChangeUserAdminRole(int userId)
         {
-            await _service.ChangeAdminRole(userId);
+            if (!IsActiveUser(userId))
+            {
+                await _service.ChangeAdminRole(userId);
+            }
             return Json(await _service.GetUserRoles(userId));
         }
 
@@ -41,7 +43,10 @@ namespace SomeProducts.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemoveUser(int userId, string redirectUrl)
         {
-            await _service.RemoveUser(userId);
+            if (!IsActiveUser(userId))
+            {
+                await _service.RemoveUser(userId);
+            }
             return Redirect(redirectUrl);
         }
 
@@ -50,6 +55,12 @@ namespace SomeProducts.Controllers
         {
             var roles = _service.GetUserRoles(userId);
             return Json(roles);
+        }
+
+        private bool IsActiveUser(int userId)
+        {
+            var userName = HttpContext.User.Identity.Name;
+            return _service.IsUserExist(userId, userName);
         }
     }
 }

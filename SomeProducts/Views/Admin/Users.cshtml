@@ -95,16 +95,23 @@
                         @Html.Raw(string.Join(", ", user.Roles)).ToHtmlString()
                     </th>
                     <th class="th-setAdmin">
-                        @{
+                        @if (User.Identity.Name != user.Name)
+                        {
                             var setAdminBtnColor = user.Roles.Contains(nameof(UserRole.Admin))
                                 ? "green" : "red";
+                            <button class="btn btn-default" data-id="@user.Id"
+                                    id=@($"setAdminBtn{user.Id}")
+                                    style=@($"background-color:{setAdminBtnColor};")>
+                                Admin
+                            </button>
                         }
-                        <button class="btn btn-default" data-id="@user.Id"
-                                id=@($"setAdminBtn{user.Id}")
-                                style=@($"background-color:{setAdminBtnColor};")>Admin</button>
+                        
                     </th>
                     <th class="th-remove">
-                        <button class="glyphicon glyphicon-remove" data-id="@user.Id"></button>
+                        @if (User.Identity.Name != user.Name)
+                        {
+                            <button class="glyphicon glyphicon-remove" data-id="@user.Id"></button>
+                        }
                     </th>
                 </tr>
             }

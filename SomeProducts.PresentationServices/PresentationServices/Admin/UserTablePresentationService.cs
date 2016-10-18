@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using PagedList;
 using SomeProducts.CrossCutting.Filter;
@@ -120,6 +121,11 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
         public async Task<IList<string>> GetUserRoles(int userId)
         {
             return await _dao.GetRolesAsync(await _dao.FindByIdAsync(userId));
+        }
+
+        public bool IsUserExist(int userId, string userName)
+        {
+            return _dao.GetAllUsers().Any(user => user.Id == userId && user.UserName == userName);
         }
     }
 }

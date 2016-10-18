@@ -16,5 +16,7 @@ namespace SomeProducts.PresentationServices.IPresentationSevices.Admin
         Task ChangeAdminRole(int userId);
         
         Task<IList<string>> GetUserRoles(int userId);
+
+        bool IsUserExist(int userId, string userName);
     }
 }
