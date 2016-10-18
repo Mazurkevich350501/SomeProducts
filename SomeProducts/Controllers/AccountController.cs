@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using SomeProducts.CrossCutting.ProjectLogger;
 using SomeProducts.PresentationServices.Authorize;
 using SomeProducts.PresentationServices.Models.Account;
 
@@ -30,6 +31,7 @@ namespace SomeProducts.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegistrationViewModel model)
         {
+            ProjectLogger.Trace($"Register new user {model.Name}");
             if (ModelState.IsValid)
             {
                 var result = await _manager.PasswordValidator.ValidateAsync(model.Password);
@@ -58,11 +60,13 @@ namespace SomeProducts.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> LogIn(LogInUserModel model, string returnUrl)
         {
+            ProjectLogger.Trace($"User {model.Name} try to login");
             if (!ModelState.IsValid) return View(model);
             if (await LogIn(model))
             {
                 if (returnUrl == null)
                 {
+                    ProjectLogger.Trace($"Login User {model.Name}");
                     return RedirectToAction("Show", "ProductTable");
                 }
                 return Redirect(returnUrl);
@@ -77,6 +81,7 @@ namespace SomeProducts.Controllers
         [Authorize]
         public ActionResult LogOff()
         {
+            ProjectLogger.Trace($"LogOff user {HttpContext.User.Identity.Name}");
             HttpContext.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("LogIn", "Account");
         }

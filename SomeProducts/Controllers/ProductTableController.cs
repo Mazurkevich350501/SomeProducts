@@ -1,5 +1,5 @@
-﻿using System.Web.Mvc;
-using SomeProducts.Attribute;
+﻿
+using System.Web.Mvc;
 using SomeProducts.CrossCutting.Filter.Model;
 using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
 using SomeProducts.PresentationServices.Models;
@@ -17,6 +17,7 @@ namespace SomeProducts.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Show(
             int? page,
             int? count,

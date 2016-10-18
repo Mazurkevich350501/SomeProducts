@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 using SomeProducts.Attribute;
+using SomeProducts.CrossCutting.ProjectLogger;
 using SomeProducts.CrossCutting.Utils;
 using SomeProducts.PresentationServices.IPresentationSevices.Create;
 using SomeProducts.PresentationServices.Models.Create;
@@ -47,6 +48,8 @@ namespace SomeProducts.Controllers
                 ImageUtils.AddImageToModel(model.Product, Request);
                 _productViewModelService.CreateProductViewModel(model);
                 var productModel = _productViewModelService.GetLastProductViewMode();
+
+                ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} create new product(id={productModel.Product.Id})");
                 return RedirectToAction("Edit", "Product", new { id = productModel.Product.Id });
             }
             var newModel = _productViewModelService.GetProductViewModel();
@@ -64,6 +67,7 @@ namespace SomeProducts.Controllers
                 var result = _productViewModelService.UpdateProductViewModel(model);
                 if (result)
                 {
+                    ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} edit product(id={model.Product.Id})");
                     return RedirectToAction("Edit", "Product", new { id = model.Product.Id });
                 }
                 return View("Error", (object)"Product already has changed");
@@ -76,6 +80,7 @@ namespace SomeProducts.Controllers
 
         public JsonResult SaveBrandsChanges(BrandsChangeModel changeModel)
         {
+            ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} change brands ({changeModel})");
             _barndModelService.SaveBrandChanges(changeModel);
             return GetBrandsList();
         }
@@ -85,6 +90,7 @@ namespace SomeProducts.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int productId, string redirectUrl)
         {
+            ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} remove product (id={productId})");
             _productViewModelService.RemoveProductViewModel(productId);
             return Redirect(redirectUrl);
         }
