@@ -277,6 +277,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Incorrect user name.
+        /// </summary>
+        public static string IncorrectUserName {
+            get {
+                return ResourceManager.GetString("IncorrectUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is empy.
         /// </summary>
         public static string IsEmty {
@@ -435,6 +444,51 @@ namespace Resources {
         public static string PasswordDontConfirm {
             get {
                 return ResourceManager.GetString("PasswordDontConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password require digit.
+        /// </summary>
+        public static string PasswordRequireDigit {
+            get {
+                return ResourceManager.GetString("PasswordRequireDigit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password require length.
+        /// </summary>
+        public static string PasswordRequireLength {
+            get {
+                return ResourceManager.GetString("PasswordRequireLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password require lower case.
+        /// </summary>
+        public static string PasswordRequireLower {
+            get {
+                return ResourceManager.GetString("PasswordRequireLower", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password require non letter or digit.
+        /// </summary>
+        public static string PasswordRequireNonLetterOrDigit {
+            get {
+                return ResourceManager.GetString("PasswordRequireNonLetterOrDigit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password require upper case.
+        /// </summary>
+        public static string PasswordRequireUpper {
+            get {
+                return ResourceManager.GetString("PasswordRequireUpper", resourceCulture);
             }
         }
         

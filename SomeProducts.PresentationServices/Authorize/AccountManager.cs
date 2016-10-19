@@ -10,12 +10,12 @@ namespace SomeProducts.PresentationServices.Authorize
     {
         public AccountManager(IUserStore<User, int> store) : base(store)
         {
-            UserValidator = new UserValidator<User, int>(this)
+            UserValidator = new UserValidatorLocal(this)
             {
                 AllowOnlyAlphanumericUserNames = false
             };
 
-            PasswordValidator = new PasswordValidator
+            PasswordValidator = new PasswordValidatorLocal()
             {
                 RequiredLength = 6,
                 RequireDigit = true,

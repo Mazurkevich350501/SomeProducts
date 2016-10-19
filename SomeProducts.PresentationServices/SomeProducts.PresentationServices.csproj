@@ -66,6 +66,8 @@
   <ItemGroup>
     <Compile Include="Authorize\AccountManager.cs" />
     <Compile Include="Authorize\AccountPasswordHasher.cs" />
+    <Compile Include="Authorize\PasswordValidatorLocal.cs" />
+    <Compile Include="Authorize\UserValidatorLocal.cs" />
     <Compile Include="AutofacModule\PresentationServiceModule.cs" />
     <Compile Include="IPresentationSevices\Admin\IUserTablePresentationService.cs" />
     <Compile Include="IPresentationSevices\ProductTable\IProductTablePresentationService.cs" />
