@@ -4,6 +4,7 @@
     var productNamespace = Utils.getNamespace("Product");
 
     var idParams = {};
+    var illegalCharsError;
     $("input[type='submit']").click(function (e) {
         if (!checkValidity()) {
             e.preventDefault();
@@ -36,7 +37,8 @@
     function showValidationMessage(obj) {
         $("span[class='field-validation-valid']").empty();
         $("span[class='field-validation-error']").empty();
-        $("#" + obj.id + "_Validation").append("Used illegal characters");
+        $("#" + obj.id + "_Validation").attr("class", "field-validation-error");
+        $("#" + obj.id + "_Validation").append(illegalCharsError);
     }
 
     function checkQuantityValue() {
@@ -51,6 +53,7 @@
 
     productNamespace.initPage = function (params) {
         idParams = params.id;
+        illegalCharsError = params.error.IllegalCharsError;
         colorpickerInitialization();
     }
 

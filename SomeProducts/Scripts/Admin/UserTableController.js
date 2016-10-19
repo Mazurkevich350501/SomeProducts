@@ -3,13 +3,14 @@
 
     var filrers = ["Id", "UserName"];
 
-    var urlWhithoutBy, presentUrl, sortingOption;
+    var urlWhithoutBy, presentUrl, sortingOption, illegalCharsError;
 
     var productTableNamespace = window.Utils.getNamespace("ProductTable");
     productTableNamespace.init = function (params) {
         urlWhithoutBy = params.url;
         presentUrl = params.presentUrl;
         sortingOption = params.sortingOption;
+        illegalCharsError = params.IllegalCharsError;
     };
 
     $("document").ready(function () {
@@ -42,6 +43,9 @@
     }
 
     function filterUsers() {
+        var validationModel = window.Utils.getNamespace("Validation");
+        if(!validationModel.checkValidity())
+            return;
         var filterInfo = {
             Filters: []
         }

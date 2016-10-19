@@ -209,12 +209,12 @@
     function getErrorMessage(name, id) {
         var message = "";
         if (name === "") {
-            message = "Brand name is empty.";
+            message = params.error.EmptyBrandNameError;
         }
         if (brandsList.length !== 0) {
             brandsList.find(function (brand) {
                 if (brand.name === name && brand.id !== parseInt(id)) {
-                    message = "Brand name already exists.";
+                    message = params.error.BrandNameExistError;
                     return true;
                 }
                 return false;
@@ -222,7 +222,7 @@
         }
 
         if (Utils.checkValidityData(name)) {
-            message = "Used illegal characters";
+            message = params.error.IllegalCharsError;
         }
         return message;
     }

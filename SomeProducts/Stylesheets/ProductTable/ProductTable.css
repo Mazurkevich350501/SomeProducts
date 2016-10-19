@@ -1,4 +1,8 @@
-﻿.modal-body-central {
+﻿.field-validation-error {
+    color: red;
+}
+
+.modal-body-central {
     text-align: center;
     padding: 20px;
 }

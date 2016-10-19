@@ -48,6 +48,7 @@ namespace SomeProducts
 
             bundles.Add((new ScriptBundle("~/Product/ProductTable/Scripts").Include(
                 "~/Scripts/Common/Utils.js",
+                "~/Scripts/Common/FilterValidation.js",
                 "~/Scripts/ProductTable/ProductTableController.js",
                 "~/Scripts/ProductTable/RemovingModalWindow.js")));
 
@@ -56,6 +57,7 @@ namespace SomeProducts
 
             bundles.Add((new ScriptBundle("~/Product/Admin/Scripts").Include(
                 "~/Scripts/Common/Utils.js",
+                "~/Scripts/Common/FilterValidation.js",
                 "~/Scripts/Admin/UserTableController.js",
                 "~/Scripts/Admin/ModalWindow.js")));
         }

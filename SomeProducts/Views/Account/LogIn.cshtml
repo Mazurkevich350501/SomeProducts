@@ -38,5 +38,14 @@
 
 @section scripts
 {
+    <script>
+        $(function () {
+            var params = {
+                IllegalCharsError: '@R.IllegalCharsError'
+            };
+            var validationNamespace = window.Utils.getNamespace("AccountValidation");
+            validationNamespace.init(params);
+        });
+    </script>
     @Scripts.Render("~/Account/Auth/Scripts")
 }

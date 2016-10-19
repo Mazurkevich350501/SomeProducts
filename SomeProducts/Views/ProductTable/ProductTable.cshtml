@@ -10,6 +10,7 @@
             <h4>
                 @Model.FilterInfo.Filters.ToArray()[i].FilterName
             </h4>
+            <span class="field-validation-error" id="validation-@(Model.FilterInfo.Filters.ToArray()[i].Option)ValueId"></span>
             <div class="row">
                 <div class="col-xs-10 filter-option-input-div">
                     <input class="form-control @(Model.FilterInfo.Filters.ToArray()[i].Option == "Quantity" ? "number" : "")"
@@ -170,12 +171,15 @@
                 url: '@Url.Action("Show", "ProductTable", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, filter = Model.JsonFilters })',
                 presentUrl: '@Url.Action("Show", "ProductTable", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption})',
                 sortingOption: '@Model.PageInfo.SortingOption',
-                deleteProductUrl: '@Url.Action("Delete", "Product")'
+                deleteProductUrl: '@Url.Action("Delete", "Product")',
+                IllegalCharsError: '@R.IllegalCharsError'
             };
             var productTableNamespace = window.Utils.getNamespace("ProductTable");
             productTableNamespace.init(params);
             var removingModalNamespace = window.Utils.getNamespace("RemovingModal");
             removingModalNamespace.initRemovingModal(params);
+            var validationNamespace = window.Utils.getNamespace("Validation");
+            validationNamespace.initValidation(params);
         });
     </script>
     @Scripts.Render("~/Product/ProductTable/Scripts")

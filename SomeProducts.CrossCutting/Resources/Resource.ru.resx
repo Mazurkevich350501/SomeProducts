@@ -123,6 +123,9 @@
   <data name="Brand" xml:space="preserve">
     <value>Бренд</value>
   </data>
+  <data name="BrandNameExistError" xml:space="preserve">
+    <value>Такое имя бренда уже существует.</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
@@ -171,6 +174,9 @@
   <data name="Editing" xml:space="preserve">
     <value>Редактирование</value>
   </data>
+  <data name="EmptyBrandNameError" xml:space="preserve">
+    <value>Имя бренда пустое.</value>
+  </data>
   <data name="Filter" xml:space="preserve">
     <value>Фильтровать</value>
   </data>
@@ -179,6 +185,9 @@
   </data>
   <data name="Id" xml:space="preserve">
     <value>Id</value>
+  </data>
+  <data name="IllegalCharsError" xml:space="preserve">
+    <value>Используются запрещенные символы.</value>
   </data>
   <data name="IsEmty" xml:space="preserve">
     <value>Пустой</value>

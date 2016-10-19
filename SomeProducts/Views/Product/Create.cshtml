@@ -114,15 +114,15 @@
         <p class="brand-validation-error" id="brandValidation-${id}"></p>
         <div class="row" id="row-${id}">
             <div class="col-xs-10">
-                <h4><input class="brand-edit-input" type="text" data-id="${id}" value="${name}" /></h4>
+                <h4><input class="brand-edit-input" type="text" data-id="${id}" value="${name}"/></h4>
             </div>
             <button class="btn btn-warning glyphicon glyphicon-minus-sign" data-id="${id}" data-selector="removeBtn"></button>
         </div>
     </script>
 
     <script>
-        $(function () {
-            var params = { id: {}, url: {} };
+        $(function() {
+            var params = { id: {}, url: {}, error: {} };
             params.id.colorpickerId = '@Html.IdFor(m => m.Product.Color)';
             params.id.brandDropdownId = '@Html.IdFor(m => m.Product.BrandId)';
             params.id.imageDataId = '@Html.IdFor(m => m.Product.Image)';
@@ -135,14 +135,18 @@
             params.url.isBrandUsingUrl = '@Url.Action("IsBrandUsing", "Product")';
             params.url.saveBrandsChangesUrl = '@Url.Action("SaveBrandsChanges", "Product")';
 
+            params.error.IllegalCharsError = '@R.IllegalCharsError';
+            params.error.EmptyBrandNameError = '@R.EmptyBrandNameError';
+            params.error.BrandNameExistError = '@R.BrandNameExistError';
+
             var productNamespace = window.Utils.getNamespace("Product");
             var imageNamespace = window.Utils.getNamespace("Image");
             var modalWindowNamespace = window.Utils.getNamespace("ModalWindow");
-            
+
             productNamespace.initPage(params);
             imageNamespace.initImage(params);
             modalWindowNamespace.initModalWindow(params);
-            
+
         });
 
     </script>

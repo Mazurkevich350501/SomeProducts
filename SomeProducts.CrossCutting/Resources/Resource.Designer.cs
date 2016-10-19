@@ -79,6 +79,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Brand name already exists..
+        /// </summary>
+        public static string BrandNameExistError {
+            get {
+                return ResourceManager.GetString("BrandNameExistError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
@@ -223,6 +232,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Brand name is empty..
+        /// </summary>
+        public static string EmptyBrandNameError {
+            get {
+                return ResourceManager.GetString("EmptyBrandNameError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filter.
         /// </summary>
         public static string Filter {
@@ -246,6 +264,15 @@ namespace Resources {
         public static string Id {
             get {
                 return ResourceManager.GetString("Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Used illegal characters..
+        /// </summary>
+        public static string IllegalCharsError {
+            get {
+                return ResourceManager.GetString("IllegalCharsError", resourceCulture);
             }
         }
         

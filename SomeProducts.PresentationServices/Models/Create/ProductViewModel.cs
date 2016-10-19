@@ -7,5 +7,7 @@ namespace SomeProducts.PresentationServices.Models.Create
         public ProductModel Product { get; set; }
         public Dictionary<int, string> Brands { get; set; }
         public Dictionary<string, string> Colors { get; set; }
+
+        public Dictionary<string, string> ErrorMessages { get; set; }
     }
 }

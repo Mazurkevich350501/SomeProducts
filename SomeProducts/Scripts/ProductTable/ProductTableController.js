@@ -3,13 +3,14 @@
 
     var filrers = ["Name", "Description", "Brand_Name", "Quantity"];
 
-    var urlWhithoutBy, presentUrl, sortingOption;
+    var urlWhithoutBy, presentUrl, sortingOption, illegalCharsError;
 
     var productTableNamespace = window.Utils.getNamespace("ProductTable");
     productTableNamespace.init = function (params) {
         urlWhithoutBy = params.url;
         presentUrl = params.presentUrl;
         sortingOption = params.sortingOption;
+        illegalCharsError = params.IllegalCharsError;
     };
 
     $("document").ready(function () {
@@ -33,7 +34,6 @@
         if (sortingOption === newSoringOption) {
             newSoringOption = "rev" + newSoringOption;
         }
-        console.log(urlWhithoutBy.indexOf("filter"));
         var redirectUrl = urlWhithoutBy.indexOf("filter") < 0
             ? urlWhithoutBy + "&by=" + newSoringOption
             : urlWhithoutBy.substring(0, urlWhithoutBy.indexOf("filter"))
@@ -42,6 +42,9 @@
     }
 
     function filterProduct() {
+        var validationModel = window.Utils.getNamespace("Validation");
+        if(!validationModel.checkValidity())
+            return;
         var filterInfo = {
             Filters: []
         }
