@@ -1,6 +1,5 @@
 ﻿
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using PagedList;
 using SomeProducts.CrossCutting.Filter;
@@ -12,6 +11,7 @@ using SomeProducts.PresentationServices.IPresentationSevices.Admin;
 using SomeProducts.PresentationServices.Models;
 using SomeProducts.PresentationServices.Models.Admin;
 using System.Threading.Tasks;
+using R = Resources.Resource;
 
 namespace SomeProducts.PresentationServices.PresentationServices.Admin
 {
@@ -31,8 +31,8 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
 
             Filters = new List<Filter>
             {
-                new Filter() {Option = nameof(User.UserName)},
-                new Filter() {Option = nameof(User.Id)}
+                new Filter() {Option = nameof(User.Id), FilterName = R.Id}, 
+                new Filter() {Option = nameof(User.UserName), FilterName = R.Name}
             };
         }
 

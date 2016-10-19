@@ -9,6 +9,7 @@ using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
 using SomeProducts.PresentationServices.Models.ProductTable;
 using SomeProducts.CrossCutting.Sorting.SortingOption;
 using SomeProducts.PresentationServices.Models;
+using R = Resources.Resource;
 
 namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
 {
@@ -34,10 +35,10 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
 
             Filters = new List<Filter>
             {
-                new Filter() {Option = "Name"},
-                new Filter() {Option = "Description"},
-                new Filter() {Option = "Brand_Name"},
-                new Filter() {Option = "Quantity"},
+                new Filter() {Option = "Name", FilterName = R.Name},
+                new Filter() {Option = "Description", FilterName = R.Description},
+                new Filter() {Option = "Brand_Name", FilterName = R.Brand},
+                new Filter() {Option = "Quantity", FilterName = R.Quantity},
             };
         }
 

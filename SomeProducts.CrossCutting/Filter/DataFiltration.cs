@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using SomeProducts.CrossCutting.Filter.Model;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using R = Resources.Resource;
 
 namespace SomeProducts.CrossCutting.Filter
 {
@@ -104,11 +105,11 @@ namespace SomeProducts.CrossCutting.Filter
         {
             return new Dictionary<FilterParameter, string>()
             {
-                {FilterParameter.IsEqualTo, "Is equal to"},
-                {FilterParameter.IsNotEqualTo, "Is not equal to"},
-                {FilterParameter.IsGreaterThanOrEqualTo, "Is greate than or equal to"},
-                {FilterParameter.IsLessThenOrEqualTo, "Is less then or equal to"},
-                {FilterParameter.IsLessThen, "Is less then"}
+                {FilterParameter.IsEqualTo, R.IsEqualTo},
+                {FilterParameter.IsNotEqualTo, R.IsNotEqualTo},
+                {FilterParameter.IsGreaterThanOrEqualTo, R.IsGreaterThanOrEqualTo},
+                {FilterParameter.IsLessThenOrEqualTo, R.IsLessThenOrEqualTo},
+                {FilterParameter.IsLessThen, R.IsLessThen}
             };
         }
 
@@ -116,14 +117,14 @@ namespace SomeProducts.CrossCutting.Filter
         {
             return new Dictionary<FilterParameter, string>()
             {
-                {FilterParameter.IsEqualTo, "Is equal to"},
-                {FilterParameter.IsNotEqualTo, "Is not equal to"},
-                {FilterParameter.Contains, "Contains"},
-                {FilterParameter.DoesNotContain, "Does not contain"},
-                {FilterParameter.IsEmty, "Is emty"},
-                {FilterParameter.IsNotEmty, "Is not emty"},
-                {FilterParameter.IsNull, "Is null"},
-                {FilterParameter.IsNotNull, "Is not null"},
+                {FilterParameter.IsEqualTo, R.IsEqualTo},
+                {FilterParameter.IsNotEqualTo, R.IsNotEqualTo},
+                {FilterParameter.Contains, R.Contains},
+                {FilterParameter.DoesNotContain, R.DoesNotContain},
+                {FilterParameter.IsEmty, R.IsEmty},
+                {FilterParameter.IsNotEmty, R.IsNotEmty},
+                {FilterParameter.IsNull, R.IsNull},
+                {FilterParameter.IsNotNull, R.IsNotNull},
             };
         }
 

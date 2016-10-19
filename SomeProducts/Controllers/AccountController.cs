@@ -93,6 +93,7 @@ namespace SomeProducts.Controllers
             Session["Culture"] = new CultureInfo(lang);
             return Redirect(returnUrl);
         }
+
         private async Task<bool> LogIn(LogInUserModel userModel)
         {
             var user = await _manager.FindAsync(userModel.Name, userModel.Password);

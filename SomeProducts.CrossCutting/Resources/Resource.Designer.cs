@@ -115,11 +115,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        public static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm password.
         /// </summary>
         public static string ConfirmPassword {
             get {
                 return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Contain.
+        /// </summary>
+        public static string Contains {
+            get {
+                return ResourceManager.GetString("Contains", resourceCulture);
             }
         }
         
@@ -178,6 +196,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Does not contain.
+        /// </summary>
+        public static string DoesNotContain {
+            get {
+                return ResourceManager.GetString("DoesNotContain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         public static string Edit {
@@ -210,6 +237,96 @@ namespace Resources {
         public static string Hellow {
             get {
                 return ResourceManager.GetString("Hellow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Id.
+        /// </summary>
+        public static string Id {
+            get {
+                return ResourceManager.GetString("Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is empy.
+        /// </summary>
+        public static string IsEmty {
+            get {
+                return ResourceManager.GetString("IsEmty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IS equal o.
+        /// </summary>
+        public static string IsEqualTo {
+            get {
+                return ResourceManager.GetString("IsEqualTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is greater than or equal to.
+        /// </summary>
+        public static string IsGreaterThanOrEqualTo {
+            get {
+                return ResourceManager.GetString("IsGreaterThanOrEqualTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is less then.
+        /// </summary>
+        public static string IsLessThen {
+            get {
+                return ResourceManager.GetString("IsLessThen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is less then or equal to.
+        /// </summary>
+        public static string IsLessThenOrEqualTo {
+            get {
+                return ResourceManager.GetString("IsLessThenOrEqualTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is not empty.
+        /// </summary>
+        public static string IsNotEmty {
+            get {
+                return ResourceManager.GetString("IsNotEmty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is not equal to.
+        /// </summary>
+        public static string IsNotEqualTo {
+            get {
+                return ResourceManager.GetString("IsNotEqualTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is not null.
+        /// </summary>
+        public static string IsNotNull {
+            get {
+                return ResourceManager.GetString("IsNotNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is null.
+        /// </summary>
+        public static string IsNull {
+            get {
+                return ResourceManager.GetString("IsNull", resourceCulture);
             }
         }
         
@@ -250,7 +367,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name cannot be longer than 200 characters.
+        ///   Looks up a localized string similar to {0} cannot be longer than 200 characters..
         /// </summary>
         public static string Long200Characters {
             get {
@@ -295,7 +412,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Should be positive..
+        ///   Looks up a localized string similar to {0} should be positive..
         /// </summary>
         public static string PositiveValue {
             get {
@@ -322,7 +439,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This field is required..
+        ///   Looks up a localized string similar to {0} field is required..
         /// </summary>
         public static string RequiredField {
             get {

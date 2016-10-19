@@ -24,5 +24,7 @@ namespace SomeProducts.CrossCutting.Filter.Model
         public FilterParameter Parameter { get; set; }
 
         public string Value { get; set; }
+
+        public string FilterName { get; set; }
     }
 }

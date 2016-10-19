@@ -135,8 +135,14 @@
   <data name="Color" xml:space="preserve">
     <value>Color</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
   <data name="ConfirmPassword" xml:space="preserve">
     <value>Confirm password</value>
+  </data>
+  <data name="Contains" xml:space="preserve">
+    <value>Contain</value>
   </data>
   <data name="Create" xml:space="preserve">
     <value>Create</value>
@@ -156,6 +162,9 @@
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
+  <data name="DoesNotContain" xml:space="preserve">
+    <value>Does not contain</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
@@ -167,6 +176,36 @@
   </data>
   <data name="Hellow" xml:space="preserve">
     <value>Hellow</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="IsEmty" xml:space="preserve">
+    <value>Is empy</value>
+  </data>
+  <data name="IsEqualTo" xml:space="preserve">
+    <value>IS equal o</value>
+  </data>
+  <data name="IsGreaterThanOrEqualTo" xml:space="preserve">
+    <value>Is greater than or equal to</value>
+  </data>
+  <data name="IsLessThen" xml:space="preserve">
+    <value>Is less then</value>
+  </data>
+  <data name="IsLessThenOrEqualTo" xml:space="preserve">
+    <value>Is less then or equal to</value>
+  </data>
+  <data name="IsNotEmty" xml:space="preserve">
+    <value>Is not empty</value>
+  </data>
+  <data name="IsNotEqualTo" xml:space="preserve">
+    <value>Is not equal to</value>
+  </data>
+  <data name="IsNotNull" xml:space="preserve">
+    <value>Is not null</value>
+  </data>
+  <data name="IsNull" xml:space="preserve">
+    <value>Is null</value>
   </data>
   <data name="ItemsCount" xml:space="preserve">
     <value>Items count</value>
@@ -181,7 +220,7 @@
     <value>LogOff</value>
   </data>
   <data name="Long200Characters" xml:space="preserve">
-    <value>Name cannot be longer than 200 characters</value>
+    <value>{0} cannot be longer than 200 characters.</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
@@ -196,7 +235,7 @@
     <value>Password don't confirm</value>
   </data>
   <data name="PositiveValue" xml:space="preserve">
-    <value>Should be positive.</value>
+    <value>{0} should be positive.</value>
   </data>
   <data name="Quantity" xml:space="preserve">
     <value>Quantity</value>
@@ -205,7 +244,7 @@
     <value>Register</value>
   </data>
   <data name="RequiredField" xml:space="preserve">
-    <value>This field is required.</value>
+    <value>{0} field is required.</value>
   </data>
   <data name="Roles" xml:space="preserve">
     <value>Roels</value>
