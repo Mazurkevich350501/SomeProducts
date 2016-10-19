@@ -17,11 +17,19 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
     {
         private readonly IProductDao _dao;
         private static readonly Dictionary<string, string> SortingOptionDictionary;
-        private static readonly List<Filter> Filters;
+        private readonly List<Filter> _filters;
 
         public ProductTablePresentationService(IProductDao dao)
         {
             _dao = dao;
+
+            _filters = new List<Filter>
+            {
+                new Filter() {Option = "Name", FilterName = R.Name},
+                new Filter() {Option = "Description", FilterName = R.Description},
+                new Filter() {Option = "Brand_Name", FilterName = R.Brand},
+                new Filter() {Option = "Quantity", FilterName = R.Quantity},
+            };
         }
 
         static ProductTablePresentationService()
@@ -31,14 +39,6 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
                 {"Name", nameof(Product.Name)},
                 {"Brand", $"{nameof(Product.Brand)}.{nameof(Brand.Name)}"},
                 {"Quantity", nameof(Product.Quantity)},
-            };
-
-            Filters = new List<Filter>
-            {
-                new Filter() {Option = "Name", FilterName = R.Name},
-                new Filter() {Option = "Description", FilterName = R.Description},
-                new Filter() {Option = "Brand_Name", FilterName = R.Brand},
-                new Filter() {Option = "Quantity", FilterName = R.Quantity},
             };
         }
 
@@ -71,9 +71,9 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
             return pageInfo;
         }
 
-        private static FilterInfo InitFilterInfo(FilterInfo filterInfo)
+        private  FilterInfo InitFilterInfo(FilterInfo filterInfo)
         {
-            var result = new FilterInfo(Filters);
+            var result = new FilterInfo(_filters);
             if (filterInfo?.Filters != null)
             {
                 foreach (var filter in filterInfo.Filters)
