@@ -46,20 +46,27 @@ namespace SomeProducts
             bundles.Add(new StyleBundle("~/Product/ProductTable/css").Include(
                 "~/Stylesheets/ProductTable/ProductTable.css"));
 
-            bundles.Add((new ScriptBundle("~/Product/ProductTable/Scripts").Include(
+            bundles.Add(new ScriptBundle("~/Product/ProductTable/Scripts").Include(
                 "~/Scripts/Common/Utils.js",
-                "~/Scripts/Common/FilterValidation.js",
-                "~/Scripts/ProductTable/ProductTableController.js",
-                "~/Scripts/ProductTable/RemovingModalWindow.js")));
+                "~/Scripts/ProductTable/RemovingModalWindow.js"));
+
+            bundles.Add(new ScriptBundle("~/Product/Admin/Scripts").Include(
+                "~/Scripts/Common/Utils.js",
+                "~/Scripts/Admin/UserTableController.js",
+                "~/Scripts/Admin/ModalWindow.js"));
 
             bundles.Add(new StyleBundle("~/Product/Admin/css").Include(
                "~/Stylesheets/Admin/UserTable.css"));
 
-            bundles.Add((new ScriptBundle("~/Product/Admin/Scripts").Include(
-                "~/Scripts/Common/Utils.js",
-                "~/Scripts/Common/FilterValidation.js",
-                "~/Scripts/Admin/UserTableController.js",
-                "~/Scripts/Admin/ModalWindow.js")));
+            bundles.Add(new ScriptBundle("~/Product/Common/Filter/Scripts").Include(
+                "~/Scripts/Common/Filter/FilterValidation.js",
+                "~/Scripts/Common/Filter/FilterController.js"));
+
+            bundles.Add(new StyleBundle("~/Product/Comman/Filter/css").Include(
+               "~/Stylesheets/Common/Filter.css"));
+
+            bundles.Add(new ScriptBundle("~/Product/Common/Sorting/Scripts").Include(
+               "~/Scripts/Common/Sorting/Sorting.js"));
         }
     }
 }

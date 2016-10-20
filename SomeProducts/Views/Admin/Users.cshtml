@@ -1,4 +1,4 @@
-﻿@using System.Text.RegularExpressions
+﻿
 @using PagedList.Mvc
 @using R = Resources.Resource
 @model SomeProducts.PresentationServices.Models.Admin.UserTableViewModel
@@ -8,54 +8,7 @@
 
 <h2>@R.Users</h2>
 
-<div>
-    <div class="row filters-container">
-        @for (var i = 0; i < Model.FilterInfo.Filters.Count; i++)
-        {
-        <div class="col-xs-3">
-            <h4>
-                @Model.FilterInfo.Filters.ToArray()[i].FilterName
-            </h4>
-            <span class="field-validation-error" id="validation-@(Model.FilterInfo.Filters.ToArray()[i].Option)ValueId"></span>
-            <div class="row">
-                <div class="col-xs-10 filter-option-input-div">
-                    <input class="form-control @(Model.FilterInfo.Filters.ToArray()[i].Option == "Quantity" ? "numbre" : "")"
-                           id="@(Model.FilterInfo.Filters.ToArray()[i].Option)ValueId"
-                           value="@Model.FilterInfo.Filters.ToArray()[i].Value" />
-                </div>
-                <div>
-                    @if (Model.FilterInfo.Filters.ToArray()[i].Option == "Id")
-                        {
-                        @Html.DropDownListFor(m => m.FilterInfo.Filters.ToArray()[i].Parameter, new SelectList(Model.NumberFilterParameter, "Key", "Value"),
-                                new
-                                {
-                                    @class = "btn btn-default dropdown-toggle filter-param-select",
-                                    id = $"{Model.FilterInfo.Filters.ToArray()[i].Option}ParameterId",
-                                    value = Model.FilterInfo.Filters.ToArray()[i].Parameter
-                                })
-                        }
-                        else
-                        {
-                        @Html.DropDownListFor(m => m.FilterInfo.Filters.ToArray()[i].Parameter, new SelectList(Model.StringFilterParameter, "Key", "Value"),
-                                new
-                                {
-                                    @class = "btn btn-default dropdown-toggle filter-param-select",
-                                    id = $"{Model.FilterInfo.Filters.ToArray()[i].Option}ParameterId",
-                                    value = Model.FilterInfo.Filters.ToArray()[i].Parameter
-                                })
-                        }
-                </div>
-            </div>
-        </div>
-        }
-    </div>
-    <div class="row filters-container">
-        <div class="col-xs-3">
-            <button class="btn btn-primary" id="FilterBtn">@R.Filter</button>
-            <button class="btn btn-default" id="clearFiltersBtnId">@R.Clear</button>
-        </div>
-    </div>
-</div>
+@Html.Partial("Common/Filters", Model.FilterInfo)
 
 <div class="product-table-div">
     <table class="table" id="productTable">
@@ -105,7 +58,7 @@
                                 @R.Admin
                             </button>
                         }
-                        
+
                     </th>
                     <th class="th-remove">
                         @if (User.Identity.Name != user.Name)
@@ -147,12 +100,14 @@
                 @Html.AntiForgeryToken()
                 @Html.Hidden("userId", 0)
                 @Html.Hidden("redirectUrl", @Url.Action("Users", "Admin", new
-                {
-                    page = @Model.PageInfo.Page,
-                    count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters
-                }))
+           {
+               page = @Model.PageInfo.Page,
+               count = @Model.PageInfo.ItemsCount,
+               by = @Model.PageInfo.SortingOption,
+               filter = Model.JsonFilters
+           }))
                 <div class="modal-body-central">
-                    <input type="submit" class="btn btn-danger" id="removeBtnId" value="@R.Delete"/>
+                    <input type="submit" class="btn btn-danger" id="removeBtnId" value="@R.Delete" />
                     <button class="btn btn-default" id="cancelDeleteBtnId">@R.Cancel</button>
                 </div>
             </form>
@@ -183,20 +138,27 @@
                 presentUrl: '@Url.Action("Users", "Admin", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption})',
                 sortingOption: '@Model.PageInfo.SortingOption',
                 changeAdminRoleUrl: '@Url.Action("ChangeUserAdminRole", "Admin")',
+                filters: '@Model.FilterInfo.FiltertsList',
                 IllegalCharsError: '@R.IllegalCharsError'
             };
+
             var productTableNamespace = window.Utils.getNamespace("ProductTable");
             productTableNamespace.init(params);
             var removingModalNamespace = window.Utils.getNamespace("RemovingModal");
             removingModalNamespace.initRemovingModal(params);
             var validationNamespace = window.Utils.getNamespace("Validation");
             validationNamespace.initValidation(params);
+            var filterNamespace = window.Utils.getNamespace("Filter");
+            filterNamespace.init(params);
         });
     </script>
     @Scripts.Render("~/Product/Admin/Scripts")
+    @Scripts.Render("~/Product/Common/Filter/Scripts")
+    @Scripts.Render("~/Product/Common/Sorting/Scripts")
 }
 
 @section stylesheets
 {
     @Styles.Render("~/Product/Admin/css")
+    @Styles.Render("~/Product/Comman/Filter/css")
 }

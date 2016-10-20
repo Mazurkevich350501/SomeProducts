@@ -25,10 +25,10 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
 
             _filters = new List<Filter>
             {
-                new Filter() {Option = "Name", FilterName = R.Name},
-                new Filter() {Option = "Description", FilterName = R.Description},
-                new Filter() {Option = "Brand_Name", FilterName = R.Brand},
-                new Filter() {Option = "Quantity", FilterName = R.Quantity},
+                new Filter() {Option = "Name", Type = Type.String, FilterName = R.Name},
+                new Filter() {Option = "Description", Type = Type.String, FilterName = R.Description},
+                new Filter() {Option = "Brand_Name", Type = Type.String, FilterName = R.Brand},
+                new Filter() {Option = "Quantity", Type = Type.Numeric, FilterName = R.Quantity}
             };
         }
 
@@ -56,9 +56,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
                     tableList, newPageInfo.Page, newPageInfo.ItemsCount, newPageInfo.TotalItemsCount),
                 PageInfo = newPageInfo,
                 FilterInfo = newFilter,
-                JsonFilters = DataFiltration.GetReturnedJsonFilterList(newFilter.Filters),
-                StringFilterParameter = DataFiltration.GetStringFilterParameter(),
-                NumberFilterParameter = DataFiltration.GetNumberFilterParameter()
+                JsonFilters = DataFiltration.GetReturnedJsonFilterList(newFilter.Filters)
             };
 
             return result;

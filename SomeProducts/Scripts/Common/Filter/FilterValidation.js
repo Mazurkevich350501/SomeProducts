@@ -6,8 +6,8 @@
     productTableNamespace.initValidation = function (params) {
         illegalCharsError = params.IllegalCharsError;
     };
-     
-    productTableNamespace.checkValidity = function() {
+
+    productTableNamespace.checkValidity = function () {
         var result = true;
         $("span[class='field-validation-error']").empty();
         $("div[class='col-xs-10 filter-option-input-div']>input").each(function () {

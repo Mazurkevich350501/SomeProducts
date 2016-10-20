@@ -2,54 +2,7 @@
 @using R = Resources.Resource
 @model SomeProducts.PresentationServices.Models.ProductTable.ProductTableViewModel
 
-<div>
-    <div class="row filters-container">
-        @for (var i = 0; i < Model.FilterInfo.Filters.Count; i++)
-        {
-        <div class="col-xs-3">
-            <h4>
-                @Model.FilterInfo.Filters.ToArray()[i].FilterName
-            </h4>
-            <span class="field-validation-error" id="validation-@(Model.FilterInfo.Filters.ToArray()[i].Option)ValueId"></span>
-            <div class="row">
-                <div class="col-xs-10 filter-option-input-div">
-                    <input class="form-control @(Model.FilterInfo.Filters.ToArray()[i].Option == "Quantity" ? "number" : "")"
-                           id="@(Model.FilterInfo.Filters.ToArray()[i].Option)ValueId"
-                           value="@Model.FilterInfo.Filters.ToArray()[i].Value" />
-                </div>
-                <div>
-                    @if (Model.FilterInfo.Filters.ToArray()[i].Option == "Quantity")
-                        {
-                    @Html.DropDownListFor(m => m.FilterInfo.Filters.ToArray()[i].Parameter, new SelectList(Model.NumberFilterParameter, "Key", "Value"),
-                                new
-                                {
-                                    @class = "btn btn-default dropdown-toggle filter-param-select",
-                                    id = $"{Model.FilterInfo.Filters.ToArray()[i].Option}ParameterId",
-                                    value = Model.FilterInfo.Filters.ToArray()[i].Parameter
-                                })
-                        }
-                        else
-                        {
-                    @Html.DropDownListFor(m => m.FilterInfo.Filters.ToArray()[i].Parameter, new SelectList(Model.StringFilterParameter, "Key", "Value"),
-                                new
-                                {
-                                    @class = "btn btn-default dropdown-toggle filter-param-select",
-                                    id = $"{Model.FilterInfo.Filters.ToArray()[i].Option}ParameterId",
-                                    value = Model.FilterInfo.Filters.ToArray()[i].Parameter
-                                })
-                        }
-                </div>
-            </div>
-        </div>
-        }
-    </div>
-    <div class="row filters-container">
-        <div class="col-xs-3">
-            <button class="btn btn-primary" id="FilterBtn">@R.Filter</button>
-            <button class="btn btn-default" id="clearFiltersBtnId">@R.Clear</button>
-        </div>
-    </div>
-</div>
+@Html.Partial("Common/Filters", Model.FilterInfo)
 
 <div class="product-table-div">
     <table class="table" id="productTable">
@@ -172,6 +125,7 @@
                 presentUrl: '@Url.Action("Show", "ProductTable", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption})',
                 sortingOption: '@Model.PageInfo.SortingOption',
                 deleteProductUrl: '@Url.Action("Delete", "Product")',
+                filters: '@Model.FilterInfo.FiltertsList',
                 IllegalCharsError: '@R.IllegalCharsError'
             };
             var productTableNamespace = window.Utils.getNamespace("ProductTable");
@@ -180,13 +134,18 @@
             removingModalNamespace.initRemovingModal(params);
             var validationNamespace = window.Utils.getNamespace("Validation");
             validationNamespace.initValidation(params);
+            var filterNamespace = window.Utils.getNamespace("Filter");
+            filterNamespace.init(params);
         });
     </script>
     @Scripts.Render("~/Product/ProductTable/Scripts")
+    @Scripts.Render("~/Product/Common/Sorting/Scripts")
+    @Scripts.Render("~/Product/Common/Filter/Scripts")
 }
 
 @section stylesheets
 {
     @Styles.Render("~/Product/ProductTable/css")
+    @Styles.Render("~/Product/Comman/Filter/css")
 }
 

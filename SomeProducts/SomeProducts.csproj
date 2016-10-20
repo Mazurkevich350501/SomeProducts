@@ -170,7 +170,6 @@
     <Content Include="identity.aspx" />
     <Content Include="Resources\emptyImage.jpg" />
     <Content Include="Scripts\AccountAuth\Validation.js" />
-    <Content Include="Scripts\Admin\UserTableController.js" />
     <Content Include="Scripts\Admin\ModalWindow.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.min.js" />
@@ -193,7 +192,9 @@
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\Common\FilterValidation.js" />
+    <Content Include="Scripts\Common\Filter\FilterController.js" />
+    <Content Include="Scripts\Common\Filter\FilterValidation.js" />
+    <Content Include="Scripts\Common\Sorting\Sorting.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />
     <Content Include="Scripts\jquery-2.2.4.min.js" />
     <Content Include="Scripts\jquery-2.2.4.min.map" />
@@ -204,11 +205,11 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Scripts\ProductTable\ProductTableController.js" />
     <Content Include="Scripts\ProductTable\RemovingModalWindow.js" />
     <Content Include="Scripts\Product\ProductControl.js" />
     <Content Include="Stylesheets\AccountAuth\AccountAuth.css" />
     <Content Include="Stylesheets\Admin\UserTable.css" />
+    <Content Include="Stylesheets\Common\Filter.css" />
     <Content Include="Stylesheets\Product.css" />
     <Content Include="Scripts\Product\ProductModalWindowControl.js" />
     <Content Include="Scripts\Product\ProductImageController.js" />
@@ -235,6 +236,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\ProductTable\ProductTable.cshtml" />
     <Content Include="Views\Admin\Users.cshtml" />
+    <Content Include="Views\Shared\Common\Filters.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -255,6 +257,7 @@
       <Name>SomeProducts.PresentationServices</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

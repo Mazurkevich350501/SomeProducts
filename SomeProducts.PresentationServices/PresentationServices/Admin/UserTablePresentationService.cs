@@ -19,7 +19,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
     {
         private readonly IUserDao _dao;
         private static readonly Dictionary<string, string> OptionDictionary;
-        private static readonly List<Filter> Filters;
+        private readonly List<Filter> _filters;
 
         static UserTablePresentationService()
         {
@@ -28,17 +28,27 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
                 {"Id", nameof(User.Id)},
                 {"UserName", nameof(User.UserName)},
             };
-
-            Filters = new List<Filter>
-            {
-                new Filter() {Option = nameof(User.Id), FilterName = R.Id}, 
-                new Filter() {Option = nameof(User.UserName), FilterName = R.Name}
-            };
         }
 
         public UserTablePresentationService(IUserDao dao)
         {
             _dao = dao;
+
+            _filters = new List<Filter>
+            {
+                new Filter()
+                {
+                    Option = nameof(User.Id),
+                    Type = Type.Numeric,
+                    FilterName = R.Id
+                },
+                new Filter()
+                {
+                    Option = nameof(User.UserName),
+                    Type = Type.String,
+                    FilterName = R.Name
+                }
+            };
         }
 
         public UserTableViewModel GetUserTableViewModel(PageInfo pageInfo, FilterInfo filterInfo)
@@ -55,9 +65,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
                     tableList, newPageInfo.Page, newPageInfo.ItemsCount, newPageInfo.TotalItemsCount),
                 PageInfo = newPageInfo,
                 FilterInfo = newFilter,
-                JsonFilters = DataFiltration.GetReturnedJsonFilterList(newFilter.Filters),
-                StringFilterParameter = DataFiltration.GetStringFilterParameter(),
-                NumberFilterParameter = DataFiltration.GetNumberFilterParameter()
+                JsonFilters = DataFiltration.GetReturnedJsonFilterList(newFilter.Filters)
             };
 
             return result;
@@ -86,9 +94,9 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
             };
         }
 
-        private static FilterInfo InitFilterInfo(FilterInfo filterInfo)
+        private FilterInfo InitFilterInfo(FilterInfo filterInfo)
         {
-            var result = new FilterInfo(Filters);
+            var result = new FilterInfo(_filters);
             if (filterInfo?.Filters != null)
             {
                 foreach (var filter in filterInfo.Filters)

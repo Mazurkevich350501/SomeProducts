@@ -4,7 +4,6 @@ using System.Linq.Expressions;
 using SomeProducts.CrossCutting.Filter.Model;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using R = Resources.Resource;
 
 namespace SomeProducts.CrossCutting.Filter
 {
@@ -99,33 +98,6 @@ namespace SomeProducts.CrossCutting.Filter
             var result = Expression.Call(typeof(Queryable), "Where", new[] { query.ElementType }, query.Expression, lambda);
 
             return query.Provider.CreateQuery<T>(result);
-        }
-
-        public static IDictionary<FilterParameter, string> GetNumberFilterParameter()
-        {
-            return new Dictionary<FilterParameter, string>()
-            {
-                {FilterParameter.IsEqualTo, R.IsEqualTo},
-                {FilterParameter.IsNotEqualTo, R.IsNotEqualTo},
-                {FilterParameter.IsGreaterThanOrEqualTo, R.IsGreaterThanOrEqualTo},
-                {FilterParameter.IsLessThenOrEqualTo, R.IsLessThenOrEqualTo},
-                {FilterParameter.IsLessThen, R.IsLessThen}
-            };
-        }
-
-        public static IDictionary<FilterParameter, string> GetStringFilterParameter()
-        {
-            return new Dictionary<FilterParameter, string>()
-            {
-                {FilterParameter.IsEqualTo, R.IsEqualTo},
-                {FilterParameter.IsNotEqualTo, R.IsNotEqualTo},
-                {FilterParameter.Contains, R.Contains},
-                {FilterParameter.DoesNotContain, R.DoesNotContain},
-                {FilterParameter.IsEmty, R.IsEmty},
-                {FilterParameter.IsNotEmty, R.IsNotEmty},
-                {FilterParameter.IsNull, R.IsNull},
-                {FilterParameter.IsNotNull, R.IsNotNull},
-            };
         }
 
         public static string GetReturnedJsonFilterList(IEnumerable<Model.Filter> list)

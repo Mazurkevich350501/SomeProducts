@@ -1,54 +1,29 @@
 ﻿(function () {
-    "use strict";
+    var filters;
+    var presentUrl;
 
-    var filrers = ["Name", "Description", "Brand_Name", "Quantity"];
-
-    var urlWhithoutBy, presentUrl, sortingOption, illegalCharsError;
-
-    var productTableNamespace = window.Utils.getNamespace("ProductTable");
-    productTableNamespace.init = function (params) {
-        urlWhithoutBy = params.url;
+    var filterNamespace = window.Utils.getNamespace("Filter");
+    filterNamespace.init = function (params) {
         presentUrl = params.presentUrl;
-        sortingOption = params.sortingOption;
-        illegalCharsError = params.IllegalCharsError;
+        filters = params.filters.split(",");
     };
 
     $("document").ready(function () {
-        setSortSymbol();
-        $("div[data-type='sort']").click(sorting);
         $("#FilterBtn").click(filterProduct);
         $("#clearFiltersBtnId").click(clearFilters);
-        filrers.forEach(function (item) {
+        filters.forEach(function (item) {
             $("#" + item + "ParameterId").val($("#" + item + "ParameterId").attr("value"));
         });
     });
 
-    function setSortSymbol() {
-        var id = sortingOption.replace("rev", "").toLowerCase();
-        var isRev = sortingOption.substring(0, 3) === "rev";
-        $("#th-" + id).append(isRev ? "&uarr;" : "&darr;");
-    }
-
-    function sorting(e) {
-        var newSoringOption = $(e.target).attr("data-name");
-        if (sortingOption === newSoringOption) {
-            newSoringOption = "rev" + newSoringOption;
-        }
-        var redirectUrl = urlWhithoutBy.indexOf("filter") < 0
-            ? urlWhithoutBy + "&by=" + newSoringOption
-            : urlWhithoutBy.substring(0, urlWhithoutBy.indexOf("filter"))
-                + "&by=" + newSoringOption + "&" + urlWhithoutBy.substring(urlWhithoutBy.indexOf("filter"));
-        document.location.replace(redirectUrl);
-    }
-
     function filterProduct() {
         var validationModel = window.Utils.getNamespace("Validation");
-        if(!validationModel.checkValidity())
+        if (!validationModel.checkValidity())
             return;
         var filterInfo = {
             Filters: []
         }
-        filrers.forEach(function (intem) {
+        filters.forEach(function (intem) {
             var filter = getFilter(intem);
             if (filter !== null) {
                 filterInfo.Filters.push(filter);
@@ -81,7 +56,7 @@
     }
 
     function clearFilters() {
-        filrers.forEach(function (item) {
+        filters.forEach(function (item) {
             $("input").val("");
             $("#" + item + "ParameterId").val("IsEqualTo");
         });

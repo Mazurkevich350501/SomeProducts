@@ -17,9 +17,17 @@ namespace SomeProducts.CrossCutting.Filter.Model
         IsNotEmty
     }
 
+    public enum Type
+    {
+        Numeric,
+        String
+    }
+
     public class Filter
     {
         public string Option { get; set; }
+
+        public Type Type { get; set; }
 
         public FilterParameter Parameter { get; set; }
 
