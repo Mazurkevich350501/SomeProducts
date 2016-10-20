@@ -35,6 +35,13 @@ namespace SomeProducts.PresentationServices.Authorize
                 : null;
             });
         }
+
+        public override Task<IdentityResult> CreateAsync(User user)
+        {
+            user.Password = PasswordHasher.HashPassword(user.Password);
+            return base.CreateAsync(user);
+        }
+
         public static User UserCast(RegistrationViewModel model)
         {
             if (model.ConfirmPassword != model.Password) return null;

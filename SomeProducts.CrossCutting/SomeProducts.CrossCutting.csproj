@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attribute\AuthorizeRoleAttribute.cs" />
+    <Compile Include="Constants\Constants.cs" />
     <Compile Include="Filter\Model\Filter.cs" />
     <Compile Include="Filter\Model\FilterInfo.cs" />
     <Compile Include="Filter\DataFiltration.cs" />
