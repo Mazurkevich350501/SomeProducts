@@ -25,15 +25,12 @@ namespace SomeProducts.PresentationServices.Authorize
             PasswordHasher = new AccountPasswordHasher();
         }
 
-        public override Task<User> FindAsync(string userName, string password)
+        public override async Task<User> FindAsync(string userName, string password)
         {
-            return Task<User>.Factory.StartNew(() =>
-            {
-                var result = Store.FindByNameAsync(userName).Result;
-                return PasswordHasher.VerifyHashedPassword(result?.Password, password) == PasswordVerificationResult.SuccessRehashNeeded
-                ? result
-                : null;
-            });
+            var result = await Store.FindByNameAsync(userName);
+            return PasswordHasher.VerifyHashedPassword(result?.Password, password) == PasswordVerificationResult.SuccessRehashNeeded
+            ? result
+            : null;
         }
 
         public override Task<IdentityResult> CreateAsync(User user)

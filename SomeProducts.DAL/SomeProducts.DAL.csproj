@@ -68,6 +68,7 @@
     <Compile Include="Repository\Interface\IDateModified.cs" />
     <Compile Include="Repository\Interface\IIdentify.cs" />
     <Compile Include="Repository\Interface\IRepository.cs" />
+    <Compile Include="Repository\Interface\IRepositoryAsync.cs" />
     <Compile Include="Repository\RoleRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
   </ItemGroup>

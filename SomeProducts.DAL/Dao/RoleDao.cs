@@ -1,38 +1,31 @@
 ﻿
-using System.Linq;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using SomeProducts.DAL.Models;
-using SomeProducts.DAL.Repository;
 using SomeProducts.DAL.Repository.Interface;
 
 namespace SomeProducts.DAL.Dao
 {
     public class RoleDao : IRoleStore<Role, int>
     {
-        private readonly IRepository<Role> _repository;
+        private readonly IRepositoryAsync<Role> _repository;
 
-        public RoleDao(RoleRepository repository)
+        public RoleDao(IRepositoryAsync<Role> repository)
         {
             _repository = repository;
         }
 
-        public Task CreateAsync(Role role)
+        public async Task CreateAsync(Role role)
         {
-            return Task.Factory.StartNew(() =>
-            {
-                _repository.Create(role);
-                _repository.Save();
-            });
+            _repository.Create(role);
+            await _repository.SaveAsync();
         }
 
-        public Task DeleteAsync(Role role)
+        public async Task DeleteAsync(Role role)
         {
-            return Task.Factory.StartNew(() =>
-            {
-                _repository.Delete(role);
-                _repository.Save();
-            });
+            _repository.Delete(role);
+            await _repository.SaveAsync();
         }
 
         public void Dispose()
@@ -42,22 +35,18 @@ namespace SomeProducts.DAL.Dao
 
         public Task<Role> FindByIdAsync(int roleId)
         {
-            return Task.Factory.StartNew(() => _repository.GetById(roleId));
+            return Task.FromResult(_repository.GetById(roleId));
         }
 
-        public Task<Role> FindByNameAsync(string roleName)
+        public async Task<Role> FindByNameAsync(string roleName)
         {
-            return Task.Factory.StartNew(() => 
-                _repository.GetAllItems().FirstOrDefault(r => r.Name == roleName));
+            return await _repository.GetAllItems().FirstOrDefaultAsync(r => r.Name == roleName);
         }
 
-        public Task UpdateAsync(Role role)
+        public async Task UpdateAsync(Role role)
         {
-            return Task.Factory.StartNew(() =>
-            {
-                _repository.Update(role);
-                _repository.Save();
-            });
+            _repository.Update(role);
+            await _repository.SaveAsync();
         }
     }
 }

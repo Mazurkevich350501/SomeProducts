@@ -4,11 +4,12 @@ using System.Data.Entity.Migrations;
 using SomeProducts.DAL.Models;
 using SomeProducts.DAL.Context;
 using System.Linq;
+using System.Threading.Tasks;
 using SomeProducts.DAL.Repository.Interface;
 
 namespace SomeProducts.DAL.Repository
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository : IRepositoryAsync<User>
     {
         private readonly ProductContext _db;
 
@@ -46,20 +47,10 @@ namespace SomeProducts.DAL.Repository
         {
            return _db.Users.Find(id);
         }
-        
-        public DateTime GetCreateTime(int id)
-        {
-            throw new NotImplementedException();
-        }
 
-        public User GetLast()
+        public async Task SaveAsync()
         {
-            throw new NotImplementedException();
-        }
-
-        public void Save()
-        {
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
         public bool Update(User user)

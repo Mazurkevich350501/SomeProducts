@@ -14,8 +14,8 @@ namespace SomeProducts.DAL.AutofacModule
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<ProductContext>().As<ProductContext>().SingleInstance();
-            builder.RegisterType<UserRepository>().As<IRepository<User>>();
-            builder.RegisterType<RoleRepository>().As<IRepository<Role>>();
+            builder.RegisterType<UserRepository>().As<IRepositoryAsync<User>>();
+            builder.RegisterType<RoleRepository>().As<IRepositoryAsync<Role>>();
 
             builder.RegisterType<BaseRepository<Product>>().As<IRepository<Product>>();
             builder.RegisterType<BaseRepository<Brand>>().As<IRepository<Brand>>();

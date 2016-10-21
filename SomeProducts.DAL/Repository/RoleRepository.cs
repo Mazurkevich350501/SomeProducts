@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Threading.Tasks;
 using SomeProducts.DAL.Context;
 using SomeProducts.DAL.Models;
 using SomeProducts.DAL.Repository.Interface;
 
 namespace SomeProducts.DAL.Repository
 {
-    public class RoleRepository : IRepository<Role>
+    public class RoleRepository : IRepositoryAsync<Role>
     {
         private readonly ProductContext _db;
 
@@ -46,19 +47,9 @@ namespace SomeProducts.DAL.Repository
             return _db.Roles.Find(id);
         }
 
-        public DateTime GetCreateTime(int id)
+        public async Task SaveAsync()
         {
-            throw new NotImplementedException();
-        }
-
-        public Role GetLast()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save()
-        {
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
         public bool Update(Role role)
