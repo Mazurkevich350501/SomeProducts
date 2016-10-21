@@ -23,10 +23,13 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-righ">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@R.Language <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <img src="~/Resources/LanguageIcon.jpg" alt="" class="languageIcon">
+                            <span class="caret"></span>
+                        </a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("English", "ChangeCulture", "Account", new { lang = "en", returnUrl = this.Request.RawUrl }, null)</li>
-                            <li>@Html.ActionLink("Русский", "ChangeCulture", "Account", new { lang = "ru", returnUrl = this.Request.RawUrl }, null)</li>
+                            <li>@Html.ActionLink("English", "ChangeCulture", "Account", new { lang = "en", returnUrl = Request.RawUrl }, null)</li>
+                            <li>@Html.ActionLink("Русский", "ChangeCulture", "Account", new { lang = "ru", returnUrl = Request.RawUrl }, null)</li>
                         </ul>
                     </li>
                 </ul>

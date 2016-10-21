@@ -82,9 +82,10 @@
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
-            @for (var i = 1; i < 5; i++)
+            @for (var i = 5; i <= SomeProducts.CrossCutting.Constants.Constants.MaxItemsCountPerPage; i += 5)
             {
-                <li><a class="dropdown-item" href=@Url.Action("Users", "Admin", new { page = Model.PageInfo.Page, count = i * 5, by = Model.PageInfo.SortingOption, filter = Model.JsonFilters })>@(i * 5)</a></li>
+                <li><a class="dropdown-item" href=@Url.Action("Users", "Admin", new { page = Model.PageInfo.Page, count = i,
+                                                 by = Model.PageInfo.SortingOption, filter = Model.JsonFilters })>@(i * 5)</a></li>
             }
         </ul>
     </div>

@@ -1,0 +1,9 @@
+﻿.languageIcon {
+    width: 25px;
+    height: 25px;
+}
+
+.field-validation-error,
+.brand-validation-error {
+    color: red;
+}

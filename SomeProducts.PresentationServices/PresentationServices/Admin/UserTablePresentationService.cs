@@ -96,7 +96,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
             };
         }
 
-        private FilterInfo InitFilterInfo(FilterInfo filterInfo)
+        private static FilterInfo InitFilterInfo(FilterInfo filterInfo)
         {
             var result = new FilterInfo(GetPageFilters());
             if (filterInfo?.Filters != null)

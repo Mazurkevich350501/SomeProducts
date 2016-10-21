@@ -22,7 +22,8 @@ namespace SomeProducts
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Stylesheets/Common/Common.css"));
 
             bundles.Add(new ScriptBundle("~/Product/Create/Scripts").Include(
                 "~/Scripts/Common/Utils.js",

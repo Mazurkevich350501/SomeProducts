@@ -29,7 +29,7 @@ namespace SomeProducts.PresentationServices.Models
             }
             set
             {
-                _itemsCount = value < 0
+                _itemsCount = value < 0 || value > CrossCutting.Constants.Constants.MaxItemsCountPerPage
                 ? 5
                 : value;
             }

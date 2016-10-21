@@ -12,13 +12,8 @@
     width: 40px;
 }
 
-.field-validation-error,
 .brand-validation-error {
-    color: red;
-}
-
-.brand-validation-error {
-    margin: 0px;
+    margin: 0;
 }
 
 .new-brand-input {

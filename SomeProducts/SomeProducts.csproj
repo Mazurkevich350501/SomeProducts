@@ -179,6 +179,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="identity.aspx" />
     <Content Include="Resources\emptyImage.jpg" />
+    <Content Include="Resources\LanguageIcon.jpg" />
     <Content Include="Scripts\AccountAuth\Validation.js" />
     <Content Include="Scripts\Admin\ModalWindow.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.js" />
@@ -219,6 +220,7 @@
     <Content Include="Scripts\Product\ProductControl.js" />
     <Content Include="Stylesheets\AccountAuth\AccountAuth.css" />
     <Content Include="Stylesheets\Admin\UserTable.css" />
+    <Content Include="Stylesheets\Common\Common.css" />
     <Content Include="Stylesheets\Common\Filter.css" />
     <Content Include="Stylesheets\Product.css" />
     <Content Include="Scripts\Product\ProductModalWindowControl.js" />
