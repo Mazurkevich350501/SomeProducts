@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using SomeProducts.PresentationServices.Models.Account;
 
 namespace SomeProducts.Controllers
 {
+    [HandleErrorLog]
     public class AccountController : Controller
     {
         private readonly AccountManager _manager;
@@ -73,7 +75,7 @@ namespace SomeProducts.Controllers
                 return Redirect(returnUrl);
             }
 
-            ModelState.AddModelError("Error", "Invalid username or password.");
+            ModelState.AddModelError("Error", Resources.Resource.IncorrectUserName);
             return View(model);
         }
 

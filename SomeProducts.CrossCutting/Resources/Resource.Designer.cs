@@ -99,9 +99,9 @@ namespace Resources {
         /// <summary>
         ///   Looks up a localized string similar to Do you want to change admin role for this user?.
         /// </summary>
-        public static string ChangeAdminRoleQestion {
+        public static string ChangeAdminRoleQuestion {
             get {
-                return ResourceManager.GetString("ChangeAdminRoleQestion", resourceCulture);
+                return ResourceManager.GetString("ChangeAdminRoleQuestion", resourceCulture);
             }
         }
         
@@ -180,18 +180,18 @@ namespace Resources {
         /// <summary>
         ///   Looks up a localized string similar to Do you want to delete this product?.
         /// </summary>
-        public static string DeleteProductQestion {
+        public static string DeleteProductQuestion {
             get {
-                return ResourceManager.GetString("DeleteProductQestion", resourceCulture);
+                return ResourceManager.GetString("DeleteProductQuestion", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Do you want to delete this user?.
         /// </summary>
-        public static string DeleteUserQestion {
+        public static string DeleteUserQuestion {
             get {
-                return ResourceManager.GetString("DeleteUserQestion", resourceCulture);
+                return ResourceManager.GetString("DeleteUserQuestion", resourceCulture);
             }
         }
         
@@ -286,6 +286,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid username or password..
+        /// </summary>
+        public static string InvalidNameOrPassword {
+            get {
+                return ResourceManager.GetString("InvalidNameOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Is empy.
         /// </summary>
         public static string IsEmty {
@@ -295,7 +304,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to IS equal o.
+        ///   Looks up a localized string similar to Is equal to.
         /// </summary>
         public static string IsEqualTo {
             get {

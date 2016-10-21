@@ -19,36 +19,19 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
     {
         private readonly IUserDao _dao;
         private static readonly Dictionary<string, string> OptionDictionary;
-        private readonly List<Filter> _filters;
 
         static UserTablePresentationService()
         {
             OptionDictionary = new Dictionary<string, string>
             {
-                {"Id", nameof(User.Id)},
-                {"UserName", nameof(User.UserName)},
+                {nameof(User.Id), nameof(User.Id)},
+                {nameof(User.UserName), nameof(User.UserName)},
             };
         }
 
         public UserTablePresentationService(IUserDao dao)
         {
             _dao = dao;
-
-            _filters = new List<Filter>
-            {
-                new Filter()
-                {
-                    Option = nameof(User.Id),
-                    Type = Type.Numeric,
-                    FilterName = R.Id
-                },
-                new Filter()
-                {
-                    Option = nameof(User.UserName),
-                    Type = Type.String,
-                    FilterName = R.Name
-                }
-            };
         }
 
         public UserTableViewModel GetUserTableViewModel(PageInfo pageInfo, FilterInfo filterInfo)
@@ -94,9 +77,28 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
             };
         }
 
+        private static ICollection<Filter> GetPageFilters()
+        {
+            return new List<Filter>
+            {
+                new Filter()
+                {
+                    Option = nameof(User.Id),
+                    Type = Type.Numeric,
+                    FilterName = R.Id
+                },
+                new Filter()
+                {
+                    Option = nameof(User.UserName),
+                    Type = Type.String,
+                    FilterName = R.Name
+                }
+            };
+        }
+
         private FilterInfo InitFilterInfo(FilterInfo filterInfo)
         {
-            var result = new FilterInfo(_filters);
+            var result = new FilterInfo(GetPageFilters());
             if (filterInfo?.Filters != null)
             {
                 foreach (var filter in filterInfo.Filters)

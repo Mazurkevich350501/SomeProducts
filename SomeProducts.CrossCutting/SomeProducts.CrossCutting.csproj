@@ -86,6 +86,7 @@
     <Compile Include="Filter\DataFiltration.cs" />
     <Compile Include="Filter\Model\FilterInfoModelBinder.cs" />
     <Compile Include="Interfaces\IImageModel.cs" />
+    <Compile Include="ProjectLogger\HandleErrorLogAttribute.cs" />
     <Compile Include="ProjectLogger\ProjectLogger.cs" />
     <Compile Include="Resources\Resource.Designer.cs">
       <AutoGen>True</AutoGen>

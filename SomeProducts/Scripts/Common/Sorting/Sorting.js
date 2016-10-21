@@ -1,7 +1,7 @@
 ﻿(function () {
     "use strict";
 
-    var urlWhithoutBy, sortingOption, illegalCharsError;
+    var urlWhithoutBy, sortingOption;
 
     var productTableNamespace = window.Utils.getNamespace("ProductTable");
     productTableNamespace.init = function (params) {

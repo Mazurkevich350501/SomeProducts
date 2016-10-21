@@ -129,7 +129,7 @@
   <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
-  <data name="ChangeAdminRoleQestion" xml:space="preserve">
+  <data name="ChangeAdminRoleQuestion" xml:space="preserve">
     <value>Вы действительно хотиде изменить роль администратора?</value>
   </data>
   <data name="Clear" xml:space="preserve">
@@ -156,10 +156,10 @@
   <data name="Delete" xml:space="preserve">
     <value>Удалить</value>
   </data>
-  <data name="DeleteProductQestion" xml:space="preserve">
+  <data name="DeleteProductQuestion" xml:space="preserve">
     <value>Вы действительно хотите удалить продукт?</value>
   </data>
-  <data name="DeleteUserQestion" xml:space="preserve">
+  <data name="DeleteUserQuestion" xml:space="preserve">
     <value>Вы действительно хотите удалить пользователя?</value>
   </data>
   <data name="Description" xml:space="preserve">
@@ -191,6 +191,9 @@
   </data>
   <data name="IncorrectUserName" xml:space="preserve">
     <value>Неправильное имя пользователя</value>
+  </data>
+  <data name="InvalidNameOrPassword" xml:space="preserve">
+    <value>Неверное имя или пароль.</value>
   </data>
   <data name="IsEmty" xml:space="preserve">
     <value>Пустой</value>

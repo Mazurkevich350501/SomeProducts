@@ -17,28 +17,19 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
     {
         private readonly IProductDao _dao;
         private static readonly Dictionary<string, string> SortingOptionDictionary;
-        private readonly List<Filter> _filters;
 
         public ProductTablePresentationService(IProductDao dao)
         {
             _dao = dao;
-
-            _filters = new List<Filter>
-            {
-                new Filter() {Option = "Name", Type = Type.String, FilterName = R.Name},
-                new Filter() {Option = "Description", Type = Type.String, FilterName = R.Description},
-                new Filter() {Option = "Brand_Name", Type = Type.String, FilterName = R.Brand},
-                new Filter() {Option = "Quantity", Type = Type.Numeric, FilterName = R.Quantity}
-            };
         }
 
         static ProductTablePresentationService()
         {
             SortingOptionDictionary = new Dictionary<string, string>
             {
-                {"Name", nameof(Product.Name)},
-                {"Brand", $"{nameof(Product.Brand)}.{nameof(Brand.Name)}"},
-                {"Quantity", nameof(Product.Quantity)},
+                {nameof(ProductTableModel.Name), nameof(Product.Name)},
+                {nameof(ProductTableModel.Brand), $"{nameof(Product.Brand)}.{nameof(Brand.Name)}"},
+                {nameof(ProductTableModel.Quantity), nameof(Product.Quantity)},
             };
         }
 
@@ -69,9 +60,20 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
             return pageInfo;
         }
 
-        private  FilterInfo InitFilterInfo(FilterInfo filterInfo)
+        private static ICollection<Filter> GetPageFilters()
         {
-            var result = new FilterInfo(_filters);
+            return new List<Filter>()
+            {
+                new Filter() {Option = nameof(ProductTableModel.Name), Type = Type.String, FilterName = R.Name},
+                new Filter() {Option = nameof(ProductTableModel.Description), Type = Type.String, FilterName = R.Description},
+                new Filter() {Option = $"{nameof(Brand)}_{nameof(Brand.Name)}", Type = Type.String, FilterName = R.Brand},
+                new Filter() {Option = nameof(ProductTableModel.Quantity), Type = Type.Numeric, FilterName = R.Quantity}
+            };
+        }
+
+        private static FilterInfo InitFilterInfo(FilterInfo filterInfo)
+        {
+            var result = new FilterInfo(GetPageFilters());
             if (filterInfo?.Filters != null)
             {
                 foreach (var filter in filterInfo.Filters)

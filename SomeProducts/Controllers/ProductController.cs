@@ -9,7 +9,8 @@ using SomeProducts.PresentationServices.Models.Create;
 
 namespace SomeProducts.Controllers
 {
-    [Authorize(Roles = "Admin, User")]
+    [Authorize]
+    [HandleErrorLog]
     public class ProductController : Controller
     {
         private readonly IProductViewModelPresentationService _productViewModelService;

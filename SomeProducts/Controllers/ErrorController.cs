@@ -1,8 +1,10 @@
 ﻿
 using System.Web.Mvc;
+using SomeProducts.CrossCutting.ProjectLogger;
 
 namespace SomeProducts.Controllers
 {
+    [HandleErrorLog]
     public class ErrorController : Controller
     {
         // GET: Error

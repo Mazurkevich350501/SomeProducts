@@ -1,12 +1,14 @@
 ﻿
 using System.Web.Mvc;
 using SomeProducts.CrossCutting.Filter.Model;
+using SomeProducts.CrossCutting.ProjectLogger;
 using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
 using SomeProducts.PresentationServices.Models;
 using FilterInfo = SomeProducts.CrossCutting.Filter.Model.FilterInfo;
 
 namespace SomeProducts.Controllers
 {
+    [HandleErrorLog]
     public class ProductTableController : Controller
     {
         private readonly IProductTablePresentationService _service;
