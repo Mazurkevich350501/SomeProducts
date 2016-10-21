@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNet.Identity
+﻿
 @using PagedList.Mvc
 @using R = Resources.Resource
 @model SomeProducts.PresentationServices.Models.ProductTable.ProductTableViewModel
@@ -32,7 +32,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var product in Model.Products)
+            @foreach (var product in Model.Items)
             {
 
                 <tr @(User.IsInRole(nameof(UserRole.Admin)) || User.IsInRole("User")
@@ -76,7 +76,7 @@
 
 <div class="row filters-container">
     <div class="col-xs-5">
-        @Html.PagedListPager(Model.Products, page => Url.Action("Show", "ProductTable", new { page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters }))
+        @Html.PagedListPager(Model.Items, page => Url.Action("Show", "ProductTable", new { page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters }))
     </div>
     <div class="dropdown col-xs-6 product-counter">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">

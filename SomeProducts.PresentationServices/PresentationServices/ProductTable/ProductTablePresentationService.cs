@@ -43,7 +43,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
 
             var result = new ProductTableViewModel
             {
-                Products = new StaticPagedList<ProductTableModel>(
+                Items = new StaticPagedList<ProductTableModel>(
                     tableList, newPageInfo.Page, newPageInfo.ItemsCount, newPageInfo.TotalItemsCount),
                 PageInfo = newPageInfo,
                 FilterInfo = newFilter,

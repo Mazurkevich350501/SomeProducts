@@ -1,22 +1,18 @@
 ﻿
-using System.Collections.Generic;
 using PagedList;
 using SomeProducts.CrossCutting.Filter.Model;
+using SomeProducts.PresentationServices.Models.Interfaces;
 
 namespace SomeProducts.PresentationServices.Models.ProductTable
 {
-    public class ProductTableViewModel
+    public class ProductTableViewModel : ITableViewModel<ProductTableModel>
     {
-        public IPagedList<ProductTableModel> Products { get; set; }
+        public IPagedList<ProductTableModel> Items { get; set; }
 
         public PageInfo PageInfo { get; set; }
 
         public FilterInfo FilterInfo { get; set; }
 
         public string JsonFilters { get; set; }
-
-        public IDictionary<FilterParameter, string> NumberFilterParameter { get; set; }
-
-        public IDictionary<FilterParameter, string> StringFilterParameter { get; set; }
     }
 }

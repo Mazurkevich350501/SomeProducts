@@ -1,0 +1,56 @@
+﻿
+@model  SomeProducts.PresentationServices.Models.Create.ProductViewModel
+
+
+<div class="show-product-container">
+    @Html.HiddenFor(m => m.Product.Image)
+    @Html.HiddenFor(m => m.Product.ImageType)
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-xs-3"><h4>@Html.LabelFor(m => m.Product.Name)</h4></div>
+                <div class="col-xs-6"><h5>@Model.Product.Name</h5></div>
+            </div>
+            <div class="row description-text-area">
+                <div class="col-xs-3"><h4>@Html.LabelFor(m => m.Product.Description)</h4></div>
+                <div class="col-xs-6"><h5>@Model.Product.Description</h5></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3"><h4>@Html.LabelFor(m => m.Product.BrandId)</h4></div>
+                <div class="col-xs-6"><h5>@Model.Brands[Model.Product.BrandId]</h5></div>
+            </div>
+            <div class="row">
+                <h4 class="col-xs-3">@Html.LabelFor(m => m.Product.Color)</h4>
+                <div class="col-xs-6"><div class="color-div" style="background: @Model.Product.Color"></div></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3"><h4>@Html.LabelFor(m => m.Product.Quantity)</h4></div>
+                <div class="col-xs-6"><h5>@Model.Product.Quantity</h5></div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <img class="image-box" id="image" src="~/Resources/emptyImage.jpg" />
+        </div>
+    </div>
+   
+</div>
+
+
+@section scripts
+{
+    <script>
+        $(function() {
+            var params = { id: {}, url: {}, error: {} };
+            params.id.imageDataId = '@Html.IdFor(m => m.Product.Image)';
+            params.id.imageTypeId = '@Html.IdFor(m => m.Product.ImageType)';
+            
+            var imageNamespace = window.Utils.getNamespace("Image");
+            imageNamespace.initImage(params);
+        });
+    </script>
+    @Scripts.Render("~/Product/ShowProduct/Scripts")
+}
+@section stylesheets
+{
+    @Styles.Render("~/Product/ShowProduct/css")
+}

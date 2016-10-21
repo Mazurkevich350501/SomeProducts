@@ -44,7 +44,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
 
             var result = new UserTableViewModel
             {
-                Users = new StaticPagedList<UserModel>(
+                Items = new StaticPagedList<UserModel>(
                     tableList, newPageInfo.Page, newPageInfo.ItemsCount, newPageInfo.TotalItemsCount),
                 PageInfo = newPageInfo,
                 FilterInfo = newFilter,

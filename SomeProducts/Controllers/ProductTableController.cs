@@ -9,6 +9,7 @@ using FilterInfo = SomeProducts.CrossCutting.Filter.Model.FilterInfo;
 namespace SomeProducts.Controllers
 {
     [HandleErrorLog]
+    [Authorize]
     public class ProductTableController : Controller
     {
         private readonly IProductTablePresentationService _service;
@@ -19,7 +20,6 @@ namespace SomeProducts.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public ActionResult Show(
             int? page,
             int? count,

@@ -3,10 +3,10 @@
 @using R = Resources.Resource
 @model SomeProducts.PresentationServices.Models.Admin.UserTableViewModel
 @{
-    ViewBag.Title = "Users";
+    ViewBag.Title = "Items";
 }
 
-<h2>@R.Users</h2>
+<h2>@R.Items</h2>
 
 @Html.Partial("Common/Filters", Model.FilterInfo)
 
@@ -34,7 +34,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var user in Model.Users)
+            @foreach (var user in Model.Items)
             {
 
                 <tr id="tr-@user.Id">
@@ -74,7 +74,7 @@
 
 <div class="row filters-container">
     <div class="col-xs-5">
-        @Html.PagedListPager(Model.Users, page => Url.Action("Users", "Admin", new { page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters }))
+        @Html.PagedListPager(Model.Items, page => Url.Action("Items", "Admin", new { page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters }))
     </div>
     <div class="dropdown col-xs-6 product-counter">
         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -84,7 +84,7 @@
         <ul class="dropdown-menu">
             @for (var i = 5; i <= SomeProducts.CrossCutting.Constants.Constants.MaxItemsCountPerPage; i += 5)
             {
-                <li><a class="dropdown-item" href=@Url.Action("Users", "Admin", new { page = Model.PageInfo.Page, count = i,
+                <li><a class="dropdown-item" href=@Url.Action("Items", "Admin", new { page = Model.PageInfo.Page, count = i,
                                                  by = Model.PageInfo.SortingOption, filter = Model.JsonFilters })>@(i * 5)</a></li>
             }
         </ul>
@@ -100,7 +100,7 @@
             <form method="post" action=@Url.Action("RemoveUser", "Admin") enctype="multipart/form-data">
                 @Html.AntiForgeryToken()
                 @Html.Hidden("userId", 0)
-                @Html.Hidden("redirectUrl", @Url.Action("Users", "Admin", new
+                @Html.Hidden("redirectUrl", @Url.Action("Items", "Admin", new
            {
                page = @Model.PageInfo.Page,
                count = @Model.PageInfo.ItemsCount,
@@ -135,8 +135,8 @@
     <script>
         $(function () {
             var params = {
-                url: '@Url.Action("Users", "Admin", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, filter = Model.JsonFilters })',
-                presentUrl: '@Url.Action("Users", "Admin", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption})',
+                url: '@Url.Action("Items", "Admin", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, filter = Model.JsonFilters })',
+                presentUrl: '@Url.Action("Items", "Admin", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption})',
                 sortingOption: '@Model.PageInfo.SortingOption',
                 changeAdminRoleUrl: '@Url.Action("ChangeUserAdminRole", "Admin")',
                 filters: '@Model.FilterInfo.FiltertsList',

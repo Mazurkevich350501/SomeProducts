@@ -1,5 +1,6 @@
 ﻿
 using System.Linq;
+using System.Web;
 using System.Web.Mvc;
 using SomeProducts.Attribute;
 using SomeProducts.CrossCutting.ProjectLogger;
@@ -23,6 +24,7 @@ namespace SomeProducts.Controllers
         }
         
         [HttpGet]
+        [AuthorizeRole(UserRole.Admin)]
         public ActionResult Create()
         {
             ProductViewModel model = _productViewModelService.GetProductViewModel();
@@ -35,13 +37,16 @@ namespace SomeProducts.Controllers
             var productModel = _productViewModelService.GetProductViewModel(id);
             if (productModel.Product == null)
             {
-                return View("Error", (object)"Product was not found");
+                throw new HttpException(404, "Wrong product id");
             }
-            return View("Create", productModel);
+            return HttpContext.User.IsInRole(nameof(UserRole.Admin)) 
+                ? View("Create", productModel)
+                : View("ShowProduct", productModel);
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRole(UserRole.Admin)]
         public ActionResult Create(ProductViewModel model)
         {
             if (ModelState.IsValid)
@@ -60,6 +65,7 @@ namespace SomeProducts.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRole(UserRole.Admin)]
         public ActionResult Edit(ProductViewModel model)
         {
             if (ModelState.IsValid)
@@ -79,6 +85,7 @@ namespace SomeProducts.Controllers
             return View("Create", newModel);
         }
 
+        [AuthorizeRole(UserRole.Admin)]
         public JsonResult SaveBrandsChanges(BrandsChangeModel changeModel)
         {
             ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} change brands ({changeModel})");

@@ -76,6 +76,7 @@
     <Compile Include="Models\Account\RegistrationViewModel.cs" />
     <Compile Include="Models\Admin\UserModel.cs" />
     <Compile Include="Models\Admin\UserTableViewModel.cs" />
+    <Compile Include="Models\Interfaces\ITableViewModel.cs" />
     <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Models\ProductTable\ProductTableModel.cs" />
     <Compile Include="Models\ProductTable\ProductTableViewModel.cs" />

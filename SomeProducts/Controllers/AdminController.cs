@@ -21,6 +21,7 @@ namespace SomeProducts.Controllers
             _service = service;
         }
 
+        [HttpGet]
         public ActionResult Users(
             int? page,
             int? count,

@@ -222,13 +222,14 @@
     <Content Include="Stylesheets\Admin\UserTable.css" />
     <Content Include="Stylesheets\Common\Common.css" />
     <Content Include="Stylesheets\Common\Filter.css" />
-    <Content Include="Stylesheets\Product.css" />
+    <Content Include="Stylesheets\Product\Product.css" />
     <Content Include="Scripts\Product\ProductModalWindowControl.js" />
     <Content Include="Scripts\Product\ProductImageController.js" />
     <Content Include="Scripts\Product\RemovingModalWindow.js" />
     <Content Include="Scripts\Common\Utils.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Stylesheets\ProductTable\ProductTable.css" />
+    <Content Include="Stylesheets\Product\ShowProduct.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -249,6 +250,7 @@
     <Content Include="Views\ProductTable\ProductTable.cshtml" />
     <Content Include="Views\Admin\Users.cshtml" />
     <Content Include="Views\Shared\Common\Filters.cshtml" />
+    <Content Include="Views\Product\ShowProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
