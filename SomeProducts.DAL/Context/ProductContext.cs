@@ -12,9 +12,12 @@ namespace SomeProducts.DAL.Context
         public DbSet<Product> Products { set; get; }
 
         public DbSet<Brand> Brands { set; get; }
-
+        
         public DbSet<User> Users { set; get; }
-
+        
         public DbSet<Role> Roles { get; set; }
+
+        public DbSet<Company> Companies { get; set; }
+        
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using SomeProducts.DAL.Models;
 
 namespace SomeProducts.DAL.IDao
@@ -20,6 +20,6 @@ namespace SomeProducts.DAL.IDao
 
         int GetProductCount();
 
-        IEnumerable<Product> GetAllProducts();
+        IQueryable<Product> GetAllProducts();
     }
 }

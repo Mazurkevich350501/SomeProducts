@@ -1,6 +1,5 @@
 ﻿
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
@@ -51,14 +50,14 @@ namespace SomeProducts.DAL.Dao
             return _repository.GetCreateTime(id);
         }
 
-        public IEnumerable<Product> GetAllProducts()
+        public IQueryable<Product> GetAllProducts()
         {
             return _repository.GetAllItems();
         }
 
         public int GetProductCount()
         {
-            return GetAllProducts().Count();
+            return GetAllProducts().AsEnumerable().Count();
         }
     }
 }

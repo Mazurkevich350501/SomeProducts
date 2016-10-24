@@ -87,7 +87,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
         
         private IQueryable<Product> GetFilteredAndSortedProducts(SortingOption option, FilterInfo info)
         {
-            return _dao.GetAllProducts().AsQueryable().GetFilteredProduct(info).Sort(option.Option, option.Order == Order.Reverse);
+            return _dao.GetAllProducts().GetFilteredProduct(info).Sort(option.Option, option.Order == Order.Reverse);
         }
 
         private static string GetShortString(string str, int length)

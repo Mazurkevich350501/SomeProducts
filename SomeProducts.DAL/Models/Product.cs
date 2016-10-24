@@ -32,5 +32,11 @@ namespace SomeProducts.DAL.Models
 
         [Timestamp]
         public byte[] RowVersion { get; set; }
+
+        [Required]
+        public int? CompanyId { get; set; }
+
+        [ForeignKey(nameof(CompanyId))]
+        public virtual Company Company { get; set; }
     }
 }
