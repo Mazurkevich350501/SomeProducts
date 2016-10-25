@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SomeProducts.PresentationServices.Models.Admin
 {
-    public class UserModel
+    public class AdminUserTableItemModel
     {
         public int Id { get; set; }
 

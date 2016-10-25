@@ -52,10 +52,13 @@
   <ItemGroup>
     <Compile Include="AutofacModule\DalModule.cs" />
     <Compile Include="Dao\BrandDao.cs" />
+    <Compile Include="Dao\CompanyDao.cs" />
     <Compile Include="Dao\ProductDao.cs" />
     <Compile Include="Dao\RoleDao.cs" />
     <Compile Include="Dao\UserDao.cs" />
     <Compile Include="IDao\IBrandDao.cs" />
+    <Compile Include="IDao\ICompanyDao.cs" />
+    <Compile Include="Repository\Interface\IDateModifiedrepository.cs" />
     <Compile Include="IDao\IProductDao.cs" />
     <Compile Include="IDao\IUserTablePresentationService.cs" />
     <Compile Include="Models\Brand.cs" />
@@ -66,6 +69,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
+    <Compile Include="Repository\DateModifiedRepository.cs" />
     <Compile Include="Repository\Interface\IDateModified.cs" />
     <Compile Include="Repository\Interface\IIdentify.cs" />
     <Compile Include="Repository\Interface\IRepository.cs" />

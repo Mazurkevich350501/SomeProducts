@@ -12,7 +12,7 @@ namespace SomeProducts.DAL.Test
 # endif
     public class BaseRepositoryTest
     {
-        private static BaseRepository<Brand> _repository;
+        private static DateModifiedRepository<Brand> _repository;
         private static Brand _brand;
 
         [ClassInitialize]
@@ -20,7 +20,7 @@ namespace SomeProducts.DAL.Test
         {
             _brand = new Brand() { Name = "name" };
             AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory));
-            _repository = new BaseRepository<Brand>("name=Test");
+            _repository = new DateModifiedRepository<Brand>("name=Test");
         }
 
         [TestCleanup]

@@ -21,6 +21,7 @@
     }
 
     function sorting(e) {
+        console.log(e.target);
         var newSoringOption = $(e.target).attr("data-name");
         if (sortingOption === newSoringOption) {
             newSoringOption = "rev" + newSoringOption;

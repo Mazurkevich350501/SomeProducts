@@ -10,7 +10,7 @@ using FilterInfo = SomeProducts.CrossCutting.Filter.Model.FilterInfo;
 
 namespace SomeProducts.Controllers
 {
-    [AuthorizeRole(UserRole.Admin)]
+    [AuthorizeRole(UserRole.Admin, UserRole.SuperAdmin)]
     [HandleErrorLog]
     public class AdminController : Controller
     {
@@ -30,7 +30,9 @@ namespace SomeProducts.Controllers
         {
             ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} open admin page");
             var pageInfo = new PageInfo(page, count, by);
-            return View(_service.GetUserTableViewModel(pageInfo, filter));
+            return User.IsInRole(nameof(UserRole.SuperAdmin))
+                ? View("SuperAdminUsers", _service.GetSuperAdminUserTableViewModel(pageInfo, filter))
+                : View(_service.GetAdminUserTableViewModel(pageInfo, filter));
         }
 
         [HttpPost]
@@ -42,6 +44,16 @@ namespace SomeProducts.Controllers
                 await _service.ChangeAdminRole(userId);
             }
             return Json(await _service.GetUserRoles(userId));
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> SetUserCompany(int userId, int companyId)
+        {
+            if (!IsActiveUser(userId))
+            {
+                await _service.SetUserCompany(userId, companyId);
+            }
+            return Json(await _service.GetUserCompany(userId));
         }
 
         [HttpPost]

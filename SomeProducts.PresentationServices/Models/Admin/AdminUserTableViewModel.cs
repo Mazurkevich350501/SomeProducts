@@ -5,9 +5,9 @@ using SomeProducts.PresentationServices.Models.Interfaces;
 
 namespace SomeProducts.PresentationServices.Models.Admin
 {
-    public class UserTableViewModel : ITableViewModel<UserModel>
+    public class AdminUserTableViewModel : ITableViewModel<AdminUserTableItemModel>
     {
-        public IPagedList<UserModel> Items { get; set; }
+        public IPagedList<AdminUserTableItemModel> Items { get; set; }
 
         public PageInfo PageInfo { get; set; }
 

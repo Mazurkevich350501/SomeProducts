@@ -138,6 +138,9 @@
   <data name="Color" xml:space="preserve">
     <value>Color</value>
   </data>
+  <data name="Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
   <data name="Confirm" xml:space="preserve">
     <value>Confirm</value>
   </data>
@@ -281,6 +284,9 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="SelectCompany" xml:space="preserve">
+    <value>Select company</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Sign In</value>

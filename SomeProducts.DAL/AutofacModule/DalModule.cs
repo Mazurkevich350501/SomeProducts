@@ -17,9 +17,11 @@ namespace SomeProducts.DAL.AutofacModule
             builder.RegisterType<UserRepository>().As<IRepositoryAsync<User>>();
             builder.RegisterType<RoleRepository>().As<IRepositoryAsync<Role>>();
 
-            builder.RegisterType<BaseRepository<Product>>().As<IRepository<Product>>();
-            builder.RegisterType<BaseRepository<Brand>>().As<IRepository<Brand>>();
+            builder.RegisterType<BaseRepository<Company>>().As<IRepository<Company>>();
+            builder.RegisterType<DateModifiedRepository<Product>>().As<IDateModifiedRepository<Product>>();
+            builder.RegisterType<DateModifiedRepository<Brand>>().As<IDateModifiedRepository<Brand>>();
 
+            builder.RegisterType<CompanyDao>().As<ICompanyDao>();
             builder.RegisterType<ProductDao>().As<IProductDao>();
             builder.RegisterType<BrandDao>().As<IBrandDao>();
             builder.RegisterType<UserDao>().As<IUserStore<User, int>>();

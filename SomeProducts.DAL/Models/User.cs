@@ -14,7 +14,7 @@ namespace SomeProducts.DAL.Models
         public string Password { get; set; }
 
         [Required]
-        public int? CompanyId { get; set; }
+        public int CompanyId { get; set; }
         
         [ForeignKey(nameof(CompanyId))]
         public virtual Company Company { get; set; }

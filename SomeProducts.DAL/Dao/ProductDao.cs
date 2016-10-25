@@ -9,9 +9,9 @@ namespace SomeProducts.DAL.Dao
 {
     public class ProductDao : IProductDao
     {
-        private readonly IRepository<Product> _repository;
+        private readonly IDateModifiedRepository<Product> _repository;
 
-        public ProductDao(IRepository<Product> repository)
+        public ProductDao(IDateModifiedRepository<Product> repository)
         {
             _repository = repository;
         }

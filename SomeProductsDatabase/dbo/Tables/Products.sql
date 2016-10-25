@@ -10,7 +10,7 @@
 	[CreateDate] DATETIME NOT NULL, 
     [ModifiedDate] DATETIME NULL, 
     [RowVersion] ROWVERSION NOT NULL , 
-    [CompanyId] INT NULL, 
+    [CompanyId] INT NOT NULL, 
     CONSTRAINT [PK_Products_ProductId] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_Products_Brands_BrandId] FOREIGN KEY ([BrandId]) REFERENCES [dbo].[Brands] ([Id]),
 	CONSTRAINT [FK_Products_Companies_CompanyId] FOREIGN KEY ([CompanyId]) REFERENCES [dbo].[Companies]([Id]),

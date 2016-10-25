@@ -5,6 +5,7 @@ using System.Web.Mvc;
 
 public enum UserRole
 {
+    SuperAdmin,
     Admin,
     User
 }
@@ -17,8 +18,9 @@ namespace SomeProducts.Attribute
 
         private static readonly Dictionary<UserRole, string> RolesDictionary = new Dictionary<UserRole, string>()
         {
-             {UserRole.Admin, nameof(UserRole.Admin) },
-             {UserRole.User, nameof(UserRole.User) }
+            {UserRole.SuperAdmin, nameof(UserRole.SuperAdmin) },
+            {UserRole.Admin, nameof(UserRole.Admin) },
+            {UserRole.User, nameof(UserRole.User) }
         };
 
         public AuthorizeRoleAttribute()

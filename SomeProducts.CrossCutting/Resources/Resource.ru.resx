@@ -138,6 +138,9 @@
   <data name="Color" xml:space="preserve">
     <value>Цвет</value>
   </data>
+  <data name="Company" xml:space="preserve">
+    <value>Компания</value>
+  </data>
   <data name="Confirm" xml:space="preserve">
     <value>Подтвердить</value>
   </data>
@@ -281,6 +284,9 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Сохранить</value>
+  </data>
+  <data name="SelectCompany" xml:space="preserve">
+    <value>Выберете компанию</value>
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Войти</value>

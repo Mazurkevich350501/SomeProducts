@@ -1,4 +1,10 @@
-﻿.modal-body-central {
+﻿.btn-setting {
+    border: none;
+    background: none;
+    color: blueviolet;
+}
+
+.modal-body-central {
     text-align: center;
     padding: 20px;
 }

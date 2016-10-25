@@ -9,7 +9,9 @@ namespace SomeProducts.PresentationServices.IPresentationSevices.Admin
 {
     public interface IUserTablePresentationService
     {
-        UserTableViewModel GetUserTableViewModel(PageInfo pageInfo, FilterInfo filterInfo);
+        AdminUserTableViewModel GetAdminUserTableViewModel(PageInfo pageInfo, FilterInfo filterInfo);
+
+        SuperAdminUserTableViewModel GetSuperAdminUserTableViewModel(PageInfo pageInfo, FilterInfo filterInfo);
 
         Task RemoveUser(int userId);
 
@@ -18,5 +20,7 @@ namespace SomeProducts.PresentationServices.IPresentationSevices.Admin
         Task<IList<string>> GetUserRoles(int userId);
 
         bool IsUserExist(int userId, string userName);
+        Task SetUserCompany(int userId, int companyId);
+        Task<string> GetUserCompany(int userId);
     }
 }
