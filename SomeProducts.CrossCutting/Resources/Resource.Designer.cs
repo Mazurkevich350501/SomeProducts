@@ -250,11 +250,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hellow.
+        ///   Looks up a localized string similar to Hello.
         /// </summary>
-        public static string Hellow {
+        public static string Hello {
             get {
-                return ResourceManager.GetString("Hellow", resourceCulture);
+                return ResourceManager.GetString("Hello", resourceCulture);
             }
         }
         

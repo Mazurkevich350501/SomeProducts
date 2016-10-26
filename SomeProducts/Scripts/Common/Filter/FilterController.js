@@ -4,7 +4,7 @@
 
     var filterNamespace = window.Utils.getNamespace("Filter");
     filterNamespace.init = function (params) {
-        presentUrl = params.presentUrl;
+        presentUrl = params.presentUrl.replace(/amp;/g, "");
         filters = params.filters.split(",");
     };
 
