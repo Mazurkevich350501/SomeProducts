@@ -189,8 +189,14 @@
   <data name="IllegalCharsError" xml:space="preserve">
     <value>Используются запрещенные символы.</value>
   </data>
+  <data name="IncorrectPassword" xml:space="preserve">
+    <value>Неправильный пароль.</value>
+  </data>
   <data name="IncorrectUserName" xml:space="preserve">
-    <value>Неправильное имя пользователя</value>
+    <value>Неправильное имя пользователя.</value>
+  </data>
+  <data name="IncorrectUserNameOrPassword" xml:space="preserve">
+    <value>Неправильное имя пользователя или пароль.</value>
   </data>
   <data name="InvalidNameOrPassword" xml:space="preserve">
     <value>Неверное имя или пароль.</value>
@@ -250,19 +256,19 @@
     <value>Пароли не совпадают.</value>
   </data>
   <data name="PasswordRequireDigit" xml:space="preserve">
-    <value>Необходимы цифры в пароле</value>
+    <value>Необходимы цифры в пароле.</value>
   </data>
   <data name="PasswordRequireLength" xml:space="preserve">
     <value>Необходимая длина пароля</value>
   </data>
   <data name="PasswordRequireLower" xml:space="preserve">
-    <value>Необходим нижний регистр в пароле</value>
+    <value>Необходимы строчные буквы в пароле.</value>
   </data>
   <data name="PasswordRequireNonLetterOrDigit" xml:space="preserve">
-    <value>Необходимы числа или не буквы в пароле</value>
+    <value>Необходимы числа или не буквы в пароле.</value>
   </data>
   <data name="PasswordRequireUpper" xml:space="preserve">
-    <value>Необходим верхний регистр в пароле</value>
+    <value>Необходимы заглавные буквы в пароле.</value>
   </data>
   <data name="PositiveValue" xml:space="preserve">
     <value>{0} должено быть положительным.</value>
@@ -274,7 +280,7 @@
     <value>Регистрация</value>
   </data>
   <data name="RequiredField" xml:space="preserve">
-    <value>{0} является обязательным.</value>
+    <value>Поле является обязательным.</value>
   </data>
   <data name="Roles" xml:space="preserve">
     <value>Роли</value>
@@ -284,6 +290,9 @@
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Войти</value>
+  </data>
+  <data name="UserNameExist" xml:space="preserve">
+    <value>имя уже существует.</value>
   </data>
   <data name="Users" xml:space="preserve">
     <value>Пользователи</value>

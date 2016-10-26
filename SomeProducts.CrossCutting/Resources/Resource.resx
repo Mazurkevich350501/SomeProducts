@@ -189,11 +189,14 @@
   <data name="IllegalCharsError" xml:space="preserve">
     <value>Used illegal characters.</value>
   </data>
-  <data name="IncorrectUserName" xml:space="preserve">
-    <value>Incorrect user name</value>
+  <data name="IncorrectPassword" xml:space="preserve">
+    <value>Incorrect password.</value>
   </data>
-  <data name="InvalidNameOrPassword" xml:space="preserve">
-    <value>Invalid username or password.</value>
+  <data name="IncorrectUserName" xml:space="preserve">
+    <value>Incorrect user name.</value>
+  </data>
+  <data name="IncorrectUserNameOrPassword" xml:space="preserve">
+    <value>Incorrect user name or password.</value>
   </data>
   <data name="IsEmty" xml:space="preserve">
     <value>Is empy</value>
@@ -247,22 +250,22 @@
     <value>Password</value>
   </data>
   <data name="PasswordDontConfirm" xml:space="preserve">
-    <value>Password don't confirm</value>
+    <value>Password don't confirm.</value>
   </data>
   <data name="PasswordRequireDigit" xml:space="preserve">
-    <value>Password require digit</value>
+    <value>Password require digit.</value>
   </data>
   <data name="PasswordRequireLength" xml:space="preserve">
     <value>Password require length</value>
   </data>
   <data name="PasswordRequireLower" xml:space="preserve">
-    <value>Password require lower case</value>
+    <value>Password require lower case.</value>
   </data>
   <data name="PasswordRequireNonLetterOrDigit" xml:space="preserve">
-    <value>Password require non letter or digit</value>
+    <value>Password require non letter or digit.</value>
   </data>
   <data name="PasswordRequireUpper" xml:space="preserve">
-    <value>Password require upper case</value>
+    <value>Password require upper case.</value>
   </data>
   <data name="PositiveValue" xml:space="preserve">
     <value>{0} should be positive.</value>
@@ -274,7 +277,7 @@
     <value>Register</value>
   </data>
   <data name="RequiredField" xml:space="preserve">
-    <value>{0} field is required.</value>
+    <value>Field is required.</value>
   </data>
   <data name="Roles" xml:space="preserve">
     <value>Roels</value>
@@ -284,6 +287,9 @@
   </data>
   <data name="SignIn" xml:space="preserve">
     <value>Sign In</value>
+  </data>
+  <data name="UserNameExist" xml:space="preserve">
+    <value>name already exist.</value>
   </data>
   <data name="Users" xml:space="preserve">
     <value>Users</value>

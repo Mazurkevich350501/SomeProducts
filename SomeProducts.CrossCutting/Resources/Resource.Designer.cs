@@ -277,7 +277,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Incorrect user name.
+        ///   Looks up a localized string similar to Incorrect password..
+        /// </summary>
+        public static string IncorrectPassword {
+            get {
+                return ResourceManager.GetString("IncorrectPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect user name..
         /// </summary>
         public static string IncorrectUserName {
             get {
@@ -286,11 +295,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid username or password..
+        ///   Looks up a localized string similar to Incorrect user name or password..
         /// </summary>
-        public static string InvalidNameOrPassword {
+        public static string IncorrectUserNameOrPassword {
             get {
-                return ResourceManager.GetString("InvalidNameOrPassword", resourceCulture);
+                return ResourceManager.GetString("IncorrectUserNameOrPassword", resourceCulture);
             }
         }
         
@@ -448,7 +457,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password don&apos;t confirm.
+        ///   Looks up a localized string similar to Password don&apos;t confirm..
         /// </summary>
         public static string PasswordDontConfirm {
             get {
@@ -457,7 +466,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password require digit.
+        ///   Looks up a localized string similar to Password require digit..
         /// </summary>
         public static string PasswordRequireDigit {
             get {
@@ -475,7 +484,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password require lower case.
+        ///   Looks up a localized string similar to Password require lower case..
         /// </summary>
         public static string PasswordRequireLower {
             get {
@@ -484,7 +493,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password require non letter or digit.
+        ///   Looks up a localized string similar to Password require non letter or digit..
         /// </summary>
         public static string PasswordRequireNonLetterOrDigit {
             get {
@@ -493,7 +502,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Password require upper case.
+        ///   Looks up a localized string similar to Password require upper case..
         /// </summary>
         public static string PasswordRequireUpper {
             get {
@@ -529,7 +538,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} field is required..
+        ///   Looks up a localized string similar to Field is required..
         /// </summary>
         public static string RequiredField {
             get {
@@ -561,6 +570,15 @@ namespace Resources {
         public static string SignIn {
             get {
                 return ResourceManager.GetString("SignIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to name already exist..
+        /// </summary>
+        public static string UserNameExist {
+            get {
+                return ResourceManager.GetString("UserNameExist", resourceCulture);
             }
         }
         

@@ -12,11 +12,11 @@ namespace SomeProducts.PresentationServices.Authorize
         {
         }
 
-        public async override Task<IdentityResult> ValidateAsync(User item)
+        public override async Task<IdentityResult> ValidateAsync(User item)
         {
             return await Task.FromResult(await base.ValidateAsync(item) == IdentityResult.Success
                 ? IdentityResult.Success
-                : IdentityResult.Failed($"{Resources.Resource.IncorrectUserName} {item.UserName}"));
+                : IdentityResult.Failed($"{item.UserName} {Resources.Resource.UserNameExist}\n"));
         }
     }
 }
