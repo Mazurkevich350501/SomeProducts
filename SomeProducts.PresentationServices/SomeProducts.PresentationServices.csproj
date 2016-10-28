@@ -73,6 +73,7 @@
     <Compile Include="IPresentationSevices\Admin\IUserTablePresentationService.cs" />
     <Compile Include="IPresentationSevices\ProductTable\IProductTablePresentationService.cs" />
     <Compile Include="Models\Account\LogInUserModel.cs" />
+    <Compile Include="Models\Account\RegistrationModelToLoginModelConverter.cs" />
     <Compile Include="Models\Account\RegistrationViewModel.cs" />
     <Compile Include="Models\Admin\UserModel.cs" />
     <Compile Include="Models\Admin\UserTableViewModel.cs" />

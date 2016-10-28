@@ -2,12 +2,14 @@
 @using R = Resources.Resource
 @{
     ViewBag.Title = "Register";
+    string returnUrl = ViewBag.ReturnUrl ?? Url.Action("Show", "ProductTable");
 }
 
 <h2>@R.Register</h2>
 
 <form method="post" action=@Url.Action("Register", "Account") enctype="multipart/form-data">
     @Html.AntiForgeryToken()
+    @Html.Hidden("returnUrl", returnUrl)
     @Html.ValidationMessage("Error")
     <div>
         @Html.LabelFor(m => m.Name)

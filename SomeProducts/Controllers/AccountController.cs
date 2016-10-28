@@ -23,15 +23,16 @@ namespace SomeProducts.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult Register(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View(new RegistrationViewModel());
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegistrationViewModel model)
+        public async Task<ActionResult> Register(RegistrationViewModel model, string returnUrl)
         {
             ProjectLogger.Trace($"Register new user {model.Name}");
             if (ModelState.IsValid)
@@ -42,7 +43,8 @@ namespace SomeProducts.Controllers
                     result = await _manager.CreateAsync(AccountManager.UserCast(model));
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("LogIn", "Account");
+                        await LogIn(model.ToLogInUserModel());
+                        return Redirect(returnUrl);
                     }
                 }
                 ModelState.AddModelError("Error", result.Errors.First());
