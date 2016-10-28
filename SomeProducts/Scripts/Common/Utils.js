@@ -1,7 +1,7 @@
 ﻿var Utils = {};
 
 (function () {
-	var validationExp = /[\!@_%<>\$\^\[\]\+\-\/\{\}?]/;
+	var validationExp = /(<[\?\!\/])|(&#)/;
     
     Utils.getNamespace = function (namespace) {
         var obj = window[namespace];

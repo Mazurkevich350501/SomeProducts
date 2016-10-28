@@ -2,6 +2,10 @@
     padding-bottom: 10px;
 }
 
+.save-btn-conteiner {
+    text-align: left;
+}
+
 .image-box {
     max-width: 200px;
     max-height: 200px;
