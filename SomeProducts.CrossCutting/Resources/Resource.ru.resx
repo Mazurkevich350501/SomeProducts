@@ -223,10 +223,10 @@
     <value>Не равно</value>
   </data>
   <data name="IsNotNull" xml:space="preserve">
-    <value>Не равен нулю</value>
+    <value>Имеет значение</value>
   </data>
   <data name="IsNull" xml:space="preserve">
-    <value>Равен нулю</value>
+    <value>Не имеет значения</value>
   </data>
   <data name="ItemsCount" xml:space="preserve">
     <value>Количество элементов</value>
