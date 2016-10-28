@@ -6,7 +6,7 @@ namespace SomeProducts.PresentationServices.Models.Account
     public class RegistrationViewModel
     {
         [Required(ErrorMessageResourceType = typeof(Resources.Resource),
-            ErrorMessageResourceName = "RequiredField")]
+            ErrorMessageResourceName = "Roles")]
         [Display(Name = "Name", ResourceType = typeof(Resources.Resource))]
         public string Name { get; set; }
 

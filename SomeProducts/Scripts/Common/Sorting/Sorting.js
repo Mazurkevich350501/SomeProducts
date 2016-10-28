@@ -5,7 +5,7 @@
 
     var productTableNamespace = window.Utils.getNamespace("ProductTable");
     productTableNamespace.init = function (params) {
-        urlWhithoutBy = params.url;
+        urlWhithoutBy = params.url.replace(/amp;/g, "");
         sortingOption = params.sortingOption;
     };
 

@@ -23,15 +23,16 @@ namespace SomeProducts.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult Register(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View(new RegistrationViewModel());
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegistrationViewModel model)
+        public async Task<ActionResult> Register(RegistrationViewModel model, string returnUrl)
         {
             ProjectLogger.Trace($"Register new user {model.Name}");
             if (ModelState.IsValid)
@@ -42,7 +43,8 @@ namespace SomeProducts.Controllers
                     result = await _manager.CreateAsync(AccountManager.UserCast(model));
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("LogIn", "Account");
+                        await LogIn(model.ToLogInUserModel());
+                        return Redirect(returnUrl);
                     }
                 }
                 ModelState.AddModelError("Error", result.Errors.First());
@@ -56,7 +58,7 @@ namespace SomeProducts.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View(new LogInUserModel());
         }
-        
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -64,7 +66,8 @@ namespace SomeProducts.Controllers
         {
             ProjectLogger.Trace($"User {model.Name} try to login");
             if (!ModelState.IsValid) return View(model);
-            if (await LogIn(model))
+            var result = await LogIn(model);
+            if (result.Succeeded)
             {
                 if (returnUrl == null)
                 {
@@ -74,7 +77,7 @@ namespace SomeProducts.Controllers
                 return Redirect(returnUrl);
             }
 
-            ModelState.AddModelError("Error", Resources.Resource.IncorrectUserName);
+            ModelState.AddModelError("Error", result.Errors.First());
             return View(model);
         }
 
@@ -95,16 +98,22 @@ namespace SomeProducts.Controllers
             return Redirect(returnUrl);
         }
 
-        private async Task<bool> LogIn(LogInUserModel userModel)
+        private async Task<IdentityResult> LogIn(LogInUserModel userModel)
         {
             var user = await _manager.FindAsync(userModel.Name, userModel.Password);
-            if (user == null) return false;
+            if (user == null)
+            {
+                var error = await _manager.FindByNameAsync(userModel.Name) == null
+                    ? Resources.Resource.IncorrectUserName
+                    : Resources.Resource.IncorrectPassword;
+                return IdentityResult.Failed(error);
+            }
 
             HttpContext.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             var identity = await _manager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             HttpContext.GetOwinContext()
                 .Authentication.SignIn(new AuthenticationProperties() { IsPersistent = false }, identity);
-            return true;
+            return IdentityResult.Success;
         }
     }
 }

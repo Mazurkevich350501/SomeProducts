@@ -10,7 +10,6 @@
             <h4>
                 @Model.Filters.ToArray()[i].FilterName
             </h4>
-            <span class="field-validation-error" id="validation-@(Model.Filters.ToArray()[i].Option)ValueId"></span>
             <div class="row">
                 <div class="col-xs-10 filter-option-input-div">
                     <input class="form-control" 
@@ -19,7 +18,7 @@
                            value="@Model.Filters.ToArray()[i].Value" />
                 </div>
                 <div>
-                    @if (Model.Filters.ToArray()[i].Option == "Id")
+                    @if (Model.Filters.ToArray()[i].Type == Type.Numeric)
                     {
                         @Html.DropDownListFor(m => m.Filters.ToArray()[i].Parameter, new SelectList(Model.NumberFilterParameter, "Key", "Value"),
                             new
@@ -41,6 +40,7 @@
                     }
                 </div>
             </div>
+            <span class="field-validation-error" id="validation-@(Model.Filters.ToArray()[i].Option)ValueId"></span>
         </div>
     }
 </div>

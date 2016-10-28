@@ -87,7 +87,7 @@
             @for (var i = 5; i <= SomeProducts.CrossCutting.Constants.Constants.MaxItemsCountPerPage; i+= 5)
             {
                 <li><a class="dropdown-item" href=@Url.Action("Show", "ProductTable", new {page = Model.PageInfo.Page, count = i,
-                                                    by = Model.PageInfo.SortingOption, filter = Model.JsonFilters })>@i</a></li>
+                                                 by = Model.PageInfo.SortingOption, filter = Model.JsonFilters })>@(i)</a></li>
             }
         </ul>
     </div>
