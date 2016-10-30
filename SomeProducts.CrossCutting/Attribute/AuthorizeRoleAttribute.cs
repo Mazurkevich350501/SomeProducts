@@ -5,9 +5,9 @@ using System.Web.Mvc;
 
 public enum UserRole
 {
-    SuperAdmin,
-    Admin,
-    User
+    Admin = 1,
+    User,
+    SuperAdmin
 }
 
 namespace SomeProducts.Attribute

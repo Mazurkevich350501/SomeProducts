@@ -2,11 +2,17 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNet.Identity;
+using SomeProducts.DAL.Repository.Interface;
 
 namespace SomeProducts.DAL.Models
 {
-    public class User : IUser<int>
+    public class User : IUser<int>, IAvailableCompany
     {
+        public User()
+        {
+            CompanyId = 1;
+        }
+
         public int Id { get; set; }
 
         public string UserName { get; set; }

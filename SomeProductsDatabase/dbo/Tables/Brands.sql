@@ -4,6 +4,8 @@
     [CreateDate] DATETIME NOT NULL, 
     [ModifiedDate] DATETIME NULL, 
     [RowVersion] ROWVERSION NOT NULL , 
-    CONSTRAINT [PK_table1_BrandId] PRIMARY KEY CLUSTERED ([Id] ASC)
+    [CompanyId] INT NOT NULL , 
+    CONSTRAINT [PK_Brands_BrandId] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT [FK_Brands_Companies_CompanyId] FOREIGN KEY ([CompanyId]) REFERENCES [dbo].[Companies] ([Id]),
 );
 

@@ -58,9 +58,12 @@
     <Compile Include="Dao\UserDao.cs" />
     <Compile Include="IDao\IBrandDao.cs" />
     <Compile Include="IDao\ICompanyDao.cs" />
-    <Compile Include="Repository\Interface\IDateModifiedrepository.cs" />
+    <Compile Include="IDao\IUserDao.cs" />
+    <Compile Include="Repository\BaseRepositoryAsync.cs" />
+    <Compile Include="Repository\Interface\IAvailableCompany.cs" />
+    <Compile Include="Repository\Interface\ICompanyItemsAccess.cs" />
+    <Compile Include="Repository\Interface\IDateModifiedRepository.cs" />
     <Compile Include="IDao\IProductDao.cs" />
-    <Compile Include="IDao\IUserTablePresentationService.cs" />
     <Compile Include="Models\Brand.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Product.cs" />
@@ -74,7 +77,7 @@
     <Compile Include="Repository\Interface\IIdentify.cs" />
     <Compile Include="Repository\Interface\IRepository.cs" />
     <Compile Include="Repository\Interface\IRepositoryAsync.cs" />
-    <Compile Include="Repository\RoleRepository.cs" />
+    <Compile Include="Repository\Interface\IUserRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>

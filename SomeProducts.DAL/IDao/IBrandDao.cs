@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using SomeProducts.DAL.Models;
 
@@ -6,18 +6,16 @@ namespace SomeProducts.DAL.IDao
 {
     public interface IBrandDao
     {
-        IEnumerable<Brand> GetAllItems();
+        IEnumerable<Brand> GetCompanyBrands(int companyId);
 
         void RemoveBrand(Brand brand);
 
         void CreateBrand(Brand brand);
 
-        bool IsBrandUsing(int id);
-
-        DateTime GetCreateTime(int id);
-
+        bool IsBrandUsing(int companyId, int id);
+       
         bool UpdateBrand(Brand brand);
 
-        Brand GetById(int id);
+        Brand GetById(int companyId, int id);
     }
 }

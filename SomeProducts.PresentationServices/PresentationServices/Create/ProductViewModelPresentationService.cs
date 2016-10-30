@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿
+using System.Collections.Generic;
 using System.Linq;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
@@ -23,22 +24,36 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
             _productDao.RemoveProduct(_productDao.GetProduct(id));
         }
 
-        public ProductViewModel GetProductViewModel(int? id = null)
+        public ProductViewModel GetProductViewModel(int companyId, int id)
         {
-            ProductModel productModel;
-            if (id != null)
+            var result = GetProductViewModel(id);
+            if (result != null && result.Product.CompanyId == companyId)
             {
-                var product = _productDao.GetProduct(id.Value);
-                productModel = ProductModelCast(product);
+                return result;
             }
-            else
-            {
-                productModel = new ProductModel();
-            }
+            return null;
+        }
+
+        public ProductViewModel GetProductViewModel(int id)
+        {
+            var product = _productDao.GetProduct(id);
+            if (product == null) return null;
+            var productModel = ProductModelCast(product);
+
             return new ProductViewModel()
             {
                 Product = productModel,
-                Brands = CreateBrandDictionary(),
+                Brands = CreateBrandDictionary(product.CompanyId),
+                Colors = ProductColors.Colors
+            };
+        }
+
+        public ProductViewModel GetEmtyProductViewModel(int companyId)
+        {
+            return new ProductViewModel()
+            {
+                Product = new ProductModel(),
+                Brands = CreateBrandDictionary(companyId),
                 Colors = ProductColors.Colors
             };
         }
@@ -46,18 +61,19 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
         public bool UpdateProductViewModel(ProductViewModel model)
         {
             var product = ProductCast(model.Product);
-            product.CreateDate = _productDao.GetCreateTime(product.Id);
             return _productDao.UpdateProduct(product);
         }
 
-        public void CreateProductViewModel(ProductViewModel model)
+        public void CreateProductViewModel(ProductViewModel model, int companyId)
         {
-            _productDao.CreateProduct(ProductCast(model.Product));
+            var product = ProductCast(model.Product);
+            product.CompanyId = companyId;
+            _productDao.CreateProduct(product);
         }
 
-        private Dictionary<int, string> CreateBrandDictionary()
+        private Dictionary<int, string> CreateBrandDictionary(int companyId)
         {
-            var brands = _brandDao.GetAllItems();
+            var brands = _brandDao.GetCompanyBrands(companyId);
             if (brands != null)
             {
                 return brands.ToDictionary(b => b.Id, b => b.Name);
@@ -79,7 +95,8 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
                     Name = model.Name,
                     Id = model.Id,
                     Quantity = model.Quantity,
-                    RowVersion = model.Version
+                    RowVersion = model.Version,
+                    CompanyId = model.CompanyId
                 };
             }
             return null;
@@ -99,18 +116,19 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
                     Image = model.Image,
                     ImageType = model.ImageType,
                     Quantity = model.Quantity,
-                    Version = model.RowVersion
+                    Version = model.RowVersion,
+                    CompanyId = model.CompanyId
                 };
             }
             return null;
         }
 
-        public ProductViewModel GetLastProductViewMode()
+        public ProductViewModel GetLastProductViewMode(int companyId)
         {
             return new ProductViewModel()
             {
-                Product = ProductModelCast(_productDao.GetLastProduct()),
-                Brands = CreateBrandDictionary(),
+                Product = ProductModelCast(_productDao.GetLastProduct(companyId)),
+                Brands = CreateBrandDictionary(companyId),
                 Colors = ProductColors.Colors
             };
         }

@@ -3,9 +3,8 @@ using System;
 
 namespace SomeProducts.DAL.Repository.Interface
 {
-    public interface IDateModifiedRepository<TEntity> : IRepository<TEntity>
+    public interface IDateModifiedRepository<TEntity> : IRepository<TEntity>, ICompanyItemsAccess<TEntity>
     {
-        TEntity GetLast();
-        DateTime GetCreateTime(int id);
+        TEntity GetLast(int companyId);
     }
 }

@@ -4,11 +4,15 @@ namespace SomeProducts.PresentationServices.IPresentationSevices.Create
 {
     public interface IProductViewModelPresentationService
     {
-        ProductViewModel GetProductViewModel(int? id = null);
+        ProductViewModel GetProductViewModel(int id);
 
-        ProductViewModel GetLastProductViewMode();
+        ProductViewModel GetProductViewModel(int companyId, int id);
 
-        void CreateProductViewModel(ProductViewModel model);
+        ProductViewModel GetEmtyProductViewModel(int companyId);
+
+        ProductViewModel GetLastProductViewMode(int companyId);
+
+        void CreateProductViewModel(ProductViewModel model, int companyId);
 
         void RemoveProductViewModel(int id);
 

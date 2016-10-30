@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using SomeProducts.DAL.Context;
@@ -7,7 +8,8 @@ using SomeProducts.DAL.Repository.Interface;
 
 namespace SomeProducts.DAL.Repository
 {
-    public class DateModifiedRepository<TEntity> : IDateModifiedRepository<TEntity> where TEntity : class, IDateModified, IIdentify
+    public class DateModifiedRepository<TEntity> : IDateModifiedRepository<TEntity> 
+        where TEntity : class, IDateModified, IIdentify, IAvailableCompany
     {
         private readonly ProductContext _db;
 
@@ -50,14 +52,19 @@ namespace SomeProducts.DAL.Repository
             return _db.Set<TEntity>().Find(id);
         }
 
-        public DateTime GetCreateTime(int id)
+        public TEntity GetCompanyItem(int companyId, int itemId)
         {
-            return _db.Set<TEntity>().Find(id).CreateDate;
+            return GetCompanyItems(companyId).FirstOrDefault(i => i.Id == itemId);
         }
 
-        public TEntity GetLast()
+        public IQueryable<TEntity> GetCompanyItems(int companyId)
         {
-            return _db.Set<TEntity>().OrderByDescending(t => t.CreateDate).FirstOrDefault();
+            return _db.Set<TEntity>().Where(i => i.CompanyId == companyId);
+        }
+        
+        public TEntity GetLast(int companyId)
+        {
+            return GetCompanyItems(companyId).OrderByDescending(t => t.CreateDate).FirstOrDefault();
         }
 
         public void Save()
@@ -67,14 +74,23 @@ namespace SomeProducts.DAL.Repository
 
         public bool Update(TEntity item)
         {
-            var lastItemVersion = GetById(item.Id).RowVersion;
+            var oldItem = GetById(item.Id);
+            var lastItemVersion = oldItem.RowVersion;
+            if (oldItem.CompanyId == item.CompanyId)
+            {
+                throw new WarningException("Item.CompanyId can`t be modified.");
+            }
+
             if (lastItemVersion.SequenceEqual(item.RowVersion))
             {
+                item.CreateDate = oldItem.CreateDate;
                 item.ModifiedDate = DateTime.UtcNow;
                 _db.Set<TEntity>().AddOrUpdate(item);
                 return true;
             }
             return false;
         }
+
+       
     }
 }

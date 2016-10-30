@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using SomeProducts.Attribute;
 using SomeProducts.CrossCutting.Filter.Model;
 using SomeProducts.CrossCutting.ProjectLogger;
+using SomeProducts.Helpers;
 using SomeProducts.PresentationServices.IPresentationSevices.Admin;
 using SomeProducts.PresentationServices.Models;
 using FilterInfo = SomeProducts.CrossCutting.Filter.Model.FilterInfo;
@@ -32,7 +33,7 @@ namespace SomeProducts.Controllers
             var pageInfo = new PageInfo(page, count, by);
             return User.IsInRole(nameof(UserRole.SuperAdmin))
                 ? View("SuperAdminUsers", _service.GetSuperAdminUserTableViewModel(pageInfo, filter))
-                : View(_service.GetAdminUserTableViewModel(pageInfo, filter));
+                : View(_service.GetAdminUserTableViewModel(pageInfo, filter, User.GetCompany()));
         }
 
         [HttpPost]

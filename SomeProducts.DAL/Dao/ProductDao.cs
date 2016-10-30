@@ -1,5 +1,5 @@
 ﻿
-using System;
+using System.ComponentModel;
 using System.Linq;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
@@ -10,14 +10,17 @@ namespace SomeProducts.DAL.Dao
     public class ProductDao : IProductDao
     {
         private readonly IDateModifiedRepository<Product> _repository;
+        private readonly IDateModifiedRepository<Brand> _brandRepository;
 
-        public ProductDao(IDateModifiedRepository<Product> repository)
+        public ProductDao(IDateModifiedRepository<Product> repository, IDateModifiedRepository<Brand> brandRepository)
         {
             _repository = repository;
+            _brandRepository = brandRepository;
         }
 
         public bool UpdateProduct(Product product)
         {
+            
             var result = _repository.Update(product);
             _repository.Save();
             return result;
@@ -36,28 +39,46 @@ namespace SomeProducts.DAL.Dao
 
         public void CreateProduct(Product product)
         {
+            IsBrandInCompany(product);
             _repository.Create(product);
             _repository.Save();
         }
 
-        public Product GetLastProduct()
+        public Product GetLastProduct(int companyId)
         {
-            return _repository.GetLast();
+            return _repository.GetLast(companyId);
         }
-
-        public DateTime GetCreateTime(int id)
-        {
-            return _repository.GetCreateTime(id);
-        }
-
+       
         public IQueryable<Product> GetAllProducts()
         {
             return _repository.GetAllItems();
         }
-
-        public int GetProductCount()
+        
+        public IQueryable<Product> GetCompanyProducts(int companyId)
         {
-            return GetAllProducts().AsEnumerable().Count();
+            return _repository.GetCompanyItems(companyId);
+        }
+
+        public Product GetProduct(int companyId, int productId)
+        {
+            return _repository.GetCompanyItem(companyId, productId);
+        }
+
+        private void IsBrandInCompany(Product product)
+        {
+            var brand = _brandRepository.GetById(product.BrandId);
+            if (product.CompanyId == brand.CompanyId)
+            {
+                return;
+            }
+            throw new WarningException("Brand.CompanyId does not coincide with Product.CompanyId");
+        }
+
+        public int GetCompanyProductCount(int? companyId)
+        {
+            return companyId == null
+                ? GetAllProducts().Count()
+                : GetCompanyProducts(companyId.Value).Count();
         }
     }
 }

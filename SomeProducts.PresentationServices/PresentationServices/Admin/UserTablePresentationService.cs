@@ -11,8 +11,8 @@ using SomeProducts.PresentationServices.IPresentationSevices.Admin;
 using SomeProducts.PresentationServices.Models;
 using SomeProducts.PresentationServices.Models.Admin;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 using R = Resources.Resource;
-using System;
 
 namespace SomeProducts.PresentationServices.PresentationServices.Admin
 {
@@ -38,13 +38,15 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
             _companyDao = companyDao;
         }
 
-        public AdminUserTableViewModel GetAdminUserTableViewModel(PageInfo pageInfo, FilterInfo filterInfo)
+        public AdminUserTableViewModel GetAdminUserTableViewModel(PageInfo pageInfo, FilterInfo filterInfo, int companyId)
         {
             var sortingOption = SortingOptionHelper.GetOptionValue(pageInfo.SortingOption, OptionDictionary);
-            var productList = GetFilteredAndSortedUsers(sortingOption, filterInfo);
-            var tableList = productList.ToPagedList(pageInfo.Page, pageInfo.ItemsCount).Select(AdminUserTableModelCast).AsQueryable();
+            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option, companyId);
+            var productList = GetFilteredAndSortedUsers(sortingOption, filterInfo, companyId);
             var newFilter = InitFilterInfo(filterInfo, false);
-            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option);
+            //proverochka
+            var tableList = productList.ToPagedList(pageInfo.Page, pageInfo.ItemsCount).Select(AdminUserTableModelCast).AsQueryable();
+            //-----------------------
 
             var result = new AdminUserTableViewModel
             {
@@ -61,11 +63,11 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
         public SuperAdminUserTableViewModel GetSuperAdminUserTableViewModel(PageInfo pageInfo, FilterInfo filterInfo)
         {
             var sortingOption = SortingOptionHelper.GetOptionValue(pageInfo.SortingOption, OptionDictionary);
-            var productList = GetFilteredAndSortedUsers(sortingOption, filterInfo);
+            var productList = GetFilteredAndSortedUsers(sortingOption, filterInfo, null);
 
             var tableList = productList.ToPagedList(pageInfo.Page, pageInfo.ItemsCount).Select(SuperAdminUserTableModelCast).AsQueryable();
             var newFilter = InitFilterInfo(filterInfo, true);
-            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option);
+            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option, null);
 
             var result = new SuperAdminUserTableViewModel
             {
@@ -85,16 +87,20 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
             return _companyDao.GetAllItems().ToDictionary(c => c.Id, c => c.CompanyName);
         }
 
-        private PageInfo SetPageInfo(PageInfo pageInfo, string option)
+        private PageInfo SetPageInfo(PageInfo pageInfo, string option, int? companyId)
         {
             pageInfo.SortingOption = option;
-            pageInfo.TotalItemsCount = _userDao.GetUserCount();
+            pageInfo.TotalItemsCount = _userDao.GetUserCount(companyId);
             return pageInfo;
         }
 
-        private IQueryable<User> GetFilteredAndSortedUsers(SortingOption option, FilterInfo info)
+        private IQueryable<User> GetFilteredAndSortedUsers(SortingOption option, FilterInfo info, int? companyId)
         {
-            return _userDao.GetAllUsers().AsQueryable().GetFilteredProduct(info).Sort(option.Option, option.Order == Order.Reverse);
+            var users = companyId == null
+                ? _userDao.GetAllUsers()
+                : _userDao.GetAllUsers().Where(u => u.CompanyId == companyId.Value 
+                    || u.CompanyId == CrossCutting.Constants.Constants.EmtyCompanyId);
+            return users.AsQueryable().GetFilteredProduct(info).Sort(option.Option, option.Order == Order.Reverse);
         }
 
         private static AdminUserTableItemModel AdminUserTableModelCast(User user)
@@ -125,16 +131,16 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
             var result = new List<Filter>
             {
                 new Filter()
-                {Option = nameof(User.Id), Type = CrossCutting.Filter.Model.Type.Numeric, FilterName = R.Id},
+                {Option = nameof(User.Id), Type = Type.Numeric, FilterName = R.Id},
                 new Filter()
-                {Option = nameof(User.UserName), Type = CrossCutting.Filter.Model.Type.String, FilterName = R.Name}
+                {Option = nameof(User.UserName), Type = Type.String, FilterName = R.Name}
             };
             if (isSuperAdmin)
             {
                 result.Add(new Filter()
                 {
                     Option = $"{nameof(User.Company)}_{nameof(Company.CompanyName)}",
-                    Type = CrossCutting.Filter.Model.Type.String,
+                    Type = Type.String,
                     FilterName = R.Company
                 });
             }

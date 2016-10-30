@@ -5,7 +5,7 @@ using SomeProducts.DAL.Repository.Interface;
 
 namespace SomeProducts.DAL.Models
 {
-    public class Product : IDateModified, IIdentify
+    public class Product : IDateModified, IIdentify, IAvailableCompany
     {
         public int Id { get; set; }
 
