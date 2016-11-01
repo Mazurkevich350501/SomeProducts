@@ -39,7 +39,7 @@ namespace SomeProducts.DAL.Dao
 
         public void CreateProduct(Product product)
         {
-            IsBrandInCompany(product);
+            CompanyVerify(product);
             _repository.Create(product);
             _repository.Save();
         }
@@ -64,14 +64,13 @@ namespace SomeProducts.DAL.Dao
             return _repository.GetCompanyItem(companyId, productId);
         }
 
-        private void IsBrandInCompany(Product product)
+        private void CompanyVerify(Product product)
         {
             var brand = _brandRepository.GetById(product.BrandId);
-            if (product.CompanyId == brand.CompanyId)
+            if (product.CompanyId != brand.CompanyId)
             {
-                return;
+                throw new WarningException("Brand.CompanyId does not coincide with Product.CompanyId");
             }
-            throw new WarningException("Brand.CompanyId does not coincide with Product.CompanyId");
         }
 
         public int GetCompanyProductCount(int? companyId)

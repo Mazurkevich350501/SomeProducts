@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to add user to company?.
+        /// </summary>
+        public static string AddUserToCompanyQuestion {
+            get {
+                return ResourceManager.GetString("AddUserToCompanyQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin.
         /// </summary>
         public static string Admin {
@@ -543,6 +552,15 @@ namespace Resources {
         public static string Register {
             get {
                 return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to remove user from company?.
+        /// </summary>
+        public static string RemoveUserFromCompanyQuestion {
+            get {
+                return ResourceManager.GetString("RemoveUserFromCompanyQuestion", resourceCulture);
             }
         }
         

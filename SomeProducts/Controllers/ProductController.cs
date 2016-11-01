@@ -36,7 +36,7 @@ namespace SomeProducts.Controllers
         public ActionResult Edit(int id)
         {
             var productModel = _productViewModelService.GetProductViewModel(User.GetCompany(), id);
-            if (productModel.Product == null)
+            if (productModel?.Product == null)
             {
                 throw new HttpException(404, "Wrong product id");
             }

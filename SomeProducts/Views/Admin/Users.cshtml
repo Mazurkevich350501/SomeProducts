@@ -175,7 +175,9 @@
                 setCompanyUrl: '@Url.Action("SetUserCompany", "Admin")',
                 filters: '@Model.FilterInfo.FiltertsList',
                 IllegalCharsError: '@R.IllegalCharsError',
-                adminCompanyId: parseInt('@User.GetCompany()')
+                adminCompanyId: parseInt('@User.GetCompany()'),
+                addUserToCompanyQuestion: '@R.AddUserToCompanyQuestion',
+                removeUserFromCompanyQuestion : '@R.RemoveUserFromCompanyQuestion'
             };
 
             var productTableNamespace = window.Utils.getNamespace("ProductTable");

@@ -1,6 +1,8 @@
 ﻿
+
 using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -111,11 +113,13 @@ namespace SomeProducts.Controllers
 
             HttpContext.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             var identity = await _manager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
-            HttpContext.GetOwinContext()
-                .Authentication.SignIn(new AuthenticationProperties() { IsPersistent = false }, identity);
-            //var responseCookie = HttpContext.Response.Cookies["CompanyId"];
-            //if (responseCookie != null)
-            //    responseCookie.Value = user.CompanyId.ToString();
+            identity.AddClaim(new Claim("CompanyId", user.CompanyId.ToString()));
+            var properties = new AuthenticationProperties()
+            {
+                IsPersistent = false,
+                AllowRefresh = true
+            };
+            HttpContext.GetOwinContext().Authentication.SignIn(properties, identity);
             return IdentityResult.Success;
         }
     }

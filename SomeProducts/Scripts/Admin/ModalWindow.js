@@ -4,7 +4,7 @@
     var deleteProductUrl;
     var changeAdminRoleUrl;
     var setCompanyUrl;
-    var adminCompanyId
+    var adminCompanyId;
     var addUserToCompanyQuestion;
     var removeUserFromCompanyQuestion;
 
@@ -14,16 +14,18 @@
         changeAdminRoleUrl = newParams.changeAdminRoleUrl;
         setCompanyUrl = newParams.setCompanyUrl;
         adminCompanyId = newParams.adminCompanyId;
+        addUserToCompanyQuestion = newParams.addUserToCompanyQuestion;
+        removeUserFromCompanyQuestion = newParams.removeUserFromCompanyQuestion;
     }
 
     $(function () {
-        InitRemovingModal();
-        InitSetAdminModal();
-        InitChangeCompanyModal();
-        InitAddOrRemoveModal();
+        initRemovingModal();
+        initSetAdminModal();
+        initChangeCompanyModal();
+        initAddOrRemoveModal();
     });
     
-    function InitRemovingModal(){
+    function initRemovingModal(){
         $("th[class='th-remove']>button").click(function (e) {
         $("#RemovingModal").modal("show");
             activeId = parseInt($(e.target).attr("data-id"));
@@ -40,7 +42,7 @@
         });
     }
 
-    function InitSetAdminModal(){
+    function initSetAdminModal(){
         $("th[class='th-setAdmin']>button").click(function (e) {
             $("#SetAdminModal").modal("show");
             activeId = parseInt($(e.target).attr("data-id"));
@@ -51,12 +53,12 @@
         });
 
         $("#setAdminBtnId").click(function () {
-            data = JSON.stringify({ userId: activeId });
-            postRequest(data, changeAdminRoleUrl, ShowAdminChanges);
+            var data = JSON.stringify({ userId: activeId });
+            postRequest(data, changeAdminRoleUrl, showAdminChanges);
         });
     }
 
-    function InitChangeCompanyModal(){
+    function initChangeCompanyModal(){
         $("div[class='userCompany']>button").click(function (e) {
             $("#ChangeCompanyModal").modal("show");
             activeId = parseInt($(e.target).attr("data-id"));
@@ -69,14 +71,14 @@
         $("#changeCompanyBtnId").click(function () {
             var companyId = $("#SelectCompany").val();
             var data = JSON.stringify({ userId: activeId, companyId: companyId});
-            postRequest(data, setCompanyUrl, ShowCompanyChanges);
+            postRequest(data, setCompanyUrl, showCompanyChanges);
         });
     }
 
-    function InitAddOrRemoveModal(){
+    function initAddOrRemoveModal(){
         $("th[class='th-addOrRemove']>button").click(function (e) {
             activeId = parseInt($(e.target).attr("data-id"));
-            tempCompanyId = parseInt($(e.target).attr("data-company"));
+            var tempCompanyId = parseInt($(e.target).attr("data-company"));
             $("#AddingOrRemovingModalMessageId").empty();
             if (tempCompanyId === adminCompanyId){
                 companyId = 1;
@@ -95,13 +97,13 @@
 
         $("#addOrRemoveBtnId").click(function () {
             var data = JSON.stringify({ userId: activeId, companyId: companyId});
-            postRequest(data, setCompanyUrl, ShowAddOrremoveChanges);
+            postRequest(data, setCompanyUrl, showAddOrremoveChanges);
         });
     }
 
-    function ShowAddOrremoveChanges(result){
+    function showAddOrremoveChanges(result){
         var button = $("#addOrRemoveCompanyUserBtn" + activeId);
-        if(result.CompanyId == adminCompanyId){
+        if(result.CompanyId === adminCompanyId){
             button.css("color", "red");
             button.attr("class", "glyphicon glyphicon-remove");
             $("#setAdminBtn" + activeId).show();
@@ -115,7 +117,7 @@
         $("#AddingOrRemovingModal").modal("hide");
     }
 
-    function ShowCompanyChanges(result){
+    function showCompanyChanges(result){
         var item = $("span[class='companyDisplay-" + activeId + "']");
         item.empty();
         item.append(result.CompanyName);
@@ -138,7 +140,7 @@
         rolesItem.append(roles.join());
     }
 
-    function ShowAdminChanges(result){
+    function showAdminChanges(result){
         setButtonColor(result);
         showUserRoles(result);
         $("#SetAdminModal").modal("hide");
