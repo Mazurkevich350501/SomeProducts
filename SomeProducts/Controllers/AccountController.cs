@@ -113,6 +113,9 @@ namespace SomeProducts.Controllers
             var identity = await _manager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             HttpContext.GetOwinContext()
                 .Authentication.SignIn(new AuthenticationProperties() { IsPersistent = false }, identity);
+            //var responseCookie = HttpContext.Response.Cookies["CompanyId"];
+            //if (responseCookie != null)
+            //    responseCookie.Value = user.CompanyId.ToString();
             return IdentityResult.Success;
         }
     }

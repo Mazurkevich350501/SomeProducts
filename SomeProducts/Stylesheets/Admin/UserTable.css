@@ -33,6 +33,7 @@
 }
 
     .th-setAdmin button {
+        display: block;
         background-color: red;
         color: white;
     }
@@ -49,6 +50,16 @@
         height: 30px;
     }
 
+.th-addOrRemove {
+    max-width: 50px;
+}
+
+    .th-addOrRemove button {
+        border: none;
+        background: white;
+        width: 30px;
+        height: 30px;
+    }
 table {
     max-width: 1000px;
     border: 2px solid #357ebd;

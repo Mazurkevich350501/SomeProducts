@@ -40,7 +40,7 @@ namespace SomeProducts.Controllers
         public async Task<JsonResult> ChangeUserAdminRole(int userId)
         {
             ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} try change role for user(id={userId})");
-            if (!IsActiveUser(userId))
+            if (!IsActiveUser(userId) || await IsHasRigth(userId))
             {
                 await _service.ChangeAdminRole(userId);
             }
@@ -50,7 +50,7 @@ namespace SomeProducts.Controllers
         [HttpPost]
         public async Task<JsonResult> SetUserCompany(int userId, int companyId)
         {
-            if (!IsActiveUser(userId))
+            if (!IsActiveUser(userId) || await IsHasRigth(userId))
             {
                 await _service.SetUserCompany(userId, companyId);
             }
@@ -59,6 +59,7 @@ namespace SomeProducts.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AuthorizeRole(UserRole.SuperAdmin)]
         public async Task<ActionResult> RemoveUser(int userId, string redirectUrl)
         {
             ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} try remove user(id={userId})");
@@ -80,6 +81,14 @@ namespace SomeProducts.Controllers
         {
             var userName = HttpContext.User.Identity.Name;
             return _service.IsUserExist(userId, userName);
+        }
+
+        private async Task<bool> IsHasRigth(int userId)
+        {
+            var userCompany = await _service.GetUserCompany(userId);
+            return userCompany.CompanyId == CrossCutting.Constants.Constants.EmtyCompanyId
+                   || userCompany.CompanyId == User.GetCompany()
+                   || User.IsInRole(nameof(UserRole.SuperAdmin));
         }
     }
 }

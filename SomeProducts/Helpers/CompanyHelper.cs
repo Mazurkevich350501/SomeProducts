@@ -1,6 +1,5 @@
 ﻿
 using System.Security.Principal;
-using Microsoft.AspNet.Identity;
 
 namespace SomeProducts.Helpers
 {
@@ -8,7 +7,7 @@ namespace SomeProducts.Helpers
     {
         public static int GetCompany(this IPrincipal principal)
         {
-            return 2; //UserCompanyId(principal.Identity.GetUserId<int>());
+            return 2; //principal.Identity.
         } 
     }
 }

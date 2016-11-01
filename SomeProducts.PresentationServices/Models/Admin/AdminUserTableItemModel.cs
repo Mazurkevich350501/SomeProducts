@@ -13,5 +13,7 @@ namespace SomeProducts.PresentationServices.Models.Admin
 
         [Display(Name = "Roles", ResourceType = typeof(Resources.Resource))]
         public ICollection<string> Roles { get; set; }
+
+        public int CompanyId { get; set; }
     }
 }

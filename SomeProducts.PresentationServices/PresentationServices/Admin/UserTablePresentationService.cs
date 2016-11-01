@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using PagedList;
 using SomeProducts.CrossCutting.Filter;
@@ -11,7 +12,6 @@ using SomeProducts.PresentationServices.IPresentationSevices.Admin;
 using SomeProducts.PresentationServices.Models;
 using SomeProducts.PresentationServices.Models.Admin;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
 using R = Resources.Resource;
 
 namespace SomeProducts.PresentationServices.PresentationServices.Admin
@@ -110,7 +110,8 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
             {
                 Roles = user.Roles.Select(r => r.Name).ToList(),
                 Name = user.UserName,
-                Id = user.Id
+                Id = user.Id,
+                CompanyId = user.CompanyId
             };
         }
 
@@ -122,7 +123,8 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
                 Roles = user.Roles.Select(r => r.Name).ToList(),
                 Name = user.UserName,
                 Id = user.Id,
-                CompanyName = user.Company.CompanyName
+                CompanyName = user.Company.CompanyName,
+                CompanyId = user.CompanyId
             };
         }
 
@@ -168,9 +170,13 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
             {
                 await _userDao.RemoveFromRoleAsync(user, nameof(UserRole.Admin));
             }
-            else
+            else if (user.CompanyId != CrossCutting.Constants.Constants.EmtyCompanyId)
             {
                 await _userDao.AddToRoleAsync(user, nameof(UserRole.Admin));
+            }
+            else
+            {
+                throw new WarningException("User without company cannot be in Admin role");
             }
         }
 
@@ -192,13 +198,23 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
         public async Task SetUserCompany(int userId, int companyId)
         {
             var user = await _userDao.FindByIdAsync(userId);
+            if (user.Roles.Any(r => r.Name == nameof(UserRole.Admin))
+                && companyId == CrossCutting.Constants.Constants.EmtyCompanyId)
+            {
+                throw new WarningException("User without company cannot be in Admin role");
+            }
             user.CompanyId = companyId;
             await _userDao.UpdateAsync(user);
         }
 
-        public async Task<string> GetUserCompany(int userId)
+        public async Task<CompanyModel> GetUserCompany(int userId)
         {
-            return (await _userDao.FindByIdAsync(userId)).Company.CompanyName;
+            var user = await _userDao.FindByIdAsync(userId);
+            return new CompanyModel()
+            {
+                CompanyId = user.CompanyId,
+                CompanyName = user.Company.CompanyName
+            };
         }
     }
 }

@@ -20,7 +20,9 @@ namespace SomeProducts.PresentationServices.IPresentationSevices.Admin
         Task<IList<string>> GetUserRoles(int userId);
 
         bool IsUserExist(int userId, string userName);
+
         Task SetUserCompany(int userId, int companyId);
-        Task<string> GetUserCompany(int userId);
+
+        Task<CompanyModel> GetUserCompany(int userId);
     }
 }

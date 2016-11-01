@@ -16,5 +16,7 @@ namespace SomeProducts.PresentationServices.Models.Admin
 
         [Display(Name = "Company", ResourceType = typeof(Resources.Resource))]
         public string CompanyName { get; set; }
+
+        public int CompanyId { get; set; }
     }
 }

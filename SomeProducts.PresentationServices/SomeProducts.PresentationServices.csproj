@@ -75,6 +75,7 @@
     <Compile Include="Models\Account\LogInUserModel.cs" />
     <Compile Include="Models\Account\RegistrationModelToLoginModelConverter.cs" />
     <Compile Include="Models\Account\RegistrationViewModel.cs" />
+    <Compile Include="Models\Admin\CompanyModel.cs" />
     <Compile Include="Models\Admin\SuperAdminUserTableItemModel.cs" />
     <Compile Include="Models\Admin\SuperAdminUserTableViewModel.cs" />
     <Compile Include="Models\Admin\AdminUserTableItemModel.cs" />

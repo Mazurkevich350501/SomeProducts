@@ -1,5 +1,6 @@
 ﻿
 @using PagedList.Mvc
+@using SomeProducts.Helpers
 @using R = Resources.Resource
 @model SomeProducts.PresentationServices.Models.Admin.AdminUserTableViewModel
 @{
@@ -30,7 +31,7 @@
                     </div>
                 </th>
                 <th class="th-setAdmin"></th>
-                <th class="th-remove"></th>
+                <th class="th-addOrRemove"></th>
             </tr>
         </thead>
         <tbody>
@@ -52,19 +53,37 @@
                         {
                             var setAdminBtnColor = user.Roles.Contains(nameof(UserRole.Admin))
                                 ? "green" : "red";
+                            var hidden = user.CompanyId == User.GetCompany() ? "auto" : "none";
                             <button class="btn btn-default" data-id="@user.Id"
                                     id=@($"setAdminBtn{user.Id}")
-                                    style=@($"background-color:{setAdminBtnColor};")>
+                                    style=@($"display:{hidden};background-color:{setAdminBtnColor};")>
                                 @R.Admin
                             </button>
                         }
-
                     </th>
-                    <th class="th-remove">
+                    <th class="th-addOrRemove">
                         @if (User.Identity.Name != user.Name)
                         {
-                            <button class="glyphicon glyphicon-remove" data-id="@user.Id"></button>
-                        }
+                            if (user.CompanyId == User.GetCompany())
+                            {
+                                <button data-id="@user.Id"
+                                        data-company="@user.CompanyId"
+                                        class="glyphicon glyphicon-remove"
+                                        style="color: red;"
+                                        id=@($"addOrRemoveCompanyUserBtn{user.Id}")>
+                                </button>
+                                }
+                                else
+                                {
+                                    <button data-id = "@user.Id"
+                                            data-company="@user.CompanyId"
+                                            class="glyphicon glyphicon-ok"
+                                            style="color: green"
+                                            id=@($"addOrRemoveCompanyUserBtn{user.Id}")>
+                                    </button>
+                                }
+                            }
+
                     </th>
                 </tr>
             }
@@ -88,6 +107,20 @@
                                                  by = Model.PageInfo.SortingOption, filter = Model.JsonFilters })>@(i)</a></li>
             }
         </ul>
+    </div>
+</div>
+
+<div id="AddingOrRemovingModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="AddingOrRemovingModalMessageId">@R.DeleteUserQuestion</h4>
+            </div>
+            <div class="modal-body-central">
+                <button class="btn btn-success" id="addOrRemoveBtnId">@R.Confirm</button>
+                <button class="btn btn-default" id="cancelAddingOrRemovingBtnId">@R.Cancel</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -139,8 +172,10 @@
                 presentUrl: '@Url.Action("Users", "Admin", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption})',
                 sortingOption: '@Model.PageInfo.SortingOption',
                 changeAdminRoleUrl: '@Url.Action("ChangeUserAdminRole", "Admin")',
+                setCompanyUrl: '@Url.Action("SetUserCompany", "Admin")',
                 filters: '@Model.FilterInfo.FiltertsList',
-                IllegalCharsError: '@R.IllegalCharsError'
+                IllegalCharsError: '@R.IllegalCharsError',
+                adminCompanyId: parseInt('@User.GetCompany()')
             };
 
             var productTableNamespace = window.Utils.getNamespace("ProductTable");
