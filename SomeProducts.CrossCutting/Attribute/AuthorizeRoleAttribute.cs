@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SomeProducts.CrossCutting.Helpers;
 
 public enum UserRole
 {
@@ -35,6 +36,8 @@ namespace SomeProducts.Attribute
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
+            if(httpContext.User.GetCompany() == CrossCutting.Constants.Constants.EmtyCompanyId)
+                return false;
             var isAuthorized = base.AuthorizeCore(httpContext);
             return  _userRoles?.Any(role => httpContext.User.IsInRole(RolesDictionary[role])) 
                 ?? isAuthorized;

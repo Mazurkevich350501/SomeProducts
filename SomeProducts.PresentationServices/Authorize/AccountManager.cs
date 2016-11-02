@@ -1,4 +1,5 @@
 ﻿
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using SomeProducts.DAL.Models;

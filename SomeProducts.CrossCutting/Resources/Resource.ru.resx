@@ -309,4 +309,7 @@
   <data name="Users" xml:space="preserve">
     <value>Пользователи</value>
   </data>
+  <data name="YouDoNotHaveAccess" xml:space="preserve">
+    <value>У вас нет доступа!</value>
+  </data>
 </root>

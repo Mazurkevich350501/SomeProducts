@@ -133,4 +133,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="Role_Id" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="502034eb-a15b-4598-8496-b46f099382ce" ChangeDateTime="11/01/2016 17:05:16">
+    <Property Name="ElementName" Value="[dbo].[AK_Brands_Column]" />
+    <Property Name="ElementType" Value="SqlUniqueConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Brands]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[AK_Brands_Name_CompanyId]" />
+  </Operation>
 </Operations>

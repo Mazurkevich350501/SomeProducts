@@ -626,5 +626,14 @@ namespace Resources {
                 return ResourceManager.GetString("Users", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You do not have access!.
+        /// </summary>
+        public static string YouDoNotHaveAccess {
+            get {
+                return ResourceManager.GetString("YouDoNotHaveAccess", resourceCulture);
+            }
+        }
     }
 }

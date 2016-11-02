@@ -306,4 +306,7 @@
   <data name="Users" xml:space="preserve">
     <value>Users</value>
   </data>
+  <data name="YouDoNotHaveAccess" xml:space="preserve">
+    <value>You do not have access!</value>
+  </data>
 </root>
