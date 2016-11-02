@@ -1,8 +1,8 @@
 ﻿
 using System.Web.Mvc;
 using SomeProducts.CrossCutting.Filter.Model;
+using SomeProducts.CrossCutting.Helpers;
 using SomeProducts.CrossCutting.ProjectLogger;
-using SomeProducts.Helpers;
 using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
 using SomeProducts.PresentationServices.Models;
 using FilterInfo = SomeProducts.CrossCutting.Filter.Model.FilterInfo;

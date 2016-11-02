@@ -148,7 +148,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Helpers\CompanyHelper.cs" />
     <Compile Include="ProjectGlobalFilters\LocalizationFilter.cs" />
     <Compile Include="AutofacModule\ControllerModule.cs" />
     <Compile Include="Controllers\AccountController.cs" />

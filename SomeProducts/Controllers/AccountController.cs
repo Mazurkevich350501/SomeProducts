@@ -112,12 +112,10 @@ namespace SomeProducts.Controllers
             }
 
             HttpContext.GetOwinContext().Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            var identity = await _manager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
-            identity.AddClaim(new Claim("CompanyId", user.CompanyId.ToString()));
+            var identity = await user.GenerateUserIdentityAsync(_manager);
             var properties = new AuthenticationProperties()
             {
-                IsPersistent = false,
-                AllowRefresh = true
+                IsPersistent = false
             };
             HttpContext.GetOwinContext().Authentication.SignIn(properties, identity);
             return IdentityResult.Success;
