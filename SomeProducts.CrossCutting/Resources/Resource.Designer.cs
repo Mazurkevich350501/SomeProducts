@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to add user to company?.
+        /// </summary>
+        public static string AddUserToCompanyQuestion {
+            get {
+                return ResourceManager.GetString("AddUserToCompanyQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin.
         /// </summary>
         public static string Admin {
@@ -120,6 +129,15 @@ namespace Resources {
         public static string Color {
             get {
                 return ResourceManager.GetString("Color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Company.
+        /// </summary>
+        public static string Company {
+            get {
+                return ResourceManager.GetString("Company", resourceCulture);
             }
         }
         
@@ -538,6 +556,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to remove user from company?.
+        /// </summary>
+        public static string RemoveUserFromCompanyQuestion {
+            get {
+                return ResourceManager.GetString("RemoveUserFromCompanyQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Field is required..
         /// </summary>
         public static string RequiredField {
@@ -565,6 +592,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select company.
+        /// </summary>
+        public static string SelectCompany {
+            get {
+                return ResourceManager.GetString("SelectCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign In.
         /// </summary>
         public static string SignIn {
@@ -588,6 +624,15 @@ namespace Resources {
         public static string Users {
             get {
                 return ResourceManager.GetString("Users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You do not have access!.
+        /// </summary>
+        public static string YouDoNotHaveAccess {
+            get {
+                return ResourceManager.GetString("YouDoNotHaveAccess", resourceCulture);
             }
         }
     }

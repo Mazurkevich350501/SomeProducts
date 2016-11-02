@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using SomeProducts.DAL.Models;
 
 namespace SomeProducts.DAL.IDao
@@ -8,18 +8,20 @@ namespace SomeProducts.DAL.IDao
     {
         Product GetProduct(int id);
 
-        Product GetLastProduct();
+        Product GetLastProduct(int companyId);
 
         bool UpdateProduct(Product product);
 
         void CreateProduct(Product product);
 
         void RemoveProduct(Product product);
+        
+        IQueryable<Product> GetAllProducts();
 
-        DateTime GetCreateTime(int id);
+        IQueryable<Product> GetCompanyProducts(int companyId);
 
-        int GetProductCount();
+        Product GetProduct(int companyId, int productId);
 
-        IEnumerable<Product> GetAllProducts();
+        int GetCompanyProductCount(int? companyId);
     }
 }

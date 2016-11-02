@@ -10,14 +10,15 @@ namespace SomeProducts.DAL.Test
     [TestClass]
     public class ProductDaoTest
     {
-        private Mock<IRepository<Product>> _productRepository;
+        private Mock<IDateModifiedRepository<Product>> _productRepository;
         private ProductDao _productDao;
         private Product _product;
+        private const int CompanyId = 1;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            _productRepository = new Mock<IRepository<Product>>();
+            _productRepository = new Mock<IDateModifiedRepository<Product>>();
             _productDao = new ProductDao(_productRepository.Object);
             _product = new Product()
             {
@@ -58,9 +59,9 @@ namespace SomeProducts.DAL.Test
         [TestMethod]
         public void GetLastProduct_Should_Return_Last_Product()
         {
-            _productRepository.Setup(r => r.GetLast()).Returns(_product);
+            _productRepository.Setup(r => r.GetLast(CompanyId)).Returns(_product);
 
-            var result = _productDao.GetLastProduct();
+            var result = _productDao.GetLastProduct(CompanyId);
 
             Assert.AreEqual(_product, result);
         }
@@ -87,17 +88,6 @@ namespace SomeProducts.DAL.Test
             _productDao.CreateProduct(_product);
 
             Assert.AreEqual(_product, product);
-        }
-
-        [TestMethod]
-        public void GetCreateTime_Should_Return_Creation_Date()
-        {
-            _productRepository.Setup(r => r.GetCreateTime(It.IsAny<int>()))
-                .Returns(_product.CreateDate);
-
-            var result = _productDao.GetCreateTime(_product.Id);
-
-            Assert.AreEqual(_product.CreateDate, result);
         }
     }
 }

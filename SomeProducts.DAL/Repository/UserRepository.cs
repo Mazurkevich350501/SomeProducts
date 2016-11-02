@@ -1,15 +1,15 @@
 ﻿
-using System;
 using System.Data.Entity.Migrations;
 using SomeProducts.DAL.Models;
 using SomeProducts.DAL.Context;
 using System.Linq;
 using System.Threading.Tasks;
 using SomeProducts.DAL.Repository.Interface;
+using System;
 
 namespace SomeProducts.DAL.Repository
 {
-    public class UserRepository : IRepositoryAsync<User>
+    public class UserRepository : IUserRepository
     {
         private readonly ProductContext _db;
 
@@ -46,6 +46,16 @@ namespace SomeProducts.DAL.Repository
         public User GetById(int id)
         {
            return _db.Users.Find(id);
+        }
+
+        public User GetCompanyItem(int companyId, int itemId)
+        {
+            return GetCompanyItems(companyId).FirstOrDefault(i => i.Id == itemId);
+        }
+
+        public IQueryable<User> GetCompanyItems(int companyId)
+        {
+            return _db.Users.Where(i => i.CompanyId == companyId);
         }
 
         public async Task SaveAsync()

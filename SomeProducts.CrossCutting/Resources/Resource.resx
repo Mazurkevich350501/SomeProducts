@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddUserToCompanyQuestion" xml:space="preserve">
+    <value>Do you want to add user to company?</value>
+  </data>
   <data name="Admin" xml:space="preserve">
     <value>Admin</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="Color" xml:space="preserve">
     <value>Color</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Company</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>Confirm</value>
@@ -276,6 +282,9 @@
   <data name="Register" xml:space="preserve">
     <value>Register</value>
   </data>
+  <data name="RemoveUserFromCompanyQuestion" xml:space="preserve">
+    <value>Do you want to remove user from company?</value>
+  </data>
   <data name="RequiredField" xml:space="preserve">
     <value>Field is required.</value>
   </data>
@@ -285,6 +294,9 @@
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="SelectCompany" xml:space="preserve">
+    <value>Select company</value>
+  </data>
   <data name="SignIn" xml:space="preserve">
     <value>Sign In</value>
   </data>
@@ -293,5 +305,8 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>Users</value>
+  </data>
+  <data name="YouDoNotHaveAccess" xml:space="preserve">
+    <value>You do not have access!</value>
   </data>
 </root>

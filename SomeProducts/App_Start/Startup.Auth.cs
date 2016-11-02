@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -21,12 +22,13 @@ namespace SomeProducts
                 {
                      
                     OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<AccountManager, User, int>(
-                        validateInterval: TimeSpan.FromMinutes(30),
-                        regenerateIdentityCallback: (manager, user) => manager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie),
-                        getUserIdCallback: (id) => (int.Parse(id.GetUserId())))
+                        validateInterval: TimeSpan.FromSeconds(30),
+                        regenerateIdentityCallback: (manager, user) => user.GenerateUserIdentityAsync(manager),
+                        getUserIdCallback: (user) => (int.Parse(user.GetUserId())))
                 }
-            });
+            }); 
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
         }
     }
 }
+

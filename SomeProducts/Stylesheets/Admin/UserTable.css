@@ -1,4 +1,15 @@
-﻿.modal-body-central {
+﻿th {
+    min-width: 250px;
+    max-width: 250px;
+}
+
+.btn-setting {
+    border: none;
+    background: none;
+    color: blueviolet;
+}
+
+.modal-body-central {
     text-align: center;
     padding: 20px;
 }
@@ -23,15 +34,18 @@
 }
 
 .th-setAdmin {
+    min-width: 100px;
     max-width: 100px;
 }
 
     .th-setAdmin button {
+        display: block;
         background-color: red;
         color: white;
     }
 
 .th-remove {
+    min-width: 50px;
     max-width: 50px;
 }
 
@@ -43,8 +57,18 @@
         height: 30px;
     }
 
+.th-addOrRemove {
+    max-width: 50px;
+}
+
+    .th-addOrRemove button {
+        border: none;
+        background: white;
+        width: 30px;
+        height: 30px;
+    }
 table {
-    max-width: 1000px;
+    max-width: 600px;
     border: 2px solid #357ebd;
 }
 
@@ -69,10 +93,4 @@ tbody {
     overflow-x: hidden;
 }
 
-th {
-    -moz-min-width: 200px;
-    -ms-min-width: 200px;
-    -o-min-width: 200px;
-    -webkit-min-width: 200px;
-    min-width: 300px;
-}
+

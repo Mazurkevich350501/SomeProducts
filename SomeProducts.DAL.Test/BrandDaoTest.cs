@@ -12,22 +12,24 @@ namespace SomeProducts.DAL.Test
     [TestClass]
     public class BrandDaoTest
     {
-        private Mock<IRepository<Brand>> _brandRepository;
-        private Mock<IRepository<Product>> _productRepository;
+        private Mock<IDateModifiedRepository<Brand>> _brandRepository;
+        private Mock<IDateModifiedRepository<Product>> _productRepository;
         private BrandDao _brandDao;
         private Brand _brand;
+        private const int CompanyId = 1;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            _brandRepository = new Mock<IRepository<Brand>>();
-            _productRepository = new Mock<IRepository<Product>>();
+            _brandRepository = new Mock<IDateModifiedRepository<Brand>>();
+            _productRepository = new Mock<IDateModifiedRepository<Product>>();
             _brandDao = new BrandDao(_brandRepository.Object, _productRepository.Object);
             _brand = new Brand()
             {
                 Id = 5,
                 Name = "name",
-                CreateDate = DateTime.Now
+                CreateDate = DateTime.Now,
+                CompanyId = CompanyId
             };
         }
 
@@ -56,13 +58,13 @@ namespace SomeProducts.DAL.Test
         }
 
         [TestMethod]
-        public void GetAllItems_Should_Return_All_Brands()
+        public void GetCompanyBrands_Should_Return_All_Company_Brands()
         {
             var brandList = new List<Brand>() { _brand, _brand, _brand };
-            _brandRepository.Setup(r => r.GetAllItems())
+            _brandRepository.Setup(r => r.GetCompanyItems(It.IsAny<int>()))
                 .Returns(brandList.AsQueryable());
 
-            var result = _brandDao.GetAllItems();
+            var result = _brandDao.GetCompanyBrands(CompanyId);
 
             CollectionAssert.AreEqual(brandList, result.ToList());
         }
@@ -72,14 +74,14 @@ namespace SomeProducts.DAL.Test
         {
             var productList = new List<Product>
             {
-                new Product() {Brand = new Brand() {Id = 1, Name = "name1"}},
-                new Product() {Brand = new Brand() {Id = 2, Name = "name2"}}
+                new Product() {Brand = new Brand() {Id = 1, Name = "name1", CompanyId = CompanyId}, CompanyId = CompanyId}, 
+                new Product() {Brand = new Brand() {Id = 2, Name = "name2", CompanyId = CompanyId}, CompanyId = CompanyId}
             };
-            _productRepository.Setup(r => r.GetAllItems())
+            _productRepository.Setup(r => r.GetCompanyItems(It.IsAny<int>()))
                 .Returns(productList.AsQueryable());
 
-            var trueResult = _brandDao.IsBrandUsing(2);
-            var falseResult = _brandDao.IsBrandUsing(3);
+            var trueResult = _brandDao.IsBrandUsing(CompanyId, 2);
+            var falseResult = _brandDao.IsBrandUsing(CompanyId, 3);
 
             Assert.IsTrue(trueResult);
             Assert.IsFalse(falseResult);

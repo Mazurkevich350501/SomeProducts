@@ -8,19 +8,20 @@ using SomeProducts.DAL.Repository;
 namespace SomeProducts.DAL.Test
 {
 # if DEBUG
-    [TestClass]
+    //[TestClass]
 # endif
     public class BaseRepositoryTest
     {
-        private static BaseRepository<Brand> _repository;
+        private static DateModifiedRepository<Brand> _repository;
         private static Brand _brand;
+        private const int CompanyId = 1;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            _brand = new Brand() { Name = "name" };
+            _brand = new Brand() { Name = "name", CompanyId = CompanyId};
             AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory));
-            _repository = new BaseRepository<Brand>("name=Test");
+            _repository = new DateModifiedRepository<Brand>("name=Test");
         }
 
         [TestCleanup]
@@ -40,7 +41,7 @@ namespace SomeProducts.DAL.Test
             _repository.Create(_brand);
             _repository.Save();
 
-            var result = _repository.GetLast();
+            var result = _repository.GetLast(CompanyId);
 
             Assert.IsNotNull(_brand);
             Assert.AreEqual(_brand.Name, result.Name);
@@ -52,7 +53,7 @@ namespace SomeProducts.DAL.Test
             _repository.Create(_brand);
             _repository.Save();
 
-            var result = _repository.GetLast();
+            var result = _repository.GetLast(CompanyId);
             
             Assert.IsTrue(DateTime.Compare(DateTime.UtcNow.Subtract(TimeSpan.FromSeconds(10)), result.CreateDate) < 0);
         }
@@ -85,7 +86,7 @@ namespace SomeProducts.DAL.Test
         {
             _repository.Create(_brand);
             _repository.Save();
-            var brand = _repository.GetLast();
+            var brand = _repository.GetLast(CompanyId);
             brand.Name = "name2";
 
             _repository.Update(brand);
@@ -100,7 +101,7 @@ namespace SomeProducts.DAL.Test
         {
             _repository.Create(_brand);
             _repository.Save();
-            var brand = _repository.GetLast();
+            var brand = _repository.GetLast(CompanyId);
             brand.Name = "name2";
 
             _repository.Update(brand);
@@ -109,18 +110,6 @@ namespace SomeProducts.DAL.Test
 
             Assert.IsNotNull(result.ModifiedDate);
             Assert.IsTrue(DateTime.Compare(DateTime.UtcNow.Subtract(TimeSpan.FromSeconds(10)), result.ModifiedDate.Value) < 0);
-        }
-
-        [TestMethod]
-        public void GetCreatTime_Should_Return_CreateDate()
-        {
-            _repository.Create(_brand);
-            _repository.Save();
-
-            var brand = _repository.GetLast();
-            var result = _repository.GetCreateTime(brand.Id);
-
-            Assert.AreEqual(brand.CreateDate, result);
         }
     }
 }

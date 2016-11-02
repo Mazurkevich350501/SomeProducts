@@ -7,6 +7,6 @@ namespace SomeProducts.PresentationServices.IPresentationSevices.ProductTable
 {
     public interface IProductTablePresentationService
     {
-        ProductTableViewModel GetTablePage(PageInfo pageInfo, FilterInfo filterInfo);
+        ProductTableViewModel GetTablePage(PageInfo pageInfo, FilterInfo filterInfo, int? companyId);
     }
 }

@@ -11,10 +11,10 @@ namespace SomeProducts.DAL.Dao
 {
     public class UserDao : IUserDao
     {
-        private readonly IRepositoryAsync<User> _userRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IRepositoryAsync<Role> _roleRepository;
 
-        public UserDao(IRepositoryAsync<User> userRepository, IRepositoryAsync<Role> roleRepository)
+        public UserDao(IUserRepository userRepository, IRepositoryAsync<Role> roleRepository)
         {
             _userRepository = userRepository;
             _roleRepository = roleRepository;
@@ -107,14 +107,27 @@ namespace SomeProducts.DAL.Dao
             return Task.FromResult(user.Roles.Any(r => r.Name == roleName ));
         }
 
-        public int GetUserCount()
+        public int GetUserCount(int? companyId)
         {
-            return GetAllUsers().Count();
+            var users = companyId == null
+                ? GetAllUsers()
+                : GetCompanyUsers(companyId.Value);
+            return users.Count();
         }
 
         public IQueryable<User> GetAllUsers()
         {
             return _userRepository.GetAllItems();
+        }
+
+        public async Task<int> GetUserCompanyId(int userId)
+        {
+            return (await FindByIdAsync(userId)).CompanyId;
+        }
+
+        public IQueryable<User> GetCompanyUsers(int companyId)
+        {
+            return _userRepository.GetCompanyItems(companyId);
         }
     }
 }

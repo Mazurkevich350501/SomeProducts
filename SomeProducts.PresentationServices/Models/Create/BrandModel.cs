@@ -14,6 +14,8 @@ namespace SomeProducts.PresentationServices.Models.Create
         [Display(Name = "Brand", ResourceType = typeof(Resources.Resource))]
         public string Name { get; set; }
 
+        public int CompanyId { get; set; }
+
         public byte[] Version { get; set; }
     }
 }

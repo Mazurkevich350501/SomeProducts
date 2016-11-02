@@ -44,5 +44,7 @@ namespace SomeProducts.PresentationServices.Models.Create
         public string ImageType { get; set; }
 
         public byte[] Version { get; set; }
+
+        public int CompanyId { get; set; }
     }
 }

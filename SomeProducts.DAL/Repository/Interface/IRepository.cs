@@ -11,7 +11,5 @@ namespace SomeProducts.DAL.Repository.Interface
         bool Update(T item);
         void Delete(T item);
         void Save();
-        T GetLast();
-        DateTime GetCreateTime(int id);
     }
 }

@@ -1,6 +1,7 @@
 ﻿
 using System.Web.Mvc;
 using SomeProducts.CrossCutting.Filter.Model;
+using SomeProducts.CrossCutting.Helpers;
 using SomeProducts.CrossCutting.ProjectLogger;
 using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
 using SomeProducts.PresentationServices.Models;
@@ -27,7 +28,12 @@ namespace SomeProducts.Controllers
             [ModelBinder(typeof(FilterInfoModelBinder))]FilterInfo filter)
         {
             var pageInfo = new PageInfo(page, count, by);
-            var model = _service.GetTablePage(pageInfo, filter);
+            int? companyId = null;
+            if (!User.IsInRole(nameof(UserRole.SuperAdmin)))
+            {
+                companyId = User.GetCompany();
+            }
+            var model = _service.GetTablePage(pageInfo, filter, companyId);
             return View("ProductTable", model);
         }
     }

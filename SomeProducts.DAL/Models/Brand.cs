@@ -5,7 +5,7 @@ using SomeProducts.DAL.Repository.Interface;
 
 namespace SomeProducts.DAL.Models
 {
-    public class Brand : IDateModified, IIdentify, IComparable
+    public class Brand : IDateModified, IIdentify, IAvailableCompany
     {
         public int Id { get; set; }
 
@@ -18,9 +18,6 @@ namespace SomeProducts.DAL.Models
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
-        public int CompareTo(object obj)
-        {
-            return string.Compare(Name, ((Brand)obj).Name, StringComparison.Ordinal);
-        }
+        public int CompanyId { get; set; }
     }
 }

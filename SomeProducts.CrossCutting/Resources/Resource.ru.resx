@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddUserToCompanyQuestion" xml:space="preserve">
+    <value>Вы хотите добавить пользователя в компанию?</value>
+  </data>
   <data name="Admin" xml:space="preserve">
     <value>Админ</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="Color" xml:space="preserve">
     <value>Цвет</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Компания</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>Подтвердить</value>
@@ -279,6 +285,9 @@
   <data name="Register" xml:space="preserve">
     <value>Регистрация</value>
   </data>
+  <data name="RemoveUserFromCompanyQuestion" xml:space="preserve">
+    <value>Вы хотите удалить пользователя из компании?</value>
+  </data>
   <data name="RequiredField" xml:space="preserve">
     <value>Поле является обязательным.</value>
   </data>
@@ -288,6 +297,9 @@
   <data name="Save" xml:space="preserve">
     <value>Сохранить</value>
   </data>
+  <data name="SelectCompany" xml:space="preserve">
+    <value>Выберете компанию</value>
+  </data>
   <data name="SignIn" xml:space="preserve">
     <value>Войти</value>
   </data>
@@ -296,5 +308,8 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>Пользователи</value>
+  </data>
+  <data name="YouDoNotHaveAccess" xml:space="preserve">
+    <value>У вас нет доступа!</value>
   </data>
 </root>

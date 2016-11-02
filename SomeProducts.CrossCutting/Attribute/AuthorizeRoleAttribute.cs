@@ -2,11 +2,13 @@
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SomeProducts.CrossCutting.Helpers;
 
 public enum UserRole
 {
-    Admin,
-    User
+    Admin = 1,
+    User,
+    SuperAdmin
 }
 
 namespace SomeProducts.Attribute
@@ -17,8 +19,9 @@ namespace SomeProducts.Attribute
 
         private static readonly Dictionary<UserRole, string> RolesDictionary = new Dictionary<UserRole, string>()
         {
-             {UserRole.Admin, nameof(UserRole.Admin) },
-             {UserRole.User, nameof(UserRole.User) }
+            {UserRole.SuperAdmin, nameof(UserRole.SuperAdmin) },
+            {UserRole.Admin, nameof(UserRole.Admin) },
+            {UserRole.User, nameof(UserRole.User) }
         };
 
         public AuthorizeRoleAttribute()
@@ -33,6 +36,8 @@ namespace SomeProducts.Attribute
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
+            if(httpContext.User.GetCompany() == CrossCutting.Constants.Constants.EmtyCompanyId)
+                return false;
             var isAuthorized = base.AuthorizeCore(httpContext);
             return  _userRoles?.Any(role => httpContext.User.IsInRole(RolesDictionary[role])) 
                 ?? isAuthorized;

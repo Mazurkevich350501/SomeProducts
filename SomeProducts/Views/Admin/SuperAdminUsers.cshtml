@@ -1,8 +1,8 @@
 ﻿
+
 @using PagedList.Mvc
-@using SomeProducts.CrossCutting.Helpers
 @using R = Resources.Resource
-@model SomeProducts.PresentationServices.Models.Admin.AdminUserTableViewModel
+@model SomeProducts.PresentationServices.Models.Admin.SuperAdminUserTableViewModel
 @{
     ViewBag.Title = "Items";
 }
@@ -30,8 +30,13 @@
                         @R.Roles
                     </div>
                 </th>
+                <th>
+                    <div id="th-company" data-type="sort" data-name="Company" class="pointer">
+                        @R.Company
+                    </div>
+                </th>
                 <th class="th-setAdmin"></th>
-                <th class="th-addOrRemove"></th>
+                <th class="th-remove"></th>
             </tr>
         </thead>
         <tbody>
@@ -48,48 +53,41 @@
                     <th>
                         @Html.Raw(string.Join(", ", user.Roles)).ToHtmlString()
                     </th>
+                    <th>
+                        @if (User.Identity.Name != user.Name)
+                        {
+                            <div class="userCompany">
+                                <button class="glyphicon glyphicon-cog btn-setting" data-id="@user.Id"></button>
+                                <span class="companyDisplay-@user.Id">@Html.DisplayFor(p => user.CompanyName)</span>
+                            </div>
+                        }
+                    </th>
                     <th class="th-setAdmin">
                         @if (User.Identity.Name != user.Name)
                         {
                             var setAdminBtnColor = user.Roles.Contains(nameof(UserRole.Admin))
                                 ? "green" : "red";
-                            var hidden = user.CompanyId == User.GetCompany() ? "auto" : "none";
                             <button class="btn btn-default" data-id="@user.Id"
                                     id=@($"setAdminBtn{user.Id}")
-                                    style=@($"display:{hidden};background-color:{setAdminBtnColor};")>
+                                    style=@($"background-color:{setAdminBtnColor};")>
                                 @R.Admin
                             </button>
                         }
+
                     </th>
-                    <th class="th-addOrRemove">
+                    <th class="th-remove">
                         @if (User.Identity.Name != user.Name)
                         {
-                            if (user.CompanyId == User.GetCompany())
-                            {
-                                <button data-id="@user.Id"
-                                        data-company="@user.CompanyId"
-                                        class="glyphicon glyphicon-remove"
-                                        style="color: red;"
-                                        id=@($"addOrRemoveCompanyUserBtn{user.Id}")>
-                                </button>
-                                }
-                                else
-                                {
-                                    <button data-id = "@user.Id"
-                                            data-company="@user.CompanyId"
-                                            class="glyphicon glyphicon-ok"
-                                            style="color: green"
-                                            id=@($"addOrRemoveCompanyUserBtn{user.Id}")>
-                                    </button>
-                                }
-                            }
-
+                            <button class="glyphicon glyphicon-remove" data-id="@user.Id"></button>
+                        }
                     </th>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+
+
 
 <div class="row filters-container">
     <div class="col-xs-5">
@@ -103,24 +101,12 @@
         <ul class="dropdown-menu">
             @for (var i = 5; i <= SomeProducts.CrossCutting.Constants.Constants.MaxItemsCountPerPage; i += 5)
             {
-                <li><a class="dropdown-item" href=@Url.Action("Users", "Admin", new { page = Model.PageInfo.Page, count = i,
-                                                 by = Model.PageInfo.SortingOption, filter = Model.JsonFilters })>@(i)</a></li>
+                <li>
+                    <a class="dropdown-item" href=@Url.Action("Users", "Admin", new { page = Model.PageInfo.Page, count = i,
+                                                 by = Model.PageInfo.SortingOption, filter = Model.JsonFilters })>@i</a>
+                                            </li>
             }
         </ul>
-    </div>
-</div>
-
-<div id="AddingOrRemovingModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="AddingOrRemovingModalMessageId">@R.DeleteUserQuestion</h4>
-            </div>
-            <div class="modal-body-central">
-                <button class="btn btn-success" id="addOrRemoveBtnId">@R.Confirm</button>
-                <button class="btn btn-default" id="cancelAddingOrRemovingBtnId">@R.Cancel</button>
-            </div>
-        </div>
     </div>
 </div>
 
@@ -163,6 +149,30 @@
     </div>
 </div>
 
+<div id="ChangeCompanyModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">@R.SelectCompany:</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <h4>@R.Company:</h4>
+                    </div>
+                    <div class="col-xs-10">
+                        @Html.DropDownList("SelectCompany", new SelectList(Model.CompaniesDictionary, "Key", "Value"), new {@class = "btn btn-default dropdown-toggle", style = "min-width:200px;"})
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body-central">
+                <button class="btn btn-success" id="changeCompanyBtnId">@R.Confirm</button>
+                <button class="btn btn-default" id="cancelChangeCompanyBtnId">@R.Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section scripts
 {
     <script>
@@ -174,10 +184,7 @@
                 changeAdminRoleUrl: '@Url.Action("ChangeUserAdminRole", "Admin")',
                 setCompanyUrl: '@Url.Action("SetUserCompany", "Admin")',
                 filters: '@Model.FilterInfo.FiltertsList',
-                IllegalCharsError: '@R.IllegalCharsError',
-                adminCompanyId: parseInt('@User.GetCompany()'),
-                addUserToCompanyQuestion: '@R.AddUserToCompanyQuestion',
-                removeUserFromCompanyQuestion : '@R.RemoveUserFromCompanyQuestion'
+                IllegalCharsError: '@R.IllegalCharsError'
             };
 
             var productTableNamespace = window.Utils.getNamespace("ProductTable");

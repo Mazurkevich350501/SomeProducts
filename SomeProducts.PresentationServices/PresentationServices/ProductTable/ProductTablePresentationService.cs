@@ -33,13 +33,13 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
             };
         }
 
-        public ProductTableViewModel GetTablePage(PageInfo pageInfo, FilterInfo filterInfo)
+        public ProductTableViewModel GetTablePage(PageInfo pageInfo, FilterInfo filterInfo, int? companyId)
         {
             var sortingOption = SortingOptionHelper.GetOptionValue(pageInfo.SortingOption, SortingOptionDictionary);
-            var productList = GetFilteredAndSortedProducts(sortingOption, filterInfo);
+            var productList = GetFilteredAndSortedProducts(sortingOption, filterInfo, companyId);
             var tableList = productList.ToPagedList(pageInfo.Page, pageInfo.ItemsCount).Select(ProductTableModelCast).AsQueryable();
             var newFilter = InitFilterInfo(filterInfo);
-            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option);
+            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option, companyId);
 
             var result = new ProductTableViewModel
             {
@@ -53,10 +53,10 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
             return result;
         }
 
-        private PageInfo SetPageInfo(PageInfo pageInfo, string option)
+        private PageInfo SetPageInfo(PageInfo pageInfo, string option, int? companyId)
         {
             pageInfo.SortingOption = option;
-            pageInfo.TotalItemsCount = _dao.GetProductCount();
+            pageInfo.TotalItemsCount = _dao.GetCompanyProductCount(companyId);
             return pageInfo;
         }
 
@@ -85,9 +85,12 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
             return result;
         }
         
-        private IQueryable<Product> GetFilteredAndSortedProducts(SortingOption option, FilterInfo info)
+        private IQueryable<Product> GetFilteredAndSortedProducts(SortingOption option, FilterInfo info, int? companyId)
         {
-            return _dao.GetAllProducts().AsQueryable().GetFilteredProduct(info).Sort(option.Option, option.Order == Order.Reverse);
+            var products = companyId == null
+                ? _dao.GetAllProducts()
+                : _dao.GetCompanyProducts(companyId.Value);
+            return products.GetFilteredProduct(info).Sort(option.Option, option.Order == Order.Reverse);
         }
 
         private static string GetShortString(string str, int length)

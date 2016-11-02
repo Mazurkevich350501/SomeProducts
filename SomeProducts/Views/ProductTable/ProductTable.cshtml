@@ -1,13 +1,15 @@
 ﻿
 @using PagedList.Mvc
+@using SomeProducts.CrossCutting.Helpers
 @using R = Resources.Resource
 @model SomeProducts.PresentationServices.Models.ProductTable.ProductTableViewModel
+@if (User.IsInCompany())
+{
+    @Html.Partial("Common/Filters", Model.FilterInfo)
 
-@Html.Partial("Common/Filters", Model.FilterInfo)
-
-<div class="product-table-div">
-    <table class="table" id="productTable">
-        <thead>
+    <div class="product-table-div">
+        <table class="table" id="productTable">
+            <thead>
             <tr>
                 <th>
 
@@ -30,24 +32,24 @@
                 </th>
                 <th class="th-remove"></th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             @foreach (var product in Model.Items)
             {
 
                 <tr @(User.IsInRole(nameof(UserRole.Admin)) || User.IsInRole("User")
-                          ? $"onclick=window.open('{ Url.Action("Edit", "Product", new {id = product.Id})}')" : "") 
+                          ? $"onclick=window.open('{Url.Action("Edit", "Product", new {id = product.Id})}')" : "")
                     class="pointer">
                     <th>
                         @if (@product.Image != null)
-                    {
+                        {
                             <img class="product-table-image" style="border: 6px solid @product.Color;"
-                                 src="data:@product.ImageType;base64,@Convert.ToBase64String(product.Image)" alt="" />
+                                 src="data:@product.ImageType;base64,@Convert.ToBase64String(product.Image)" alt=""/>
                         }
                         else
                         {
                             <img class="product-table-image" style="border: 6px solid @product.Color;"
-                                 src="~/Resources/emptyImage.jpg" alt="" />
+                                 src="~/Resources/emptyImage.jpg" alt=""/>
                         }
                     </th>
                     <th>
@@ -70,61 +72,66 @@
                     </th>
                 </tr>
             }
-        </tbody>
-    </table>
-</div>
-
-<div class="row filters-container">
-    <div class="col-xs-5">
-        @Html.PagedListPager(Model.Items, page => Url.Action("Show", "ProductTable", new { page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters }))
+            </tbody>
+        </table>
     </div>
-    <div class="dropdown col-xs-6 product-counter">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-            @R.ItemsCount: @Model.PageInfo.ItemsCount
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            @for (var i = 5; i <= SomeProducts.CrossCutting.Constants.Constants.MaxItemsCountPerPage; i+= 5)
-            {
-                <li><a class="dropdown-item" href=@Url.Action("Show", "ProductTable", new {page = Model.PageInfo.Page, count = i,
-                                                 by = Model.PageInfo.SortingOption, filter = Model.JsonFilters })>@(i)</a></li>
-            }
-        </ul>
-    </div>
-</div>
 
-<div id="RemovingModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">@R.DeleteProductQuestion</h4>
-            </div>
-            <form method="post" action=@Url.Action("Delete", "Product") enctype="multipart/form-data">
-                @Html.Hidden("productId", 0)
-                @Html.Hidden("redirectUrl", @Url.Action("Show", "ProductTable", new
-               {
-                   page = @Model.PageInfo.Page,
-                   count = @Model.PageInfo.ItemsCount,
-                   by = @Model.PageInfo.SortingOption,
-                   filter = Model.JsonFilters
-               }))
-                <div class="modal-body-central">
-                    <input type="submit" class="btn btn-danger" id="removeBtnId" value="@R.Delete" />
-                    <button class="btn btn-default" id="cancelDeleteBtnId">@R.Cancel</button>
-                </div>
-            </form>
+    <div class="row filters-container">
+        <div class="col-xs-5">
+            @Html.PagedListPager(Model.Items, page => Url.Action("Show", "ProductTable", new {page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters}))
+        </div>
+        <div class="dropdown col-xs-6 product-counter">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                @R.ItemsCount: @Model.PageInfo.ItemsCount
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                @for (var i = 5; i <= SomeProducts.CrossCutting.Constants.Constants.MaxItemsCountPerPage; i += 5)
+                {
+                    <li><a class="dropdown-item" href=@Url.Action("Show", "ProductTable", new
+                                                      {
+                                                          page = Model.PageInfo.Page, count = i,
+                                                          by = Model.PageInfo.SortingOption, filter = Model.JsonFilters
+                                                      })>@(i)</a></li>
+                }
+            </ul>
         </div>
     </div>
-</div>
+
+    <div id="RemovingModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">@R.DeleteProductQuestion</h4>
+                </div>
+                <form method="post" action=@Url.Action("Delete", "Product") enctype="multipart/form-data">
+                    @Html.Hidden("productId", 0)
+                    @Html.Hidden("redirectUrl", @Url.Action("Show", "ProductTable", new
+                    {
+                        page = @Model.PageInfo.Page,
+                        count = @Model.PageInfo.ItemsCount,
+                        by = @Model.PageInfo.SortingOption,
+                        filter = Model.JsonFilters
+                    }))
+                    <div class="modal-body-central">
+                        <input type="submit" class="btn btn-danger" id="removeBtnId" value="@R.Delete"/>
+                        <button class="btn btn-default" id="cancelDeleteBtnId">@R.Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
 @section scripts
 {
     <script>
-        $(function () {
+        $(function() {
             var params = {
-                url: '@Url.Action("Show", "ProductTable", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, filter = Model.JsonFilters })',
-                presentUrl: '@Url.Action("Show", "ProductTable", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption})',
+                url:
+                    '@Url.Action("Show", "ProductTable", new {page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, filter = Model.JsonFilters})',
+                presentUrl:
+                    '@Url.Action("Show", "ProductTable", new {page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption})',
                 sortingOption: '@Model.PageInfo.SortingOption',
                 deleteProductUrl: '@Url.Action("Delete", "Product")',
                 filters: '@Model.FilterInfo.FiltertsList',
@@ -150,4 +157,9 @@
     @Styles.Render("~/Product/ProductTable/css")
     @Styles.Render("~/Product/Comman/Filter/css")
 }
+}
 
+else
+{
+    <h1>@R.YouDoNotHaveAccess</h1>
+}

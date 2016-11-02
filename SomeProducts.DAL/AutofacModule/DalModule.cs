@@ -14,12 +14,14 @@ namespace SomeProducts.DAL.AutofacModule
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<ProductContext>().As<ProductContext>().SingleInstance();
-            builder.RegisterType<UserRepository>().As<IRepositoryAsync<User>>();
-            builder.RegisterType<RoleRepository>().As<IRepositoryAsync<Role>>();
+            builder.RegisterType<UserRepository>().As<IUserRepository>();
+            builder.RegisterType<BaseRepositoryAsync<Role>>().As<IRepositoryAsync<Role>>();
 
-            builder.RegisterType<BaseRepository<Product>>().As<IRepository<Product>>();
-            builder.RegisterType<BaseRepository<Brand>>().As<IRepository<Brand>>();
+            builder.RegisterType<BaseRepository<Company>>().As<IRepository<Company>>();
+            builder.RegisterType<DateModifiedRepository<Product>>().As<IDateModifiedRepository<Product>>();
+            builder.RegisterType<DateModifiedRepository<Brand>>().As<IDateModifiedRepository<Brand>>();
 
+            builder.RegisterType<CompanyDao>().As<ICompanyDao>();
             builder.RegisterType<ProductDao>().As<IProductDao>();
             builder.RegisterType<BrandDao>().As<IBrandDao>();
             builder.RegisterType<UserDao>().As<IUserStore<User, int>>();

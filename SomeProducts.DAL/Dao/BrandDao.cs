@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.Linq;
 using SomeProducts.DAL.IDao;
@@ -9,15 +9,14 @@ namespace SomeProducts.DAL.Dao
 {
     public class BrandDao : IBrandDao
     {
-        private readonly IRepository<Brand> _repository;
-        private readonly IRepository<Product> _productRepository;
+        private readonly IDateModifiedRepository<Brand> _repository;
+        private readonly IDateModifiedRepository<Product> _productRepository;
 
-        public BrandDao(IRepository<Brand> repository, IRepository<Product> productRepository)
+        public BrandDao(IDateModifiedRepository<Brand> repository, IDateModifiedRepository<Product> productRepository)
         {
             _repository = repository;
             _productRepository = productRepository;
         }
-
 
         public void CreateBrand(Brand brand)
         {
@@ -25,14 +24,14 @@ namespace SomeProducts.DAL.Dao
             _repository.Save();
         }
 
-        public IEnumerable<Brand> GetAllItems()
+        public IEnumerable<Brand> GetCompanyBrands(int companyId)
         {
-            return _repository.GetAllItems();
+            return _repository.GetCompanyItems(companyId);
         }
 
-        public bool IsBrandUsing(int id)
+        public bool IsBrandUsing(int companyId ,int id)
         {
-            return _productRepository.GetAllItems().Any(p => p.Brand.Id == id);
+            return _productRepository.GetCompanyItems(companyId).Any(p => p.Brand.Id == id);
         }
 
         public void RemoveBrand(Brand brand)
@@ -40,12 +39,7 @@ namespace SomeProducts.DAL.Dao
             _repository.Delete(brand);
             _repository.Save();
         }
-
-        public DateTime GetCreateTime(int id)
-        {
-            return _repository.GetCreateTime(id);
-        }
-
+        
         public bool UpdateBrand(Brand brand)
         {
             if (_repository.Update(brand))
@@ -56,9 +50,12 @@ namespace SomeProducts.DAL.Dao
             return false;
         }
 
-        public Brand GetById(int id)
+        public Brand GetById(int companyId, int id)
         {
-            return _repository.GetById(id);
+            var brand = _repository.GetById(id);
+            return brand.CompanyId == companyId
+                ? brand
+                : null;
         }
     }
 }

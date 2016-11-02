@@ -9,32 +9,27 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
 {
     public class BrandModelPresentationService : IBrandModelPresentationService
     {
-        private readonly IBrandDao _brandSevice;
+        private readonly IBrandDao _brandDao;
 
         public BrandModelPresentationService(IBrandDao brandSevice)
         {
-            _brandSevice = brandSevice;
+            _brandDao = brandSevice;
         }
 
         public void CreateBrand(BrandModel model)
         {
-            var brand = new Brand() { Id = model.Id, Name = model.Name, RowVersion = model.Version };
-            _brandSevice.CreateBrand(brand);
+            var brand = BrandModelCast(model);
+            _brandDao.CreateBrand(brand);
         }
 
         public void RemoveBrand(BrandModel model)
         {
-            _brandSevice.RemoveBrand(new Brand()
-            {
-                Id = model.Id,
-                Name = model.Name,
-                RowVersion = model.Version
-            });
+            _brandDao.RemoveBrand(BrandModelCast(model));
         }
 
-        public IEnumerable<BrandModel> GetAllItems()
+        public IEnumerable<BrandModel> GetCompanyBrands(int companyId)
         {
-            var brandList = _brandSevice.GetAllItems().ToList();
+            var brandList = _brandDao.GetCompanyBrands(companyId).AsQueryable();
             return brandList.Select(brand => new BrandModel()
             {
                 Id = brand.Id,
@@ -43,12 +38,12 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
             }).ToList();
         }
 
-        public bool IsBrandModelUsing(int id)
+        public bool IsBrandModelUsing(int companyId, int id)
         {
-            return _brandSevice.IsBrandUsing(id);
+            return _brandDao.IsBrandUsing(companyId, id);
         }
 
-        public void SaveBrandChanges(BrandsChangeModel changeModel)
+        public void SaveBrandChanges(BrandsChangeModel changeModel, int companyId)
         {
             if (changeModel != null)
             {
@@ -64,6 +59,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
                 {
                     foreach (var brand in changeModel.AddedBrands)
                     {
+                        brand.CompanyId = companyId;
                         CreateBrand(brand);
                     }
                 }
@@ -72,22 +68,29 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
                 {
                     foreach (var brand in changeModel.EditedBrands)
                     {
-                        UbdateBrandModel(brand);
+                        brand.CompanyId = companyId;
+                        UpdateBrandModel(brand);
                     }
                 }
             }
 
         }
 
-        public bool UbdateBrandModel(BrandModel model)
+        public bool UpdateBrandModel(BrandModel model)
         {
-            return _brandSevice.UpdateBrand(new Brand()
+            var brand = BrandModelCast(model);
+            return _brandDao.UpdateBrand(brand);
+        }
+
+        private static Brand BrandModelCast(BrandModel model)
+        {
+            return new Brand()
             {
-                Id = model.Id,
                 Name = model.Name,
+                Id = model.Id,
                 RowVersion = model.Version,
-                CreateDate = _brandSevice.GetCreateTime(model.Id)
-            });
+                CompanyId = model.CompanyId
+            };
         }
     }
 }

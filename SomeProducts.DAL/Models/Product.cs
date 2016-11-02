@@ -5,7 +5,7 @@ using SomeProducts.DAL.Repository.Interface;
 
 namespace SomeProducts.DAL.Models
 {
-    public class Product : IDateModified, IIdentify
+    public class Product : IDateModified, IIdentify, IAvailableCompany
     {
         public int Id { get; set; }
 
@@ -32,5 +32,11 @@ namespace SomeProducts.DAL.Models
 
         [Timestamp]
         public byte[] RowVersion { get; set; }
+
+        [Required]
+        public int CompanyId { get; set; }
+
+        [ForeignKey(nameof(CompanyId))]
+        public virtual Company Company { get; set; }
     }
 }

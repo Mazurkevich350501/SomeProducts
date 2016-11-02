@@ -3,6 +3,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SomeProducts.Attribute;
+using SomeProducts.CrossCutting.Helpers;
 using SomeProducts.CrossCutting.ProjectLogger;
 using SomeProducts.CrossCutting.Utils;
 using SomeProducts.PresentationServices.IPresentationSevices.Create;
@@ -27,15 +28,15 @@ namespace SomeProducts.Controllers
         [AuthorizeRole(UserRole.Admin)]
         public ActionResult Create()
         {
-            ProductViewModel model = _productViewModelService.GetProductViewModel();
+            var model = _productViewModelService.GetEmtyProductViewModel(User.GetCompany());
             return View(model);
         }
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var productModel = _productViewModelService.GetProductViewModel(id);
-            if (productModel.Product == null)
+            var productModel = _productViewModelService.GetProductViewModel(User.GetCompany(), id);
+            if (productModel?.Product == null)
             {
                 throw new HttpException(404, "Wrong product id");
             }
@@ -52,13 +53,13 @@ namespace SomeProducts.Controllers
             if (ModelState.IsValid)
             {
                 ImageUtils.AddImageToModel(model.Product, Request);
-                _productViewModelService.CreateProductViewModel(model);
-                var productModel = _productViewModelService.GetLastProductViewMode();
+                _productViewModelService.CreateProductViewModel(model, User.GetCompany());
+                var productModel = _productViewModelService.GetLastProductViewMode(User.GetCompany());
 
                 ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} create new product(id={productModel.Product.Id})");
                 return RedirectToAction("Edit", "Product", new { id = productModel.Product.Id });
             }
-            var newModel = _productViewModelService.GetProductViewModel();
+            var newModel = _productViewModelService.GetEmtyProductViewModel(User.GetCompany());
             newModel.Product = model.Product;
             return View(newModel);
         }
@@ -80,7 +81,7 @@ namespace SomeProducts.Controllers
                 return View("Error", (object)"Product already has changed");
             }
 
-            var newModel = _productViewModelService.GetProductViewModel();
+            var newModel = _productViewModelService.GetEmtyProductViewModel(User.GetCompany());
             newModel.Product = model.Product;
             return View("Create", newModel);
         }
@@ -89,7 +90,7 @@ namespace SomeProducts.Controllers
         public JsonResult SaveBrandsChanges(BrandsChangeModel changeModel)
         {
             ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} change brands ({changeModel})");
-            _barndModelService.SaveBrandChanges(changeModel);
+            _barndModelService.SaveBrandChanges(changeModel, User.GetCompany());
             return GetBrandsList();
         }
 
@@ -105,12 +106,12 @@ namespace SomeProducts.Controllers
 
         public JsonResult GetBrandsList()
         {
-            return Json(_barndModelService.GetAllItems().ToList(), JsonRequestBehavior.AllowGet);
+            return Json(_barndModelService.GetCompanyBrands(User.GetCompany()).ToList(), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult IsBrandUsing(int id)
         {
-            return Json(_barndModelService.IsBrandModelUsing(id), JsonRequestBehavior.AllowGet);
+            return Json(_barndModelService.IsBrandModelUsing(User.GetCompany(), id), JsonRequestBehavior.AllowGet);
         }
     }
 }

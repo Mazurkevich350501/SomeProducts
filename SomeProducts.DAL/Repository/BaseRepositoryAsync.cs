@@ -1,50 +1,49 @@
-﻿using System;
+﻿
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading.Tasks;
 using SomeProducts.DAL.Context;
-using SomeProducts.DAL.Models;
 using SomeProducts.DAL.Repository.Interface;
 
 namespace SomeProducts.DAL.Repository
 {
-    public class RoleRepository : IRepositoryAsync<Role>
+    public class BaseRepositoryAsync<TEntity> : IRepositoryAsync<TEntity> where TEntity: class
     {
         private readonly ProductContext _db;
 
-        public RoleRepository(ProductContext db)
+        public BaseRepositoryAsync(ProductContext db)
         {
             _db = db;
         }
 
-        ~RoleRepository()
+        ~BaseRepositoryAsync()
         {
             Dispose();
         }
 
-        public void Create(Role role)
+        public void Create(TEntity item)
         {
-            _db.Roles.Add(role);
+            _db.Set<TEntity>().Add(item);
         }
-
-        public void Delete(Role role)
+        
+        public void Delete(TEntity item)
         {
-            _db.Roles.Remove(_db.Roles.Find(role));
+            _db.Set<TEntity>().Remove(item);
         }
-
+        
         public void Dispose()
         {
             _db.Dispose();
         }
 
-        public IQueryable<Role> GetAllItems()
+        public IQueryable<TEntity> GetAllItems()
         {
-            return _db.Roles.AsQueryable();
+            return _db.Set<TEntity>();
         }
 
-        public Role GetById(int id)
+        public TEntity GetById(int id)
         {
-            return _db.Roles.Find(id);
+            return _db.Set<TEntity>().Find(id);
         }
 
         public async Task SaveAsync()
@@ -52,9 +51,9 @@ namespace SomeProducts.DAL.Repository
             await _db.SaveChangesAsync();
         }
 
-        public bool Update(Role role)
+        public bool Update(TEntity item)
         {
-            _db.Roles.AddOrUpdate(role);
+            _db.Set<TEntity>().AddOrUpdate(item);
             return true;
         }
     }
