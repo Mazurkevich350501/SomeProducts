@@ -11,6 +11,7 @@ namespace SomeProducts.DAL.Test
     public class ProductDaoTest
     {
         private Mock<IDateModifiedRepository<Product>> _productRepository;
+        private Mock<IDateModifiedRepository<Brand>> _brandRepository;
         private ProductDao _productDao;
         private Product _product;
         private const int CompanyId = 1;
@@ -19,7 +20,8 @@ namespace SomeProducts.DAL.Test
         public void TestInitialize()
         {
             _productRepository = new Mock<IDateModifiedRepository<Product>>();
-            _productDao = new ProductDao(_productRepository.Object);
+            _brandRepository = new Mock<IDateModifiedRepository<Brand>>();
+            _productDao = new ProductDao(_productRepository.Object, _brandRepository.Object);
             _product = new Product()
             {
                 Id = 5,

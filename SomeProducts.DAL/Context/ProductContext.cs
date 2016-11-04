@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using SomeProducts.DAL.Models;
+using SomeProducts.DAL.Models.Audit;
 
 namespace SomeProducts.DAL.Context
 {
@@ -18,6 +19,7 @@ namespace SomeProducts.DAL.Context
         public DbSet<Role> Roles { get; set; }
 
         public DbSet<Company> Companies { get; set; }
-        
+
+        public DbSet<AuditItem> AuditItems { get; set; }
     }
 }

@@ -67,6 +67,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AuditDaoTest.cs" />
     <Compile Include="BaseRepositoryTest.cs" />
     <Compile Include="BrandDaoTest.cs" />
     <Compile Include="ProductDaoTest.cs" />

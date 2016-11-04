@@ -51,14 +51,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutofacModule\DalModule.cs" />
+    <Compile Include="Dao\AuditDao.cs" />
     <Compile Include="Dao\BrandDao.cs" />
     <Compile Include="Dao\CompanyDao.cs" />
     <Compile Include="Dao\ProductDao.cs" />
     <Compile Include="Dao\RoleDao.cs" />
     <Compile Include="Dao\UserDao.cs" />
+    <Compile Include="IDao\IAuditDao.cs" />
     <Compile Include="IDao\IBrandDao.cs" />
     <Compile Include="IDao\ICompanyDao.cs" />
     <Compile Include="IDao\IUserDao.cs" />
+    <Compile Include="Models\Audit\AuditEntity.cs" />
+    <Compile Include="Models\Audit\AuditItem.cs" />
+    <Compile Include="Models\Audit\AuditPropertyAttribute.cs" />
+    <Compile Include="Models\Audit\AuditStatus.cs" />
+    <Compile Include="Models\Audit\EntityAttribute.cs" />
     <Compile Include="Repository\BaseRepositoryAsync.cs" />
     <Compile Include="Repository\Interface\IAvailableCompany.cs" />
     <Compile Include="Repository\Interface\ICompanyItemsAccess.cs" />

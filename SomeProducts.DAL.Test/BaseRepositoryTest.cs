@@ -8,7 +8,7 @@ using SomeProducts.DAL.Repository;
 namespace SomeProducts.DAL.Test
 {
 # if DEBUG
-    //[TestClass]
+    [TestClass]
 # endif
     public class BaseRepositoryTest
     {
