@@ -72,7 +72,7 @@ namespace SomeProducts.Controllers
             if (ModelState.IsValid)
             {
                 ImageUtils.AddImageToModel(model.Product, Request);
-                var result = _productViewModelService.UpdateProductViewModel(model);
+                var result = _productViewModelService.UpdateProductViewModel(model, User.GetCompany());
                 if (result)
                 {
                     ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} edit product(id={model.Product.Id})");
@@ -100,7 +100,7 @@ namespace SomeProducts.Controllers
         public ActionResult Delete(int productId, string redirectUrl)
         {
             ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} remove product (id={productId})");
-            _productViewModelService.RemoveProductViewModel(productId);
+            _productViewModelService.RemoveProductViewModel(productId, User.GetCompany());
             return Redirect(redirectUrl);
         }
 

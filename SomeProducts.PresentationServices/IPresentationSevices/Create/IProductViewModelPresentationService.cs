@@ -14,8 +14,8 @@ namespace SomeProducts.PresentationServices.IPresentationSevices.Create
 
         void CreateProductViewModel(ProductViewModel model, int companyId);
 
-        void RemoveProductViewModel(int id);
+        void RemoveProductViewModel(int id, int companyId);
 
-        bool UpdateProductViewModel(ProductViewModel model);
+        bool UpdateProductViewModel(ProductViewModel model, int companyId);
     }
 }

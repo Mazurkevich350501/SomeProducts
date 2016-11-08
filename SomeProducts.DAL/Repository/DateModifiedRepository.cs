@@ -76,7 +76,7 @@ namespace SomeProducts.DAL.Repository
         {
             var oldItem = GetById(item.Id);
             var lastItemVersion = oldItem.RowVersion;
-            if (oldItem.CompanyId == item.CompanyId)
+            if (oldItem.CompanyId != item.CompanyId)
             {
                 throw new WarningException("Item.CompanyId can`t be modified.");
             }

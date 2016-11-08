@@ -105,6 +105,7 @@
                     <h4 class="modal-title">@R.DeleteProductQuestion</h4>
                 </div>
                 <form method="post" action=@Url.Action("Delete", "Product") enctype="multipart/form-data">
+                    @Html.AntiForgeryToken()
                     @Html.Hidden("productId", 0)
                     @Html.Hidden("redirectUrl", @Url.Action("Show", "ProductTable", new
                     {
