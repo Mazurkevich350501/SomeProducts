@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace SomeProducts.DAL.Models.Audit
+﻿namespace SomeProducts.DAL.Models.Audit
 {
-    public class EntityAttribute : Attribute
+    public class EntityAttribute : System.Attribute
     {
         public Entity Entity { get; }
 

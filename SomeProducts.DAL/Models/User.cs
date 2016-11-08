@@ -33,6 +33,7 @@ namespace SomeProducts.DAL.Models
         {
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             userIdentity.AddClaim(new Claim("CompanyId", CompanyId.ToString()));
+            userIdentity.AddClaim(new Claim("Id", Id.ToString()));
             return userIdentity;
         }
     }

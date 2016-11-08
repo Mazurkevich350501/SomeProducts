@@ -21,7 +21,7 @@ namespace SomeProducts.DAL.Test
         {
             _brand = new Brand() { Name = "name", CompanyId = CompanyId};
             AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory));
-            _repository = new DateModifiedRepository<Brand>("name=Test");
+            _repository = new DateModifiedRepository<Brand>("nameTest");
         }
 
         [TestCleanup]

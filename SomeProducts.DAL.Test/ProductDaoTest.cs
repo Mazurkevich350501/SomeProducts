@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SomeProducts.DAL.Dao;
+using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.DAL.Repository.Interface;
 
@@ -12,6 +13,7 @@ namespace SomeProducts.DAL.Test
     {
         private Mock<IDateModifiedRepository<Product>> _productRepository;
         private Mock<IDateModifiedRepository<Brand>> _brandRepository;
+        private Mock<IAuditDao> _auditDao;
         private ProductDao _productDao;
         private Product _product;
         private const int CompanyId = 1;
@@ -21,7 +23,8 @@ namespace SomeProducts.DAL.Test
         {
             _productRepository = new Mock<IDateModifiedRepository<Product>>();
             _brandRepository = new Mock<IDateModifiedRepository<Brand>>();
-            _productDao = new ProductDao(_productRepository.Object, _brandRepository.Object);
+            _auditDao = new Mock<IAuditDao>();
+            _productDao = new ProductDao(_productRepository.Object, _brandRepository.Object, _auditDao.Object);
             _product = new Product()
             {
                 Id = 5,
@@ -43,7 +46,7 @@ namespace SomeProducts.DAL.Test
             _productRepository.Setup(r => r.Update(It.IsAny<Product>()))
                 .Callback<Product>(p => updatedProduct = p);
 
-            _productDao.UpdateProduct(_product);
+            _productDao.UpdateProduct(_product, 3);
 
             Assert.AreEqual(_product, updatedProduct);
         }
@@ -75,7 +78,7 @@ namespace SomeProducts.DAL.Test
             _productRepository.Setup(r => r.Delete(It.IsAny<Product>()))
                 .Callback<Product>(product => deletedId = product.Id);
 
-            _productDao.RemoveProduct(_product);
+            _productDao.RemoveProduct(_product, 3);
 
             Assert.AreEqual(_product.Id, deletedId);
         }
@@ -87,7 +90,7 @@ namespace SomeProducts.DAL.Test
             _productRepository.Setup(r => r.Create(It.IsAny<Product>()))
                 .Callback<Product>(p => product = p);
 
-            _productDao.CreateProduct(_product);
+            _productDao.CreateProduct(_product, 3);
 
             Assert.AreEqual(_product, product);
         }

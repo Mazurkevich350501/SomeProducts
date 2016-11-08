@@ -11,16 +11,19 @@ namespace SomeProducts.DAL.Dao
     {
         private readonly IDateModifiedRepository<Brand> _repository;
         private readonly IDateModifiedRepository<Product> _productRepository;
+        private readonly IAuditDao _auditDao;
 
-        public BrandDao(IDateModifiedRepository<Brand> repository, IDateModifiedRepository<Product> productRepository)
+        public BrandDao(IDateModifiedRepository<Brand> repository, IDateModifiedRepository<Product> productRepository, IAuditDao auditDao)
         {
             _repository = repository;
             _productRepository = productRepository;
+            _auditDao = auditDao;
         }
 
-        public void CreateBrand(Brand brand)
+        public void CreateBrand(Brand brand, int userId)
         {
-            _repository.Create(brand);
+            brand = _repository.Create(brand);
+            _auditDao.CreateCreateAuditItem(brand, userId);
             _repository.Save();
         }
 
@@ -34,20 +37,20 @@ namespace SomeProducts.DAL.Dao
             return _productRepository.GetCompanyItems(companyId).Any(p => p.Brand.Id == id);
         }
 
-        public void RemoveBrand(Brand brand)
+        public void RemoveBrand(Brand brand, int userId)
         {
+            _auditDao.CreateDeleteAuditItem(brand, userId);
             _repository.Delete(brand);
             _repository.Save();
         }
         
-        public bool UpdateBrand(Brand brand)
+        public bool UpdateBrand(Brand brand, int userId)
         {
-            if (_repository.Update(brand))
-            {
-                _repository.Save();
-                return true;   
-            }
-            return false;
+            var previousBrand = _repository.GetById(brand.Id);
+            _auditDao.CreateEditAuditItems(previousBrand, brand, userId);
+            if (!_repository.Update(brand)) return false;
+            _repository.Save();
+            return true;
         }
 
         public Brand GetById(int companyId, int id)

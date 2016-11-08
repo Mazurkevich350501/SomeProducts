@@ -1,9 +1,7 @@
 ﻿
-using System;
-
 namespace SomeProducts.DAL.Models.Audit
 {
-    public class AuditPropertyAttribute : Attribute
+    public class AuditPropertyAttribute : System.Attribute
     {
         public AuditPropertyAttribute(bool isAuditing)
         {

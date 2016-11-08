@@ -10,7 +10,7 @@ namespace SomeProducts.DAL.Models.Audit
 
     public class AuditStatus
     {
-        public int Id { get; set; }
+        public Status Id { get; set; }
 
         public string Value { get; set; }
     }

@@ -23,9 +23,9 @@ namespace SomeProducts.DAL.Repository
             Dispose();
         }
 
-        public void Create(User user)
+        public User Create(User user)
         {
-            _db.Users.Add(user);
+            return _db.Users.Add(user);
         }
 
         public void Delete(User user)

@@ -9,7 +9,7 @@ namespace SomeProducts.DAL.Models.Audit
 
         public Entity AuditEntityId { get; set; }
 
-        [ForeignKey(nameof(Entity))]
+        [ForeignKey(nameof(AuditEntityId))]
         public virtual AuditEntity AuditEntity { get; set; }
 
         public int  EntityId { get; set; }

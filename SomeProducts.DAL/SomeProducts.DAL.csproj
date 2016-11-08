@@ -90,6 +90,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SomeProducts.CrossCutting\SomeProducts.CrossCutting.csproj">
+      <Project>{fd9275ab-b7e3-4a8c-9359-8eddfabd13c7}</Project>
+      <Name>SomeProducts.CrossCutting</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

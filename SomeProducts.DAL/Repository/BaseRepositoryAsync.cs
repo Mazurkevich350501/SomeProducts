@@ -21,9 +21,9 @@ namespace SomeProducts.DAL.Repository
             Dispose();
         }
 
-        public void Create(TEntity item)
+        public TEntity Create(TEntity item)
         {
-            _db.Set<TEntity>().Add(item);
+            return _db.Set<TEntity>().Add(item);
         }
         
         public void Delete(TEntity item)

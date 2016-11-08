@@ -7,7 +7,7 @@ namespace SomeProducts.DAL.Repository.Interface
     {
         IQueryable<T> GetAllItems();
         T GetById(int id);
-        void Create(T item);
+        T Create(T item);
         bool Update(T item);
         void Delete(T item);
         void Save();

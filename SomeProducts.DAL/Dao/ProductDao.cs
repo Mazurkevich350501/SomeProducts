@@ -11,16 +11,20 @@ namespace SomeProducts.DAL.Dao
     {
         private readonly IDateModifiedRepository<Product> _repository;
         private readonly IDateModifiedRepository<Brand> _brandRepository;
+        private readonly IAuditDao _auditDao;
 
-        public ProductDao(IDateModifiedRepository<Product> repository, IDateModifiedRepository<Brand> brandRepository)
+        public ProductDao(IDateModifiedRepository<Product> repository, IDateModifiedRepository<Brand> brandRepository, IAuditDao auditDao)
         {
             _repository = repository;
             _brandRepository = brandRepository;
+            _auditDao = auditDao;
         }
 
-        public bool UpdateProduct(Product product)
+        public bool UpdateProduct(Product product, int userId)
         {
-            
+            CompanyVerify(product);
+            var previousProduct = _repository.GetById(product.Id);
+            _auditDao.CreateEditAuditItems(previousProduct, product, userId);
             var result = _repository.Update(product);
             _repository.Save();
             return result;
@@ -31,16 +35,18 @@ namespace SomeProducts.DAL.Dao
             return _repository.GetById(id);
         }
 
-        public void RemoveProduct(Product product)
+        public void RemoveProduct(Product product, int userId)
         {
+            _auditDao.CreateDeleteAuditItem(product, userId);
             _repository.Delete(product);
             _repository.Save();
         }
 
-        public void CreateProduct(Product product)
+        public void CreateProduct(Product product, int userId)
         {
             CompanyVerify(product);
-            _repository.Create(product);
+            product = _repository.Create(product);
+            _auditDao.CreateCreateAuditItem(product, userId);
             _repository.Save();
         }
 

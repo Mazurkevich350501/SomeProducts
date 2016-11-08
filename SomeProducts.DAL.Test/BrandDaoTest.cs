@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SomeProducts.DAL.Dao;
+using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.DAL.Repository.Interface;
 
@@ -14,6 +15,7 @@ namespace SomeProducts.DAL.Test
     {
         private Mock<IDateModifiedRepository<Brand>> _brandRepository;
         private Mock<IDateModifiedRepository<Product>> _productRepository;
+        private Mock<IAuditDao> _auditDao;
         private BrandDao _brandDao;
         private Brand _brand;
         private const int CompanyId = 1;
@@ -23,7 +25,8 @@ namespace SomeProducts.DAL.Test
         {
             _brandRepository = new Mock<IDateModifiedRepository<Brand>>();
             _productRepository = new Mock<IDateModifiedRepository<Product>>();
-            _brandDao = new BrandDao(_brandRepository.Object, _productRepository.Object);
+            _auditDao = new Mock<IAuditDao>();
+            _brandDao = new BrandDao(_brandRepository.Object, _productRepository.Object, _auditDao.Object);
             _brand = new Brand()
             {
                 Id = 5,
@@ -40,7 +43,7 @@ namespace SomeProducts.DAL.Test
             _brandRepository.Setup(r => r.Delete(It.IsAny<Brand>()))
                 .Callback<Brand>(brand => deletedId = brand.Id);
 
-            _brandDao.RemoveBrand(_brand);
+            _brandDao.RemoveBrand(_brand, 3);
 
             Assert.AreEqual(_brand.Id, deletedId);
         }
@@ -52,7 +55,7 @@ namespace SomeProducts.DAL.Test
             _brandRepository.Setup(r => r.Create(It.IsAny<Brand>()))
                 .Callback<Brand>(p => brand = p);
 
-            _brandDao.CreateBrand(_brand);
+            _brandDao.CreateBrand(_brand, 3);
 
             Assert.AreEqual(_brand, brand);
         }

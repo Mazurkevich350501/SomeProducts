@@ -12,10 +12,10 @@ namespace SomeProducts.PresentationServices.IPresentationSevices.Create
 
         ProductViewModel GetLastProductViewMode(int companyId);
 
-        void CreateProductViewModel(ProductViewModel model, int companyId);
+        void CreateProductViewModel(ProductViewModel model, int companyId, int userId);
 
-        void RemoveProductViewModel(int id);
+        void RemoveProductViewModel(int id, int userId);
 
-        bool UpdateProductViewModel(ProductViewModel model);
+        bool UpdateProductViewModel(ProductViewModel model, int companyId, int userId);
     }
 }

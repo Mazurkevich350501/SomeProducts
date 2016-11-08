@@ -13,17 +13,19 @@ namespace SomeProducts.DAL.Dao
     {
         private readonly IUserRepository _userRepository;
         private readonly IRepositoryAsync<Role> _roleRepository;
+        private readonly IAuditDao _auditDao;
 
-        public UserDao(IUserRepository userRepository, IRepositoryAsync<Role> roleRepository)
+        public UserDao(IUserRepository userRepository, IRepositoryAsync<Role> roleRepository, IAuditDao auditDao)
         {
             _userRepository = userRepository;
             _roleRepository = roleRepository;
+            _auditDao = auditDao;
         }
 
         public async Task CreateAsync(User user)
         {
             _userRepository.Create(user);
-            await AddToRoleAsync(user, "user");
+            await AddToRoleAsync(user, nameof(UserRole.User));
             await _userRepository.SaveAsync();
         }
 
@@ -118,11 +120,6 @@ namespace SomeProducts.DAL.Dao
         public IQueryable<User> GetAllUsers()
         {
             return _userRepository.GetAllItems();
-        }
-
-        public async Task<int> GetUserCompanyId(int userId)
-        {
-            return (await FindByIdAsync(userId)).CompanyId;
         }
 
         public IQueryable<User> GetCompanyUsers(int companyId)

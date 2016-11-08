@@ -26,10 +26,10 @@ namespace SomeProducts.DAL.Repository
         {
             Dispose();
         }
-        public void Create(TEntity item)
+        public TEntity Create(TEntity item)
         {
             item.CreateDate = DateTime.UtcNow;
-            _db.Set<TEntity>().Add(item);
+            return _db.Set<TEntity>().Add(item);
         }
 
         public void Delete(TEntity item)
@@ -76,7 +76,7 @@ namespace SomeProducts.DAL.Repository
         {
             var oldItem = GetById(item.Id);
             var lastItemVersion = oldItem.RowVersion;
-            if (oldItem.CompanyId == item.CompanyId)
+            if (oldItem.CompanyId != item.CompanyId)
             {
                 throw new WarningException("Item.CompanyId can`t be modified.");
             }

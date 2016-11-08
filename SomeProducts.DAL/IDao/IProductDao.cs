@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Linq;
 using SomeProducts.DAL.Models;
 
@@ -10,11 +10,11 @@ namespace SomeProducts.DAL.IDao
 
         Product GetLastProduct(int companyId);
 
-        bool UpdateProduct(Product product);
+        bool UpdateProduct(Product product, int userId);
 
-        void CreateProduct(Product product);
+        void CreateProduct(Product product, int userId);
 
-        void RemoveProduct(Product product);
+        void RemoveProduct(Product product, int userId);
         
         IQueryable<Product> GetAllProducts();
 

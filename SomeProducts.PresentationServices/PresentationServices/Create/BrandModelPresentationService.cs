@@ -16,15 +16,16 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
             _brandDao = brandSevice;
         }
 
-        public void CreateBrand(BrandModel model)
+        public void CreateBrand(BrandModel model, int userId)
         {
             var brand = BrandModelCast(model);
-            _brandDao.CreateBrand(brand);
+            _brandDao.CreateBrand(brand, userId);
         }
 
-        public void RemoveBrand(BrandModel model)
+        public void RemoveBrand(BrandModel model, int userId)
         {
-            _brandDao.RemoveBrand(BrandModelCast(model));
+            var brand = BrandModelCast(model);
+            _brandDao.RemoveBrand(brand, userId);
         }
 
         public IEnumerable<BrandModel> GetCompanyBrands(int companyId)
@@ -43,7 +44,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
             return _brandDao.IsBrandUsing(companyId, id);
         }
 
-        public void SaveBrandChanges(BrandsChangeModel changeModel, int companyId)
+        public void SaveBrandChanges(BrandsChangeModel changeModel, int companyId, int userId)
         {
             if (changeModel != null)
             {
@@ -51,7 +52,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
                 {
                     foreach (var brand in changeModel.RemovedBrands)
                     {
-                        RemoveBrand(brand);
+                        RemoveBrand(brand, userId);
                     }
                 }
 
@@ -60,7 +61,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
                     foreach (var brand in changeModel.AddedBrands)
                     {
                         brand.CompanyId = companyId;
-                        CreateBrand(brand);
+                        CreateBrand(brand, userId);
                     }
                 }
 
@@ -69,17 +70,17 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
                     foreach (var brand in changeModel.EditedBrands)
                     {
                         brand.CompanyId = companyId;
-                        UpdateBrandModel(brand);
+                        UpdateBrandModel(brand, userId);
                     }
                 }
             }
 
         }
 
-        public bool UpdateBrandModel(BrandModel model)
+        public bool UpdateBrandModel(BrandModel model, int userId)
         {
             var brand = BrandModelCast(model);
-            return _brandDao.UpdateBrand(brand);
+            return _brandDao.UpdateBrand(brand, userId);
         }
 
         private static Brand BrandModelCast(BrandModel model)

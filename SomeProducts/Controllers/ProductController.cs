@@ -53,7 +53,7 @@ namespace SomeProducts.Controllers
             if (ModelState.IsValid)
             {
                 ImageUtils.AddImageToModel(model.Product, Request);
-                _productViewModelService.CreateProductViewModel(model, User.GetCompany());
+                _productViewModelService.CreateProductViewModel(model, User.GetCompany(), User.GetUserId());
                 var productModel = _productViewModelService.GetLastProductViewMode(User.GetCompany());
 
                 ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} create new product(id={productModel.Product.Id})");
@@ -72,7 +72,7 @@ namespace SomeProducts.Controllers
             if (ModelState.IsValid)
             {
                 ImageUtils.AddImageToModel(model.Product, Request);
-                var result = _productViewModelService.UpdateProductViewModel(model);
+                var result = _productViewModelService.UpdateProductViewModel(model, User.GetCompany(), User.GetUserId());
                 if (result)
                 {
                     ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} edit product(id={model.Product.Id})");
@@ -90,7 +90,7 @@ namespace SomeProducts.Controllers
         public JsonResult SaveBrandsChanges(BrandsChangeModel changeModel)
         {
             ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} change brands ({changeModel})");
-            _barndModelService.SaveBrandChanges(changeModel, User.GetCompany());
+            _barndModelService.SaveBrandChanges(changeModel, User.GetCompany(), User.GetUserId());
             return GetBrandsList();
         }
 
@@ -100,7 +100,7 @@ namespace SomeProducts.Controllers
         public ActionResult Delete(int productId, string redirectUrl)
         {
             ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} remove product (id={productId})");
-            _productViewModelService.RemoveProductViewModel(productId);
+            _productViewModelService.RemoveProductViewModel(productId, User.GetUserId());
             return Redirect(redirectUrl);
         }
 
