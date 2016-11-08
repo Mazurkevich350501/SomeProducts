@@ -23,8 +23,8 @@ namespace SomeProducts.DAL.Dao
         public void CreateBrand(Brand brand, int userId)
         {
             brand = _repository.Create(brand);
-            _auditDao.CreateCreateAuditItem(brand, userId);
             _repository.Save();
+            _auditDao.CreateCreateAuditItem(brand, userId);
         }
 
         public IEnumerable<Brand> GetCompanyBrands(int companyId)

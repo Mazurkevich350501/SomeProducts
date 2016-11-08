@@ -19,12 +19,12 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
             _brandDao = brandService;
         }
 
-        public void RemoveProductViewModel(int id, int companyId)
+        public void RemoveProductViewModel(int id, int companyId, int userId)
         {
             var product = _productDao.GetProduct(id);
             if (product.CompanyId == companyId)
             {
-                _productDao.RemoveProduct(product);
+                _productDao.RemoveProduct(product, userId);
             }
         }
 
@@ -62,11 +62,11 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
             };
         }
 
-        public bool UpdateProductViewModel(ProductViewModel model, int companyId)
+        public bool UpdateProductViewModel(ProductViewModel model, int companyId, int userId)
         {
             var product = ProductCast(model.Product);
             product.CompanyId = companyId;
-            return _productDao.UpdateProduct(product);
+            return _productDao.UpdateProduct(product, userId);
         }
 
         public void CreateProductViewModel(ProductViewModel model, int companyId, int userId)

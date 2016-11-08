@@ -46,8 +46,9 @@ namespace SomeProducts.DAL.Dao
         {
             CompanyVerify(product);
             product = _repository.Create(product);
-            _auditDao.CreateCreateAuditItem(product, userId);
             _repository.Save();
+            _auditDao.CreateCreateAuditItem(product, userId);
+            
         }
 
         public Product GetLastProduct(int companyId)
