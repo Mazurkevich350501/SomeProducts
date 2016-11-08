@@ -100,7 +100,7 @@ namespace SomeProducts.Controllers
         public ActionResult Delete(int productId, string redirectUrl)
         {
             ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} remove product (id={productId})");
-            _productViewModelService.RemoveProductViewModel(productId, User.GetUserId());
+            _productViewModelService.RemoveProductViewModel(productId, User.GetCompany());
             return Redirect(redirectUrl);
         }
 

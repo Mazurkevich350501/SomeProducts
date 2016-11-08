@@ -56,7 +56,7 @@ namespace SomeProducts.DAL.Dao
         public Brand GetById(int companyId, int id)
         {
             var brand = _repository.GetById(id);
-            return brand.CompanyId == companyId
+            return brand?.CompanyId == companyId
                 ? brand
                 : null;
         }

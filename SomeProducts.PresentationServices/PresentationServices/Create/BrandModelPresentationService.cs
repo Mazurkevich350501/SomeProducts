@@ -24,8 +24,8 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
 
         public void RemoveBrand(BrandModel model, int userId)
         {
-            var brand = BrandModelCast(model);
-            _brandDao.RemoveBrand(brand, userId);
+            var brand = _brandDao.GetById(model.CompanyId, model.Id);
+            _brandDao.RemoveBrand(brand);
         }
 
         public IEnumerable<BrandModel> GetCompanyBrands(int companyId)
@@ -46,35 +46,40 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
 
         public void SaveBrandChanges(BrandsChangeModel changeModel, int companyId, int userId)
         {
-            if (changeModel != null)
+            if (changeModel == null) return;
+            RemoveBrands(changeModel.RemovedBrands, companyId);
+            CreateBrands(changeModel.AddedBrands, companyId);
+            EditBrands(changeModel.EditedBrands, companyId);
+        }
+
+        private void RemoveBrands(ICollection<BrandModel> brands, int companyId)
+        {
+            if (brands == null) return;
+            foreach (var brand in brands)
             {
-                if (changeModel.RemovedBrands != null)
-                {
-                    foreach (var brand in changeModel.RemovedBrands)
-                    {
-                        RemoveBrand(brand, userId);
-                    }
-                }
-
-                if (changeModel.AddedBrands != null)
-                {
-                    foreach (var brand in changeModel.AddedBrands)
-                    {
-                        brand.CompanyId = companyId;
-                        CreateBrand(brand, userId);
-                    }
-                }
-
-                if (changeModel.EditedBrands != null)
-                {
-                    foreach (var brand in changeModel.EditedBrands)
-                    {
-                        brand.CompanyId = companyId;
-                        UpdateBrandModel(brand, userId);
-                    }
-                }
+                brand.CompanyId = companyId;
+                RemoveBrand(brand);
             }
+        }
 
+        private void CreateBrands(ICollection<BrandModel> brands, int companyId)
+        {
+            if (brands == null) return;
+            foreach (var brand in brands)
+            {
+                brand.CompanyId = companyId;
+                CreateBrand(brand);
+            }
+        }
+
+        private void EditBrands(ICollection<BrandModel> brands, int companyId)
+        {
+            if (brands == null) return;
+            foreach (var brand in brands)
+            {
+                brand.CompanyId = companyId;
+                UpdateBrandModel(brand);
+            }
         }
 
         public bool UpdateBrandModel(BrandModel model, int userId)

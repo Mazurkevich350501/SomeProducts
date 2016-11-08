@@ -95,10 +95,11 @@
                 <h4 class="modal-title">@R.DeleteProductQuestion</h4>
             </div>
             <form method="post" action=@Url.Action("Delete", "Product") enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
                 @Html.Hidden("productId", Model.Product.Id)
                 @Html.Hidden("redirectUrl", @Url.Action("Show", "ProductTable"))
                 <div class="modal-body-central">
-                    <input type="submit" class="btn btn-danger" id="removeBtnId" value="@R.Delete" />
+                    <input type="submit" class="btn btn-danger" id="removeBtnId" value="@R.Delete"/>
                     <button class="btn btn-default" id="cancelDeleteBtnId">@R.Cancel</button>
                 </div>
             </form>
