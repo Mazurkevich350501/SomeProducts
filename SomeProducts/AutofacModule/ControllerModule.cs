@@ -12,6 +12,7 @@ namespace SomeProducts.AutofacModule
             builder.RegisterType<AdminController>().As<AdminController>();
             builder.RegisterType<ProductTableController>().As<ProductTableController>();
             builder.RegisterType<ErrorController>().As<ErrorController>();
+            builder.RegisterType<AuditController>().As<AuditController>();
         }
     }
 }

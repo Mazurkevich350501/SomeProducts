@@ -187,6 +187,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string Date {
+            get {
+                return ResourceManager.GetString("Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {
@@ -255,6 +264,24 @@ namespace Resources {
         public static string EmptyBrandNameError {
             get {
                 return ResourceManager.GetString("EmptyBrandNameError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entity.
+        /// </summary>
+        public static string Entity {
+            get {
+                return ResourceManager.GetString("Entity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entity Id.
+        /// </summary>
+        public static string EntityId {
+            get {
+                return ResourceManager.GetString("EntityId", resourceCulture);
             }
         }
         
@@ -448,6 +475,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modified field.
+        /// </summary>
+        public static string ModifiedField {
+            get {
+                return ResourceManager.GetString("ModifiedField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string Name {
@@ -462,6 +498,15 @@ namespace Resources {
         public static string NewProduct {
             get {
                 return ResourceManager.GetString("NewProduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next value.
+        /// </summary>
+        public static string NextValue {
+            get {
+                return ResourceManager.GetString("NextValue", resourceCulture);
             }
         }
         
@@ -538,6 +583,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Previous value.
+        /// </summary>
+        public static string PreviousValue {
+            get {
+                return ResourceManager.GetString("PreviousValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quantity.
         /// </summary>
         public static string Quantity {
@@ -610,6 +664,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User.
+        /// </summary>
+        public static string User {
+            get {
+                return ResourceManager.GetString("User", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to name already exist..
         /// </summary>
         public static string UserNameExist {
@@ -628,11 +700,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You do not have access!.
+        ///   Looks up a localized string similar to You don&apos;t have access!.
         /// </summary>
-        public static string YouDoNotHaveAccess {
+        public static string YouDontHaveAccess {
             get {
-                return ResourceManager.GetString("YouDoNotHaveAccess", resourceCulture);
+                return ResourceManager.GetString("YouDontHaveAccess", resourceCulture);
             }
         }
     }

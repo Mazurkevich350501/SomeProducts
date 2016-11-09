@@ -3,7 +3,7 @@
 
     var urlWhithoutBy, sortingOption;
 
-    var productTableNamespace = window.Utils.getNamespace("ProductTable");
+    var productTableNamespace = window.Utils.getNamespace("SortableTable");
     productTableNamespace.init = function (params) {
         urlWhithoutBy = params.url.replace(/amp;/g, "");
         sortingOption = params.sortingOption;

@@ -15,5 +15,7 @@ namespace SomeProducts.DAL.IDao
         void CreateCreateAuditItem<T>(T createdObject, int userId);
 
         void CreateDeleteAuditItem<T>(T removingObject, int userId);
+
+        IQueryable<AuditItem> GetCompanyItems(int companyId);
     }
 }

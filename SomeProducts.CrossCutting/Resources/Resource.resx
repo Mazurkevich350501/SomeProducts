@@ -159,6 +159,9 @@
   <data name="Creating" xml:space="preserve">
     <value>Creating</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
@@ -182,6 +185,12 @@
   </data>
   <data name="EmptyBrandNameError" xml:space="preserve">
     <value>Brand name is empty.</value>
+  </data>
+  <data name="Entity" xml:space="preserve">
+    <value>Entity</value>
+  </data>
+  <data name="EntityId" xml:space="preserve">
+    <value>Entity Id</value>
   </data>
   <data name="Filter" xml:space="preserve">
     <value>Filter</value>
@@ -246,11 +255,17 @@
   <data name="Long200Characters" xml:space="preserve">
     <value>{0} cannot be longer than 200 characters.</value>
   </data>
+  <data name="ModifiedField" xml:space="preserve">
+    <value>Modified field</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
   <data name="NewProduct" xml:space="preserve">
     <value>New product</value>
+  </data>
+  <data name="NextValue" xml:space="preserve">
+    <value>Next value</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
@@ -276,6 +291,9 @@
   <data name="PositiveValue" xml:space="preserve">
     <value>{0} should be positive.</value>
   </data>
+  <data name="PreviousValue" xml:space="preserve">
+    <value>Previous value</value>
+  </data>
   <data name="Quantity" xml:space="preserve">
     <value>Quantity</value>
   </data>
@@ -300,13 +318,19 @@
   <data name="SignIn" xml:space="preserve">
     <value>Sign In</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>User</value>
+  </data>
   <data name="UserNameExist" xml:space="preserve">
     <value>name already exist.</value>
   </data>
   <data name="Users" xml:space="preserve">
     <value>Users</value>
   </data>
-  <data name="YouDoNotHaveAccess" xml:space="preserve">
-    <value>You do not have access!</value>
+  <data name="YouDontHaveAccess" xml:space="preserve">
+    <value>You don't have access!</value>
   </data>
 </root>

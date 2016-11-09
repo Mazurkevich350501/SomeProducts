@@ -137,5 +137,10 @@ namespace SomeProducts.DAL.Dao
             }
             return result;
         }
+
+        public IQueryable<AuditItem> GetCompanyItems(int companyId)
+        {
+            return GetAllItems().Where(i => i.User.CompanyId == companyId);
+        }
     }
 }

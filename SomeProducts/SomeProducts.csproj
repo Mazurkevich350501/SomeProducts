@@ -148,6 +148,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AuditController.cs" />
     <Compile Include="ProjectGlobalFilters\LocalizationFilter.cs" />
     <Compile Include="AutofacModule\ControllerModule.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -220,6 +221,7 @@
     <Content Include="Scripts\Product\ProductControl.js" />
     <Content Include="Stylesheets\AccountAuth\AccountAuth.css" />
     <Content Include="Stylesheets\Admin\UserTable.css" />
+    <Content Include="Stylesheets\Audit\AuditTable.css" />
     <Content Include="Stylesheets\Common\Common.css" />
     <Content Include="Stylesheets\Common\Filter.css" />
     <Content Include="Stylesheets\Product\Product.css" />
@@ -252,6 +254,7 @@
     <Content Include="Views\Shared\Common\Filters.cshtml" />
     <Content Include="Views\Product\ShowProduct.cshtml" />
     <Content Include="Views\Admin\SuperAdminUsers.cshtml" />
+    <Content Include="Views\Audit\AuditTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

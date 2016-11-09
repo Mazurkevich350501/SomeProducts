@@ -159,6 +159,9 @@
   <data name="Creating" xml:space="preserve">
     <value>Создание</value>
   </data>
+  <data name="Date" xml:space="preserve">
+    <value>Дата</value>
+  </data>
   <data name="Delete" xml:space="preserve">
     <value>Удалить</value>
   </data>
@@ -182,6 +185,12 @@
   </data>
   <data name="EmptyBrandNameError" xml:space="preserve">
     <value>Имя бренда пустое.</value>
+  </data>
+  <data name="Entity" xml:space="preserve">
+    <value>Объект</value>
+  </data>
+  <data name="EntityId" xml:space="preserve">
+    <value>Id объекта</value>
   </data>
   <data name="Filter" xml:space="preserve">
     <value>Фильтровать</value>
@@ -249,11 +258,17 @@
   <data name="Long200Characters" xml:space="preserve">
     <value>{0} не может быть длиннее 200 символов.</value>
   </data>
+  <data name="ModifiedField" xml:space="preserve">
+    <value>Измененное поле</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Имя</value>
   </data>
   <data name="NewProduct" xml:space="preserve">
     <value>Новый продукт</value>
+  </data>
+  <data name="NextValue" xml:space="preserve">
+    <value>Следующее значение</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Пароль</value>
@@ -279,6 +294,9 @@
   <data name="PositiveValue" xml:space="preserve">
     <value>{0} должено быть положительным.</value>
   </data>
+  <data name="PreviousValue" xml:space="preserve">
+    <value>Предыдущее значение</value>
+  </data>
   <data name="Quantity" xml:space="preserve">
     <value>Количество</value>
   </data>
@@ -303,13 +321,19 @@
   <data name="SignIn" xml:space="preserve">
     <value>Войти</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Пользователь</value>
+  </data>
   <data name="UserNameExist" xml:space="preserve">
     <value>имя уже существует.</value>
   </data>
   <data name="Users" xml:space="preserve">
     <value>Пользователи</value>
   </data>
-  <data name="YouDoNotHaveAccess" xml:space="preserve">
+  <data name="YouDontHaveAccess" xml:space="preserve">
     <value>У вас нет доступа!</value>
   </data>
 </root>

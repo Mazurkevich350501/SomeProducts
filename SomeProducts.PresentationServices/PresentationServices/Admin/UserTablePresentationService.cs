@@ -44,9 +44,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
             var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option, companyId);
             var productList = GetFilteredAndSortedUsers(sortingOption, filterInfo, companyId);
             var newFilter = InitFilterInfo(filterInfo, false);
-            //proverochka
             var tableList = productList.ToPagedList(pageInfo.Page, pageInfo.ItemsCount).Select(AdminUserTableModelCast).AsQueryable();
-            //-----------------------
 
             var result = new AdminUserTableViewModel
             {
@@ -100,7 +98,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
                 ? _userDao.GetAllUsers()
                 : _userDao.GetAllUsers().Where(u => u.CompanyId == companyId.Value 
                     || u.CompanyId == CrossCutting.Constants.Constants.EmtyCompanyId);
-            return users.AsQueryable().GetFilteredProduct(info).Sort(option.Option, option.Order == Order.Reverse);
+            return users.AsQueryable().GetFilteredItems(info).Sort(option.Option, option.Order == Order.Reverse);
         }
 
         private static AdminUserTableItemModel AdminUserTableModelCast(User user)
@@ -141,7 +139,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
             {
                 result.Add(new Filter()
                 {
-                    Option = $"{nameof(User.Company)}_{nameof(Company.CompanyName)}",
+                    Option = $"{nameof(User.Company)}.{nameof(Company.CompanyName)}",
                     Type = Type.String,
                     FilterName = R.Company
                 });

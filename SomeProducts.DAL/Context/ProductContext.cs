@@ -21,5 +21,9 @@ namespace SomeProducts.DAL.Context
         public DbSet<Company> Companies { get; set; }
 
         public DbSet<AuditItem> AuditItems { get; set; }
+
+        public DbSet<AuditStatus> AuditStatuses { get; set; }
+
+        public DbSet<AuditEntity> AuditEntities { get; set; }
     }
 }

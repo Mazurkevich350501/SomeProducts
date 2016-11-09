@@ -1,0 +1,151 @@
+﻿@using PagedList.Mvc
+@using R = Resources.Resource
+@model SomeProducts.PresentationServices.Models.Audit.AuditViewTable
+
+@Html.Partial("Common/Filters", Model.FilterInfo)
+
+<div class="product-table-div">
+    <table class="table" id="productTable">
+        <thead>
+            <tr>
+                <th>
+                    <div id="th-entyty" data-type="sort" data-name="Entity" class="pointer">
+                        @R.Entity
+                    </div>
+                </th>
+                <th>
+                    <div id="th-entityId" data-type="sort" data-name="EntityId" class="pointer">
+                        @R.EntityId
+                    </div>
+                </th>
+                <th>
+                    <div id="th-modifiedField" data-type="sort" data-name="ModifiedField" class="pointer">
+                        @R.ModifiedField
+                    </div>
+                </th>
+                <th>
+                    <div id="th-previousValue" data-type="sort" data-name="PreviousValue" class="pointer">
+                        @R.PreviousValue
+                    </div>
+                </th>
+                <th>
+                    <div id="th-nextValue" data-type="sort" data-name="NextValue" class="pointer">
+                        @R.NextValue
+                    </div>
+                </th>
+                <th>
+                    <div id="th-modifiedDate" data-type="sort" data-name="ModifiedDate" class="pointer">
+                        @R.Date
+                    </div>
+                </th>
+                <th>
+                    <div id="th-status" data-type="sort" data-name="Status" class="pointer">
+                        @R.Status
+                    </div>
+                </th>
+                <th>
+                    <div id="th-userName" data-type="sort" data-name="UserName" class="pointer">
+                        @R.User
+                    </div>
+                </th>
+                <th>
+                    <div id="th-companyName" data-type="sort" data-name="CompanyName" class="pointer">
+                        @R.Company
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+
+            <tr>
+                <th>
+                    @Html.DisplayFor(p => item.Entity)
+                </th>
+                <th>
+                    @Html.DisplayFor(p => item.EntityId)
+                </th>
+                <th>
+                    @Html.DisplayFor(p => item.ModifiedField)
+                </th>
+                <th>
+                    @Html.DisplayFor(p => item.PreviousValue)
+                </th>
+                <th>
+                    @Html.DisplayFor(p => item.NextValue)
+                </th>
+                <th>
+                    @Html.DisplayFor(p => item.ModifiedDate)
+                </th>
+                <th>
+                    @Html.DisplayFor(p => item.Status)
+                </th>
+                <th>
+                    @Html.DisplayFor(p => item.UserName)
+                </th>
+                <th>
+                    @Html.DisplayFor(p => item.CompanyName)
+                </th>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="row filters-container">
+    <div class="col-xs-5">
+        @Html.PagedListPager(Model.Items, page => Url.Action("FullAudit", "Audit", new { page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters }))
+    </div>
+    <div class="dropdown col-xs-6 product-counter">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+            @R.ItemsCount: @Model.PageInfo.ItemsCount
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            @for (var i = 5; i <= SomeProducts.CrossCutting.Constants.Constants.MaxItemsCountPerPage; i += 5)
+            {
+                <li>
+                    <a class="dropdown-item" href=@Url.Action("FullAudit", "Audit", new
+                                             {
+                                                 page = Model.PageInfo.Page,
+                                                 count = i,
+                                                 by = Model.PageInfo.SortingOption,
+                                                 filter = Model.JsonFilters
+                                             })>@i</a>
+                                        </li>
+            }
+        </ul>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>
+        $(function () {
+            var params = {
+                url: '@Url.Action("FullAudit", "Audit", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, filter = Model.JsonFilters })',
+                presentUrl: '@Url.Action("FullAudit", "Audit", new { page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption})',
+                sortingOption: '@Model.PageInfo.SortingOption',
+                filters: '@Model.FilterInfo.FiltertsList',
+                IllegalCharsError: '@R.IllegalCharsError'
+            };
+            var sortingNamespace = window.Utils.getNamespace("SortableTable");
+            sortingNamespace.init(params);
+            var validationNamespace = window.Utils.getNamespace("Validation");
+            validationNamespace.initValidation(params);
+            var filterNamespace = window.Utils.getNamespace("Filter");
+            filterNamespace.init(params);
+        });
+    </script>
+    @Scripts.Render("~/Product/Audit/Scripts")
+    @Scripts.Render("~/Product/Common/Sorting/Scripts")
+    @Scripts.Render("~/Product/Common/Filter/Scripts")
+}
+
+@section stylesheets
+{
+    @Styles.Render("~/Product/Audit/css")
+    @Styles.Render("~/Product/Common/Filter/css")
+}

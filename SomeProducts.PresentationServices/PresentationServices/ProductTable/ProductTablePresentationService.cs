@@ -66,7 +66,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
             {
                 new Filter() {Option = nameof(ProductTableModel.Name), Type = Type.String, FilterName = R.Name},
                 new Filter() {Option = nameof(ProductTableModel.Description), Type = Type.String, FilterName = R.Description},
-                new Filter() {Option = $"{nameof(Brand)}_{nameof(Brand.Name)}", Type = Type.String, FilterName = R.Brand},
+                new Filter() {Option = $"{nameof(Brand)}.{nameof(Brand.Name)}", Type = Type.String, FilterName = R.Brand},
                 new Filter() {Option = nameof(ProductTableModel.Quantity), Type = Type.Numeric, FilterName = R.Quantity}
             };
         }
@@ -90,7 +90,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
             var products = companyId == null
                 ? _dao.GetAllProducts()
                 : _dao.GetCompanyProducts(companyId.Value);
-            return products.GetFilteredProduct(info).Sort(option.Option, option.Order == Order.Reverse);
+            return products.GetFilteredItems(info).Sort(option.Option, option.Order == Order.Reverse);
         }
 
         private static string GetShortString(string str, int length)

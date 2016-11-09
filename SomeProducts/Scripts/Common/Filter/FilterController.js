@@ -33,10 +33,11 @@
     }
 
     function getFilter(option) {
+        var inputsIdPart = option.replace(/\./g, "\\.");
         var result = {
             Option: option,
-            Parameter: $("#" + option + "ParameterId").val(),
-            Value: $("#" + option + "ValueId").val()
+            Parameter: $("#" + inputsIdPart + "ParameterId").val(),
+            Value: $("#" + inputsIdPart + "ValueId").val()
         }
         if (isEmtyParameter(result.Parameter)) return result;
         if (result.Value !== "") return result;
