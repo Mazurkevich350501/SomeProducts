@@ -53,7 +53,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.Audit
             var itemsList = GetFilteredAndSortedItems(sortingOption, filterInfo, _user.GetSuperAdminCompany());
             var tableList = itemsList.ToPagedList(pageInfo.Page, pageInfo.ItemsCount)
                 .Select(AuditViewTableItemCast).AsQueryable();
-            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option, itemsList);
+            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option, itemsList.Count());
 
             var result = new AuditViewTableForEntity()
             {
@@ -93,7 +93,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.Audit
             var itemsList = GetFilteredAndSortedItems(sortingOption, filterInfo, _user.GetSuperAdminCompany());
             var tableList = itemsList.ToPagedList(pageInfo.Page, pageInfo.ItemsCount).Select(AuditViewTableItemCast).AsQueryable();
             var newFilter = InitFilterInfo(filterInfo);
-            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option, itemsList);
+            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option, itemsList.Count());
 
             var result = new AuditViewTable()
             {
@@ -107,10 +107,10 @@ namespace SomeProducts.PresentationServices.PresentationServices.Audit
             return result;
         }
 
-        private static PageInfo SetPageInfo<T>(PageInfo pageInfo, string option, IQueryable<T> itemsList)
+        private static PageInfo SetPageInfo(PageInfo pageInfo, string option, int totalCount)
         {
             pageInfo.SortingOption = option;
-            pageInfo.TotalItemsCount = itemsList.Count();
+            pageInfo.TotalItemsCount = totalCount;
             return pageInfo;
         }
 

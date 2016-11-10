@@ -39,7 +39,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
             var productList = GetFilteredAndSortedProducts(sortingOption, filterInfo, companyId);
             var tableList = productList.ToPagedList(pageInfo.Page, pageInfo.ItemsCount).Select(ProductTableModelCast).AsQueryable();
             var newFilter = InitFilterInfo(filterInfo);
-            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option, companyId);
+            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option, productList.Count());
 
             var result = new ProductTableViewModel
             {
@@ -53,10 +53,10 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
             return result;
         }
 
-        private PageInfo SetPageInfo(PageInfo pageInfo, string option, int? companyId)
+        private static PageInfo SetPageInfo(PageInfo pageInfo, string option, int totalCount)
         {
             pageInfo.SortingOption = option;
-            pageInfo.TotalItemsCount = _dao.GetProductCount(companyId);
+            pageInfo.TotalItemsCount = totalCount;
             return pageInfo;
         }
 

@@ -45,10 +45,10 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
         public AdminUserTableViewModel GetAdminUserTableViewModel(PageInfo pageInfo, FilterInfo filterInfo)
         {
             var sortingOption = SortingOptionHelper.GetOptionValue(pageInfo.SortingOption, OptionDictionary);
-            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option, _user.GetSuperAdminCompany());
-            var productList = GetFilteredAndSortedUsers(sortingOption, filterInfo, _user.GetSuperAdminCompany());
+            var userList = GetFilteredAndSortedUsers(sortingOption, filterInfo, _user.GetSuperAdminCompany());
             var newFilter = InitFilterInfo(filterInfo, _user.IsInRole(UserRole.SuperAdmin));
-            var tableList = productList.ToPagedList(pageInfo.Page, pageInfo.ItemsCount).Select(AdminUserTableModelCast).AsQueryable();
+            var tableList = userList.ToPagedList(pageInfo.Page, pageInfo.ItemsCount).Select(AdminUserTableModelCast).AsQueryable();
+            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option, userList.Count());
 
             var result = new AdminUserTableViewModel
             {
@@ -65,10 +65,10 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
         public SuperAdminUserTableViewModel GetSuperAdminUserTableViewModel(PageInfo pageInfo, FilterInfo filterInfo)
         {
             var sortingOption = SortingOptionHelper.GetOptionValue(pageInfo.SortingOption, OptionDictionary);
-            var productList = GetFilteredAndSortedUsers(sortingOption, filterInfo, _user.GetSuperAdminCompany());
-            var tableList = productList.ToPagedList(pageInfo.Page, pageInfo.ItemsCount).Select(SuperAdminUserTableModelCast).AsQueryable();
+            var userList = GetFilteredAndSortedUsers(sortingOption, filterInfo, _user.GetSuperAdminCompany());
+            var tableList = userList.ToPagedList(pageInfo.Page, pageInfo.ItemsCount).Select(SuperAdminUserTableModelCast).AsQueryable();
             var newFilter = InitFilterInfo(filterInfo, _user.IsInRole(UserRole.SuperAdmin));
-            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option, _user.GetSuperAdminCompany());
+            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option, userList.Count());
 
             var result = new SuperAdminUserTableViewModel
             {
@@ -88,10 +88,10 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
             return _companyDao.GetAllItems().ToDictionary(c => c.Id, c => c.CompanyName);
         }
 
-        private PageInfo SetPageInfo(PageInfo pageInfo, string option, int? companyId)
+        private static PageInfo SetPageInfo(PageInfo pageInfo, string option, int totalCount)
         {
             pageInfo.SortingOption = option;
-            pageInfo.TotalItemsCount = _userDao.GetUserCount(companyId);
+            pageInfo.TotalItemsCount = totalCount;
             return pageInfo;
         }
 
