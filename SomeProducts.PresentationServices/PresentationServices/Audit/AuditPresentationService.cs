@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using SomeProducts.CrossCutting.Filter.Model;
 using SomeProducts.DAL.IDao;
@@ -12,6 +13,7 @@ using PagedList;
 using SomeProducts.CrossCutting.Filter;
 using SomeProducts.CrossCutting.Sorting.SortingOption;
 using R = Resources.Resource;
+using Type = SomeProducts.CrossCutting.Filter.Model.Type;
 
 namespace SomeProducts.PresentationServices.PresentationServices.Audit
 {
@@ -41,35 +43,43 @@ namespace SomeProducts.PresentationServices.PresentationServices.Audit
             _auditDao = auditDao;
         }
         
-        public AuditViewTable GetAuditViewTableForItem(PageInfo pageInfo, string entity, string value, int companyId)
+        public AuditViewTableForEntity GetAuditViewTableForItem(PageInfo pageInfo, string entity, int id, int? companyId)
         {
             var sortingOption = SortingOptionHelper.GetOptionValue(pageInfo.SortingOption, OptionDictionary);
-            var filterInfo = CreateFilterInfoForItem(entity, value);
+            var filterInfo = CreateFilterInfoForItem(entity, id);
             var itemsList = GetFilteredAndSortedItems(sortingOption, filterInfo, companyId);
             var tableList = itemsList.ToPagedList(pageInfo.Page, pageInfo.ItemsCount)
                 .Select(AuditViewTableItemCast).AsQueryable();
             var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option, itemsList);
 
-            var result = new AuditViewTable()
+            var result = new AuditViewTableForEntity()
             {
                 Items = new StaticPagedList<AuditViewTableItem>(
                     tableList, newPageInfo.Page, newPageInfo.ItemsCount, newPageInfo.TotalItemsCount),
-                PageInfo = newPageInfo
+                PageInfo = newPageInfo,
+                Entity = entity
             };
 
             return result;
         }
 
-        private static FilterInfo CreateFilterInfoForItem(string entity, string value)
+        private static FilterInfo CreateFilterInfoForItem(string entity, int id)
         {
             return new FilterInfo(new List<Filter>()
             {
                 new Filter()
                 {
-                    Option = entity,
+                    Option = OptionDictionary[nameof(AuditViewTableItem.Entity)],
                     Parameter = FilterParameter.IsEqualTo,
                     Type = Type.String,
-                    Value = value
+                    Value = entity
+                },
+                new Filter()
+                {
+                    Option = OptionDictionary[nameof(AuditViewTableItem.EntityId)],
+                    Parameter = FilterParameter.IsEqualTo,
+                    Type = Type.String,
+                    Value = Convert.ToString(id)
                 }
             });
         }

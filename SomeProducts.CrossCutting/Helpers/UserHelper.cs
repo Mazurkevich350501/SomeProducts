@@ -25,6 +25,12 @@ namespace SomeProducts.CrossCutting.Helpers
             return principal.GetCompany() != -1;
         }
 
+        public static int? GetSuperAdminCompany(this IPrincipal principal)
+        {
+            if (principal.IsInRole(nameof(UserRole.SuperAdmin))) return null;
+            return principal.GetCompany();
+        }
+
         public static int GetUserId(this IPrincipal principal)
         {
             LastUser = principal;

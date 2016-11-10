@@ -26,10 +26,22 @@ namespace SomeProducts.Controllers
             [ModelBinder(typeof(FilterInfoModelBinder))]FilterInfo filter)
         {
             var pageInfo = new PageInfo(page, count, by);
-            int? companyId = null;
-            if(!User.IsInRole(nameof(UserRole.SuperAdmin))) companyId = User.GetCompany();
+            var companyId = User.GetSuperAdminCompany();
             var model = _service.GetFullAuditViewTable(pageInfo, filter, companyId);
             return View("AuditTable", model);
+        }
+
+        public ActionResult ItemAudit(
+            int id,
+            string entity,
+            int? page,
+            int? count,
+            string by)
+        {
+            var pageInfo = new PageInfo(page, count, by);
+            var companyId = User.GetSuperAdminCompany();
+            var model = _service.GetAuditViewTableForItem(pageInfo, entity, id, companyId);
+            return View("AuditTableForItem", model);
         }
     }
 }

@@ -255,6 +255,7 @@
     <Content Include="Views\Product\ShowProduct.cshtml" />
     <Content Include="Views\Admin\SuperAdminUsers.cshtml" />
     <Content Include="Views\Audit\AuditTable.cshtml" />
+    <Content Include="Views\Audit\AuditTableForItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

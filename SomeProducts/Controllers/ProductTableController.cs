@@ -28,11 +28,7 @@ namespace SomeProducts.Controllers
             [ModelBinder(typeof(FilterInfoModelBinder))]FilterInfo filter)
         {
             var pageInfo = new PageInfo(page, count, by);
-            int? companyId = null;
-            if (!User.IsInRole(nameof(UserRole.SuperAdmin)))
-            {
-                companyId = User.GetCompany();
-            }
+            int? companyId = User.GetSuperAdminCompany();
             var model = _service.GetTablePage(pageInfo, filter, companyId);
             return View("ProductTable", model);
         }

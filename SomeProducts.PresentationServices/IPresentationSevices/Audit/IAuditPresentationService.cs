@@ -7,11 +7,11 @@ namespace SomeProducts.PresentationServices.IPresentationSevices.Audit
 {
     public interface IAuditPresentationService
     {
-        AuditViewTable GetAuditViewTableForItem(
+        AuditViewTableForEntity GetAuditViewTableForItem(
             PageInfo pageInfo,
             string entity,
-            string value, 
-            int companyId);
+            int entityId, 
+            int? companyId);
 
         AuditViewTable GetFullAuditViewTable(
            PageInfo pageInfo,
