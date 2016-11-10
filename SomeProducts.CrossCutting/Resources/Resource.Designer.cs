@@ -77,7 +77,18 @@ namespace Resources {
                 return ResourceManager.GetString("Admin", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Audit.
+        /// </summary>
+        public static string Audit
+        {
+            get
+            {
+                return ResourceManager.GetString("Audit", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Brand.
         /// </summary>
@@ -509,7 +520,18 @@ namespace Resources {
                 return ResourceManager.GetString("NextValue", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Not found.
+        /// </summary>
+        public static string NotFound
+        {
+            get
+            {
+                return ResourceManager.GetString("NotFound", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>

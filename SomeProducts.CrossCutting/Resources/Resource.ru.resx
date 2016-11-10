@@ -123,6 +123,9 @@
   <data name="Admin" xml:space="preserve">
     <value>Админ</value>
   </data>
+  <data name="Audit" xml:space="preserve">
+    <value>Аудит</value>
+  </data>
   <data name="Brand" xml:space="preserve">
     <value>Бренд</value>
   </data>
@@ -269,6 +272,9 @@
   </data>
   <data name="NextValue" xml:space="preserve">
     <value>Следующее значение</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>Не найдено.</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Пароль</value>

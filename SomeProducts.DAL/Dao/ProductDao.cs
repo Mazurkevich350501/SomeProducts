@@ -1,6 +1,7 @@
 ﻿
 using System.ComponentModel;
 using System.Linq;
+using SomeProducts.CrossCutting.Helpers;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.DAL.Repository.Interface;
@@ -12,19 +13,24 @@ namespace SomeProducts.DAL.Dao
         private readonly IDateModifiedRepository<Product> _repository;
         private readonly IDateModifiedRepository<Brand> _brandRepository;
         private readonly IAuditDao _auditDao;
+        private readonly IUserHelper _user;
 
-        public ProductDao(IDateModifiedRepository<Product> repository, IDateModifiedRepository<Brand> brandRepository, IAuditDao auditDao)
+        public ProductDao(IDateModifiedRepository<Product> repository,
+            IDateModifiedRepository<Brand> brandRepository,
+            IAuditDao auditDao, 
+            IUserHelper user)
         {
             _repository = repository;
             _brandRepository = brandRepository;
             _auditDao = auditDao;
+            _user = user;
         }
 
-        public bool UpdateProduct(Product product, int userId)
+        public bool UpdateProduct(Product product)
         {
             CompanyVerify(product);
             var previousProduct = _repository.GetById(product.Id);
-            _auditDao.CreateEditAuditItems(previousProduct, product, userId);
+            _auditDao.CreateEditAuditItems(previousProduct, product);
             var result = _repository.Update(product);
             _repository.Save();
             return result;
@@ -32,33 +38,36 @@ namespace SomeProducts.DAL.Dao
 
         public Product GetProduct(int id)
         {
-            return _repository.GetById(id);
+            return _user.IsInRole(UserRole.SuperAdmin)
+                ? _repository.GetById(id)
+                : null;
         }
 
-        public void RemoveProduct(Product product, int userId)
+        public void RemoveProduct(Product product)
         {
-            _auditDao.CreateDeleteAuditItem(product, userId);
+            _auditDao.CreateDeleteAuditItem(product);
             _repository.Delete(product);
             _repository.Save();
         }
 
-        public void CreateProduct(Product product, int userId)
+        public void CreateProduct(Product product)
         {
             CompanyVerify(product);
             product = _repository.Create(product);
             _repository.Save();
-            _auditDao.CreateCreateAuditItem(product, userId);
-            
+            _auditDao.CreateCreateAuditItem(product);
         }
 
-        public Product GetLastProduct(int companyId)
+        public Product GetLastProduct()
         {
-            return _repository.GetLast(companyId);
+            return _repository.GetLast(_user.GetCompany());
         }
        
         public IQueryable<Product> GetAllProducts()
         {
-            return _repository.GetAllItems();
+            return _user.IsInRole(UserRole.SuperAdmin)
+                ? _repository.GetAllItems()
+                : null;
         }
         
         public IQueryable<Product> GetCompanyProducts(int companyId)
@@ -80,7 +89,7 @@ namespace SomeProducts.DAL.Dao
             }
         }
 
-        public int GetCompanyProductCount(int? companyId)
+        public int GetProductCount(int? companyId)
         {
             return companyId == null
                 ? GetAllProducts().Count()

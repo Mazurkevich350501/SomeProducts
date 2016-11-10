@@ -8,13 +8,13 @@ namespace SomeProducts.DAL.IDao
     {
         Product GetProduct(int id);
 
-        Product GetLastProduct(int companyId);
+        Product GetLastProduct();
 
-        bool UpdateProduct(Product product, int userId);
+        bool UpdateProduct(Product product);
 
-        void CreateProduct(Product product, int userId);
+        void CreateProduct(Product product);
 
-        void RemoveProduct(Product product, int userId);
+        void RemoveProduct(Product product);
         
         IQueryable<Product> GetAllProducts();
 
@@ -22,6 +22,6 @@ namespace SomeProducts.DAL.IDao
 
         Product GetProduct(int companyId, int productId);
 
-        int GetCompanyProductCount(int? companyId);
+        int GetProductCount(int? companyId);
     }
 }

@@ -13,7 +13,7 @@ namespace SomeProducts
             var builder = new ContainerBuilder();
             builder.RegisterModule<DalModule>();
             builder.RegisterModule<PresentationServiceModule>();
-            builder.RegisterModule<ControllerModule>();
+            builder.RegisterModule<WebModule>();
             return builder.Build();
         }
     }

@@ -12,6 +12,7 @@ using SomeProducts.PresentationServices.IPresentationSevices.Admin;
 using SomeProducts.PresentationServices.Models;
 using SomeProducts.PresentationServices.Models.Admin;
 using System.Threading.Tasks;
+using SomeProducts.CrossCutting.Helpers;
 using R = Resources.Resource;
 
 namespace SomeProducts.PresentationServices.PresentationServices.Admin
@@ -20,6 +21,8 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
     {
         private readonly IUserDao _userDao;
         private readonly ICompanyDao _companyDao;
+        private readonly IUserHelper _user;
+
         private static readonly Dictionary<string, string> OptionDictionary;
 
         static UserTablePresentationService()
@@ -32,18 +35,19 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
             };
         }
 
-        public UserTablePresentationService(IUserDao dao, ICompanyDao companyDao)
+        public UserTablePresentationService(IUserDao dao, ICompanyDao companyDao, IUserHelper user)
         {
             _userDao = dao;
             _companyDao = companyDao;
+            _user = user;
         }
 
-        public AdminUserTableViewModel GetAdminUserTableViewModel(PageInfo pageInfo, FilterInfo filterInfo, int companyId)
+        public AdminUserTableViewModel GetAdminUserTableViewModel(PageInfo pageInfo, FilterInfo filterInfo)
         {
             var sortingOption = SortingOptionHelper.GetOptionValue(pageInfo.SortingOption, OptionDictionary);
-            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option, companyId);
-            var productList = GetFilteredAndSortedUsers(sortingOption, filterInfo, companyId);
-            var newFilter = InitFilterInfo(filterInfo, false);
+            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option, _user.GetSuperAdminCompany());
+            var productList = GetFilteredAndSortedUsers(sortingOption, filterInfo, _user.GetSuperAdminCompany());
+            var newFilter = InitFilterInfo(filterInfo, _user.IsInRole(UserRole.SuperAdmin));
             var tableList = productList.ToPagedList(pageInfo.Page, pageInfo.ItemsCount).Select(AdminUserTableModelCast).AsQueryable();
 
             var result = new AdminUserTableViewModel
@@ -61,11 +65,10 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
         public SuperAdminUserTableViewModel GetSuperAdminUserTableViewModel(PageInfo pageInfo, FilterInfo filterInfo)
         {
             var sortingOption = SortingOptionHelper.GetOptionValue(pageInfo.SortingOption, OptionDictionary);
-            var productList = GetFilteredAndSortedUsers(sortingOption, filterInfo, null);
-
+            var productList = GetFilteredAndSortedUsers(sortingOption, filterInfo, _user.GetSuperAdminCompany());
             var tableList = productList.ToPagedList(pageInfo.Page, pageInfo.ItemsCount).Select(SuperAdminUserTableModelCast).AsQueryable();
-            var newFilter = InitFilterInfo(filterInfo, true);
-            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option, null);
+            var newFilter = InitFilterInfo(filterInfo, _user.IsInRole(UserRole.SuperAdmin));
+            var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option, _user.GetSuperAdminCompany());
 
             var result = new SuperAdminUserTableViewModel
             {
@@ -164,13 +167,13 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
         public async Task ChangeAdminRole(int userId)
         {
             var user = await _userDao.FindByIdAsync(userId);
-            if (await _userDao.IsInRoleAsync(user, nameof(UserRole.Admin)))
+            if (await _userDao.IsInRoleAsync(user, UserRole.Admin.AsString()))
             {
-                await _userDao.RemoveFromRoleAsync(user, nameof(UserRole.Admin));
+                await _userDao.RemoveFromRoleAsync(user, UserRole.Admin.AsString());
             }
             else if (user.CompanyId != CrossCutting.Constants.Constants.EmtyCompanyId)
             {
-                await _userDao.AddToRoleAsync(user, nameof(UserRole.Admin));
+                await _userDao.AddToRoleAsync(user, UserRole.Admin.AsString());
             }
             else
             {
@@ -196,7 +199,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.Admin
         public async Task SetUserCompany(int userId, int companyId)
         {
             var user = await _userDao.FindByIdAsync(userId);
-            if (user.Roles.Any(r => r.Name == nameof(UserRole.Admin))
+            if (user.Roles.Any(r => r.Name == UserRole.Admin.AsString())
                 && companyId == CrossCutting.Constants.Constants.EmtyCompanyId)
             {
                 throw new WarningException("User without company cannot be in Admin role");

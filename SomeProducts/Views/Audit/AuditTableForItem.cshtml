@@ -3,50 +3,52 @@
 @using R = Resources.Resource
 @model SomeProducts.PresentationServices.Models.Audit.AuditViewTableForEntity
 
-<div class="product-table-div">
-    <table class="table" id="productTable">
-        <thead>
-            <tr>
-                <th>
-                    <div id="th-modifiedField" data-type="sort" data-name="ModifiedField" class="pointer">
-                        @R.ModifiedField
-                    </div>
-                </th>
-                <th>
-                    <div id="th-previousValue" data-type="sort" data-name="PreviousValue" class="pointer">
-                        @R.PreviousValue
-                    </div>
-                </th>
-                <th>
-                    <div id="th-nextValue" data-type="sort" data-name="NextValue" class="pointer">
-                        @R.NextValue
-                    </div>
-                </th>
-                <th>
-                    <div id="th-modifiedDate" data-type="sort" data-name="ModifiedDate" class="pointer">
-                        @R.Date
-                    </div>
-                </th>
-                <th>
-                    <div id="th-status" data-type="sort" data-name="Status" class="pointer">
-                        @R.Status
-                    </div>
-                </th>
-                <th>
-                    <div id="th-userName" data-type="sort" data-name="UserName" class="pointer">
-                        @R.User
-                    </div>
-                </th>
-                <th>
-                    <div id="th-companyName" data-type="sort" data-name="CompanyName" class="pointer">
-                        @R.Company
-                    </div>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Items)
-            {
+@if (Model.Items.Count != 0)
+{
+    <div class="product-table-div">
+        <table class="table" id="productTable">
+            <thead>
+                <tr>
+                    <th>
+                        <div id="th-modifiedField" data-type="sort" data-name="ModifiedField" class="pointer">
+                            @R.ModifiedField
+                        </div>
+                    </th>
+                    <th>
+                        <div id="th-previousValue" data-type="sort" data-name="PreviousValue" class="pointer">
+                            @R.PreviousValue
+                        </div>
+                    </th>
+                    <th>
+                        <div id="th-nextValue" data-type="sort" data-name="NextValue" class="pointer">
+                            @R.NextValue
+                        </div>
+                    </th>
+                    <th>
+                        <div id="th-modifiedDate" data-type="sort" data-name="ModifiedDate" class="pointer">
+                            @R.Date
+                        </div>
+                    </th>
+                    <th>
+                        <div id="th-status" data-type="sort" data-name="Status" class="pointer">
+                            @R.Status
+                        </div>
+                    </th>
+                    <th>
+                        <div id="th-userName" data-type="sort" data-name="UserName" class="pointer">
+                            @R.User
+                        </div>
+                    </th>
+                    <th>
+                        <div id="th-companyName" data-type="sort" data-name="CompanyName" class="pointer">
+                            @R.Company
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
 
                 <tr>
                     <th>
@@ -71,23 +73,23 @@
                         @Html.DisplayFor(p => item.CompanyName)
                     </th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
-
-<div class="row filters-container">
-    <div class="col-xs-5">
-        @Html.PagedListPager(Model.Items, page => Url.Action("ItemAudit", "Audit", new { entity = Model.Entity, page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption}))
+                }
+            </tbody>
+        </table>
     </div>
-    <div class="dropdown col-xs-6 product-counter">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-            @R.ItemsCount: @Model.PageInfo.ItemsCount
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            @for (var i = 5; i <= SomeProducts.CrossCutting.Constants.Constants.MaxItemsCountPerPage; i += 5)
-            {
+
+    <div class="row filters-container">
+        <div class="col-xs-5">
+            @Html.PagedListPager(Model.Items, page => Url.Action("ItemAudit", "Audit", new { entity = Model.Entity, page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption }))
+        </div>
+        <div class="dropdown col-xs-6 product-counter">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                @R.ItemsCount: @Model.PageInfo.ItemsCount
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                @for (var i = 5; i <= SomeProducts.CrossCutting.Constants.Constants.MaxItemsCountPerPage; i += 5)
+                {
                 <li>
                     <a class="dropdown-item" href=@Url.Action("ItemAudit", "Audit", new
                                              {
@@ -97,30 +99,35 @@
                                                  by = Model.PageInfo.SortingOption
                                              })>@i</a>
                                         </li>
-            }
-        </ul>
+                }
+            </ul>
+        </div>
     </div>
-</div>
 
-
-@section scripts
+    @section scripts
 {
-    <script>
-        $(function () {
-            var params = {
-                url: '@Url.Action("ItemAudit", "Audit", new { entity = Model.Entity, page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount})',
-                sortingOption: '@Model.PageInfo.SortingOption',
-                IllegalCharsError: '@R.IllegalCharsError'
-            };
-            var sortingNamespace = window.Utils.getNamespace("SortableTable");
-            sortingNamespace.init(params);
-        });
-    </script>
-    @Scripts.Render("~/Product/Audit/Scripts")
-    @Scripts.Render("~/Product/Common/Sorting/Scripts")
+        <script>
+            $(function () {
+                var params = {
+                    url: '@Url.Action("ItemAudit", "Audit", new { entity = Model.Entity, page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount})',
+                    sortingOption: '@Model.PageInfo.SortingOption',
+                    IllegalCharsError: '@R.IllegalCharsError'
+                };
+                var sortingNamespace = window.Utils.getNamespace("SortableTable");
+                sortingNamespace.init(params);
+            });
+        </script>
+        @Scripts.Render("~/Product/Audit/Scripts")
+        @Scripts.Render("~/Product/Common/Sorting/Scripts")
+    }
+
+    @section stylesheets
+{
+        @Styles.Render("~/Product/Audit/css")
+    }
+
 }
-
-@section stylesheets
+else
 {
-    @Styles.Render("~/Product/Audit/css")
+    <h1>@R.NotFound</h1>
 }

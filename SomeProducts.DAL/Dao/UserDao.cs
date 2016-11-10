@@ -15,7 +15,10 @@ namespace SomeProducts.DAL.Dao
         private readonly IRepositoryAsync<Role> _roleRepository;
         private readonly IAuditDao _auditDao;
 
-        public UserDao(IUserRepository userRepository, IRepositoryAsync<Role> roleRepository, IAuditDao auditDao)
+        public UserDao(
+            IUserRepository userRepository, 
+            IRepositoryAsync<Role> roleRepository,
+            IAuditDao auditDao)
         {
             _userRepository = userRepository;
             _roleRepository = roleRepository;
@@ -24,14 +27,18 @@ namespace SomeProducts.DAL.Dao
 
         public async Task CreateAsync(User user)
         {
+            user.Roles = new List<Role>()
+            {
+                new Role() {Name = UserRole.User.AsString()}
+            };
             _userRepository.Create(user);
-            await AddToRoleAsync(user, nameof(UserRole.User));
             await _userRepository.SaveAsync();
         }
 
         public async Task DeleteAsync(User user)
         {
             _userRepository.Delete(user);
+            _auditDao.CreateDeleteAuditItem(user);
             await _userRepository.SaveAsync();
         }
 
@@ -73,8 +80,10 @@ namespace SomeProducts.DAL.Dao
 
         public async Task UpdateAsync(User user)
         {
+            var previousUser = await FindByIdAsync(user.Id);
             _userRepository.Update(user);
             await _userRepository.SaveAsync();
+            _auditDao.CreateEditAuditItems(previousUser, user);
         }
 
         public async Task AddToRoleAsync(User user, string roleName)

@@ -11,6 +11,7 @@ using SomeProducts.DAL.Models;
 using System.Linq;
 using PagedList;
 using SomeProducts.CrossCutting.Filter;
+using SomeProducts.CrossCutting.Helpers;
 using SomeProducts.CrossCutting.Sorting.SortingOption;
 using R = Resources.Resource;
 using Type = SomeProducts.CrossCutting.Filter.Model.Type;
@@ -20,6 +21,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.Audit
     public class AuditPresentationService : IAuditPresentationService
     {
         private readonly IAuditDao _auditDao;
+        private readonly IUserHelper _user;
         private static readonly Dictionary<string, string> OptionDictionary;
 
         static AuditPresentationService()
@@ -38,16 +40,17 @@ namespace SomeProducts.PresentationServices.PresentationServices.Audit
             };
         } 
 
-        public AuditPresentationService(IAuditDao auditDao)
+        public AuditPresentationService(IAuditDao auditDao, IUserHelper user)
         {
             _auditDao = auditDao;
+            _user = user;
         }
         
-        public AuditViewTableForEntity GetAuditViewTableForItem(PageInfo pageInfo, string entity, int id, int? companyId)
+        public AuditViewTableForEntity GetAuditViewTableForItem(PageInfo pageInfo, string entity, int id)
         {
             var sortingOption = SortingOptionHelper.GetOptionValue(pageInfo.SortingOption, OptionDictionary);
             var filterInfo = CreateFilterInfoForItem(entity, id);
-            var itemsList = GetFilteredAndSortedItems(sortingOption, filterInfo, companyId);
+            var itemsList = GetFilteredAndSortedItems(sortingOption, filterInfo, _user.GetSuperAdminCompany());
             var tableList = itemsList.ToPagedList(pageInfo.Page, pageInfo.ItemsCount)
                 .Select(AuditViewTableItemCast).AsQueryable();
             var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option, itemsList);
@@ -84,10 +87,10 @@ namespace SomeProducts.PresentationServices.PresentationServices.Audit
             });
         }
 
-        public AuditViewTable GetFullAuditViewTable(PageInfo pageInfo, FilterInfo filterInfo, int? companyId)
+        public AuditViewTable GetFullAuditViewTable(PageInfo pageInfo, FilterInfo filterInfo)
         {
             var sortingOption = SortingOptionHelper.GetOptionValue(pageInfo.SortingOption, OptionDictionary);
-            var itemsList = GetFilteredAndSortedItems(sortingOption, filterInfo, companyId);
+            var itemsList = GetFilteredAndSortedItems(sortingOption, filterInfo, _user.GetSuperAdminCompany());
             var tableList = itemsList.ToPagedList(pageInfo.Page, pageInfo.ItemsCount).Select(AuditViewTableItemCast).AsQueryable();
             var newFilter = InitFilterInfo(filterInfo);
             var newPageInfo = SetPageInfo(pageInfo, sortingOption.Option, itemsList);

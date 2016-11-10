@@ -31,9 +31,9 @@ namespace SomeProducts.Controllers
         {
             ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} open admin page");
             var pageInfo = new PageInfo(page, count, by);
-            return User.IsInRole(nameof(UserRole.SuperAdmin))
+            return User.IsInRole(UserRole.SuperAdmin.AsString())
                 ? View("SuperAdminUsers", _service.GetSuperAdminUserTableViewModel(pageInfo, filter))
-                : View(_service.GetAdminUserTableViewModel(pageInfo, filter, User.GetCompany()));
+                : View(_service.GetAdminUserTableViewModel(pageInfo, filter));
         }
 
         [HttpPost]
@@ -88,7 +88,7 @@ namespace SomeProducts.Controllers
             var userCompany = await _service.GetUserCompany(userId);
             return userCompany.CompanyId == CrossCutting.Constants.Constants.EmtyCompanyId
                    || userCompany.CompanyId == User.GetCompany()
-                   || User.IsInRole(nameof(UserRole.SuperAdmin));
+                   || User.IsInRole(UserRole.SuperAdmin.AsString());
         }
     }
 }

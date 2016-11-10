@@ -56,7 +56,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
         private PageInfo SetPageInfo(PageInfo pageInfo, string option, int? companyId)
         {
             pageInfo.SortingOption = option;
-            pageInfo.TotalItemsCount = _dao.GetCompanyProductCount(companyId);
+            pageInfo.TotalItemsCount = _dao.GetProductCount(companyId);
             return pageInfo;
         }
 

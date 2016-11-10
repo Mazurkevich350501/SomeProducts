@@ -10,12 +10,10 @@ namespace SomeProducts.PresentationServices.IPresentationSevices.Audit
         AuditViewTableForEntity GetAuditViewTableForItem(
             PageInfo pageInfo,
             string entity,
-            int entityId, 
-            int? companyId);
+            int entityId);
 
         AuditViewTable GetFullAuditViewTable(
            PageInfo pageInfo,
-           FilterInfo filterInfo,
-           int? companyId);
+           FilterInfo filterInfo);
     }
 }

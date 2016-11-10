@@ -123,6 +123,9 @@
   <data name="Admin" xml:space="preserve">
     <value>Admin</value>
   </data>
+  <data name="Audit" xml:space="preserve">
+    <value>Audit</value>
+  </data>
   <data name="Brand" xml:space="preserve">
     <value>Brand</value>
   </data>
@@ -266,6 +269,9 @@
   </data>
   <data name="NextValue" xml:space="preserve">
     <value>Next value</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>Not found.</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>

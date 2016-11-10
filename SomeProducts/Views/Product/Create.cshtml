@@ -54,10 +54,8 @@
     </div>
     <div>
         <input type="submit" class="btn btn-success" value=@(isEdit ? @R.Save : @R.Create) />
-        @if (isEdit && User.IsInRole(nameof(UserRole.Admin)))
-        {
-            <div id="delete-btn" class="btn btn-warning" data-toggle="modal" data-target="#RemovingModal">@R.Delete</div>
-        }
+        <div id="delete-btn" class="btn btn-warning" data-toggle="modal" data-target="#RemovingModal">@R.Delete</div>
+        <a class="btn btn-info" href="@Url.Action("ItemAudit", "Audit", new {id = Model.Product.Id, entity = nameof(Model.Product)})">@R.Audit</a>
     </div>
 </form>
 

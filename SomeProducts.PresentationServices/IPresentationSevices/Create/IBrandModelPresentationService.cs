@@ -7,14 +7,14 @@ namespace SomeProducts.PresentationServices.IPresentationSevices.Create
     {
         IEnumerable<BrandModel> GetCompanyBrands(int companyId);
 
-        void RemoveBrand(BrandModel brand, int userId);
+        void RemoveBrand(BrandModel brand);
 
-        void CreateBrand(BrandModel model, int userId);
+        void CreateBrand(BrandModel model);
 
-        bool IsBrandModelUsing(int company, int id);
+        bool IsBrandModelUsing(int id);
 
-        void SaveBrandChanges(BrandsChangeModel model, int companyId, int userId);
+        void SaveBrandChanges(BrandsChangeModel model);
 
-        bool UpdateBrandModel(BrandModel model, int userId);
+        bool UpdateBrandModel(BrandModel model);
     }
 }

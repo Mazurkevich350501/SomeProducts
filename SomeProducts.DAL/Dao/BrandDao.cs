@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using System.Linq;
+using SomeProducts.CrossCutting.Helpers;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.DAL.Repository.Interface;
@@ -12,19 +13,25 @@ namespace SomeProducts.DAL.Dao
         private readonly IDateModifiedRepository<Brand> _repository;
         private readonly IDateModifiedRepository<Product> _productRepository;
         private readonly IAuditDao _auditDao;
+        private readonly IUserHelper _user;
 
-        public BrandDao(IDateModifiedRepository<Brand> repository, IDateModifiedRepository<Product> productRepository, IAuditDao auditDao)
+        public BrandDao(
+            IDateModifiedRepository<Brand> repository, 
+            IDateModifiedRepository<Product> productRepository,
+            IAuditDao auditDao, 
+            IUserHelper user)
         {
             _repository = repository;
             _productRepository = productRepository;
             _auditDao = auditDao;
+            _user = user;
         }
 
-        public void CreateBrand(Brand brand, int userId)
+        public void CreateBrand(Brand brand)
         {
             brand = _repository.Create(brand);
             _repository.Save();
-            _auditDao.CreateCreateAuditItem(brand, userId);
+            _auditDao.CreateCreateAuditItem(brand);
         }
 
         public IEnumerable<Brand> GetCompanyBrands(int companyId)
@@ -32,31 +39,32 @@ namespace SomeProducts.DAL.Dao
             return _repository.GetCompanyItems(companyId);
         }
 
-        public bool IsBrandUsing(int companyId ,int id)
+        public bool IsBrandUsing(int id)
         {
-            return _productRepository.GetCompanyItems(companyId).Any(p => p.Brand.Id == id);
+            return _productRepository.GetCompanyItems(_user.GetCompany())
+                .Any(p => p.Brand.Id == id);
         }
 
-        public void RemoveBrand(Brand brand, int userId)
+        public void RemoveBrand(Brand brand)
         {
-            _auditDao.CreateDeleteAuditItem(brand, userId);
+            _auditDao.CreateDeleteAuditItem(brand);
             _repository.Delete(brand);
             _repository.Save();
         }
         
-        public bool UpdateBrand(Brand brand, int userId)
+        public bool UpdateBrand(Brand brand)
         {
             var previousBrand = _repository.GetById(brand.Id);
-            _auditDao.CreateEditAuditItems(previousBrand, brand, userId);
+            _auditDao.CreateEditAuditItems(previousBrand, brand);
             if (!_repository.Update(brand)) return false;
             _repository.Save();
             return true;
         }
 
-        public Brand GetById(int companyId, int id)
+        public Brand GetById( int id)
         {
             var brand = _repository.GetById(id);
-            return brand?.CompanyId == companyId
+            return brand?.CompanyId == _user.GetCompany()
                 ? brand
                 : null;
         }

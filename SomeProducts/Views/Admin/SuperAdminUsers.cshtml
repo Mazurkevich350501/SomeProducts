@@ -65,7 +65,7 @@
                     <th class="th-setAdmin">
                         @if (User.Identity.Name != user.Name)
                         {
-                            var setAdminBtnColor = user.Roles.Contains(nameof(UserRole.Admin))
+                            var setAdminBtnColor = user.Roles.Contains(UserRole.Admin.AsString())
                                 ? "green" : "red";
                             <button class="btn btn-default" data-id="@user.Id"
                                     id=@($"setAdminBtn{user.Id}")

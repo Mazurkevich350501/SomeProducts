@@ -8,14 +8,14 @@ namespace SomeProducts.DAL.IDao
     {
         IEnumerable<Brand> GetCompanyBrands(int companyId);
 
-        void RemoveBrand(Brand brand, int userId);
+        void RemoveBrand(Brand brand);
 
-        void CreateBrand(Brand brand, int userId);
+        void CreateBrand(Brand brand);
 
-        bool IsBrandUsing(int companyId, int id);
+        bool IsBrandUsing(int id);
        
-        bool UpdateBrand(Brand brand, int userId);
+        bool UpdateBrand(Brand brand);
 
-        Brand GetById(int companyId, int id);
+        Brand GetById(int id);
     }
 }

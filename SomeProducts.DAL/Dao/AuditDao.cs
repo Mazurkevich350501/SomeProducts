@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using SomeProducts.CrossCutting.Helpers;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models.Audit;
 using SomeProducts.DAL.Repository.Interface;
@@ -11,39 +12,41 @@ namespace SomeProducts.DAL.Dao
     public class AuditDao : IAuditDao
     {
         private readonly IRepository<AuditItem> _repository;
+        private readonly IUserHelper _user;
 
-        public AuditDao(IRepository<AuditItem> repository)
+        public AuditDao(IRepository<AuditItem> repository, IUserHelper user)
         {
             _repository = repository;
+            _user = user;
         }
 
-        public void CreateCreateAuditItem<T>(T createdObject, int userId)
+        public void CreateCreateAuditItem<T>(T createdObject)
         {
             var auditItem = new AuditItem()
             {
                 AuditEntityId = GetEntity(typeof(T)),
                 EntityId = GetObjectId(createdObject),
                 StatusId = Status.Create,
-                UserId = userId,
+                UserId = _user.GetUserId(),
                 ModifiedDateTime = DateTime.Now
             };
             CreateAuditItem(auditItem);
         }
 
-        public void CreateDeleteAuditItem<T>(T removingObject, int userId)
+        public void CreateDeleteAuditItem<T>(T removingObject)
         {
             var auditItem = new AuditItem()
             {
                 AuditEntityId = GetEntity(typeof(T)),
                 EntityId = GetObjectId(removingObject),
                 StatusId = Status.Delete,
-                UserId = userId,
+                UserId = _user.GetUserId(),
                 ModifiedDateTime = DateTime.Now
             };
             CreateAuditItem(auditItem);
         }
 
-        public int CreateEditAuditItems<T>(T previousObject, T nextObject, int userId)
+        public int CreateEditAuditItems<T>(T previousObject, T nextObject)
         {
             if (GetObjectId(previousObject) != GetObjectId(nextObject))
             {
@@ -53,7 +56,7 @@ namespace SomeProducts.DAL.Dao
             var properties = previousObject.GetType().GetProperties();
             foreach (var property in properties)
             {
-                var auditItem = CreatePropertyAuditItem(property, previousObject, nextObject, userId);
+                var auditItem = CreatePropertyAuditItem(property, previousObject, nextObject);
                 if(auditItem == null) continue;
                 _repository.Create(auditItem);
                 count++;
@@ -78,7 +81,7 @@ namespace SomeProducts.DAL.Dao
             return true;
         }
 
-        private static AuditItem CreatePropertyAuditItem<T>(PropertyInfo property, T previousObject, T nextObject, int userId)
+        private AuditItem CreatePropertyAuditItem<T>(PropertyInfo property, T previousObject, T nextObject)
         {
             if (!IsAuditing(property)) return null;
             var previousPropertyValue = property.GetValue(previousObject);
@@ -90,7 +93,7 @@ namespace SomeProducts.DAL.Dao
                 AuditEntityId = GetEntity(typeof(T)),
                 EntityId = GetObjectId(previousObject),
                 StatusId = Status.Edit,
-                UserId = userId,
+                UserId = _user.GetUserId(),
                 ModifiedDateTime = DateTime.Now,
                 ModifiedField = property.Name,
                 PreviousValue = previousPropertyValue?.ToString() ?? "null",

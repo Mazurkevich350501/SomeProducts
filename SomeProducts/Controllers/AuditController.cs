@@ -2,7 +2,6 @@
 using System.Web.Mvc;
 using SomeProducts.Attribute;
 using SomeProducts.CrossCutting.Filter.Model;
-using SomeProducts.CrossCutting.Helpers;
 using SomeProducts.PresentationServices.IPresentationSevices.Audit;
 using SomeProducts.PresentationServices.Models;
 using FilterInfo = SomeProducts.CrossCutting.Filter.Model.FilterInfo;
@@ -26,8 +25,7 @@ namespace SomeProducts.Controllers
             [ModelBinder(typeof(FilterInfoModelBinder))]FilterInfo filter)
         {
             var pageInfo = new PageInfo(page, count, by);
-            var companyId = User.GetSuperAdminCompany();
-            var model = _service.GetFullAuditViewTable(pageInfo, filter, companyId);
+            var model = _service.GetFullAuditViewTable(pageInfo, filter);
             return View("AuditTable", model);
         }
 
@@ -39,8 +37,7 @@ namespace SomeProducts.Controllers
             string by)
         {
             var pageInfo = new PageInfo(page, count, by);
-            var companyId = User.GetSuperAdminCompany();
-            var model = _service.GetAuditViewTableForItem(pageInfo, entity, id, companyId);
+            var model = _service.GetAuditViewTableForItem(pageInfo, entity, id);
             return View("AuditTableForItem", model);
         }
     }
