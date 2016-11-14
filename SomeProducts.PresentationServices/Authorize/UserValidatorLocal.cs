@@ -2,6 +2,7 @@
 
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using Resources;
 using SomeProducts.DAL.Models;
 
 namespace SomeProducts.PresentationServices.Authorize
@@ -16,7 +17,7 @@ namespace SomeProducts.PresentationServices.Authorize
         {
             return await Task.FromResult(await base.ValidateAsync(item) == IdentityResult.Success
                 ? IdentityResult.Success
-                : IdentityResult.Failed($"{item.UserName} {Resources.Resource.UserNameExist}\n"));
+                : IdentityResult.Failed($"{item.UserName} {LocalResource.UserNameExist}\n"));
         }
     }
 }

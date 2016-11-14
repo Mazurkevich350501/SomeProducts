@@ -9,7 +9,7 @@ using SomeProducts.PresentationServices.IPresentationSevices.ProductTable;
 using SomeProducts.PresentationServices.Models.ProductTable;
 using SomeProducts.CrossCutting.Sorting.SortingOption;
 using SomeProducts.PresentationServices.Models;
-using R = Resources.Resource;
+using R = Resources.LocalResource;
 
 namespace SomeProducts.PresentationServices.PresentationServices.ProductTable
 {

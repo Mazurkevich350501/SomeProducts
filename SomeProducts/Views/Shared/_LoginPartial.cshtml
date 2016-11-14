@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
-@using R = Resources.Resource
+@using R = Resources.LocalResource
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))

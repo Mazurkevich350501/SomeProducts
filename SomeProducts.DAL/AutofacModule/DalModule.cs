@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Autofac.Integration.Mvc;
 using Microsoft.AspNet.Identity;
 using SomeProducts.DAL.Context;
 using SomeProducts.DAL.Dao;
@@ -14,7 +15,7 @@ namespace SomeProducts.DAL.AutofacModule
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ProductContext>().As<ProductContext>().SingleInstance();
+            builder.RegisterType<ProductContext>().As<ProductContext>().InstancePerHttpRequest();
 
             builder.RegisterType<UserRepository>().As<IUserRepository>();
             builder.RegisterType<BaseRepositoryAsync<Role>>().As<IRepositoryAsync<Role>>();

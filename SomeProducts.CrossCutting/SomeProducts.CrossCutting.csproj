@@ -90,15 +90,15 @@
     <Compile Include="Interfaces\IImageModel.cs" />
     <Compile Include="ProjectLogger\HandleErrorLogAttribute.cs" />
     <Compile Include="ProjectLogger\ProjectLogger.cs" />
-    <Compile Include="Resources\Resource.Designer.cs">
+    <Compile Include="Resources\LocalResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.resx</DependentUpon>
+      <DependentUpon>LocalResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Resource.ru.Designer.cs">
+    <Compile Include="Resources\LocalResource.ru.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.ru.resx</DependentUpon>
+      <DependentUpon>LocalResource.ru.resx</DependentUpon>
     </Compile>
     <Compile Include="Sorting\SortingOption\SortingOption.cs" />
     <Compile Include="Sorting\SortingOption\SortingOptionHelper.cs" />
@@ -110,15 +110,16 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Resource.resx">
+    <EmbeddedResource Include="Resources\LocalResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LocalResource.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resources</CustomToolNamespace>
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Resource.ru.resx">
+    <EmbeddedResource Include="Resources\LocalResource.ru.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <CustomToolNamespace>Resources</CustomToolNamespace>
-      <LastGenOutput>Resource.ru.Designer.cs</LastGenOutput>
+      <LastGenOutput>LocalResource.ru.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

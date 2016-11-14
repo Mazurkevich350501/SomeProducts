@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using Resources;
 using SomeProducts.CrossCutting.ProjectLogger;
 using SomeProducts.PresentationServices.Authorize;
 using SomeProducts.PresentationServices.Models.Account;
@@ -104,8 +105,8 @@ namespace SomeProducts.Controllers
             if (user == null)
             {
                 var error = await _manager.FindByNameAsync(userModel.Name) == null
-                    ? Resources.Resource.IncorrectUserName
-                    : Resources.Resource.IncorrectPassword;
+                    ? LocalResource.IncorrectUserName
+                    : LocalResource.IncorrectPassword;
                 return IdentityResult.Failed(error);
             }
 
