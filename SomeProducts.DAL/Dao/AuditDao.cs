@@ -28,7 +28,8 @@ namespace SomeProducts.DAL.Dao
                 EntityId = GetObjectId(createdObject),
                 StatusId = Status.Create,
                 UserId = _user.GetUserId(),
-                ModifiedDateTime = DateTime.Now
+                ModifiedDateTime = DateTime.Now,
+                CompanyId = _user.GetCompany()
             };
             CreateAuditItem(auditItem);
         }
@@ -41,7 +42,8 @@ namespace SomeProducts.DAL.Dao
                 EntityId = GetObjectId(removingObject),
                 StatusId = Status.Delete,
                 UserId = _user.GetUserId(),
-                ModifiedDateTime = DateTime.Now
+                ModifiedDateTime = DateTime.Now,
+                CompanyId = _user.GetCompany()
             };
             CreateAuditItem(auditItem);
         }
@@ -94,6 +96,7 @@ namespace SomeProducts.DAL.Dao
                 EntityId = GetObjectId(previousObject),
                 StatusId = Status.Edit,
                 UserId = _user.GetUserId(),
+                CompanyId = _user.GetCompany(),
                 ModifiedDateTime = DateTime.Now,
                 ModifiedField = property.Name,
                 PreviousValue = previousPropertyValue?.ToString() ?? "null",

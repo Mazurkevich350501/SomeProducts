@@ -9,8 +9,10 @@
     [ModifiedDateTime] DATETIME NOT NULL DEFAULT GETDATE(), 
     [StatusId] INT NOT NULL, 
     [UserId] INT NOT NULL, 
+    [CompanyId] INT NOT NULL DEFAULT 2 , 
     CONSTRAINT [FK_AuditItems_Users] FOREIGN KEY ([UserId]) REFERENCES [Users]([Id]), 
     CONSTRAINT [FK_AuditItems_AuditEntity] FOREIGN KEY ([AuditEntityId]) REFERENCES [AuditEntities]([Id]), 
-    CONSTRAINT [FK_AuditItems_AuditStatus] FOREIGN KEY ([StatusId]) REFERENCES [AuditStatuses]([Id]), 
+    CONSTRAINT [FK_AuditItems_AuditStatus] FOREIGN KEY ([StatusId]) REFERENCES [AuditStatus]([Id]), 
+    CONSTRAINT [FK_AuditItems_Companies] FOREIGN KEY ([CompanyId]) REFERENCES [Companies]([Id]),
     CONSTRAINT [PK_AuditItems] PRIMARY KEY ([Id])
 )

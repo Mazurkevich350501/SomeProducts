@@ -31,5 +31,10 @@ namespace SomeProducts.DAL.Models.Audit
 
         [ForeignKey(nameof(UserId))]
         public virtual User User { get; set; }
+
+        public int CompanyId { get; set; }
+
+        [ForeignKey(nameof(CompanyId))]
+        public virtual Company Company { get; set; }
     }
 }

@@ -13,7 +13,7 @@ using PagedList;
 using SomeProducts.CrossCutting.Filter;
 using SomeProducts.CrossCutting.Helpers;
 using SomeProducts.CrossCutting.Sorting.SortingOption;
-using R = Resources.Resource;
+using R = Resources.LocalResource;
 using Type = SomeProducts.CrossCutting.Filter.Model.Type;
 
 namespace SomeProducts.PresentationServices.PresentationServices.Audit
@@ -164,7 +164,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.Audit
             return new AuditViewTableItem()
             {
                 UserName = item.User.UserName,
-                CompanyName = item.User.Company.CompanyName,
+                CompanyName = item.Company.CompanyName,
                 Status = item.Status.Value,
                 Entity = item.AuditEntity.Name,
                 ModifiedDate = item.ModifiedDateTime,
