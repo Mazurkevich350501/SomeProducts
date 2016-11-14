@@ -1,5 +1,7 @@
-﻿using Autofac;
-using SomeProducts.Controllers;
+﻿using System.Reflection;
+using Autofac;
+using Autofac.Integration.Mvc;
+using Module = Autofac.Module;
 
 namespace SomeProducts.AutofacModule
 {
@@ -7,11 +9,7 @@ namespace SomeProducts.AutofacModule
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ProductController>().As<ProductController>();
-            builder.RegisterType<AccountController>().As<AccountController>();
-            builder.RegisterType<AdminController>().As<AdminController>();
-            builder.RegisterType<ProductTableController>().As<ProductTableController>();
-            builder.RegisterType<ErrorController>().As<ErrorController>();
+            builder.RegisterControllers(Assembly.GetExecutingAssembly());
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
+using Autofac.Integration.Mvc;
 using SomeProducts.CrossCutting.ProjectLogger;
 
 namespace SomeProducts
@@ -10,9 +11,9 @@ namespace SomeProducts
     public class CustomControllerFactory : DefaultControllerFactory
     {
         protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
-        {
+        {   
             return controllerType != null
-                ? (IController) Startup.Container.Resolve(controllerType)
+                ? (IController)AutofacDependencyResolver.Current.RequestLifetimeScope.Resolve(controllerType)
                 : null;
         }
     }
