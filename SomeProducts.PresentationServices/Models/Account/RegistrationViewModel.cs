@@ -1,26 +1,27 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
+using Resources;
 
 namespace SomeProducts.PresentationServices.Models.Account
 {
     public class RegistrationViewModel
     {
-        [Required(ErrorMessageResourceType = typeof(Resources.Resource),
+        [Required(ErrorMessageResourceType = typeof(LocalResource),
             ErrorMessageResourceName = "Roles")]
-        [Display(Name = "Name", ResourceType = typeof(Resources.Resource))]
+        [Display(Name = "Name", ResourceType = typeof(LocalResource))]
         public string Name { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.Resource),
+        [Required(ErrorMessageResourceType = typeof(LocalResource),
             ErrorMessageResourceName = "RequiredField")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password", ResourceType = typeof(Resources.Resource))]
+        [Display(Name = "Password", ResourceType = typeof(LocalResource))]
         public string Password { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.Resource),
+        [Required(ErrorMessageResourceType = typeof(LocalResource),
             ErrorMessageResourceName = "RequiredField")]
-        [Display(Name = "ConfirmPassword", ResourceType = typeof(Resources.Resource))]
+        [Display(Name = "ConfirmPassword", ResourceType = typeof(LocalResource))]
         [Compare(nameof(Password),
-            ErrorMessageResourceType = typeof(Resources.Resource),
+            ErrorMessageResourceType = typeof(LocalResource),
             ErrorMessageResourceName = "PasswordDontConfirm")]
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }

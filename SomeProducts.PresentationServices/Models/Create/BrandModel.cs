@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Resources;
 
 namespace SomeProducts.PresentationServices.Models.Create
 {
@@ -6,12 +7,12 @@ namespace SomeProducts.PresentationServices.Models.Create
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.Resource),
+        [Required(ErrorMessageResourceType = typeof(LocalResource),
             ErrorMessageResourceName = "RequiredField")]
         [MaxLength(200, 
-            ErrorMessageResourceType = typeof(Resources.Resource),
+            ErrorMessageResourceType = typeof(LocalResource),
             ErrorMessageResourceName = "Long200Characters")]
-        [Display(Name = "Brand", ResourceType = typeof(Resources.Resource))]
+        [Display(Name = "Brand", ResourceType = typeof(LocalResource))]
         public string Name { get; set; }
 
         public int CompanyId { get; set; }

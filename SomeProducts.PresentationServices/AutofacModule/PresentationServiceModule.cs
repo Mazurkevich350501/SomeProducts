@@ -1,5 +1,4 @@
 ﻿
-
 using Autofac;
 using SomeProducts.PresentationServices.Authorize;
 using SomeProducts.PresentationServices.IPresentationSevices.Admin;

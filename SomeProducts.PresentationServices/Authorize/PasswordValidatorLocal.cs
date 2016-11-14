@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
-using R = Resources.Resource;
+using R = Resources.LocalResource;
 
 namespace SomeProducts.PresentationServices.Authorize
 {

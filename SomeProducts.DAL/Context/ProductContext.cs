@@ -18,6 +18,5 @@ namespace SomeProducts.DAL.Context
         public DbSet<Role> Roles { get; set; }
 
         public DbSet<Company> Companies { get; set; }
-        
     }
 }
