@@ -29,7 +29,7 @@ namespace SomeProducts.DAL.Dao
                 StatusId = Status.Create,
                 UserId = _user.GetUserId(),
                 ModifiedDateTime = DateTime.Now,
-                CompanyId = _user.GetCompany()
+                CompanyId = GetCompany(createdObject)
             };
             CreateAuditItem(auditItem);
         }
@@ -43,7 +43,7 @@ namespace SomeProducts.DAL.Dao
                 StatusId = Status.Delete,
                 UserId = _user.GetUserId(),
                 ModifiedDateTime = DateTime.Now,
-                CompanyId = _user.GetCompany()
+                CompanyId = GetCompany(removingObject)
             };
             CreateAuditItem(auditItem);
         }
@@ -96,7 +96,7 @@ namespace SomeProducts.DAL.Dao
                 EntityId = GetObjectId(previousObject),
                 StatusId = Status.Edit,
                 UserId = _user.GetUserId(),
-                CompanyId = _user.GetCompany(),
+                CompanyId = GetCompany(previousObject),
                 ModifiedDateTime = DateTime.Now,
                 ModifiedField = property.Name,
                 PreviousValue = previousPropertyValue?.ToString() ?? "null",
@@ -141,6 +141,12 @@ namespace SomeProducts.DAL.Dao
             {
                 throw new WarningException("Object must have id property type of int and positiv value");
             }
+            return result;
+        }
+
+        private static int GetCompany<T>(T obj)
+        {
+            int result = (int)obj.GetType().GetProperty("CompanyId").GetValue(obj);
             return result;
         }
 
