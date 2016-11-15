@@ -7,4 +7,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="PreviousValue" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="7daa6dda-23b3-49a9-856c-9f9a6d2d7d3b" ChangeDateTime="11/14/2016 14:12:37">
+    <Property Name="ElementName" Value="[dbo].[FK_Users_ActiveState]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Users]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_Users_ActiveStates]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ecf2e744-d229-4da6-ae8f-9e6796b5ae87" ChangeDateTime="11/14/2016 14:12:41">
+    <Property Name="ElementName" Value="[dbo].[Users].[ActiveState]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Users]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ActiveStateId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4886d990-5748-48dc-abb7-f4a0feecd570" ChangeDateTime="11/14/2016 14:18:58">
+    <Property Name="ElementName" Value="[dbo].[Companies].[[ActiveStateId]]]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Companies]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ActiveStateId" />
+  </Operation>
 </Operations>

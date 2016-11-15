@@ -5,6 +5,7 @@ using SomeProducts.DAL.Dao;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.DAL.Repository.Interface;
+using SomeProducts.CrossCutting.Helpers;
 
 namespace SomeProducts.DAL.Test
 {
@@ -14,6 +15,7 @@ namespace SomeProducts.DAL.Test
         private Mock<IDateModifiedRepository<Product>> _productRepository;
         private Mock<IDateModifiedRepository<Brand>> _brandRepository;
         private Mock<IAuditDao> _auditDao;
+        private Mock<IUserHelper> _userHelper;
         private ProductDao _productDao;
         private Product _product;
         private const int CompanyId = 1;
@@ -24,7 +26,12 @@ namespace SomeProducts.DAL.Test
             _productRepository = new Mock<IDateModifiedRepository<Product>>();
             _brandRepository = new Mock<IDateModifiedRepository<Brand>>();
             _auditDao = new Mock<IAuditDao>();
-            _productDao = new ProductDao(_productRepository.Object, _brandRepository.Object, _auditDao.Object);
+            _userHelper = new Mock<IUserHelper>();
+            _productDao = new ProductDao(
+                _productRepository.Object,
+                _brandRepository.Object,
+                _auditDao.Object,
+                _userHelper.Object);
             _product = new Product()
             {
                 Id = 5,
@@ -46,7 +53,7 @@ namespace SomeProducts.DAL.Test
             _productRepository.Setup(r => r.Update(It.IsAny<Product>()))
                 .Callback<Product>(p => updatedProduct = p);
 
-            _productDao.UpdateProduct(_product, 3);
+            _productDao.UpdateProduct(_product);
 
             Assert.AreEqual(_product, updatedProduct);
         }
@@ -66,7 +73,7 @@ namespace SomeProducts.DAL.Test
         {
             _productRepository.Setup(r => r.GetLast(CompanyId)).Returns(_product);
 
-            var result = _productDao.GetLastProduct(CompanyId);
+            var result = _productDao.GetLastProduct();
 
             Assert.AreEqual(_product, result);
         }
@@ -78,7 +85,7 @@ namespace SomeProducts.DAL.Test
             _productRepository.Setup(r => r.Delete(It.IsAny<Product>()))
                 .Callback<Product>(product => deletedId = product.Id);
 
-            _productDao.RemoveProduct(_product, 3);
+            _productDao.RemoveProduct(_product);
 
             Assert.AreEqual(_product.Id, deletedId);
         }
@@ -90,7 +97,7 @@ namespace SomeProducts.DAL.Test
             _productRepository.Setup(r => r.Create(It.IsAny<Product>()))
                 .Callback<Product>(p => product = p);
 
-            _productDao.CreateProduct(_product, 3);
+            _productDao.CreateProduct(_product);
 
             Assert.AreEqual(_product, product);
         }

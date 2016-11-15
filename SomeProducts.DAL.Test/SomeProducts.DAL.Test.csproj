@@ -74,6 +74,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SomeProducts.CrossCutting\SomeProducts.CrossCutting.csproj">
+      <Project>{FD9275AB-B7E3-4A8C-9359-8EDDFABD13C7}</Project>
+      <Name>SomeProducts.CrossCutting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SomeProducts.DAL\SomeProducts.DAL.csproj">
       <Project>{7234c738-6ba2-457e-bd8b-475408570312}</Project>
       <Name>SomeProducts.DAL</Name>

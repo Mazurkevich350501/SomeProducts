@@ -5,11 +5,13 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using SomeProducts.DAL.Models.Audit;
+using SomeProducts.DAL.Models.ModelState;
 using SomeProducts.DAL.Repository.Interface;
 
 namespace SomeProducts.DAL.Models
 {
-    public class User : IUser<int>, IAvailableCompany
+    [Entity(Entity.User)]
+    public class User : IUser<int>, IAvailableCompany, IActive
     {
         public int Id { get; set; }
 
@@ -36,5 +38,10 @@ namespace SomeProducts.DAL.Models
             userIdentity.AddClaim(new Claim("Id", Id.ToString()));
             return userIdentity;
         }
+
+        public State ActiveStateId { get; set; } = State.Active;
+
+        [ForeignKey(nameof(ActiveStateId))]
+        public virtual ActiveState ActiveState { get; set; }
     }
 }

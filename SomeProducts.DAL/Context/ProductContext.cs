@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using SomeProducts.DAL.Models;
 using SomeProducts.DAL.Models.Audit;
+using SomeProducts.DAL.Models.ModelState;
 
 namespace SomeProducts.DAL.Context
 {
@@ -25,5 +26,7 @@ namespace SomeProducts.DAL.Context
         public DbSet<AuditStatus> AuditStatuses { get; set; }
 
         public DbSet<AuditEntity> AuditEntities { get; set; }
+
+        public DbSet<ActiveState> ActiveStates { get; set; }
     }
 }

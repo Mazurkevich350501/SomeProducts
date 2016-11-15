@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using SomeProducts.CrossCutting.Helpers;
 using SomeProducts.DAL.Dao;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
@@ -16,6 +17,7 @@ namespace SomeProducts.DAL.Test
         private Mock<IDateModifiedRepository<Brand>> _brandRepository;
         private Mock<IDateModifiedRepository<Product>> _productRepository;
         private Mock<IAuditDao> _auditDao;
+        private Mock<IUserHelper> _userHelper;
         private BrandDao _brandDao;
         private Brand _brand;
         private const int CompanyId = 1;
@@ -25,8 +27,13 @@ namespace SomeProducts.DAL.Test
         {
             _brandRepository = new Mock<IDateModifiedRepository<Brand>>();
             _productRepository = new Mock<IDateModifiedRepository<Product>>();
+            _userHelper = new Mock<IUserHelper>();
             _auditDao = new Mock<IAuditDao>();
-            _brandDao = new BrandDao(_brandRepository.Object, _productRepository.Object, _auditDao.Object);
+            _brandDao = new BrandDao(
+                _brandRepository.Object, 
+                _productRepository.Object, 
+                _auditDao.Object, 
+                _userHelper.Object);
             _brand = new Brand()
             {
                 Id = 5,
@@ -43,7 +50,7 @@ namespace SomeProducts.DAL.Test
             _brandRepository.Setup(r => r.Delete(It.IsAny<Brand>()))
                 .Callback<Brand>(brand => deletedId = brand.Id);
 
-            _brandDao.RemoveBrand(_brand, 3);
+            _brandDao.RemoveBrand(_brand);
 
             Assert.AreEqual(_brand.Id, deletedId);
         }
@@ -55,7 +62,7 @@ namespace SomeProducts.DAL.Test
             _brandRepository.Setup(r => r.Create(It.IsAny<Brand>()))
                 .Callback<Brand>(p => brand = p);
 
-            _brandDao.CreateBrand(_brand, 3);
+            _brandDao.CreateBrand(_brand);
 
             Assert.AreEqual(_brand, brand);
         }
@@ -83,8 +90,8 @@ namespace SomeProducts.DAL.Test
             _productRepository.Setup(r => r.GetCompanyItems(It.IsAny<int>()))
                 .Returns(productList.AsQueryable());
 
-            var trueResult = _brandDao.IsBrandUsing(CompanyId, 2);
-            var falseResult = _brandDao.IsBrandUsing(CompanyId, 3);
+            var trueResult = _brandDao.IsBrandUsing(CompanyId);
+            var falseResult = _brandDao.IsBrandUsing(CompanyId);
 
             Assert.IsTrue(trueResult);
             Assert.IsFalse(falseResult);

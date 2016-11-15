@@ -27,7 +27,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
 
         public void RemoveProductViewModel(int id)
         {
-            var product = _productDao.GetProduct(_user.GetCompany(), id);
+            var product = _productDao.GetProduct(_user.GetSuperAdminCompany(), id);
             if (product != null)
             {
                 _productDao.RemoveProduct(product);

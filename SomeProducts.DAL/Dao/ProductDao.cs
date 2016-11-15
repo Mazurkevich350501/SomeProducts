@@ -70,14 +70,18 @@ namespace SomeProducts.DAL.Dao
                 : null;
         }
         
-        public IQueryable<Product> GetCompanyProducts(int companyId)
+        public IQueryable<Product> GetCompanyProducts(int? companyId)
         {
-            return _repository.GetCompanyItems(companyId);
+            return companyId != null
+                ? _repository.GetCompanyItems(companyId.Value)
+                : _repository.GetAllItems();
         }
 
-        public Product GetProduct(int companyId, int productId)
+        public Product GetProduct(int? companyId, int productId)
         {
-            return _repository.GetCompanyItem(companyId, productId);
+            return companyId != null
+                ? _repository.GetCompanyItem(companyId.Value, productId)
+                : _repository.GetById(productId);
         }
 
         private void CompanyVerify(Product product)

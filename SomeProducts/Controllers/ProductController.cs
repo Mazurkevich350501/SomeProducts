@@ -18,7 +18,9 @@ namespace SomeProducts.Controllers
         private readonly IProductViewModelPresentationService _productViewModelService;
         private readonly IBrandModelPresentationService _barndModelService;
 
-        public ProductController(IProductViewModelPresentationService productViewModelService, IBrandModelPresentationService barndModelService)
+        public ProductController(
+            IProductViewModelPresentationService productViewModelService, 
+            IBrandModelPresentationService barndModelService)
         {
             _productViewModelService = productViewModelService;
             _barndModelService = barndModelService;

@@ -98,7 +98,10 @@
     <Compile Include="Models\Audit\AuditPropertyAttribute.cs" />
     <Compile Include="Models\Audit\AuditStatus.cs" />
     <Compile Include="Models\Audit\EntityAttribute.cs" />
+    <Compile Include="Models\ModelState\ActiveState.cs" />
+    <Compile Include="Models\ModelState\IActive.cs" />
     <Compile Include="Repository\BaseRepositoryAsync.cs" />
+    <Compile Include="Repository\CompanyRepository.cs" />
     <Compile Include="Repository\Interface\IAvailableCompany.cs" />
     <Compile Include="Repository\Interface\ICompanyItemsAccess.cs" />
     <Compile Include="Repository\Interface\IDateModifiedRepository.cs" />

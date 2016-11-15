@@ -1,12 +1,11 @@
 ﻿
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using SomeProducts.DAL.Repository.Interface;
+using SomeProducts.DAL.Models.ModelState;
 
 namespace SomeProducts.DAL.Models
 {
-    public class Company
+    public class Company : IActive
     {
         public int Id { get; set; }
 
@@ -15,5 +14,10 @@ namespace SomeProducts.DAL.Models
         public virtual ICollection<User> Users { get; set; }
         
         public virtual ICollection<Product> Products { get; set; }
+
+        public State ActiveStateId { get; set; } = State.Active;
+
+        [ForeignKey(nameof(ActiveStateId))]
+        public virtual ActiveState ActiveState { get; set; }
     }
 }

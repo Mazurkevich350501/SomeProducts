@@ -18,9 +18,9 @@ namespace SomeProducts.DAL.IDao
         
         IQueryable<Product> GetAllProducts();
 
-        IQueryable<Product> GetCompanyProducts(int companyId);
+        IQueryable<Product> GetCompanyProducts(int? companyId);
 
-        Product GetProduct(int companyId, int productId);
+        Product GetProduct(int? companyId, int productId);
 
         int GetProductCount(int? companyId);
     }

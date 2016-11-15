@@ -2,12 +2,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using SomeProducts.DAL.Models.Audit;
+using SomeProducts.DAL.Models.ModelState;
 using SomeProducts.DAL.Repository.Interface;
 
 namespace SomeProducts.DAL.Models
 {
     [Entity(Entity.Product)]
-    public class Product : IDateModified, IIdentify, IAvailableCompany
+    public class Product : IDateModified, IIdentify, IAvailableCompany, IActive
     {
         public int Id { get; set; }
 
@@ -46,5 +47,11 @@ namespace SomeProducts.DAL.Models
 
         [ForeignKey(nameof(CompanyId))]
         public virtual Company Company { get; set; }
+
+        public State ActiveStateId { get; set; } = State.Active;
+
+        [ForeignKey(nameof(ActiveStateId))]
+        public virtual ActiveState ActiveState { get; set; }
+
     }
 }
