@@ -37,7 +37,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
         public ProductViewModel GetProductViewModel(int companyId, int id)
         {
             var result = GetProductViewModel(id);
-            return result.Product.CompanyId == companyId ? result : null;
+            return result?.Product?.CompanyId == companyId ? result : null;
         }
 
         public ProductViewModel GetProductViewModel(int id)

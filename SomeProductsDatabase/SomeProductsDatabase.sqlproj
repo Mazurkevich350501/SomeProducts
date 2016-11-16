@@ -46,6 +46,7 @@
     <DefineTrace>true</DefineTrace>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TreatTSqlWarningsAsErrors>False</TreatTSqlWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
@@ -60,7 +61,6 @@
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
     <Folder Include="dbo\Scripts" />
-    <Folder Include="dbo\Scripts\Pre-Deployment" />
     <Folder Include="dbo\Scripts\Post-Deployment" />
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +82,10 @@
     <PostDeploy Include="dbo\Scripts\Post-Deployment\Script.InitTableRows.sql" />
   </ItemGroup>
   <ItemGroup>
-    <PreDeploy Include="dbo\Scripts\Pre-Deployment\Script.InitProcedure.sql" />
+    <None Include="dbo\Scripts\Post-Deployment\InitRolesRowProc.sql" />
+    <None Include="dbo\Scripts\Post-Deployment\InitAuditStatusRowProc.sql" />
+    <None Include="dbo\Scripts\Post-Deployment\InitAuditEntitiesRowProc.sql" />
+    <None Include="dbo\Scripts\Post-Deployment\InitActiveStatesRowProc.sql" />
+    <None Include="dbo\Scripts\Post-Deployment\InitEmptyCompany.sql" />
   </ItemGroup>
 </Project>
