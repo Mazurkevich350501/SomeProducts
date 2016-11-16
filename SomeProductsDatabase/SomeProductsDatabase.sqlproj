@@ -59,6 +59,9 @@
     <Folder Include="Properties" />
     <Folder Include="dbo\" />
     <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Scripts" />
+    <Folder Include="dbo\Scripts\Pre-Deployment" />
+    <Folder Include="dbo\Scripts\Post-Deployment" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Products.sql" />
@@ -70,5 +73,11 @@
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="SomeProductsDatabase.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="dbo\Scripts\Post-Deployment\Script.InitTableRows.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="dbo\Scripts\Pre-Deployment\Script.InitProcedure.sql" />
   </ItemGroup>
 </Project>
