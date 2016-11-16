@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using SomeProducts.CrossCutting.Helpers;
 using SomeProducts.DAL.IDao;
@@ -29,6 +30,10 @@ namespace SomeProducts.DAL.Dao
 
         public void CreateBrand(Brand brand)
         {
+            if (brand.CompanyId == CrossCutting.Constants.Constants.EmtyCompanyId)
+            {
+                throw new WarningException("This user can't create product. User company is empty");
+            }
             brand = _repository.Create(brand);
             _repository.Save();
             _auditDao.CreateCreateAuditItem(brand);

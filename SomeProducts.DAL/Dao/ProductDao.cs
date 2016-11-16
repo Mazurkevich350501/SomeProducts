@@ -52,6 +52,10 @@ namespace SomeProducts.DAL.Dao
 
         public void CreateProduct(Product product)
         {
+            if (product.CompanyId == CrossCutting.Constants.Constants.EmtyCompanyId)
+            {
+                throw new WarningException("This user can't create product. User company is empty");
+            }
             CompanyVerify(product);
             product = _repository.Create(product);
             _repository.Save();
