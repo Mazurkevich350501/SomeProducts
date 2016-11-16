@@ -8,7 +8,7 @@ using SomeProducts.DAL.Repository;
 namespace SomeProducts.DAL.Test
 {
 # if DEBUG
-    //[TestClass]
+    [TestClass]
 # endif
     public class BaseRepositoryTest
     {
@@ -21,7 +21,7 @@ namespace SomeProducts.DAL.Test
         {
             _brand = new Brand() { Name = "name", CompanyId = CompanyId};
             AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory));
-            _repository = new DateModifiedRepository<Brand>("name=Test");
+            _repository = new DateModifiedRepository<Brand>("Test");
         }
 
         [TestCleanup]

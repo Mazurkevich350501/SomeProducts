@@ -18,7 +18,9 @@ namespace SomeProducts.Controllers
         private readonly IProductViewModelPresentationService _productViewModelService;
         private readonly IBrandModelPresentationService _barndModelService;
 
-        public ProductController(IProductViewModelPresentationService productViewModelService, IBrandModelPresentationService barndModelService)
+        public ProductController(
+            IProductViewModelPresentationService productViewModelService, 
+            IBrandModelPresentationService barndModelService)
         {
             _productViewModelService = productViewModelService;
             _barndModelService = barndModelService;
@@ -28,7 +30,7 @@ namespace SomeProducts.Controllers
         [AuthorizeRole(UserRole.Admin)]
         public ActionResult Create()
         {
-            var model = _productViewModelService.GetEmtyProductViewModel(User.GetCompany());
+            var model = _productViewModelService.GetEmtyProductViewModel();
             return View(model);
         }
 
@@ -40,7 +42,7 @@ namespace SomeProducts.Controllers
             {
                 throw new HttpException(404, "Wrong product id");
             }
-            return HttpContext.User.IsInRole(nameof(UserRole.Admin)) 
+            return HttpContext.User.IsInRole(UserRole.Admin.AsString()) 
                 ? View("Create", productModel)
                 : View("ShowProduct", productModel);
         }
@@ -53,13 +55,13 @@ namespace SomeProducts.Controllers
             if (ModelState.IsValid)
             {
                 ImageUtils.AddImageToModel(model.Product, Request);
-                _productViewModelService.CreateProductViewModel(model, User.GetCompany());
-                var productModel = _productViewModelService.GetLastProductViewMode(User.GetCompany());
+                _productViewModelService.CreateProductViewModel(model);
+                var productModel = _productViewModelService.GetLastProductViewMode();
 
                 ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} create new product(id={productModel.Product.Id})");
                 return RedirectToAction("Edit", "Product", new { id = productModel.Product.Id });
             }
-            var newModel = _productViewModelService.GetEmtyProductViewModel(User.GetCompany());
+            var newModel = _productViewModelService.GetEmtyProductViewModel();
             newModel.Product = model.Product;
             return View(newModel);
         }
@@ -72,7 +74,7 @@ namespace SomeProducts.Controllers
             if (ModelState.IsValid)
             {
                 ImageUtils.AddImageToModel(model.Product, Request);
-                var result = _productViewModelService.UpdateProductViewModel(model, User.GetCompany());
+                var result = _productViewModelService.UpdateProductViewModel(model);
                 if (result)
                 {
                     ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} edit product(id={model.Product.Id})");
@@ -81,7 +83,7 @@ namespace SomeProducts.Controllers
                 return View("Error", (object)"Product already has changed");
             }
 
-            var newModel = _productViewModelService.GetEmtyProductViewModel(User.GetCompany());
+            var newModel = _productViewModelService.GetEmtyProductViewModel();
             newModel.Product = model.Product;
             return View("Create", newModel);
         }
@@ -90,7 +92,7 @@ namespace SomeProducts.Controllers
         public JsonResult SaveBrandsChanges(BrandsChangeModel changeModel)
         {
             ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} change brands ({changeModel})");
-            _barndModelService.SaveBrandChanges(changeModel, User.GetCompany());
+            _barndModelService.SaveBrandChanges(changeModel);
             return GetBrandsList();
         }
 
@@ -100,7 +102,7 @@ namespace SomeProducts.Controllers
         public ActionResult Delete(int productId, string redirectUrl)
         {
             ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} remove product (id={productId})");
-            _productViewModelService.RemoveProductViewModel(productId, User.GetCompany());
+            _productViewModelService.RemoveProductViewModel(productId);
             return Redirect(redirectUrl);
         }
 
@@ -111,7 +113,7 @@ namespace SomeProducts.Controllers
 
         public JsonResult IsBrandUsing(int id)
         {
-            return Json(_barndModelService.IsBrandModelUsing(User.GetCompany(), id), JsonRequestBehavior.AllowGet);
+            return Json(_barndModelService.IsBrandModelUsing(id), JsonRequestBehavior.AllowGet);
         }
     }
 }

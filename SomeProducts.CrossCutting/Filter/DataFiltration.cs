@@ -9,7 +9,7 @@ namespace SomeProducts.CrossCutting.Filter
 {
     public static class DataFiltration
     {
-        public static IQueryable<T> GetFilteredProduct<T>(this IQueryable<T> query, FilterInfo filters)
+        public static IQueryable<T> GetFilteredItems<T>(this IQueryable<T> query, FilterInfo filters)
         {
             var a = filters?.Filters != null
                 ? filters.Filters.Aggregate(query, (current, filter) => current.Where(filter))
@@ -25,7 +25,7 @@ namespace SomeProducts.CrossCutting.Filter
             var parameter = Expression.Parameter(query.ElementType, "p");
 
             MemberExpression memberAccess = null;
-            foreach (var property in filterParam.Option.Split('_'))
+            foreach (var property in filterParam.Option.Split('.'))
                 memberAccess = Expression.Property
                    (memberAccess ?? ((Expression)parameter), property);
 

@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using System.Linq;
+using SomeProducts.CrossCutting.Helpers;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.PresentationServices.IPresentationSevices.Create;
@@ -12,17 +13,22 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
     {
         private readonly IProductDao _productDao;
         private readonly IBrandDao _brandDao;
+        private readonly IUserHelper _user;
 
-        public ProductViewModelPresentationService(IProductDao productService, IBrandDao brandService)
+        public ProductViewModelPresentationService(
+            IProductDao productService, 
+            IBrandDao brandService,
+            IUserHelper user)
         {
             _productDao = productService;
             _brandDao = brandService;
+            _user = user;
         }
 
-        public void RemoveProductViewModel(int id, int companyId)
+        public void RemoveProductViewModel(int id)
         {
-            var product = _productDao.GetProduct(id);
-            if (product.CompanyId == companyId)
+            var product = _productDao.GetProduct(_user.GetSuperAdminCompany(), id);
+            if (product != null)
             {
                 _productDao.RemoveProduct(product);
             }
@@ -31,16 +37,12 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
         public ProductViewModel GetProductViewModel(int companyId, int id)
         {
             var result = GetProductViewModel(id);
-            if (result != null && result.Product.CompanyId == companyId)
-            {
-                return result;
-            }
-            return null;
+            return result.Product.CompanyId == companyId ? result : null;
         }
 
         public ProductViewModel GetProductViewModel(int id)
         {
-            var product = _productDao.GetProduct(id);
+            var product = _productDao.GetProduct(_user.GetCompany(), id);
             if (product == null) return null;
             var productModel = ProductModelCast(product);
 
@@ -52,27 +54,27 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
             };
         }
 
-        public ProductViewModel GetEmtyProductViewModel(int companyId)
+        public ProductViewModel GetEmtyProductViewModel()
         {
             return new ProductViewModel()
             {
                 Product = new ProductModel(),
-                Brands = CreateBrandDictionary(companyId),
+                Brands = CreateBrandDictionary(_user.GetCompany()),
                 Colors = ProductColors.Colors
             };
         }
 
-        public bool UpdateProductViewModel(ProductViewModel model, int companyId)
+        public bool UpdateProductViewModel(ProductViewModel model)
         {
             var product = ProductCast(model.Product);
-            product.CompanyId = companyId;
+            product.CompanyId = _user.GetCompany();
             return _productDao.UpdateProduct(product);
         }
 
-        public void CreateProductViewModel(ProductViewModel model, int companyId)
+        public void CreateProductViewModel(ProductViewModel model)
         {
             var product = ProductCast(model.Product);
-            product.CompanyId = companyId;
+            product.CompanyId = _user.GetCompany();
             _productDao.CreateProduct(product);
         }
 
@@ -128,12 +130,12 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
             return null;
         }
 
-        public ProductViewModel GetLastProductViewMode(int companyId)
+        public ProductViewModel GetLastProductViewMode()
         {
             return new ProductViewModel()
             {
-                Product = ProductModelCast(_productDao.GetLastProduct(companyId)),
-                Brands = CreateBrandDictionary(companyId),
+                Product = ProductModelCast(_productDao.GetLastProduct()),
+                Brands = CreateBrandDictionary(_user.GetCompany()),
                 Colors = ProductColors.Colors
             };
         }

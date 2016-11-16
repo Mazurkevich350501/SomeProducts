@@ -11,18 +11,25 @@ public enum UserRole
     SuperAdmin
 }
 
+public static class UserRoleHelper
+{
+    private static readonly IDictionary<UserRole, string> UserRoleDictionary = new Dictionary<UserRole, string>()
+    {
+        {UserRole.Admin, nameof(UserRole.Admin) },
+        {UserRole.User, nameof(UserRole.User) },
+        {UserRole.SuperAdmin, nameof(UserRole.SuperAdmin) }
+    };
+    public static string AsString(this UserRole role)
+    {
+        return UserRoleDictionary[role];
+    }
+}
+
 namespace SomeProducts.Attribute
 {
     public class AuthorizeRoleAttribute : AuthorizeAttribute
     {
         private readonly UserRole[] _userRoles;
-
-        private static readonly Dictionary<UserRole, string> RolesDictionary = new Dictionary<UserRole, string>()
-        {
-            {UserRole.SuperAdmin, nameof(UserRole.SuperAdmin) },
-            {UserRole.Admin, nameof(UserRole.Admin) },
-            {UserRole.User, nameof(UserRole.User) }
-        };
 
         public AuthorizeRoleAttribute()
         {
@@ -39,7 +46,7 @@ namespace SomeProducts.Attribute
             if(httpContext.User.GetCompany() == CrossCutting.Constants.Constants.EmtyCompanyId)
                 return false;
             var isAuthorized = base.AuthorizeCore(httpContext);
-            return  _userRoles?.Any(role => httpContext.User.IsInRole(RolesDictionary[role])) 
+            return  _userRoles?.Any(role => httpContext.User.IsInRole(role.AsString())) 
                 ?? isAuthorized;
         }
     }

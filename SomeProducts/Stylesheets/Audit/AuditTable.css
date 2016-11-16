@@ -1,0 +1,56 @@
+﻿th {
+    min-width: 120px;
+    max-width: 120px;
+}
+
+.modal-body-central {
+    text-align: center;
+    padding: 20px;
+}
+
+.product-table-div {
+    margin: 40px 0 30px 0;
+}
+
+.product-table-image {
+    max-height: 80px;
+    max-width: 80px;
+    border: 6px solid white;
+}
+
+.product-counter {
+    padding-left: -50px;
+    margin-top: 20px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+table {
+    max-width: 600px;
+    border: 2px solid #357ebd;
+}
+
+thead th {
+    color: whitesmoke;
+    background: #428bca;
+}
+
+tbody th {
+    font-weight: normal;
+    font-style: italic;
+    word-wrap: break-word;
+}
+
+thead, tbody {
+    display: block;
+}
+
+tbody {
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+

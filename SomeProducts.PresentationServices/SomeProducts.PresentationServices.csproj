@@ -71,6 +71,7 @@
     <Compile Include="Authorize\UserValidatorLocal.cs" />
     <Compile Include="AutofacModule\PresentationServiceModule.cs" />
     <Compile Include="IPresentationSevices\Admin\IUserTablePresentationService.cs" />
+    <Compile Include="IPresentationSevices\Audit\IAuditPresentationService.cs" />
     <Compile Include="IPresentationSevices\ProductTable\IProductTablePresentationService.cs" />
     <Compile Include="Models\Account\LogInUserModel.cs" />
     <Compile Include="Models\Account\RegistrationModelToLoginModelConverter.cs" />
@@ -80,6 +81,9 @@
     <Compile Include="Models\Admin\SuperAdminUserTableViewModel.cs" />
     <Compile Include="Models\Admin\AdminUserTableItemModel.cs" />
     <Compile Include="Models\Admin\AdminUserTableViewModel.cs" />
+    <Compile Include="Models\Audit\AuditViewTable.cs" />
+    <Compile Include="Models\Audit\AuditViewTableForEntity.cs" />
+    <Compile Include="Models\Audit\AuditViewTableItem.cs" />
     <Compile Include="Models\Interfaces\ITableViewModel.cs" />
     <Compile Include="Models\PageInfo.cs" />
     <Compile Include="Models\ProductTable\ProductTableModel.cs" />
@@ -92,6 +96,7 @@
     <Compile Include="Models\Create\ProductViewModel.cs" />
     <Compile Include="Models\Create\ProductModel.cs" />
     <Compile Include="PresentationServices\Admin\UserTablePresentationService.cs" />
+    <Compile Include="PresentationServices\Audit\AuditPresentationService.cs" />
     <Compile Include="PresentationServices\Create\BrandModelPresentationService.cs" />
     <Compile Include="PresentationServices\Create\ProductViewModelPresentationService.cs" />
     <Compile Include="PresentationServices\ProductTable\ProductTablePresentationService.cs" />
@@ -111,6 +116,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

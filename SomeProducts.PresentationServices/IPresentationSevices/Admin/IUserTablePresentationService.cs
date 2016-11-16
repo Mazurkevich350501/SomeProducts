@@ -9,7 +9,7 @@ namespace SomeProducts.PresentationServices.IPresentationSevices.Admin
 {
     public interface IUserTablePresentationService
     {
-        AdminUserTableViewModel GetAdminUserTableViewModel(PageInfo pageInfo, FilterInfo filterInfo, int companyId);
+        AdminUserTableViewModel GetAdminUserTableViewModel(PageInfo pageInfo, FilterInfo filterInfo);
 
         SuperAdminUserTableViewModel GetSuperAdminUserTableViewModel(PageInfo pageInfo, FilterInfo filterInfo);
 

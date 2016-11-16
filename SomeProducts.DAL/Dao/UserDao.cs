@@ -13,23 +13,32 @@ namespace SomeProducts.DAL.Dao
     {
         private readonly IUserRepository _userRepository;
         private readonly IRepositoryAsync<Role> _roleRepository;
+        private readonly IAuditDao _auditDao;
 
-        public UserDao(IUserRepository userRepository, IRepositoryAsync<Role> roleRepository)
+        public UserDao(
+            IUserRepository userRepository, 
+            IRepositoryAsync<Role> roleRepository,
+            IAuditDao auditDao)
         {
             _userRepository = userRepository;
             _roleRepository = roleRepository;
+            _auditDao = auditDao;
         }
 
         public async Task CreateAsync(User user)
         {
+            user.Roles = new List<Role>()
+            {
+                new Role() {Name = UserRole.User.AsString()}
+            };
             _userRepository.Create(user);
-            await AddToRoleAsync(user, "user");
             await _userRepository.SaveAsync();
         }
 
         public async Task DeleteAsync(User user)
         {
             _userRepository.Delete(user);
+            _auditDao.CreateDeleteAuditItem(user);
             await _userRepository.SaveAsync();
         }
 
@@ -71,8 +80,10 @@ namespace SomeProducts.DAL.Dao
 
         public async Task UpdateAsync(User user)
         {
+            var previousUser = await FindByIdAsync(user.Id);
             _userRepository.Update(user);
             await _userRepository.SaveAsync();
+            _auditDao.CreateEditAuditItems(previousUser, user);
         }
 
         public async Task AddToRoleAsync(User user, string roleName)
@@ -118,11 +129,6 @@ namespace SomeProducts.DAL.Dao
         public IQueryable<User> GetAllUsers()
         {
             return _userRepository.GetAllItems();
-        }
-
-        public async Task<int> GetUserCompanyId(int userId)
-        {
-            return (await FindByIdAsync(userId)).CompanyId;
         }
 
         public IQueryable<User> GetCompanyUsers(int companyId)

@@ -83,15 +83,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutofacModule\DalModule.cs" />
+    <Compile Include="Dao\AuditDao.cs" />
     <Compile Include="Dao\BrandDao.cs" />
     <Compile Include="Dao\CompanyDao.cs" />
     <Compile Include="Dao\ProductDao.cs" />
     <Compile Include="Dao\RoleDao.cs" />
     <Compile Include="Dao\UserDao.cs" />
+    <Compile Include="IDao\IAuditDao.cs" />
     <Compile Include="IDao\IBrandDao.cs" />
     <Compile Include="IDao\ICompanyDao.cs" />
     <Compile Include="IDao\IUserDao.cs" />
+    <Compile Include="Models\Audit\AuditEntity.cs" />
+    <Compile Include="Models\Audit\AuditItem.cs" />
+    <Compile Include="Models\Audit\AuditPropertyAttribute.cs" />
+    <Compile Include="Models\Audit\AuditStatus.cs" />
+    <Compile Include="Models\Audit\EntityAttribute.cs" />
+    <Compile Include="Models\ModelState\ActiveState.cs" />
+    <Compile Include="Models\ModelState\IActive.cs" />
     <Compile Include="Repository\BaseRepositoryAsync.cs" />
+    <Compile Include="Repository\CompanyRepository.cs" />
     <Compile Include="Repository\Interface\IAvailableCompany.cs" />
     <Compile Include="Repository\Interface\ICompanyItemsAccess.cs" />
     <Compile Include="Repository\Interface\IDateModifiedRepository.cs" />
@@ -115,6 +125,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SomeProducts.CrossCutting\SomeProducts.CrossCutting.csproj">
+      <Project>{fd9275ab-b7e3-4a8c-9359-8eddfabd13c7}</Project>
+      <Name>SomeProducts.CrossCutting</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,8 +4,8 @@ using SomeProducts.DAL.Models;
 using SomeProducts.DAL.Context;
 using System.Linq;
 using System.Threading.Tasks;
+using SomeProducts.DAL.Models.ModelState;
 using SomeProducts.DAL.Repository.Interface;
-using System;
 
 namespace SomeProducts.DAL.Repository
 {
@@ -23,14 +23,15 @@ namespace SomeProducts.DAL.Repository
             Dispose();
         }
 
-        public void Create(User user)
+        public User Create(User user)
         {
-            _db.Users.Add(user);
+            return _db.Users.Add(user);
         }
 
         public void Delete(User user)
         {
-            _db.Users.Remove(_db.Users.Find(user.Id));
+            user.ActiveStateId = State.Disable;
+            Update(user);
         }
 
         public void Dispose()
@@ -40,12 +41,16 @@ namespace SomeProducts.DAL.Repository
 
         public IQueryable<User> GetAllItems()
         {
-            return _db.Users.AsQueryable();
+            return _db.Users.AsQueryable()
+                .Where(u => u.ActiveStateId == State.Active);
         }
 
         public User GetById(int id)
         {
-           return _db.Users.Find(id);
+            var user = _db.Users.Find(id);
+            return user.ActiveStateId == State.Active
+                ? user
+                : null;
         }
 
         public User GetCompanyItem(int companyId, int itemId)

@@ -85,7 +85,8 @@
     <Compile Include="Filter\Model\FilterInfo.cs" />
     <Compile Include="Filter\DataFiltration.cs" />
     <Compile Include="Filter\Model\FilterInfoModelBinder.cs" />
-    <Compile Include="Helpers\CompanyHelper.cs" />
+    <Compile Include="Helpers\IUserHelper.cs" />
+    <Compile Include="Helpers\PrincipalHelper.cs" />
     <Compile Include="Interfaces\IImageModel.cs" />
     <Compile Include="ProjectLogger\HandleErrorLogAttribute.cs" />
     <Compile Include="ProjectLogger\ProjectLogger.cs" />
@@ -113,6 +114,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LocalResource.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resources</CustomToolNamespace>
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\LocalResource.ru.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

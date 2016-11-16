@@ -65,7 +65,7 @@
                     <th class="th-setAdmin">
                         @if (User.Identity.Name != user.Name)
                         {
-                            var setAdminBtnColor = user.Roles.Contains(nameof(UserRole.Admin))
+                            var setAdminBtnColor = user.Roles.Contains(UserRole.Admin.AsString())
                                 ? "green" : "red";
                             <button class="btn btn-default" data-id="@user.Id"
                                     id=@($"setAdminBtn{user.Id}")
@@ -187,8 +187,8 @@
                 IllegalCharsError: '@R.IllegalCharsError'
             };
 
-            var productTableNamespace = window.Utils.getNamespace("ProductTable");
-            productTableNamespace.init(params);
+            var sortingNamespace = window.Utils.getNamespace("SortableTable");
+            sortingNamespace.init(params);
             var removingModalNamespace = window.Utils.getNamespace("RemovingModal");
             removingModalNamespace.initRemovingModal(params);
             var validationNamespace = window.Utils.getNamespace("Validation");
@@ -205,5 +205,5 @@
 @section stylesheets
 {
     @Styles.Render("~/Product/Admin/css")
-    @Styles.Render("~/Product/Comman/Filter/css")
+    @Styles.Render("~/Product/Common/Filter/css")
 }

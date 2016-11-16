@@ -2,5 +2,7 @@
 (
 	[Id] INT NOT NULL IDENTITY, 
     [CompanyName] NVARCHAR(MAX) NOT NULL, 
-	CONSTRAINT [PK_Companies_Id] PRIMARY KEY CLUSTERED ([Id] ASC),
+	[ActiveStateId] INT NOT NULL DEFAULT 1, 
+    CONSTRAINT [PK_Companies_Id] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_Companies_ActiveStates] FOREIGN KEY ([ActiveStateId]) REFERENCES [ActiveStates]([Id]),
 )

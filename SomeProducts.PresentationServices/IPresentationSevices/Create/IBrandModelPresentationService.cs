@@ -11,9 +11,9 @@ namespace SomeProducts.PresentationServices.IPresentationSevices.Create
 
         void CreateBrand(BrandModel model);
 
-        bool IsBrandModelUsing(int company, int id);
+        bool IsBrandModelUsing(int id);
 
-        void SaveBrandChanges(BrandsChangeModel model, int companyId);
+        void SaveBrandChanges(BrandsChangeModel model);
 
         bool UpdateBrandModel(BrandModel model);
     }

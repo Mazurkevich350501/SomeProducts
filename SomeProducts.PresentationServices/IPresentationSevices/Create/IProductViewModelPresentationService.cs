@@ -8,14 +8,14 @@ namespace SomeProducts.PresentationServices.IPresentationSevices.Create
 
         ProductViewModel GetProductViewModel(int companyId, int id);
 
-        ProductViewModel GetEmtyProductViewModel(int companyId);
+        ProductViewModel GetEmtyProductViewModel();
 
-        ProductViewModel GetLastProductViewMode(int companyId);
+        ProductViewModel GetLastProductViewMode();
 
-        void CreateProductViewModel(ProductViewModel model, int companyId);
+        void CreateProductViewModel(ProductViewModel model);
 
-        void RemoveProductViewModel(int id, int companyId);
+        void RemoveProductViewModel(int id);
 
-        bool UpdateProductViewModel(ProductViewModel model, int companyId);
+        bool UpdateProductViewModel(ProductViewModel model);
     }
 }

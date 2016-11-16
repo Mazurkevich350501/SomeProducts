@@ -1,6 +1,7 @@
 ﻿
 @using PagedList.Mvc
 @using SomeProducts.CrossCutting.Helpers
+@using SomeProducts.Helpers
 @using R = Resources.LocalResource
 @model SomeProducts.PresentationServices.Models.ProductTable.ProductTableViewModel
 @if (User.IsInCompany())
@@ -37,7 +38,7 @@
             @foreach (var product in Model.Items)
             {
 
-                <tr @(User.IsInRole(nameof(UserRole.Admin)) || User.IsInRole("User")
+                <tr @(User.IsInUserRole(UserRole.Admin) || User.IsInUserRole(UserRole.User)
                           ? $"onclick=window.open('{Url.Action("Edit", "Product", new {id = product.Id})}')" : "")
                     class="pointer">
                     <th>
@@ -65,7 +66,7 @@
                         @Html.DisplayFor(p => product.Quantity)
                     </th>
                     <th class="th-remove">
-                        @if (User.IsInRole(nameof(UserRole.Admin)))
+                        @if (User.IsInUserRole(UserRole.Admin))
                         {
                             <button class="glyphicon glyphicon-remove" data-id="@product.Id"></button>
                         }
@@ -138,8 +139,8 @@
                 filters: '@Model.FilterInfo.FiltertsList',
                 IllegalCharsError: '@R.IllegalCharsError'
             };
-            var productTableNamespace = window.Utils.getNamespace("ProductTable");
-            productTableNamespace.init(params);
+            var sortingNamespace = window.Utils.getNamespace("SortableTable");
+            sortingNamespace.init(params);
             var removingModalNamespace = window.Utils.getNamespace("RemovingModal");
             removingModalNamespace.initRemovingModal(params);
             var validationNamespace = window.Utils.getNamespace("Validation");
@@ -156,11 +157,11 @@
 @section stylesheets
 {
     @Styles.Render("~/Product/ProductTable/css")
-    @Styles.Render("~/Product/Comman/Filter/css")
+    @Styles.Render("~/Product/Common/Filter/css")
 }
 }
 
 else
 {
-    <h1>@R.YouDoNotHaveAccess</h1>
+    <h1>@R.YouDontHaveAccess</h1>
 }

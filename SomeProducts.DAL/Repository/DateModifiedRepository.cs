@@ -3,13 +3,14 @@ using System.ComponentModel;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using SomeProducts.DAL.Context;
+using SomeProducts.DAL.Models.ModelState;
 using SomeProducts.DAL.Repository.Interface;
 
 
 namespace SomeProducts.DAL.Repository
 {
     public class DateModifiedRepository<TEntity> : IDateModifiedRepository<TEntity> 
-        where TEntity : class, IDateModified, IIdentify, IAvailableCompany
+        where TEntity : class, IDateModified, IIdentify, IAvailableCompany, IActive
     {
         private readonly ProductContext _db;
 
@@ -26,15 +27,16 @@ namespace SomeProducts.DAL.Repository
         {
             Dispose();
         }
-        public void Create(TEntity item)
+        public TEntity Create(TEntity item)
         {
             item.CreateDate = DateTime.UtcNow;
-            _db.Set<TEntity>().Add(item);
+            return _db.Set<TEntity>().Add(item);
         }
 
         public void Delete(TEntity item)
         {
-            _db.Set<TEntity>().Remove(item);
+            item.ActiveStateId = State.Disable;
+            _db.Set<TEntity>().AddOrUpdate(item);
         }
         
         public void Dispose()
@@ -44,12 +46,14 @@ namespace SomeProducts.DAL.Repository
 
         public IQueryable<TEntity> GetAllItems()
         {
-            return _db.Set<TEntity>();
+            return _db.Set<TEntity>().Where(i => i.ActiveStateId == State.Active);
         }
 
         public TEntity GetById(int id)
         {
-            return _db.Set<TEntity>().Find(id);
+            var item =_db.Set<TEntity>().Find(id);
+            return item.ActiveStateId == State.Active
+                ? item : null;
         }
 
         public TEntity GetCompanyItem(int companyId, int itemId)
@@ -59,7 +63,7 @@ namespace SomeProducts.DAL.Repository
 
         public IQueryable<TEntity> GetCompanyItems(int companyId)
         {
-            return _db.Set<TEntity>().Where(i => i.CompanyId == companyId);
+            return GetAllItems().Where(i => i.CompanyId == companyId);
         }
         
         public TEntity GetLast(int companyId)
@@ -89,8 +93,6 @@ namespace SomeProducts.DAL.Repository
                 return true;
             }
             return false;
-        }
-
-       
+        }  
     }
 }

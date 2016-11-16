@@ -12,10 +12,10 @@ namespace SomeProducts.DAL.IDao
 
         void CreateBrand(Brand brand);
 
-        bool IsBrandUsing(int companyId, int id);
+        bool IsBrandUsing(int id);
        
         bool UpdateBrand(Brand brand);
 
-        Brand GetById(int companyId, int id);
+        Brand GetById(int id);
     }
 }

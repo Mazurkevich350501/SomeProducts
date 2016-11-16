@@ -1,4 +1,5 @@
-﻿@using R = Resources.LocalResource
+﻿@using SomeProducts.Helpers
+@using R = Resources.LocalResource
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,7 +35,7 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav">
-                    @if (User.IsInRole(nameof(UserRole.Admin)))
+                    @if (User.IsInUserRole(UserRole.Admin))
                     {
                         <li>@Html.ActionLink(@R.NewProduct, "Create", "Product")</li>
                     }

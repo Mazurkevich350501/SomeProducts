@@ -70,11 +70,17 @@ namespace SomeProducts
                 "~/Scripts/Common/Filter/FilterValidation.js",
                 "~/Scripts/Common/Filter/FilterController.js"));
 
-            bundles.Add(new StyleBundle("~/Product/Comman/Filter/css").Include(
+            bundles.Add(new StyleBundle("~/Product/Common/Filter/css").Include(
                "~/Stylesheets/Common/Filter.css"));
 
             bundles.Add(new ScriptBundle("~/Product/Common/Sorting/Scripts").Include(
                "~/Scripts/Common/Sorting/Sorting.js"));
+
+            bundles.Add(new ScriptBundle("~/Product/Audit/Scripts").Include(
+                "~/Scripts/Common/Utils.js"));
+
+            bundles.Add(new StyleBundle("~/Product/Audit/css").Include(
+               "~/Stylesheets/Audit/AuditTable.css"));
         }
     }
 }

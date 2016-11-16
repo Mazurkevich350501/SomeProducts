@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using SomeProducts.CrossCutting.Helpers;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.PresentationServices.IPresentationSevices.Create;
@@ -10,10 +11,12 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
     public class BrandModelPresentationService : IBrandModelPresentationService
     {
         private readonly IBrandDao _brandDao;
+        private readonly IUserHelper _user;
 
-        public BrandModelPresentationService(IBrandDao brandSevice)
+        public BrandModelPresentationService(IBrandDao brandSevice, IUserHelper user)
         {
             _brandDao = brandSevice;
+            _user = user;
         }
 
         public void CreateBrand(BrandModel model)
@@ -24,7 +27,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
 
         public void RemoveBrand(BrandModel model)
         {
-            var brand = _brandDao.GetById(model.CompanyId, model.Id);
+            var brand = _brandDao.GetById(model.Id);
             _brandDao.RemoveBrand(brand);
         }
 
@@ -39,45 +42,45 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
             }).ToList();
         }
 
-        public bool IsBrandModelUsing(int companyId, int id)
+        public bool IsBrandModelUsing(int id)
         {
-            return _brandDao.IsBrandUsing(companyId, id);
+            return _brandDao.IsBrandUsing(id);
         }
 
-        public void SaveBrandChanges(BrandsChangeModel changeModel, int companyId)
+        public void SaveBrandChanges(BrandsChangeModel changeModel)
         {
             if (changeModel == null) return;
-            RemoveBrands(changeModel.RemovedBrands, companyId);
-            CreateBrands(changeModel.AddedBrands, companyId);
-            EditBrands(changeModel.EditedBrands, companyId);
+            RemoveBrands(changeModel.RemovedBrands);
+            CreateBrands(changeModel.AddedBrands);
+            EditBrands(changeModel.EditedBrands);
         }
 
-        private void RemoveBrands(ICollection<BrandModel> brands, int companyId)
+        private void RemoveBrands(ICollection<BrandModel> brands)
         {
             if (brands == null) return;
             foreach (var brand in brands)
             {
-                brand.CompanyId = companyId;
+                brand.CompanyId = _user.GetCompany();
                 RemoveBrand(brand);
             }
         }
 
-        private void CreateBrands(ICollection<BrandModel> brands, int companyId)
+        private void CreateBrands(ICollection<BrandModel> brands)
         {
             if (brands == null) return;
             foreach (var brand in brands)
             {
-                brand.CompanyId = companyId;
+                brand.CompanyId = _user.GetCompany();
                 CreateBrand(brand);
             }
         }
 
-        private void EditBrands(ICollection<BrandModel> brands, int companyId)
+        private void EditBrands(ICollection<BrandModel> brands)
         {
             if (brands == null) return;
             foreach (var brand in brands)
             {
-                brand.CompanyId = companyId;
+                brand.CompanyId = _user.GetCompany();
                 UpdateBrandModel(brand);
             }
         }
