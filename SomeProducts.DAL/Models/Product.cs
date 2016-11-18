@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using SomeProducts.DAL.Models.Audit;
 using SomeProducts.DAL.Models.ModelState;
-using SomeProducts.DAL.Repository.Interface;
+using SomeProducts.DAL.Repository.Interface.Model;
 
 namespace SomeProducts.DAL.Models
 {
     [Entity(Entity.Product)]
-    public class Product : IDateModified, IIdentify, IAvailableCompany, IActive
+    public class Product : IDateModified, IAvailableCompany, IActive
     {
         public int Id { get; set; }
 

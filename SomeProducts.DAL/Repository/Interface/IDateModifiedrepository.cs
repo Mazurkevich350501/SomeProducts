@@ -3,7 +3,7 @@ using System;
 
 namespace SomeProducts.DAL.Repository.Interface
 {
-    public interface IDateModifiedRepository<TEntity> : IRepository<TEntity>, ICompanyItemsAccess<TEntity>
+    public interface IDateModifiedRepository<out TEntity>
     {
         TEntity GetLast(int companyId);
     }

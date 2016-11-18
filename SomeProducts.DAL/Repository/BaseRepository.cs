@@ -1,25 +1,21 @@
-﻿
+﻿using System;
 using System.Data.Entity.Migrations;
 using System.Linq;
+using System.Threading.Tasks;
 using SomeProducts.DAL.Context;
 using SomeProducts.DAL.Repository.Interface;
 
-
 namespace SomeProducts.DAL.Repository
 {
-    public class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class BaseRepository<TEntity> : IRepository<TEntity>, IDisposable where TEntity : class
     {
-        private readonly ProductContext _db;
+        public ProductContext Db { get;}
 
         public BaseRepository(ProductContext db)
         {
-            _db = db;
+            Db = db;
         }
 
-        public BaseRepository(string connection)
-        {
-            _db = new ProductContext(connection);
-        }
         ~BaseRepository()
         {
             Dispose();
@@ -27,37 +23,62 @@ namespace SomeProducts.DAL.Repository
 
         public TEntity Create(TEntity item)
         {
-            return _db.Set<TEntity>().Add(item);
+            return Db.Set<TEntity>().Add(item);
         }
 
         public void Delete(TEntity item)
         {
-            _db.Set<TEntity>().Remove(item);
+            Db.Set<TEntity>().Remove(item);
         }
 
         public void Dispose()
         {
-            _db.Dispose();
+            Db.Dispose();
         }
 
         public IQueryable<TEntity> GetAllItems()
         {
-            return _db.Set<TEntity>();
+            return Db.Set<TEntity>();
         }
 
         public TEntity GetById(int id)
         {
-            return _db.Set<TEntity>().Find(id);
+            return Db.Set<TEntity>().Find(id);
+        }
+
+        public Task<TEntity> GetByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TEntity GetCompanyItem(int companyId, int itemId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IQueryable<TEntity> GetCompanyItems(int companyId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public TEntity GetLast(int companyId)
+        {
+            throw new NotImplementedException();
         }
 
         public void Save()
         {
-            _db.SaveChanges();
+            Db.SaveChanges();
+        }
+
+        public Task SaveAsync()
+        {
+            throw new NotImplementedException();
         }
 
         public bool Update(TEntity item)
-        { 
-            _db.Set<TEntity>().AddOrUpdate(item);
+        {
+            Db.Set<TEntity>().AddOrUpdate(item);
             return true;
         }
     }

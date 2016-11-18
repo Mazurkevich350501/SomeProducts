@@ -83,6 +83,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutofacModule\DalModule.cs" />
+    <Compile Include="AutofacModule\RepositoryModule.cs" />
+    <Compile Include="AutofacModule\RepositoryModules\BrandModule.cs" />
+    <Compile Include="AutofacModule\RepositoryModules\CompanyModule.cs" />
+    <Compile Include="AutofacModule\RepositoryModules\ProductModule.cs" />
+    <Compile Include="AutofacModule\RepositoryModules\RoleModule.cs" />
+    <Compile Include="AutofacModule\RepositoryModules\UserModule.cs" />
     <Compile Include="Dao\AuditDao.cs" />
     <Compile Include="Dao\BrandDao.cs" />
     <Compile Include="Dao\CompanyDao.cs" />
@@ -99,10 +105,12 @@
     <Compile Include="Models\Audit\AuditStatus.cs" />
     <Compile Include="Models\Audit\EntityAttribute.cs" />
     <Compile Include="Models\ModelState\ActiveState.cs" />
-    <Compile Include="Models\ModelState\IActive.cs" />
-    <Compile Include="Repository\BaseRepositoryAsync.cs" />
-    <Compile Include="Repository\CompanyRepository.cs" />
-    <Compile Include="Repository\Interface\IAvailableCompany.cs" />
+    <Compile Include="Repository\Decorators\ActiveDecorator.cs" />
+    <Compile Include="Repository\Decorators\CompanyItemsAccessDecorator.cs" />
+    <Compile Include="Repository\Decorators\AsyncDecorator.cs" />
+    <Compile Include="Repository\Interface\IRepositoryAsync.cs" />
+    <Compile Include="Repository\Interface\Model\IActive.cs" />
+    <Compile Include="Repository\Interface\Model\IAvailableCompany.cs" />
     <Compile Include="Repository\Interface\ICompanyItemsAccess.cs" />
     <Compile Include="Repository\Interface\IDateModifiedRepository.cs" />
     <Compile Include="IDao\IProductDao.cs" />
@@ -114,13 +122,9 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
-    <Compile Include="Repository\DateModifiedRepository.cs" />
-    <Compile Include="Repository\Interface\IDateModified.cs" />
-    <Compile Include="Repository\Interface\IIdentify.cs" />
+    <Compile Include="Repository\Decorators\DateModifiedDecorator.cs" />
+    <Compile Include="Repository\Interface\Model\IDateModified.cs" />
     <Compile Include="Repository\Interface\IRepository.cs" />
-    <Compile Include="Repository\Interface\IRepositoryAsync.cs" />
-    <Compile Include="Repository\Interface\IUserRepository.cs" />
-    <Compile Include="Repository\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

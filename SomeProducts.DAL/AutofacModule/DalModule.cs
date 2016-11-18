@@ -5,9 +5,8 @@ using SomeProducts.DAL.Context;
 using SomeProducts.DAL.Dao;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
-using SomeProducts.DAL.Models.Audit;
 using SomeProducts.DAL.Repository;
-using SomeProducts.DAL.Repository.Interface;
+using SomeProducts.DAL.Repository.Decorators;
 
 namespace SomeProducts.DAL.AutofacModule
 {
@@ -17,13 +16,6 @@ namespace SomeProducts.DAL.AutofacModule
         {
             builder.RegisterType<ProductContext>().As<ProductContext>().InstancePerHttpRequest();
 
-            builder.RegisterType<UserRepository>().As<IUserRepository>();
-            builder.RegisterType<BaseRepositoryAsync<Role>>().As<IRepositoryAsync<Role>>();
-            builder.RegisterType<BaseRepository<Company>>().As<IRepository<Company>>();
-            builder.RegisterType<BaseRepository<AuditItem>>().As<IRepository<AuditItem>>();
-            builder.RegisterType<DateModifiedRepository<Product>>().As<IDateModifiedRepository<Product>>();
-            builder.RegisterType<DateModifiedRepository<Brand>>().As<IDateModifiedRepository<Brand>>();
-
             builder.RegisterType<AuditDao>().As<IAuditDao>();
             builder.RegisterType<CompanyDao>().As<ICompanyDao>();
             builder.RegisterType<ProductDao>().As<IProductDao>();
@@ -31,6 +23,8 @@ namespace SomeProducts.DAL.AutofacModule
             builder.RegisterType<UserDao>().As<IUserDao>();
             builder.RegisterType<UserDao>().As<IUserStore<User, int>>();
             builder.RegisterType<RoleDao>().As<IRoleStore<Role, int>>();
+            
+            builder.RegisterModule<RepositoryModule>();
         }
     }
 }

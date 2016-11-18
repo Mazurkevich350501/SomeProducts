@@ -11,13 +11,13 @@ namespace SomeProducts.DAL.Dao
 {
     public class UserDao : IUserDao
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IRepositoryAsync<Role> _roleRepository;
+        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<Role> _roleRepository;
         private readonly IAuditDao _auditDao;
 
         public UserDao(
-            IUserRepository userRepository, 
-            IRepositoryAsync<Role> roleRepository,
+            IRepository<User> userRepository,
+            IRepository<Role> roleRepository,
             IAuditDao auditDao)
         {
             _userRepository = userRepository;
@@ -44,8 +44,8 @@ namespace SomeProducts.DAL.Dao
 
         public void Dispose()
         {
-            _userRepository.Dispose();
-            _roleRepository.Dispose();
+            _userRepository.Db.Dispose();
+            _roleRepository.Db.Dispose();
         }
 
         public async Task<User> FindByIdAsync(int userId)

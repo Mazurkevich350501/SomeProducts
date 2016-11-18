@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SomeProducts.DAL.Models;
-using SomeProducts.DAL.Repository;
+using SomeProducts.DAL.Repository.Interface;
 
 namespace SomeProducts.DAL.Test
 {
@@ -12,7 +12,7 @@ namespace SomeProducts.DAL.Test
 # endif
     public class BaseRepositoryTest
     {
-        private static DateModifiedRepository<Brand> _repository;
+        private static IRepository<Brand> _repository;
         private static Brand _brand;
         private const int CompanyId = 1;
 
@@ -21,7 +21,7 @@ namespace SomeProducts.DAL.Test
         {
             _brand = new Brand() { Name = "name", CompanyId = CompanyId};
             AppDomain.CurrentDomain.SetData("DataDirectory", System.IO.Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory));
-            _repository = new DateModifiedRepository<Brand>("Test");
+            //_repository = new DateModifiedRepository<Brand>("name=Test");
         }
 
         [TestCleanup]

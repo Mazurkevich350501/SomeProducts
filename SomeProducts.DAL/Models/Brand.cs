@@ -5,11 +5,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using SomeProducts.DAL.Models.Audit;
 using SomeProducts.DAL.Models.ModelState;
 using SomeProducts.DAL.Repository.Interface;
+using SomeProducts.DAL.Repository.Interface.Model;
 
 namespace SomeProducts.DAL.Models
 {
     [Entity(Entity.Brand)]
-    public class Brand : IDateModified, IIdentify, IAvailableCompany, IActive
+    public class Brand : IDateModified, IAvailableCompany, IActive
     {
         public int Id { get; set; }
 

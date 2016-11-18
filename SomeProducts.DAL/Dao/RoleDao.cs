@@ -9,9 +9,9 @@ namespace SomeProducts.DAL.Dao
 {
     public class RoleDao : IRoleStore<Role, int>
     {
-        private readonly IRepositoryAsync<Role> _repository;
+        private readonly IRepository<Role> _repository;
 
-        public RoleDao(IRepositoryAsync<Role> repository)
+        public RoleDao(IRepository<Role> repository)
         {
             _repository = repository;
         }
@@ -30,12 +30,12 @@ namespace SomeProducts.DAL.Dao
 
         public void Dispose()
         {
-            _repository.Dispose();
+            _repository.Db.Dispose();
         }
 
-        public Task<Role> FindByIdAsync(int roleId)
+        public async Task<Role> FindByIdAsync(int roleId)
         {
-            return Task.FromResult(_repository.GetById(roleId));
+            return await _repository.GetByIdAsync(roleId);
         }
 
         public async Task<Role> FindByNameAsync(string roleName)

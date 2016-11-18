@@ -1,4 +1,4 @@
-﻿namespace SomeProducts.DAL.Repository.Interface
+﻿namespace SomeProducts.DAL.Repository.Interface.Model
 {
     public interface IAvailableCompany
     {

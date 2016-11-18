@@ -30,7 +30,7 @@ namespace SomeProducts.Controllers
         [AuthorizeRole(UserRole.Admin)]
         public ActionResult Create()
         {
-            var model = _productViewModelService.GetEmtyProductViewModel();
+            var model = _productViewModelService.GetEmptyProductViewModel();
             return View(model);
         }
 
@@ -61,7 +61,7 @@ namespace SomeProducts.Controllers
                 ProjectLogger.Trace($"User {HttpContext.User.Identity.Name} create new product(id={productModel.Product.Id})");
                 return RedirectToAction("Edit", "Product", new { id = productModel.Product.Id });
             }
-            var newModel = _productViewModelService.GetEmtyProductViewModel();
+            var newModel = _productViewModelService.GetEmptyProductViewModel();
             newModel.Product = model.Product;
             return View(newModel);
         }
@@ -83,7 +83,7 @@ namespace SomeProducts.Controllers
                 return View("Error", (object)"Product already has changed");
             }
 
-            var newModel = _productViewModelService.GetEmtyProductViewModel();
+            var newModel = _productViewModelService.GetEmptyProductViewModel();
             newModel.Product = model.Product;
             return View("Create", newModel);
         }

@@ -14,19 +14,19 @@ namespace SomeProducts.DAL.Test
     [TestClass]
     public class BrandDaoTest
     {
-        private Mock<IDateModifiedRepository<Brand>> _brandRepository;
-        private Mock<IDateModifiedRepository<Product>> _productRepository;
+        private Mock<IRepository<Brand>> _brandRepository;
+        private Mock<IRepository<Product>> _productRepository;
         private Mock<IAuditDao> _auditDao;
         private Mock<IUserHelper> _userHelper;
         private BrandDao _brandDao;
         private Brand _brand;
-        private const int CompanyId = 1;
+        private const int CompanyId = 3;
 
         [TestInitialize]
         public void TestInitialize()
         {
-            _brandRepository = new Mock<IDateModifiedRepository<Brand>>();
-            _productRepository = new Mock<IDateModifiedRepository<Product>>();
+            _brandRepository = new Mock<IRepository<Brand>>();
+            _productRepository = new Mock<IRepository<Product>>();
             _userHelper = new Mock<IUserHelper>();
             _auditDao = new Mock<IAuditDao>();
             _brandDao = new BrandDao(
@@ -41,6 +41,7 @@ namespace SomeProducts.DAL.Test
                 CreateDate = DateTime.Now,
                 CompanyId = CompanyId
             };
+            _userHelper.Setup(r => r.GetCompany()).Returns(CompanyId);
         }
 
         [TestMethod]
@@ -90,8 +91,8 @@ namespace SomeProducts.DAL.Test
             _productRepository.Setup(r => r.GetCompanyItems(It.IsAny<int>()))
                 .Returns(productList.AsQueryable());
 
-            var trueResult = _brandDao.IsBrandUsing(CompanyId);
-            var falseResult = _brandDao.IsBrandUsing(CompanyId);
+            var trueResult = _brandDao.IsBrandUsing(1);
+            var falseResult = _brandDao.IsBrandUsing(3);
 
             Assert.IsTrue(trueResult);
             Assert.IsFalse(falseResult);

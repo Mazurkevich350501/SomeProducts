@@ -10,14 +10,14 @@ namespace SomeProducts.DAL.Dao
 {
     public class ProductDao : IProductDao
     {
-        private readonly IDateModifiedRepository<Product> _repository;
-        private readonly IDateModifiedRepository<Brand> _brandRepository;
+        private readonly IRepository<Product> _repository;
+        private readonly IRepository<Brand> _brandRepository;
         private readonly IAuditDao _auditDao;
         private readonly IUserHelper _user;
 
-        public ProductDao(IDateModifiedRepository<Product> repository,
-            IDateModifiedRepository<Brand> brandRepository,
-            IAuditDao auditDao, 
+        public ProductDao(IRepository<Product> repository,
+            IRepository<Brand> brandRepository,
+            IAuditDao auditDao,
             IUserHelper user)
         {
             _repository = repository;
@@ -66,14 +66,14 @@ namespace SomeProducts.DAL.Dao
         {
             return _repository.GetLast(_user.GetCompany());
         }
-       
+
         public IQueryable<Product> GetAllProducts()
         {
             return _user.IsInRole(UserRole.SuperAdmin)
                 ? _repository.GetAllItems()
                 : null;
         }
-        
+
         public IQueryable<Product> GetCompanyProducts(int? companyId)
         {
             return companyId != null

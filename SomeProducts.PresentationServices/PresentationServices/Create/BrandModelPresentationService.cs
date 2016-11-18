@@ -50,8 +50,8 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
         public void SaveBrandChanges(BrandsChangeModel changeModel)
         {
             if (changeModel == null) return;
-            RemoveBrands(changeModel.RemovedBrands);
             CreateBrands(changeModel.AddedBrands);
+            RemoveBrands(changeModel.RemovedBrands);
             EditBrands(changeModel.EditedBrands);
         }
 

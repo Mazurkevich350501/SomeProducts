@@ -16,6 +16,7 @@ namespace SomeProducts.Test
         private Mock<IProductViewModelPresentationService> _productModelService;
         private ProductController _controller;
         private List<BrandModel> _allBrands;
+        private const int CompanyId = 1;
 
         [TestInitialize]
         public void TestInitialize()
@@ -26,9 +27,10 @@ namespace SomeProducts.Test
 
             _allBrands = new List<BrandModel>
             {
-                new BrandModel() {Id = 1, Name = "name1"},
-                new BrandModel() {Id = 2, Name = "name2"}
+                new BrandModel() {Id = 1, Name = "name1", CompanyId = CompanyId},
+                new BrandModel() {Id = 2, Name = "name2",  CompanyId = CompanyId}
             };
+            
         }
 
         [TestMethod]
@@ -40,7 +42,7 @@ namespace SomeProducts.Test
                 Colors = ProductColors.Colors,
                 Brands = new Dictionary<int, string>()
             };
-            _productModelService.Setup(p => p.GetProductViewModel(It.IsAny<int?>())).Returns(product);
+            _productModelService.Setup(p => p.GetProductViewModel(It.IsAny<int>())).Returns(product);
 
             var result = _controller.Create() as ViewResult;
 
@@ -87,7 +89,7 @@ namespace SomeProducts.Test
                 Colors = ProductColors.Colors,
                 Brands = new Dictionary<int, string>()
             };
-            _productModelService.Setup(s => s.GetProductViewModel(It.IsAny<int?>())).Returns(product);
+            _productModelService.Setup(s => s.GetProductViewModel(It.IsAny<int>())).Returns(product);
             _controller.ModelState.AddModelError("Id", "Product Id is not valid.");
 
             var result = _controller.Create(product) as ViewResult;
@@ -100,7 +102,7 @@ namespace SomeProducts.Test
         [TestMethod]
         public void Edit_Should_Redirect_To_ErrorView_If_Id_Is_Not_Correct()
         {
-            _productModelService.Setup(p => p.GetProductViewModel(It.IsAny<int?>())).Returns(new ProductViewModel());
+            _productModelService.Setup(p => p.GetProductViewModel(It.IsAny<int>())).Returns(new ProductViewModel());
 
             var result = _controller.Edit(5) as ViewResult;
 
@@ -118,7 +120,7 @@ namespace SomeProducts.Test
                 Colors = ProductColors.Colors,
                 Brands = new Dictionary<int, string>()
             };
-            _productModelService.Setup(p => p.GetProductViewModel(It.IsAny<int?>())).Returns(product);
+            _productModelService.Setup(p => p.GetProductViewModel(It.IsAny<int>())).Returns(product);
 
             var result = _controller.Edit(id) as ViewResult;
 
@@ -139,7 +141,7 @@ namespace SomeProducts.Test
                 Brands = new Dictionary<int, string>()
             };
             _controller.ModelState.AddModelError("Name", "Product Id is not valid.");
-            _productModelService.Setup(p => p.GetProductViewModel(It.IsAny<int?>())).Returns(newProduct);
+            _productModelService.Setup(p => p.GetProductViewModel(It.IsAny<int>())).Returns(newProduct);
 
             var result = _controller.Edit(product) as ViewResult;
 
@@ -203,7 +205,7 @@ namespace SomeProducts.Test
         [TestMethod]
         public void GetBrandsList_Should_Return_All_Brands()
         {
-            _brandModelService.Setup(s => s.GetAllItems()).Returns(_allBrands);
+            _brandModelService.Setup(s => s.GetCompanyBrands(CompanyId)).Returns(_allBrands);
 
             var result = _controller.GetBrandsList();
 
@@ -217,7 +219,7 @@ namespace SomeProducts.Test
             var isCalledSaveBrandChanges = false;
             _brandModelService.Setup(s => s.SaveBrandChanges(It.IsAny<BrandsChangeModel>()))
                 .Callback(() => isCalledSaveBrandChanges = true);
-            _brandModelService.Setup(s => s.GetAllItems()).Returns(_allBrands);
+            _brandModelService.Setup(s => s.GetCompanyBrands(CompanyId)).Returns(_allBrands);
 
             var result = _controller.SaveBrandsChanges(null);
 

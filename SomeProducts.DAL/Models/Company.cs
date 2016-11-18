@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using SomeProducts.DAL.Models.ModelState;
+using SomeProducts.DAL.Repository.Interface.Model;
 
 namespace SomeProducts.DAL.Models
 {

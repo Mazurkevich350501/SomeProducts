@@ -54,7 +54,7 @@ namespace SomeProducts.PresentationServices.PresentationServices.Create
             };
         }
 
-        public ProductViewModel GetEmtyProductViewModel()
+        public ProductViewModel GetEmptyProductViewModel()
         {
             return new ProductViewModel()
             {

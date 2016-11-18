@@ -1,24 +1,24 @@
 ﻿
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using SomeProducts.CrossCutting.Helpers;
 using SomeProducts.DAL.IDao;
 using SomeProducts.DAL.Models;
 using SomeProducts.DAL.Repository.Interface;
+using System.Linq;
 
 namespace SomeProducts.DAL.Dao
 {
     public class BrandDao : IBrandDao
     {
-        private readonly IDateModifiedRepository<Brand> _repository;
-        private readonly IDateModifiedRepository<Product> _productRepository;
+        private readonly IRepository<Brand> _repository;
+        private readonly IRepository<Product> _productRepository;
         private readonly IAuditDao _auditDao;
         private readonly IUserHelper _user;
 
         public BrandDao(
-            IDateModifiedRepository<Brand> repository, 
-            IDateModifiedRepository<Product> productRepository,
+            IRepository<Brand> repository,
+            IRepository<Product> productRepository,
             IAuditDao auditDao, 
             IUserHelper user)
         {

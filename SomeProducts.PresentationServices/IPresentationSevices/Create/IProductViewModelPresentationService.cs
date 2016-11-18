@@ -8,7 +8,7 @@ namespace SomeProducts.PresentationServices.IPresentationSevices.Create
 
         ProductViewModel GetProductViewModel(int companyId, int id);
 
-        ProductViewModel GetEmtyProductViewModel();
+        ProductViewModel GetEmptyProductViewModel();
 
         ProductViewModel GetLastProductViewMode();
 
