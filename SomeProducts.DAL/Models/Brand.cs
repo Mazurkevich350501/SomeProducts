@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using SomeProducts.DAL.Models.Audit;
 using SomeProducts.DAL.Models.ModelState;
-using SomeProducts.DAL.Repository.Interface;
 using SomeProducts.DAL.Repository.Interface.Model;
 
 namespace SomeProducts.DAL.Models

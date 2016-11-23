@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using SomeProducts.DAL.Models;
-using SomeProducts.DAL.Models.Audit;
 using SomeProducts.DAL.Repository;
 using SomeProducts.DAL.Repository.Decorators;
 using SomeProducts.DAL.Repository.Interface;

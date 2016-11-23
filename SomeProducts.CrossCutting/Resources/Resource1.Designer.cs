@@ -77,18 +77,16 @@ namespace Resources {
                 return ResourceManager.GetString("Admin", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Audit.
         /// </summary>
-        public static string Audit
-        {
-            get
-            {
+        public static string Audit {
+            get {
                 return ResourceManager.GetString("Audit", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Brand.
         /// </summary>
@@ -140,6 +138,15 @@ namespace Resources {
         public static string Color {
             get {
                 return ResourceManager.GetString("Color", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Companies.
+        /// </summary>
+        public static string Companies {
+            get {
+                return ResourceManager.GetString("Companies", resourceCulture);
             }
         }
         
@@ -504,6 +511,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New company.
+        /// </summary>
+        public static string NewCompany {
+            get {
+                return ResourceManager.GetString("NewCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New product.
         /// </summary>
         public static string NewProduct {
@@ -520,18 +536,16 @@ namespace Resources {
                 return ResourceManager.GetString("NextValue", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Not found.
+        ///   Looks up a localized string similar to Not found..
         /// </summary>
-        public static string NotFound
-        {
-            get
-            {
+        public static string NotFound {
+            get {
                 return ResourceManager.GetString("NotFound", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>

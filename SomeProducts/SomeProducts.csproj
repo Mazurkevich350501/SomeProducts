@@ -188,6 +188,7 @@
     <Content Include="Resources\emptyImage.jpg" />
     <Content Include="Resources\LanguageIcon.jpg" />
     <Content Include="Scripts\AccountAuth\Validation.js" />
+    <Content Include="Scripts\Admin\CompanyController.js" />
     <Content Include="Scripts\Admin\ModalWindow.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.js" />
     <Content Include="Scripts\ai.0.22.19-build00125.min.js" />
@@ -226,6 +227,7 @@
     <Content Include="Scripts\ProductTable\RemovingModalWindow.js" />
     <Content Include="Scripts\Product\ProductControl.js" />
     <Content Include="Stylesheets\AccountAuth\AccountAuth.css" />
+    <Content Include="Stylesheets\Admin\Companies.css" />
     <Content Include="Stylesheets\Admin\UserTable.css" />
     <Content Include="Stylesheets\Audit\AuditTable.css" />
     <Content Include="Stylesheets\Common\Common.css" />
@@ -262,6 +264,7 @@
     <Content Include="Views\Admin\SuperAdminUsers.cshtml" />
     <Content Include="Views\Audit\AuditTable.cshtml" />
     <Content Include="Views\Audit\AuditTableForItem.cshtml" />
+    <Content Include="Views\Admin\Companies.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

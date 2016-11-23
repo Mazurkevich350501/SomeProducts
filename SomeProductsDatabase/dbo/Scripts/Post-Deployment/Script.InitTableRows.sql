@@ -15,6 +15,7 @@ EXEC [dbo].[initAuditStatusRow] 3, 'Delete';
 EXEC [dbo].[initAuditEntitiesRow] 1, 'Brand';
 EXEC [dbo].[initAuditEntitiesRow] 2, 'Product';
 EXEC [dbo].[initAuditEntitiesRow] 3, 'User';
+EXEC [dbo].[initAuditEntitiesRow] 4, 'Company';
 
 EXEC [dbo].[initActiveStatesRow] 1, 'Active';
 EXEC [dbo].[initActiveStatesRow] 2, 'Disable';

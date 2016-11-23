@@ -81,6 +81,13 @@ namespace SomeProducts
 
             bundles.Add(new StyleBundle("~/Product/Audit/css").Include(
                "~/Stylesheets/Audit/AuditTable.css"));
+
+            bundles.Add(new ScriptBundle("~/Product/Admin/Company/Scripts").Include(
+                "~/Scripts/Common/Utils.js",
+                "~/Scripts/Admin/CompanyController.js"));
+
+            bundles.Add(new StyleBundle("~/Product/Admin/Company/css").Include(
+               "~/Stylesheets/Admin/Companies.css"));
         }
     }
 }

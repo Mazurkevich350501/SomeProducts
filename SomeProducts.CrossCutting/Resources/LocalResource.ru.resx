@@ -144,6 +144,9 @@
   <data name="Color" xml:space="preserve">
     <value>Цвет</value>
   </data>
+  <data name="Companies" xml:space="preserve">
+    <value>Компании</value>
+  </data>
   <data name="Company" xml:space="preserve">
     <value>Компания</value>
   </data>
@@ -266,6 +269,9 @@
   </data>
   <data name="Name" xml:space="preserve">
     <value>Имя</value>
+  </data>
+  <data name="NewCompany" xml:space="preserve">
+    <value>Новая компания</value>
   </data>
   <data name="NewProduct" xml:space="preserve">
     <value>Новый продукт</value>

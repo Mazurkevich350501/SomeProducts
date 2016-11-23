@@ -27,7 +27,7 @@
     
     function initRemovingModal(){
         $("th[class='th-remove']>button").click(function (e) {
-        $("#RemovingModal").modal("show");
+            $("#RemovingModal").modal("show");
             activeId = parseInt($(e.target).attr("data-id"));
             event.cancelBubble = true;
         });
