@@ -13,6 +13,7 @@ namespace SomeProducts.Controllers
 {
     [Authorize]
     [HandleErrorLog]
+    [RequireHttps]
     public class ProductController : Controller
     {
         private readonly IProductViewModelPresentationService _productViewModelService;

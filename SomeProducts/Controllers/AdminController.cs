@@ -13,6 +13,7 @@ namespace SomeProducts.Controllers
 {
     [AuthorizeRole(UserRole.Admin, UserRole.SuperAdmin)]
     [HandleErrorLog]
+    [RequireHttps]
     public class AdminController : Controller
     {
         private readonly IUserTablePresentationService _service;

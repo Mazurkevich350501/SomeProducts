@@ -11,6 +11,7 @@ namespace SomeProducts.Controllers
 {
     [HandleErrorLog]
     [Authorize]
+    [RequireHttps]
     public class ProductTableController : Controller
     {
         private readonly IProductTablePresentationService _service;
