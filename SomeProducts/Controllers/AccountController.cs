@@ -1,6 +1,6 @@
 ﻿
-using System.Globalization;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -96,8 +96,16 @@ namespace SomeProducts.Controllers
         [HttpGet]
         public ActionResult ChangeCulture(string lang, string returnUrl)
         {
-            Session["Culture"] = new CultureInfo(lang);
-            return Redirect(returnUrl);
+            var cultureReturnUrl = GetNewCultureReturnUrl(lang, returnUrl);
+            return Redirect(cultureReturnUrl);
+        }
+
+        private static string GetNewCultureReturnUrl(string lang, string returnUrl)
+        {
+            var projectName = System.Reflection.Assembly
+                .GetExecutingAssembly().GetName().Name;
+            var pattern = projectName + "/([A-Za-z]{2}/){0,1}";
+            return Regex.Replace(returnUrl, pattern, $"{projectName}/{lang}/");
         }
 
         private async Task<IdentityResult> LogIn(LogInUserModel userModel)

@@ -90,15 +90,15 @@
     <Compile Include="Interfaces\IImageModel.cs" />
     <Compile Include="ProjectLogger\HandleErrorLogAttribute.cs" />
     <Compile Include="ProjectLogger\ProjectLogger.cs" />
-    <Compile Include="Resources\LocalResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LocalResource.resx</DependentUpon>
-    </Compile>
     <Compile Include="Resources\LocalResource.ru.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LocalResource.ru.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Resource1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LocalResource.resx</DependentUpon>
     </Compile>
     <Compile Include="Sorting\SortingOption\SortingOption.cs" />
     <Compile Include="Sorting\SortingOption\SortingOptionHelper.cs" />

@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using SomeProducts.CrossCutting.ProjectLogger;
-using SomeProducts.DAL.Models;
-using SomeProducts.DAL.Repository.Interface;
+using SomeProducts.Helpers;
 
 namespace SomeProducts
 {
@@ -14,6 +14,7 @@ namespace SomeProducts
     {
         protected override IController GetControllerInstance(RequestContext requestContext, Type controllerType)
         {
+            LocalizationHelper.Localize(HttpContext.Current);
             return controllerType != null
                 ? (IController)AutofacDependencyResolver.Current.RequestLifetimeScope.Resolve(controllerType)
                 : null;

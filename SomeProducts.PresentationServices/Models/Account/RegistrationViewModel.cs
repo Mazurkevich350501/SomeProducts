@@ -1,13 +1,13 @@
 ﻿
-using System.ComponentModel.DataAnnotations;
 using Resources;
+using System.ComponentModel.DataAnnotations;
 
 namespace SomeProducts.PresentationServices.Models.Account
 {
     public class RegistrationViewModel
     {
         [Required(ErrorMessageResourceType = typeof(LocalResource),
-            ErrorMessageResourceName = "Roles")]
+            ErrorMessageResourceName = "RequiredField")]
         [Display(Name = "Name", ResourceType = typeof(LocalResource))]
         public string Name { get; set; }
 
