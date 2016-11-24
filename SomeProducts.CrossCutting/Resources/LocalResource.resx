@@ -201,6 +201,9 @@
   <data name="Filter" xml:space="preserve">
     <value>Filter</value>
   </data>
+  <data name="FullAudit" xml:space="preserve">
+    <value>Full audit</value>
+  </data>
   <data name="Hello" xml:space="preserve">
     <value>Hello</value>
   </data>
@@ -305,6 +308,9 @@
   </data>
   <data name="PreviousValue" xml:space="preserve">
     <value>Previous value</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>Products</value>
   </data>
   <data name="Quantity" xml:space="preserve">
     <value>Quantity</value>

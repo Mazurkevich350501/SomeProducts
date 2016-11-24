@@ -21,8 +21,6 @@ namespace SomeProducts
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css",
                       "~/Stylesheets/Common/Common.css"));
 
             bundles.Add(new ScriptBundle("~/Product/Create/Scripts").Include(

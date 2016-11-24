@@ -201,6 +201,9 @@
   <data name="Filter" xml:space="preserve">
     <value>Фильтровать</value>
   </data>
+  <data name="FullAudit" xml:space="preserve">
+    <value>Полный аудит</value>
+  </data>
   <data name="Hello" xml:space="preserve">
     <value>Привет</value>
   </data>
@@ -308,6 +311,9 @@
   </data>
   <data name="PreviousValue" xml:space="preserve">
     <value>Предыдущее значение</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>Продукты</value>
   </data>
   <data name="Quantity" xml:space="preserve">
     <value>Количество</value>

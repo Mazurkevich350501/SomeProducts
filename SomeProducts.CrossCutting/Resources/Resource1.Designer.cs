@@ -313,6 +313,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Full audit.
+        /// </summary>
+        public static string FullAudit {
+            get {
+                return ResourceManager.GetString("FullAudit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hello.
         /// </summary>
         public static string Hello {
@@ -624,6 +633,15 @@ namespace Resources {
         public static string PreviousValue {
             get {
                 return ResourceManager.GetString("PreviousValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Products.
+        /// </summary>
+        public static string Products {
+            get {
+                return ResourceManager.GetString("Products", resourceCulture);
             }
         }
         

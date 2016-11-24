@@ -1,4 +1,12 @@
-﻿.languageIcon {
+﻿#content {
+    background-color: ghostwhite;
+}
+
+.form-control {
+    border: black;
+}
+
+.languageIcon {
     width: 25px;
     height: 25px;
 }

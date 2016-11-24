@@ -3,57 +3,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <meta charset="utf-8">
+    <meta name="author" content="E.Mazurkevich">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link id="bootstrap-style" href="~/janux/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/janux/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link id="base-style" href="~/janux/css/style.css" rel="stylesheet">
+    <link id="base-style-responsive" href="~/janux/css/style-responsive.css" rel="stylesheet">
+    
+    <link rel="shortcut icon" href="">
+    <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
     @RenderSection("stylesheets", required: false)
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("SomeProducts", "Show", "ProductTable", new {area = ""}, new {@class = "navbar-brand"})
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-righ">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            <img src="~/Resources/LanguageIcon.jpg" alt="" class="languageIcon">
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("English", "ChangeCulture", "Account", new { lang = "en", returnUrl = Request.RawUrl }, null)</li>
-                            <li>@Html.ActionLink("Русский", "ChangeCulture", "Account", new { lang = "ru", returnUrl = Request.RawUrl }, null)</li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav">
-                    @if (User.IsInUserRole(UserRole.Admin))
-                    {
-                        <li>@Html.ActionLink(@R.NewProduct, "Create", "Product")</li>
-                    }
-                </ul>
-                @Html.Partial("_LoginPartial")
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <a class="brand" href="@Url.Action("Show", "ProductTable")"><span>SomeProducts</span></a>
+                <div class="nav-no-collapse header-nav">
+                    <ul class="nav pull-right">
+                        @Html.Partial("_LoginPartial")
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+    <div class="container-fluid-full">
+        <div class="row-fluid">
+            <div id="sidebar-left" class="span2">
+                <div class="nav-collapse sidebar-nav">
+                    <ul class="nav nav-tabs nav-stacked main-menu">
+                        <li><a href="@Url.Action("Show", "ProductTable")"><i class="icon-shopping-cart"></i><span class="hidden-tablet">@R.Products</span></a></li>
+                        @if (User.IsInUserRole(UserRole.Admin) || User.IsInUserRole(UserRole.SuperAdmin))
+                        {
+                            <li><a href="@Url.Action("Create", "Product")"><i class="icon-plus"></i><span class="hidden-tablet">@R.NewProduct</span></a></li>
+                            <li><a href="@Url.Action("FullAudit", "Audit")"><i class="icon-bar-chart"></i><span class="hidden-tablet">@R.FullAudit</span></a></li>
+                            <li><a href="@Url.Action("Users", "Admin")"><i class="icon-user"></i><span class="hidden-tablet">@R.Users</span></a></li>
+                        }
+                        @if (User.IsInUserRole(UserRole.SuperAdmin))
+                        {
+                            <li><a href="@Url.Action("Companies", "Admin")"><i class="icon-briefcase"></i><span class="hidden-tablet">@R.Companies</span></a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div id="content" class="span10">
+                @RenderBody()
+            </div>
+        </div>
     </div>
+<footer>
+    <p><p>&copy; @DateTime.Now.Year - My ASP.NET Application</p></p>
+</footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <script src="~/janux/js/jquery-1.9.1.min.js"></script>
+    <script src="~/janux/js/jquery-migrate-1.0.0.min.js"></script>
+    <script src="~/janux/js/jquery-ui-1.10.0.custom.min.js"></script>
+    <script src="~/janux/js/jquery.ui.touch-punch.js"></script>
+    <script src="~/janux/js/modernizr.js"></script>
+    <script src="~/janux/js/bootstrap.min.js"></script>
+    <script src="~/janux/js/jquery.cookie.js"></script>
+    <script src="~/janux/js/fullcalendar.min.js"></script>
+    <script src="~/janux/js/jquery.dataTables.min.js"></script>
+    <script src="~/janux/js/excanvas.js"></script>
+    <script src="~/janux/js/jquery.flot.js"></script>
+    <script src="~/janux/js/jquery.flot.pie.js"></script>
+    <script src="~/janux/js/jquery.flot.stack.js"></script>
+    <script src="~/janux/js/jquery.flot.resize.min.js"></script>
+    <script src="~/janux/js/jquery.chosen.min.js"></script>
+    <script src="~/janux/js/jquery.uniform.min.js"></script>
+    <script src="~/janux/js/jquery.cleditor.min.js"></script>
+    <script src="~/janux/js/jquery.noty.js"></script>
+    <script src="~/janux/js/jquery.elfinder.min.js"></script>
+    <script src="~/janux/js/jquery.raty.min.js"></script>
+    <script src="~/janux/js/jquery.iphone.toggle.js"></script>
+    <script src="~/janux/js/jquery.uploadify-3.1.min.js"></script>
+    <script src="~/janux/js/jquery.gritter.min.js"></script>
+    <script src="~/janux/js/jquery.imagesloaded.js"></script>
+    <script src="~/janux/js/jquery.masonry.min.js"></script>
+    <script src="~/janux/js/jquery.knob.modified.js"></script>
+    <script src="~/janux/js/jquery.sparkline.min.js"></script>
+    <script src="~/janux/js/counter.js"></script>
+    <script src="~/janux/js/retina.js"></script>
+    <script src="~/janux/js/custom.js"></script>
 </body>
 </html>

@@ -1,22 +1,21 @@
-﻿@using Microsoft.AspNet.Identity
-@using R = Resources.LocalResource
+﻿@using R = Resources.LocalResource
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-    {
-    @Html.AntiForgeryToken()
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            <a>@R.Hello @User.Identity.GetUserName()</a>
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">@R.LogOff</a></li>
-    </ul>
-    }
+    <li class="dropdown">
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <i class="halflings-icon white user"></i> @User.Identity.Name
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                <div>
+                    <form id="logoutForm" method="post" action=@Url.Action("LogOff", "Account") enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+                        <a href="javascript:$('#logoutForm').submit()"><i class="halflings-icon off"></i>@R.LogOff</a>
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </li>
 }
-else
-{
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink(@R.Register, "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink(@R.LogIn, "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
-}
+
