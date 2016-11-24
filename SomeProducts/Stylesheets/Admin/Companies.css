@@ -1,0 +1,21 @@
+﻿.company-row {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.user-row {
+    margin: 3px;
+}
+
+.user-row div {
+    word-wrap: break-word;
+}
+
+.modal-body-central {
+    text-align: center;
+    padding: 20px;
+}
+
+.pointer {
+    cursor: pointer;
+}

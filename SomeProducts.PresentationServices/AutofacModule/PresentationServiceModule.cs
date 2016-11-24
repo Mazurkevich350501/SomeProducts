@@ -22,6 +22,7 @@ namespace SomeProducts.PresentationServices.AutofacModule
             builder.RegisterType<BrandModelPresentationService>().As<IBrandModelPresentationService>();
             builder.RegisterType<ProductTablePresentationService>().As<IProductTablePresentationService>();
             builder.RegisterType<AuditPresentationService>().As<IAuditPresentationService>();
+            builder.RegisterType<CompanyPresentationService>().As<ICompanyPresentationService>();
         }
     }
 }

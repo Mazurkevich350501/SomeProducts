@@ -38,7 +38,7 @@ namespace SomeProducts.DAL.Repository.Decorators
         public TEntity GetById(int id)
         {
             var item = _repository.GetById(id);
-            return item.ActiveStateId == State.Active
+            return item?.ActiveStateId == State.Active
                 ? item
                 : null;
         }

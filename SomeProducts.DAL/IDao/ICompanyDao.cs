@@ -8,5 +8,12 @@ namespace SomeProducts.DAL.IDao
     {
         IQueryable<Company> GetAllItems();
 
+        Company GetCompanyById(int id);
+
+        Company CreateCompany(Company company);
+
+        void RemoveCompany(Company company);
+
+        bool UpdateCompany(Company company);
     }
 }

@@ -1,12 +1,14 @@
 ﻿
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using SomeProducts.Attribute;
 using SomeProducts.CrossCutting.Filter.Model;
 using SomeProducts.CrossCutting.Helpers;
 using SomeProducts.CrossCutting.ProjectLogger;
 using SomeProducts.PresentationServices.IPresentationSevices.Admin;
 using SomeProducts.PresentationServices.Models;
+using SomeProducts.PresentationServices.Models.Admin;
 using FilterInfo = SomeProducts.CrossCutting.Filter.Model.FilterInfo;
 
 namespace SomeProducts.Controllers
@@ -16,10 +18,14 @@ namespace SomeProducts.Controllers
     public class AdminController : Controller
     {
         private readonly IUserTablePresentationService _service;
+        private readonly ICompanyPresentationService _companyService;
 
-        public AdminController(IUserTablePresentationService service)
+        public AdminController(
+            IUserTablePresentationService service,
+            ICompanyPresentationService companyService)
         {
             _service = service;
+            _companyService = companyService;
         }
 
         [HttpGet]
@@ -89,6 +95,43 @@ namespace SomeProducts.Controllers
             return userCompany.CompanyId == CrossCutting.Constants.Constants.EmtyCompanyId
                    || userCompany.CompanyId == User.GetCompany()
                    || User.IsInRole(UserRole.SuperAdmin.AsString());
+        }
+
+        [HttpGet]
+        [AuthorizeRole(UserRole.SuperAdmin)]
+        public ActionResult Companies()
+        {
+            var model = _companyService.GetCompaniesViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AuthorizeRole(UserRole.SuperAdmin)]
+        public ActionResult RemoveCompany(int companyId)
+        {
+            if (CrossCutting.Constants.Constants.EmtyCompanyId != companyId)
+            {
+                _companyService.RemoveCompany(companyId);
+            }
+            return RedirectToAction("Companies");
+        }
+
+        [HttpPost]
+        [AuthorizeRole(UserRole.SuperAdmin)]
+        public JsonResult UpdateCompany(CompanyModel model)
+        {
+            _companyService.UpdateCompany(model);
+            return Json(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AuthorizeRole(UserRole.SuperAdmin)]
+        public ActionResult CreateCompany(string companyName)
+        {
+            _companyService.CreteNewCompany(companyName);
+            return RedirectToAction("Companies");
         }
     }
 }

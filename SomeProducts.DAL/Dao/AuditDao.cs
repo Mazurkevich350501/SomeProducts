@@ -146,8 +146,8 @@ namespace SomeProducts.DAL.Dao
 
         private static int GetCompany<T>(T obj)
         {
-            int result = (int)obj.GetType().GetProperty("CompanyId").GetValue(obj);
-            return result;
+            var result = (int?)obj.GetType().GetProperty("CompanyId")?.GetValue(obj);
+            return result ?? CrossCutting.Constants.Constants.EmtyCompanyId;
         }
 
         public IQueryable<AuditItem> GetCompanyItems(int companyId)

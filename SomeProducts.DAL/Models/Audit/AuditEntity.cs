@@ -5,7 +5,8 @@ namespace SomeProducts.DAL.Models.Audit
     {
         Brand = 1,
         Product,
-        User
+        User,
+        Company
     }
 
     public class AuditEntity
