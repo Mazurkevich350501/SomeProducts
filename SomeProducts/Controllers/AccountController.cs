@@ -13,7 +13,6 @@ using SomeProducts.PresentationServices.Models.Account;
 
 namespace SomeProducts.Controllers
 {
-    [HandleErrorLog]
     [RequireHttps]
     public class AccountController : Controller
     {

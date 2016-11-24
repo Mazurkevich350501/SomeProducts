@@ -12,7 +12,6 @@ using SomeProducts.PresentationServices.Models.Create;
 namespace SomeProducts.Controllers
 {
     [Authorize]
-    [HandleErrorLog]
     [RequireHttps]
     public class ProductController : Controller
     {

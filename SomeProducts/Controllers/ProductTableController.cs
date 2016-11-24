@@ -9,7 +9,6 @@ using FilterInfo = SomeProducts.CrossCutting.Filter.Model.FilterInfo;
 
 namespace SomeProducts.Controllers
 {
-    [HandleErrorLog]
     [Authorize]
     [RequireHttps]
     public class ProductTableController : Controller

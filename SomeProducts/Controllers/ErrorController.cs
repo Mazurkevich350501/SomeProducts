@@ -4,7 +4,6 @@ using SomeProducts.CrossCutting.ProjectLogger;
 
 namespace SomeProducts.Controllers
 {
-    [HandleErrorLog]
     [RequireHttps]
     public class ErrorController : Controller
     {
