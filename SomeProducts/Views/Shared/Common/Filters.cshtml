@@ -4,50 +4,65 @@
 @model SomeProducts.CrossCutting.Filter.Model.FilterInfo
 
 <div class="row-fluid">
-    @for (var i = 0; i < Model.Filters.Count; i++)
-    {
-        <div class="span2">
-            <h4>
-                @Model.Filters.ToArray()[i].FilterName
-            </h4>
-            <div class="row-fluid">
-                <div class="span11 filter-option-input-div">
-                    <input class="form-control" 
-                           type="@(Model.Filters.ToArray()[i].Type == Type.Numeric ? "number" : "text")"
-                           id="@(Model.Filters.ToArray()[i].Option)ValueId"
-                           value="@Model.Filters.ToArray()[i].Value" />
+    <div class="box span12">
+        <div class="box-header" data-original-title>
+            <h2><i class="halflings-icon filter white user"></i><span class="break"></span>Filters</h2>
+            <div class="box-icon">
+                <a href="#" class="btn-minimize"><i class="halflings-icon white chevron-down"></i></a>
+            </div>
+        </div>
+        <div class="box-content" style="display: none;">
+            @for (int i = 0; i < Model.Filters.Count;)
+            {
+                <div class="row-fluid">
+                    @do
+                    {
+                        <div class="span3">
+                            <h4>
+                                @Model.Filters.ToArray()[i].FilterName
+                            </h4>
+                            <div class="row-fluid">
+                                <div class="span11 filter-option-input-div">
+                                    <input class="form-control"
+                                           type="@(Model.Filters.ToArray()[i].Type == Type.Numeric ? "number" : "text")"
+                                           id="@(Model.Filters.ToArray()[i].Option)ValueId"
+                                           value="@Model.Filters.ToArray()[i].Value"/>
+                                </div>
+                                <div class="span1">
+                                    @if (Model.Filters.ToArray()[i].Type == Type.Numeric)
+                                    {
+                                        @Html.DropDownListFor(m => m.Filters.ToArray()[i].Parameter, new SelectList(Model.NumberFilterParameter, "Key", "Value"),
+                                            new
+                                            {
+                                                @class = "btn btn-default dropdown-toggle filter-param-select",
+                                                id = $"{Model.Filters.ToArray()[i].Option}ParameterId",
+                                                value = Model.Filters.ToArray()[i].Parameter
+                                            })
+                                    }
+                                    else
+                                    {
+                                        @Html.DropDownListFor(m => m.Filters.ToArray()[i].Parameter, new SelectList(Model.StringFilterParameter, "Key", "Value"),
+                                            new
+                                            {
+                                                @class = "btn btn-default dropdown-toggle filter-param-select",
+                                                id = $"{Model.Filters.ToArray()[i].Option}ParameterId",
+                                                value = Model.Filters.ToArray()[i].Parameter
+                                            })
+                                    }
+                                </div>
+                            </div>
+                            <span class="field-validation-error" id="validation-@(Model.Filters.ToArray()[i].Option)ValueId"></span>
+                        </div>
+                    } while ((++i % 4 != 0) && (i < Model.Filters.Count));
+
                 </div>
-                <div class="span1">
-                    @if (Model.Filters.ToArray()[i].Type == Type.Numeric)
-                    {
-                        @Html.DropDownListFor(m => m.Filters.ToArray()[i].Parameter, new SelectList(Model.NumberFilterParameter, "Key", "Value"),
-                            new
-                            {
-                                @class = "btn btn-default dropdown-toggle filter-param-select",
-                                id = $"{Model.Filters.ToArray()[i].Option}ParameterId",
-                                value = Model.Filters.ToArray()[i].Parameter
-                            })
-                    }
-                    else
-                    {
-                        @Html.DropDownListFor(m => m.Filters.ToArray()[i].Parameter, new SelectList(Model.StringFilterParameter, "Key", "Value"),
-                            new
-                            {
-                                @class = "btn btn-default dropdown-toggle filter-param-select",
-                                id = $"{Model.Filters.ToArray()[i].Option}ParameterId",
-                                value = Model.Filters.ToArray()[i].Parameter
-                            })
-                    }
+            }
+            <div>
+                <div>
+                    <button class="btn btn-primary" id="FilterBtn">@R.Filter</button>
+                    <button class="btn btn-default" id="clearFiltersBtnId">@R.Clear</button>
                 </div>
             </div>
-            <span class="field-validation-error" id="validation-@(Model.Filters.ToArray()[i].Option)ValueId"></span>
         </div>
-    }
-</div>
-
-<div>
-    <div>
-        <button class="btn btn-primary" id="FilterBtn">@R.Filter</button>
-        <button class="btn btn-default" id="clearFiltersBtnId">@R.Clear</button>
     </div>
 </div>

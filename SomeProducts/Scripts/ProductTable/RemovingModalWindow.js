@@ -7,7 +7,7 @@
         deleteProductUrl = newParams.deleteProductUrl;
     }
 
-    $("th[class='th-remove']>button").click(function (e) {
+    $("button[data-type='remove-btn']").click(function (e) {
         $("#RemovingModal").modal("show");
         activeId = parseInt($(e.target).attr("data-id"));
         event.cancelBubble = true;

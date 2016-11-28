@@ -7,98 +7,111 @@
 @if (User.IsInCompany())
 {
     @Html.Partial("Common/Filters", Model.FilterInfo)
-
-    <div class="product-table-div">
-        <table class="table" id="productTable">
-            <thead>
-            <tr>
-                <th>
-
-                </th>
-                <th>
-                    <div id="th-name" data-type="sort" data-name="Name" class="pointer">
-                        @R.Name
+    <div class="row-fluid">
+        <div class="box span12">
+            <div class="box-header">
+                <h2><i class="halflings-icon white align-justify"></i><span class="break"></span>@R.Products</h2>
+            </div>
+            <div class="box-content">            
+                <div class="dropdown" style="display: inline-block">
+                    <div class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        @R.ItemsCount: @Model.PageInfo.ItemsCount
+                        <span class="caret"></span>
                     </div>
-                </th>
-                <th>@R.Description</th>
-                <th>
-                    <div id="th-brand" data-type="sort" data-name="Brand" class="pointer">
-                        @R.Brand
-                    </div>
-                </th>
-                <th>
-                    <div id="th-quantity" data-type="sort" data-name="Quantity" class="pointer">
-                        @R.Quantity
-                    </div>
-                </th>
-                <th class="th-remove"></th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach (var product in Model.Items)
-            {
+                    <ul class="dropdown-menu">
+                        @for (var i = 5; i <= SomeProducts.CrossCutting.Constants.Constants.MaxItemsCountPerPage; i += 5)
+                        {
+                            <li>
+                                <a class="dropdown-item" href=@Url.Action("Show", "ProductTable", new
+                                                              {
+                                                                  page = Model.PageInfo.Page, count = i,
+                                                                  by = Model.PageInfo.SortingOption, filter = Model.JsonFilters
+                                                              })>@(i)</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <table class="table table-bordered table-striped table-condensed">
+                        <thead>
+                        <tr>
+                            <th>
 
-                <tr @(User.IsInUserRole(UserRole.Admin) || User.IsInUserRole(UserRole.User)
-                          ? $"onclick=window.open('{Url.Action("Edit", "Product", new {id = product.Id})}')" : "")
-                    class="pointer">
-                    <th>
-                        @if (@product.Image != null)
+                            </th>
+                            <th>
+                                <div id="th-name" data-type="sort" data-name="Name" class="pointer">
+                                    @R.Name
+                                </div>
+                            </th>
+                            <th>@R.Description</th>
+                            <th>
+                                <div id="th-brand" data-type="sort" data-name="Brand" class="pointer">
+                                    @R.Brand
+                                </div>
+                            </th>
+                            <th>
+                                <div id="th-quantity" data-type="sort" data-name="Quantity" class="pointer">
+                                    @R.Quantity
+                                </div>
+                            </th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var product in Model.Items)
                         {
-                            <img class="product-table-image" style="border: 6px solid @product.Color;"
-                                 src="data:@product.ImageType;base64,@Convert.ToBase64String(product.Image)" alt=""/>
-                        }
-                        else
-                        {
-                            <img class="product-table-image" style="border: 6px solid @product.Color;"
-                                 src="~/Resources/emptyImage.jpg" alt=""/>
-                        }
-                    </th>
-                    <th>
-                        @Html.DisplayFor(p => product.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayFor(p => product.Description)
-                    </th>
-                    <th>
-                        @Html.DisplayFor(p => product.Brand)
-                    </th>
-                    <th>
-                        @Html.DisplayFor(p => product.Quantity)
-                    </th>
-                    <th class="th-remove">
-                        @if (User.IsInUserRole(UserRole.Admin))
-                        {
-                            <button class="glyphicon glyphicon-remove" data-id="@product.Id"></button>
-                        }
-                    </th>
-                </tr>
-            }
-            </tbody>
-        </table>
-    </div>
 
-    <div class="row filters-container">
-        <div class="col-xs-5">
-            @Html.PagedListPager(Model.Items, page => Url.Action("Show", "ProductTable", new {page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters}))
+                            <tr @(User.IsInUserRole(UserRole.Admin) || User.IsInUserRole(UserRole.User) ? $"onclick=window.open('{Url.Action("Edit", "Product", new {id = product.Id})}')" : "")
+                                class="pointer">
+                                <th>
+                                    @if (@product.Image != null)
+                                    {
+                                        <img class="product-table-image" style="border: 6px solid @product.Color;"
+                                             src="data:@product.ImageType;base64,@Convert.ToBase64String(product.Image)" alt=""/>
+                                    }
+                                    else
+                                    {
+                                        <img class="product-table-image" style="border: 6px solid @product.Color;"
+                                             src="~/Resources/emptyImage.jpg" alt=""/>
+                                    }
+                                </th>
+                                <th>
+                                    <div>
+                                        @Html.DisplayFor(p => product.Name)
+                                    </div>
+                                </th>
+                                <th>
+                                    <div>
+                                        @Html.DisplayFor(p => product.Description)
+                                    </div>
+                                </th>
+                                <th>
+                                    
+                                    <div>
+                                        @Html.DisplayFor(p => product.Brand)
+                                    </div>
+                                </th>
+                                <th>
+                                    <div>
+                                        @Html.DisplayFor(p => product.Quantity)
+                                    </div>
+                                </th>
+                                <th>
+                                    @if (User.IsInUserRole(UserRole.Admin))
+                                    {
+                                        <button class="btn btn-danger" data-type="remove-btn" data-id="@product.Id"><i class="halflings-icon white trash"></i></button>
+                                    }
+                                </th>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+            </div>
+            <div class="pagination pagination-centered">
+                @Html.PagedListPager(Model.Items, page => Url.Action("Show", "ProductTable", new {page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters}))
+            </div>
         </div>
-        <div class="dropdown col-xs-6 product-counter">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                @R.ItemsCount: @Model.PageInfo.ItemsCount
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                @for (var i = 5; i <= SomeProducts.CrossCutting.Constants.Constants.MaxItemsCountPerPage; i += 5)
-                {
-                    <li><a class="dropdown-item" href=@Url.Action("Show", "ProductTable", new
-                                                      {
-                                                          page = Model.PageInfo.Page, count = i,
-                                                          by = Model.PageInfo.SortingOption, filter = Model.JsonFilters
-                                                      })>@(i)</a></li>
-                }
-            </ul>
-        </div>
     </div>
-
+    
     <div id="RemovingModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -109,14 +122,14 @@
                     @Html.AntiForgeryToken()
                     @Html.Hidden("productId", 0)
                     @Html.Hidden("redirectUrl", @Url.Action("Show", "ProductTable", new
-                    {
-                        page = @Model.PageInfo.Page,
-                        count = @Model.PageInfo.ItemsCount,
-                        by = @Model.PageInfo.SortingOption,
-                        filter = Model.JsonFilters
-                    }))
+               {
+                   page = @Model.PageInfo.Page,
+                   count = @Model.PageInfo.ItemsCount,
+                   by = @Model.PageInfo.SortingOption,
+                   filter = Model.JsonFilters
+               }))
                     <div class="modal-body-central">
-                        <input type="submit" class="btn btn-danger" id="removeBtnId" value="@R.Delete"/>
+                        <input type="submit" class="btn btn-danger" id="removeBtnId" value="@R.Delete" />
                         <button class="btn btn-default" id="cancelDeleteBtnId">@R.Cancel</button>
                     </div>
                 </form>
@@ -125,40 +138,40 @@
     </div>
 
 
-@section scripts
+    @section scripts
 {
-    <script>
-        $(function() {
-            var params = {
-                url:
-                    '@Url.Action("Show", "ProductTable", new {page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, filter = Model.JsonFilters})',
-                presentUrl:
-                    '@Url.Action("Show", "ProductTable", new {page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption})',
-                sortingOption: '@Model.PageInfo.SortingOption',
-                deleteProductUrl: '@Url.Action("Delete", "Product")',
-                filters: '@Model.FilterInfo.FiltertsList',
-                IllegalCharsError: '@R.IllegalCharsError'
-            };
-            var sortingNamespace = window.Utils.getNamespace("SortableTable");
-            sortingNamespace.init(params);
-            var removingModalNamespace = window.Utils.getNamespace("RemovingModal");
-            removingModalNamespace.initRemovingModal(params);
-            var validationNamespace = window.Utils.getNamespace("Validation");
-            validationNamespace.initValidation(params);
-            var filterNamespace = window.Utils.getNamespace("Filter");
-            filterNamespace.init(params);
-        });
-    </script>
-    @Scripts.Render("~/Product/ProductTable/Scripts")
-    @Scripts.Render("~/Product/Common/Sorting/Scripts")
-    @Scripts.Render("~/Product/Common/Filter/Scripts")
-}
+        <script>
+            $(function () {
+                var params = {
+                    url:
+                        '@Url.Action("Show", "ProductTable", new {page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, filter = Model.JsonFilters})',
+                    presentUrl:
+                        '@Url.Action("Show", "ProductTable", new {page = @Model.PageInfo.Page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption})',
+                    sortingOption: '@Model.PageInfo.SortingOption',
+                    deleteProductUrl: '@Url.Action("Delete", "Product")',
+                    filters: '@Model.FilterInfo.FiltertsList',
+                    IllegalCharsError: '@R.IllegalCharsError'
+                };
+                var sortingNamespace = window.Utils.getNamespace("SortableTable");
+                sortingNamespace.init(params);
+                var removingModalNamespace = window.Utils.getNamespace("RemovingModal");
+                removingModalNamespace.initRemovingModal(params);
+                var validationNamespace = window.Utils.getNamespace("Validation");
+                validationNamespace.initValidation(params);
+                var filterNamespace = window.Utils.getNamespace("Filter");
+                filterNamespace.init(params);
+            });
+        </script>
+        @Scripts.Render("~/Product/ProductTable/Scripts")
+        @Scripts.Render("~/Product/Common/Sorting/Scripts")
+        @Scripts.Render("~/Product/Common/Filter/Scripts")
+    }
 
-@section stylesheets
+    @section stylesheets
 {
-    @Styles.Render("~/Product/ProductTable/css")
-    @Styles.Render("~/Product/Common/Filter/css")
-}
+        @Styles.Render("~/Product/ProductTable/css")
+        @Styles.Render("~/Product/Common/Filter/css")
+    }
 }
 
 else
