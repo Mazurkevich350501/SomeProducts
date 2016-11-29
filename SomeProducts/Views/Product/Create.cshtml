@@ -15,36 +15,36 @@
     @Html.HiddenFor(m => m.Product.Version)
     @Html.HiddenFor(m => m.Product.Image)
     @Html.HiddenFor(m => m.Product.ImageType)
-    <div class="row">
-        <div class="col-sm-8">
+    <div class="row-fluid">
+        <div class="span6">
             @Html.ValidationMessageFor(m => m.Product.Name, "", new { id = (@Html.IdFor(m => m.Product.Name) + "_Validation") })
-            <div class="row">
-                <h4 class="col-xs-3">@Html.LabelFor(m => m.Product.Name)*</h4>
-                @Html.TextBoxFor(m => m.Product.Name, new { @class = "form-control col-xs-6" })
+            <div class="row-fluid">
+                <h4 class="span5">@Html.LabelFor(m => m.Product.Name)*</h4>
+                @Html.TextBoxFor(m => m.Product.Name, new { @class = "form-control span7" })
             </div>
             @Html.ValidationMessageFor(m => m.Product.Description, "", new { id = (@Html.IdFor(m => m.Product.Description) + "_Validation") })
-            <div class="row description-text-area">
-                <h4 class="col-xs-3">@Html.LabelFor(m => m.Product.Description)</h4>
-                @Html.TextAreaFor(m => m.Product.Description, new { @class = "form-control col-xs-6" })
+            <div class="row-fluid description-text-area">
+                <h4 class="span5">@Html.LabelFor(m => m.Product.Description)</h4>
+                @Html.TextAreaFor(m => m.Product.Description, new { @class = "form-control span7" })
             </div>
             @Html.ValidationMessageFor(m => m.Product.BrandId, "", new { id = (@Html.IdFor(m => m.Product.BrandId) + "_Validation") })
-            <div class="row">
-                <h4 class="col-xs-3">@Html.LabelFor(m => m.Product.BrandId)*</h4>
-                @Html.DropDownListFor(m => m.Product.BrandId, new SelectList(Model.Brands, "Key", "Value", Model.Product.BrandId), new { @class = "btn col-xs-5 btn-default dropdown-toggle" })
-                <button type="button" id="brandEditBtn" class="btn btn-left-margin btn-info col-xs-1 glyphicon glyphicon-cog" data-toggle="modal" data-target="#BrandModal"></button>
+            <div class="row-fluid">
+                <h4 class="span5">@Html.LabelFor(m => m.Product.BrandId)*</h4>
+                @Html.DropDownListFor(m => m.Product.BrandId, new SelectList(Model.Brands, "Key", "Value", Model.Product.BrandId), new { @class = "btn span5 btn-default dropdown-toggle" })
+                <button type="button" id="brandEditBtn" class="btn btn-info" data-toggle="modal" data-target="#BrandModal"><i class="halflings-icon white pencil"></i></button>
             </div>
             @Html.ValidationMessageFor(m => m.Product.Color, "", new { id = (@Html.IdFor(m => m.Product.Color) + "_Validation") })
-            <div class="row">
-                <h4 class="col-xs-3">@Html.LabelFor(m => m.Product.Color)</h4>
+            <div class="row-fluid">
+                <h4 class="span5">@Html.LabelFor(m => m.Product.Color)</h4>
                 @Html.DropDownListFor(m => m.Product.Color, new SelectList(Model.Colors, "Key", "Value", Model.Product.Color))
             </div>
             @Html.ValidationMessageFor(m => m.Product.Quantity, "", new { id = (@Html.IdFor(m => m.Product.Quantity) + "_Validation") })
-            <div class="row">
-                <h4 class="col-xs-3">@Html.LabelFor(m => m.Product.Quantity)</h4>
-                @Html.TextBoxFor(m => m.Product.Quantity, new { type = "number", @class = "form-control col-xs-6" })
+            <div class="row-fluid">
+                <h4 class="span5">@Html.LabelFor(m => m.Product.Quantity)</h4>
+                @Html.TextBoxFor(m => m.Product.Quantity, new { type = "number", @class = "form-control span7" })
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="span6">
             <img class="image-box" id="image" src="~/Resources/emptyImage.jpg" />
             <div>
                 <span id="imageMessageId" class="field-validation-error"></span>
@@ -67,7 +67,7 @@
             </div>
             <div class="modal-body" id="modal-body">
                 <div>
-                    <div class="row">
+                    <div class="row-fluid">
                         <div class="col-xs-12">
                             <p class="field-validation-error" id="newBrandValidation"></p>
                         </div>
@@ -111,7 +111,7 @@
 {
     <script id="brandsTemplate" type="text/x-jQuery-tmpl">
         <p class="brand-validation-error" id="brandValidation-${id}"></p>
-        <div class="row" id="row-${id}">
+        <div class="row-fluid" id="row-fluid-${id}">
             <div class="col-xs-10">
                 <h4><input class="brand-edit-input" type="text" data-id="${id}" value="${name}"/></h4>
             </div>
@@ -149,7 +149,6 @@
         });
 
     </script>
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
     @Scripts.Render("~/Product/Create/Scripts")
 }
 

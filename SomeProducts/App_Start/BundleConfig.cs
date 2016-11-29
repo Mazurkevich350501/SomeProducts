@@ -24,12 +24,13 @@ namespace SomeProducts
                       "~/Stylesheets/Common/Common.css"));
 
             bundles.Add(new ScriptBundle("~/Product/Create/Scripts").Include(
+                "~/BowerComponents/jquery-simplecolorpicker/jquery.simplecolorpicker.js",
+                "~/Scripts/jquery.tmpl.js",
                 "~/Scripts/Common/Utils.js",
                 "~/Scripts/Product/ProductControl.js",
                 "~/Scripts/Product/ProductImageController.js",
                 "~/Scripts/Product/ProductModalWindowControl.js",
-                "~/Scripts/Product/RemovingModalWindow.js",
-                "~/BowerComponents/jquery-simplecolorpicker/jquery.simplecolorpicker.js"));
+                "~/Scripts/Product/RemovingModalWindow.js"));
 
             bundles.Add(new StyleBundle("~/Product/Create/css").Include(
                 "~/Stylesheets/Product/Product.css",

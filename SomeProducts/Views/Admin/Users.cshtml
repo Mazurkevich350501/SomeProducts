@@ -11,104 +11,130 @@
 
 @Html.Partial("Common/Filters", Model.FilterInfo)
 
-<div class="product-table-div">
-    <table class="table" id="productTable">
-        <thead>
-            <tr>
-                <th>
-                    <div id="th-id" data-type="sort" data-name="Id" class="pointer">
-                        Id
-                    </div>
-                </th>
-                <th>
-                    <div id="th-username" data-type="sort" data-name="UserName" class="pointer">
-                        @R.Name
-                    </div>
-                </th>
-                <th>
-                    <div data-name="roles">
-                        @R.Roles
-                    </div>
-                </th>
-                <th class="th-setAdmin"></th>
-                <th class="th-addOrRemove"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var user in Model.Items)
+<div class="row-fluid">
+    <div class="box span12">
+        <div class="box-header">
+            <h2><i class="halflings-icon white user"></i><span class="break"></span>@R.Users</h2>
+        </div>
+        <div class="box-content">
+            <div class="dropdown" style="display: inline-block">
+                <div class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    @R.ItemsCount: @Model.PageInfo.ItemsCount
+                    <span class="caret"></span>
+                </div>
+                <ul class="dropdown-menu">
+                    @for (var i = 5; i <= SomeProducts.CrossCutting.Constants.Constants.MaxItemsCountPerPage; i += 5)
+            {
+            <li>
+                <a class="dropdown-item" href=@Url.Action("Users", "Admin", new
+                                                          {
+                                                              page = Model.PageInfo.Page, count = i,
+                                                              by = Model.PageInfo.SortingOption, filter = Model.JsonFilters
+                                                          })>@i</a>
+                                                    </li>
+            }
+                </ul>
+            </div>
+            <table class="table table-bordered table-striped table-condensed">
+                <thead>
+                    <tr class="tr-admin-users">
+                        <th>
+                            <div id="th-id" data-type="sort" data-name="Id" class="pointer">
+                                Id
+                            </div>
+                        </th>
+                        <th>
+                            <div id="th-username" data-type="sort" data-name="UserName" class="pointer">
+                                @R.Name
+                            </div>
+                        </th>
+                        <th>
+                            <div data-name="roles">
+                                @R.Roles
+                            </div>
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.Items)
             {
 
-                <tr id="tr-@user.Id">
-                    <th>
-                        @Html.DisplayFor(p => user.Id)
-                    </th>
-                    <th>
-                        @Html.DisplayFor(p => user.Name)
-                    </th>
-                    <th>
-                        @Html.Raw(string.Join(", ", user.Roles)).ToHtmlString()
-                    </th>
-                    <th class="th-setAdmin">
-                        @if (User.Identity.Name != user.Name)
-                        {
-                            var setAdminBtnColor = user.Roles.Contains(UserRole.Admin.AsString())
-                                ? "green" : "red";
-                            var hidden = user.CompanyId == User.GetCompany() ? "auto" : "none";
-                            <button class="btn btn-default" data-id="@user.Id"
-                                    id=@($"setAdminBtn{user.Id}")
-                                    style=@($"display:{hidden};background-color:{setAdminBtnColor};")>
-                                @R.Admin
-                            </button>
-                        }
-                    </th>
-                    <th class="th-addOrRemove">
-                        @if (User.Identity.Name != user.Name)
+            <tr id="tr-@user.Id" class="tr-admin-users">
+                <th>
+                    @Html.DisplayFor(p => user.Id)
+                </th>
+                <th>
+                    @Html.DisplayFor(p => user.Name)
+                </th>
+                <th>
+                    @Html.Raw(string.Join(", ", user.Roles)).ToHtmlString()
+                </th>
+                <th>
+                    @if (User.Identity.Name != user.Name)
                         {
                             if (user.CompanyId == User.GetCompany())
                             {
                                 <button data-id="@user.Id"
                                         data-company="@user.CompanyId"
-                                        class="glyphicon glyphicon-remove"
-                                        style="color: red;"
+                                        class="btn btn-danger btn-small"
+                                        data-type="addOrRemove-btn"
                                         id=@($"addOrRemoveCompanyUserBtn{user.Id}")>
+                                    <i class="halflings-icon white remove-sign"
+                                       data-id="@user.Id"
+                                       data-company="@user.CompanyId"></i>
                                 </button>
-                                }
-                                else
-                                {
-                                    <button data-id = "@user.Id"
-                                            data-company="@user.CompanyId"
-                                            class="glyphicon glyphicon-ok"
-                                            style="color: green"
-                                            id=@($"addOrRemoveCompanyUserBtn{user.Id}")>
-                                    </button>
-                                }
                             }
-
-                    </th>
-                </tr>
+                            else
+                            {
+                                <button data-id="@user.Id"
+                                        data-company="@user.CompanyId"
+                                        class="btn btn-success btn-small"
+                                        data-type="addOrRemove-btn"
+                                        id=@($"addOrRemoveCompanyUserBtn{user.Id}")>
+                                    <i class="halflings-icon white ok-sign"
+                                       data-id="@user.Id"
+                                       data-company="@user.CompanyId"></i>
+                                </button>
+                            }
+                        }
+                    @if (User.Identity.Name != user.Name)
+                    {
+                        if (user.Roles.Contains(UserRole.Admin.AsString()))
+                        {
+                            <button class="btn btn-success btn-small" data-id="@user.Id"
+                                    data-type="setAdmin-btn"
+                                    id=@($"setAdminBtn{user.Id}")>
+                                <i class="halflings-icon white font"
+                                   data-id="@user.Id"
+                                   data-company="@user.CompanyId"></i>
+                            </button>
+                        }
+                        else
+                        {
+                            var display = user.CompanyId != User.GetCompany() ? "none" : "auto";
+                            <button class="btn btn-danger btn-small" data-id="@user.Id"
+                                    data-type="setAdmin-btn"
+                                    id=@($"setAdminBtn{user.Id}")
+                                    style="display: @display">
+                                <i class="halflings-icon white font"
+                                   data-id="@user.Id"
+                                   data-company="@user.CompanyId"></i>
+                            </button>
+                        }
+                    }
+                </th>
+            </tr>
             }
-        </tbody>
-    </table>
+                </tbody>
+            </table>
+            <div class="pagination pagination-centered">
+                @Html.PagedListPager(Model.Items, page => Url.Action("Users", "Admin", new { page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters }))
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="row filters-container">
-    <div class="col-xs-5">
-        @Html.PagedListPager(Model.Items, page => Url.Action("Users", "Admin", new { page, count = @Model.PageInfo.ItemsCount, by = @Model.PageInfo.SortingOption, filter = Model.JsonFilters }))
-    </div>
-    <div class="dropdown col-xs-6 product-counter">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-            @R.ItemsCount: @Model.PageInfo.ItemsCount
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu">
-            @for (var i = 5; i <= SomeProducts.CrossCutting.Constants.Constants.MaxItemsCountPerPage; i += 5)
-            {
-                <li><a class="dropdown-item" href=@Url.Action("Users", "Admin", new { page = Model.PageInfo.Page, count = i,
-                                                 by = Model.PageInfo.SortingOption, filter = Model.JsonFilters })>@(i)</a></li>
-            }
-        </ul>
-    </div>
-</div>
 
 <div id="AddingOrRemovingModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -177,7 +203,7 @@
                 IllegalCharsError: '@R.IllegalCharsError',
                 adminCompanyId: parseInt('@User.GetCompany()'),
                 addUserToCompanyQuestion: '@R.AddUserToCompanyQuestion',
-                removeUserFromCompanyQuestion : '@R.RemoveUserFromCompanyQuestion'
+                removeUserFromCompanyQuestion: '@R.RemoveUserFromCompanyQuestion'
             };
 
             var sortingNamespace = window.Utils.getNamespace("SortableTable");

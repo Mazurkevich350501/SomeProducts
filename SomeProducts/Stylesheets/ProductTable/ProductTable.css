@@ -41,12 +41,13 @@ tr {
 
 th {
     display: inline-block;
+    text-overflow: ellipsis;
     width: 15%;
 }
 
 th div{
     max-width: 100%;
-    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .filter-param-select {
     max-width: 20px;

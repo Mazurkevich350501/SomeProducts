@@ -26,7 +26,7 @@
     });
     
     function initRemovingModal(){
-        $("th[class='th-remove']>button").click(function (e) {
+        $("button[data-type='remove-btn']").click(function (e) {
             $("#RemovingModal").modal("show");
             activeId = parseInt($(e.target).attr("data-id"));
             event.cancelBubble = true;
@@ -43,7 +43,7 @@
     }
 
     function initSetAdminModal(){
-        $("th[class='th-setAdmin']>button").click(function (e) {
+        $("button[data-type='setAdmin-btn']").click(function (e) {
             $("#SetAdminModal").modal("show");
             activeId = parseInt($(e.target).attr("data-id"));
         });
@@ -76,7 +76,7 @@
     }
 
     function initAddOrRemoveModal(){
-        $("th[class='th-addOrRemove']>button").click(function (e) {
+        $("button[data-type='addOrRemove-btn']").click(function (e) {
             activeId = parseInt($(e.target).attr("data-id"));
             var tempCompanyId = parseInt($(e.target).attr("data-company"));
             $("#AddingOrRemovingModalMessageId").empty();
@@ -104,16 +104,17 @@
     function showAddOrremoveChanges(result){
         var button = $("#addOrRemoveCompanyUserBtn" + activeId);
         if(result.CompanyId === adminCompanyId){
-            button.css("color", "red");
-            button.attr("class", "glyphicon glyphicon-remove");
+            button.attr("class", "btn btn-small btn-danger");
+            $(button).children().attr("class", "halflings-icon white remove-sign");
             $("#setAdminBtn" + activeId).show();
         }
         else{
-            button.css("color", "green");
-            button.attr("class", "glyphicon glyphicon-ok");
+            button.attr("class", "btn btn-success btn-small");
+            $(button).children().attr("class", "halflings-icon white ok-sign");
             $("#setAdminBtn" + activeId).hide();
         }
         $("#addOrRemoveCompanyUserBtn" + activeId).attr("data-company", result.CompanyId);
+        $("#addOrRemoveCompanyUserBtn" + activeId).children().attr("data-company", result.CompanyId);
         $("#AddingOrRemovingModal").modal("hide");
     }
 
@@ -127,10 +128,10 @@
     function setButtonColor(roles) {
         var button = $("#setAdminBtn" + activeId);
         if (roles.indexOf("Admin") !== -1) {
-            button.css("background-color", "green");
+            button.attr("class", "btn btn-small btn-success");
         }
         else {
-            button.css("background-color", "red");
+            button.attr("class", "btn btn-small btn-danger");
         }
     }
 

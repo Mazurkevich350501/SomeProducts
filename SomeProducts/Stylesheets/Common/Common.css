@@ -15,3 +15,11 @@
 .brand-validation-error {
     color: red;
 }
+
+ul.dropdown-menu::after {
+    display: none;
+}
+
+ul.dropdown-menu::before {
+    display: none;
+}
