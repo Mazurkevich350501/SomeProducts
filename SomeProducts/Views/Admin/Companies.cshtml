@@ -2,50 +2,81 @@
 @using R = Resources.LocalResource;
 <link rel="stylesheet" type="text/css" href="~/Stylesheets/Admin/Companies.css">
 
-<h2>@R.Company</h2>
+<div class="row-fluid">
+    <h2>@R.Company</h2>
+    <button class="btn btn-success" id="newCompanyBtn">@R.NewCompany</button>
+</div>
 
-<button class="btn btn-success" id="newCompanyBtn">@R.NewCompany</button>
-
-<div class="show-product-container">
-    @foreach (var company in Model.Companies)
-    {
-        int id = company.CompanyId;
-        <div class="row company-row">
-            <div class="col-sm-4">
-                <span class="field-validation-error" id="input-company-id@(id)"></span>
-                <h4 company-name-id="@id">@company.CompanyName</h4>
-                <input type="text" class="form-control" style="display: none;" input-company-id="@id">
-                <div>
-                    <button class="btn glyphicon glyphicon-cog" data-type="setCompany" setCompany-id="@id"></button>
-                    <button class="btn glyphicon glyphicon-ok" data-type="acceptCompany" acceptCompany-id="@id"
-                            style="display: none;"></button>
-                    <button class="btn glyphicon glyphicon-remove" data-type="cancelCompany" cancelCompany-id="@id"
-                            style="display: none;"></button>
-                    <button class="btn glyphicon glyphicon-trash" data-type="removeCompany" removeCompany-id="@id"></button>
-                </div>
+@foreach (var company in Model.Companies)
+{
+    int id = company.CompanyId;
+    <div class="row-fluid">
+        <div class="box span12">
+            <div class="box-header">
+                <h2>
+                    <i class="halflings-icon white briefcase"></i><span class="break"></span>
+                </h2>
+                <h2 company-name-id="@id">
+                    @company.CompanyName
+                </h2>
             </div>
-            <div class="col-sm-4 user-column">
-                <div><h4 company-users-id="@id" isHide="true"
-                         class="pointer">
-                    Users&darr;
-                </h4></div>
-                <div user-row-id="@id" style="display: none">
-                    @foreach (var user in company.CompanyUsers)
-                    {
-                        <div class="row user-row">
-                            <div class="col-xs-8">
-                                <span>@user.Name</span>
-                            </div>
-                            <div class="col-xs-4">
-                                <span>@user.MainRole</span>
-                            </div>
+            <div class="box-content company-row">
+                <div class="span5">
+                    <span class="field-validation-error" id="input-company-id@(id)"></span>
+                    <input type="text" class="form-control" style="display: none;" input-company-id="@id">
+                    <div>
+                        <button class="btn btn-small" data-type="setCompany" setCompany-id="@id">
+                            <i class="halflings-icon pencil"></i>
+                        </button>
+                        <button class="btn btn-small" data-type="acceptCompany" acceptCompany-id="@id"
+                                style="display: none;">
+                            <i class="halflings-icon ok"></i>
+                        </button>
+                        <button class="btn btn-small" data-type="cancelCompany" cancelCompany-id="@id"
+                                style="display: none;">
+                            <i class="halflings-icon remove"></i>
+                        </button>
+                        <button class="btn btn-small" data-type="removeCompany" removeCompany-id="@id">
+                            <i class="halflings-icon trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box span7">
+                    <div class="box-header">
+                        <h2>
+                            <i class="halflings-icon white user"></i><span class="break"></span>
+                            @R.Users
+                        </h2>
+                        <div class="box-icon">
+                            <a href="#" class="btn-minimize"><i class="halflings-icon white chevron-down"></i></a>
                         </div>
-                    }
+                    </div>
+                    <div class="box-content" style="display: none;">
+                        <table class="table table-bordered table-striped table-condensed">
+                            <thead>
+                            <tr>
+                                <th>@R.User</th>
+                                <th>@R.Roles</th>
+                            </tr>
+                            </thead>
+                            @foreach (var user in company.CompanyUsers)
+                            {
+                                <tr>
+                                    <th class="col-xs-8">
+                                        <span>@user.Name</span>
+                                    </th>
+                                    <th class="col-xs-4">
+                                        <span>@user.MainRole</span>
+                                    </th>
+                                </tr>
+                            }
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-    }
-</div>
+    </div>
+}
 
 <div id="RemovingModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -76,19 +107,19 @@
                 @Html.AntiForgeryToken()
                 <div class="modal-body">
                     <span class="field-validation-error" id="newCompanyValidation"></span>
-                    <div class="row">
-                        <div class="col-xs-2">
-                            <h4>@R.Company:</h4>
+                    <div class="row-fluid">
+                        <div>
+                            <h4>@R.Name:</h4>
                         </div>
-                        <div class="col-xs-10">
-                            @Html.TextBox("CompanyName", "", new {@class = "form-control"})
+                        <div>
+                            @Html.TextBox("CompanyName", "", new { @class = "form-control" })
                         </div>
                     </div>
                 </div>
-                    <div class="modal-body-central">
-                        <button class="btn btn-success" id="createCompanyBtnId">@R.Create</button>
-                        <button class="btn btn-default" id="cancelCompanyBtnId">@R.Cancel</button>
-                    </div>
+                <div class="modal-body-central">
+                    <button class="btn btn-success" id="createCompanyBtnId">@R.Create</button>
+                    <button class="btn btn-default" id="cancelCompanyBtnId">@R.Cancel</button>
+                </div>
             </form>
         </div>
     </div>
@@ -96,10 +127,10 @@
 
 
 @section scripts
-{ 
+{
     @Scripts.Render("~/Product/Admin/Company/Scripts")
     <script>
-        $(function() {
+        $(function () {
             var params = {
                 updateUrl: '@Url.Action("UpdateCompany", "Admin")',
                 emptyValueError: '@R.EmptyBrandNameError',
@@ -109,7 +140,7 @@
             companyNamespace.init(params);
         });
     </script>
-}    
+}
 @section stylesheets
 {
     @Styles.Render("~/Product/Admin/Company/css")

@@ -178,11 +178,11 @@
                 <h4 class="modal-title">@R.SelectCompany:</h4>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-xs-2">
+                <div class="row-fluid">
+                    <div>
                         <h4>@R.Company:</h4>
                     </div>
-                    <div class="col-xs-10">
+                    <div>
                         @Html.DropDownList("SelectCompany", new SelectList(Model.CompaniesDictionary, "Key", "Value"), new { @class = "btn btn-default dropdown-toggle", style = "min-width:200px;" })
                     </div>
                 </div>

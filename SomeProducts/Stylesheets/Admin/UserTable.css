@@ -3,6 +3,10 @@
     padding: 20px;
 }
 
+.modal-body div{
+    display: inline-block;
+}
+
 .product-table-image {
     max-height: 80px;
     max-width: 80px;

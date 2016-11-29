@@ -14,26 +14,28 @@
         $("button[data-type='acceptCompany']").click(setNewCompanyName);
         $("button[data-type='cancelCompany']").click(cancelCompany);
         $("button[data-type='removeCompany']").click(removeCompany);
-        $("h4[company-users-id]").click(showUsers)
         initRemovingModal();
         initCreateCompanyModal();
     });
 
     function setCompany(e){
-        activeId = parseInt($(e.target).attr("setCompany-id"));
-        activeValue = $(e.target).val();
+        var target = getTargetButton(e.target);
+        activeId = parseInt($(target).attr("setCompany-id"));
+        activeValue = $(target).val();
         setDisplay(true);
     }
 
     function cancelCompany(e){
-        activeId = parseInt($(e.target).attr("cancelCompany-id"));
-        activeValue = $(e.target).val();
+        var target = getTargetButton(e.target);
+        activeId = parseInt($(target).attr("cancelCompany-id"));
+        activeValue = $(target).val();
         setDisplay(false);
     }
 
     function removeCompany(e){
         $("#RemovingModal").modal("show");
-        activeId = parseInt($(e.target).attr("removeCompany-id"));
+        var target = getTargetButton(e.target);
+        activeId = parseInt($(target).attr("removeCompany-id"));
     }
 
     function openNewCompanyModal(){
@@ -77,20 +79,6 @@
         $("#input-company-id" + activeId).empty();
         $("button[setCompany-id='" + activeId + "']").css("display", value ? "none" : "inline-block");
         $("button[removeCompany-id='" + activeId + "']").css("display", value ? "none" : "inline-block");
-        $("h4[company-name-id='" + activeId + "']").css("display", value ? "none" : "block");
-    }
-
-    function showUsers(e){
-        var id = parseInt($(e.target).attr("company-users-id"));
-        var isHide = $(e.target).attr("isHide");
-        if(isHide === "true"){
-            $("div[user-row-id='" + id + "']").css("display", "block");
-            $(e.target).attr("isHide", "false");
-        }
-        else{
-            $("div[user-row-id='" + id + "']").css("display", "none");
-            $(e.target).attr("isHide", "true");
-        }
     }
 
     function setNewCompanyName(e){
@@ -122,8 +110,8 @@
     function setNewName(result){
         if(result !== undefined)
         {
-            $("h4[company-name-id='" + activeId + "']").empty();
-            $("h4[company-name-id='" + activeId + "']").append(result.CompanyName);
+            $("h2[company-name-id='" + activeId + "']").empty();
+            $("h2[company-name-id='" + activeId + "']").append(result.CompanyName);
         }
         setDisplay(false);
     }
@@ -141,5 +129,11 @@
     function showError(value, id){
         $("#" + id).empty();
         $("#" + id).append(value);
+    }
+
+    function getTargetButton(target){
+        if(target.tagName !== 'BUTTON')
+            return target.parentNode;
+        return target;
     }
 }());
