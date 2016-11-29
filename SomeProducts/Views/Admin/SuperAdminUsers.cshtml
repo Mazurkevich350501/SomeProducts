@@ -66,16 +66,16 @@
                 {
 
                     <tr id="tr-@user.Id" class="tr-super-admin-users">
-                        <th>
+                        <td>
                             @Html.DisplayFor(p => user.Id)
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             @Html.DisplayFor(p => user.Name)
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             @Html.Raw(string.Join(", ", user.Roles)).ToHtmlString()
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             @if (User.Identity.Name != user.Name)
                             {
                                 <div class="userCompany">
@@ -85,8 +85,8 @@
                                     <span class="companyDisplay-@user.Id">@Html.DisplayFor(p => user.CompanyName)</span>
                                 </div>
                             }
-                        </th>
-                        <th>
+                        </td>
+                        <td>
                             @if (User.Identity.Name != user.Name)
                             {
                                 if (user.Roles.Contains(UserRole.Admin.AsString()))
@@ -119,7 +119,7 @@
                                     <i class="halflings-icon white trash"></i>
                                 </button>
                             }
-                        </th>
+                        </td>
                     </tr>
                 }
                 </tbody>

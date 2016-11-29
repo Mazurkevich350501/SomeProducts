@@ -30,7 +30,7 @@ tbody {
     overflow: auto;
 }
 
-tbody th {
+tbody td {
     font-style: italic;
 }
 
@@ -39,15 +39,15 @@ tr {
     width: 100%
 }
 
-th {
+th, td {
     display: inline-block;
-    text-overflow: ellipsis;
+    overflow: hidden;
     width: 15%;
 }
 
-th div{
+th div, td div{
     max-width: 100%;
-    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .filter-param-select {
     max-width: 20px;

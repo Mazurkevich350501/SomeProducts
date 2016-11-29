@@ -9,7 +9,8 @@
 
     $("button[data-type='remove-btn']").click(function (e) {
         $("#RemovingModal").modal("show");
-        activeId = parseInt($(e.target).attr("data-id"));
+        var target = getTargetButton(e.target);
+        activeId = parseInt($(target).attr("data-id"));
         event.cancelBubble = true;
     });
 
@@ -21,5 +22,11 @@
     $("#removeBtnId").click(function () {
         $("#productId").val(activeId);
     });
+
+    function getTargetButton(target){
+        if(target.tagName !== 'BUTTON')
+            return target.parentNode;
+        return target;
+    }
 
 }());

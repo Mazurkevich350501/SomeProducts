@@ -62,7 +62,7 @@
 
                             <tr @(User.IsInUserRole(UserRole.Admin) || User.IsInUserRole(UserRole.User) ? $"onclick=window.open('{Url.Action("Edit", "Product", new {id = product.Id})}')" : "")
                                 class="pointer">
-                                <th>
+                                <td>
                                     @if (@product.Image != null)
                                     {
                                         <img class="product-table-image" style="border: 6px solid @product.Color;"
@@ -73,34 +73,29 @@
                                         <img class="product-table-image" style="border: 6px solid @product.Color;"
                                              src="~/Resources/emptyImage.jpg" alt=""/>
                                     }
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     <div>
                                         @Html.DisplayFor(p => product.Name)
                                     </div>
-                                </th>
-                                <th>
+                                </td>
+                                <td>
                                     <div>
                                         @Html.DisplayFor(p => product.Description)
                                     </div>
-                                </th>
-                                <th>
-                                    
-                                    <div>
-                                        @Html.DisplayFor(p => product.Brand)
-                                    </div>
-                                </th>
-                                <th>
-                                    <div>
-                                        @Html.DisplayFor(p => product.Quantity)
-                                    </div>
-                                </th>
-                                <th>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(p => product.Brand)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(p => product.Quantity)
+                                </td>
+                                <td>
                                     @if (User.IsInUserRole(UserRole.Admin))
                                     {
                                         <button class="btn btn-danger" data-type="remove-btn" data-id="@product.Id"><i class="halflings-icon white trash"></i></button>
                                     }
-                                </th>
+                                </td>
                             </tr>
                         }
                         </tbody>

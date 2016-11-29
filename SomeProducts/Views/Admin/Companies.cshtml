@@ -3,8 +3,7 @@
 <link rel="stylesheet" type="text/css" href="~/Stylesheets/Admin/Companies.css">
 
 <div class="row-fluid">
-    <h2>@R.Company</h2>
-    <button class="btn btn-success" id="newCompanyBtn">@R.NewCompany</button>
+    <button class="btn btn-success new-company" id="newCompanyBtn">@R.NewCompany</button>
 </div>
 
 @foreach (var company in Model.Companies)
@@ -62,12 +61,12 @@
                             @foreach (var user in company.CompanyUsers)
                             {
                                 <tr>
-                                    <th class="col-xs-8">
+                                    <td class="col-xs-8">
                                         <span>@user.Name</span>
-                                    </th>
-                                    <th class="col-xs-4">
+                                    </td>
+                                    <td class="col-xs-4">
                                         <span>@user.MainRole</span>
-                                    </th>
+                                    </td>
                                 </tr>
                             }
                         </table>

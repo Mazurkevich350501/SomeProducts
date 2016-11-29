@@ -7,7 +7,7 @@
     ViewBag.Title = title;
 }
 
-<h2>@(isEdit ? R.Editing : R.Creating)</h2>
+<h2>@(isEdit ? R.Edit : R.Create)</h2>
 
 <form method="post" action=@Url.Action(isEdit ? "Edit" : "Create", "Product") enctype="multipart/form-data">
     @Html.AntiForgeryToken()
@@ -31,7 +31,7 @@
             <div class="row-fluid">
                 <h4 class="span5">@Html.LabelFor(m => m.Product.BrandId)*</h4>
                 @Html.DropDownListFor(m => m.Product.BrandId, new SelectList(Model.Brands, "Key", "Value", Model.Product.BrandId), new { @class = "btn span5 btn-default dropdown-toggle" })
-                <button type="button" id="brandEditBtn" class="btn btn-info" data-toggle="modal" data-target="#BrandModal"><i class="halflings-icon white pencil"></i></button>
+                <button type="button" id="brandEditBtn" class="btn btn-info btn-small" data-toggle="modal" data-target="#BrandModal"><i class="halflings-icon white pencil"></i></button>
             </div>
             @Html.ValidationMessageFor(m => m.Product.Color, "", new { id = (@Html.IdFor(m => m.Product.Color) + "_Validation") })
             <div class="row-fluid">
@@ -55,7 +55,10 @@
     <div>
         <input type="submit" class="btn btn-success" value=@(isEdit ? @R.Save : @R.Create) />
         <div id="delete-btn" class="btn btn-warning" data-toggle="modal" data-target="#RemovingModal">@R.Delete</div>
-        <a class="btn btn-info" href="@Url.Action("ItemAudit", "Audit", new {id = Model.Product.Id, entity = nameof(Model.Product)})">@R.Audit</a>
+        @if (isEdit)
+        {
+            <a class="btn btn-info" href="@Url.Action("ItemAudit", "Audit", new {id = Model.Product.Id, entity = nameof(Model.Product)})">@R.Audit</a>
+        }
     </div>
 </form>
 

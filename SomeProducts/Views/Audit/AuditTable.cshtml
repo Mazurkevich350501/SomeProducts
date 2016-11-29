@@ -84,33 +84,33 @@
                     @foreach (var item in Model.Items)
             {
                         <tr class="tr-full-audit">
-                            <th>
+                            <td>
                                 @Html.DisplayFor(p => item.Entity)
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 @Html.DisplayFor(p => item.EntityId)
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 @Html.DisplayFor(p => item.ModifiedField)
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 @Html.DisplayFor(p => item.PreviousValue)
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 @Html.DisplayFor(p => item.NextValue)
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 @Html.DisplayFor(p => item.ModifiedDate)
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 @Html.DisplayFor(p => item.Status)
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 @Html.DisplayFor(p => item.UserName)
-                            </th>
-                            <th>
+                            </td>
+                            <td>
                                 @Html.DisplayFor(p => item.CompanyName)
-                            </th>
+                            </td>
                         </tr>
                     }
                 </tbody>

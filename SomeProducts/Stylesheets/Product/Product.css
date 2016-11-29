@@ -36,3 +36,11 @@
     max-width: none;
     width: 97%;
 }
+
+h4 label {
+    display: inline-block
+}
+
+textarea {
+    max-width: 100%;
+}

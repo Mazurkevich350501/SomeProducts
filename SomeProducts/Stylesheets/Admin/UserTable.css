@@ -3,7 +3,7 @@
     padding: 20px;
 }
 
-.modal-body div{
+.modal-body div {
     display: inline-block;
 }
 
@@ -19,11 +19,11 @@
 
 table {
     width: 100%;
-    display:block;
+    display: block;
 }
 
 thead {
-    display: block; 
+    display: block;
     width: 100%;
 }
 
@@ -34,32 +34,35 @@ tbody {
     overflow: auto;
 }
 
-tbody th {
-    font-style: italic;
-}
+    tbody td {
+        font-style: italic;
+    }
 
 tr {
     display: block;
-    width: 100%
+    width: 100%;
 }
 
-.tr-super-admin-users th{
-     width: 18%;
+.tr-super-admin-users th, 
+.tr-super-admin-users td {
+    width: 18%;
 }
 
-.tr-admin-users th{
-     width: 23%;
+.tr-admin-users th,
+.tr-admin-users td {
+    width: 23%;
 }
 
-th {
+th, td {
     display: inline-block;
-    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
-th div{
-    max-width: 100%;
-    text-overflow: ellipsis;
-}
+    th div, td div {
+        max-width: 100%;
+        overflow: hidden;
+    }
+
 .filter-param-select {
     max-width: 20px;
     padding: 7px;
@@ -68,5 +71,3 @@ th div{
 .filter-option-input-div {
     padding-right: 2px;
 }
-
-
