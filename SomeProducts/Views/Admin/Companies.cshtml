@@ -24,18 +24,22 @@
                     <span class="field-validation-error" id="input-company-id@(id)"></span>
                     <input type="text" class="form-control" style="display: none;" input-company-id="@id">
                     <div>
-                        <button class="btn btn-small" data-type="setCompany" setCompany-id="@id">
+                        <button class="btn btn-small" data-type="setCompany" setCompany-id="@id"
+                                title="@R.Edit">
                             <i class="halflings-icon pencil"></i>
                         </button>
                         <button class="btn btn-small" data-type="acceptCompany" acceptCompany-id="@id"
-                                style="display: none;">
+                                style="display: none;"
+                                title="@R.Save">
                             <i class="halflings-icon ok"></i>
                         </button>
                         <button class="btn btn-small" data-type="cancelCompany" cancelCompany-id="@id"
-                                style="display: none;">
+                                style="display: none;"
+                                title="@R.Cancel">
                             <i class="halflings-icon remove"></i>
                         </button>
-                        <button class="btn btn-small" data-type="removeCompany" removeCompany-id="@id">
+                        <button class="btn btn-small" data-type="removeCompany" removeCompany-id="@id"
+                                title="@R.Delete">
                             <i class="halflings-icon trash"></i>
                         </button>
                     </div>

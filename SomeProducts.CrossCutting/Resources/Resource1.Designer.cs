@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to company.
+        /// </summary>
+        public static string AddToCompany {
+            get {
+                return ResourceManager.GetString("AddToCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to add user to company?.
         /// </summary>
         public static string AddUserToCompanyQuestion {
@@ -664,6 +673,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove from company.
+        /// </summary>
+        public static string RemoveFromCompany {
+            get {
+                return ResourceManager.GetString("RemoveFromCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to remove user from company?.
         /// </summary>
         public static string RemoveUserFromCompanyQuestion {
@@ -709,6 +727,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set admin.
+        /// </summary>
+        public static string SetAdmin {
+            get {
+                return ResourceManager.GetString("SetAdmin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sign In.
         /// </summary>
         public static string SignIn {
@@ -723,6 +750,15 @@ namespace Resources {
         public static string Status {
             get {
                 return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unset admin.
+        /// </summary>
+        public static string UnsetAdmin {
+            get {
+                return ResourceManager.GetString("UnsetAdmin", resourceCulture);
             }
         }
         

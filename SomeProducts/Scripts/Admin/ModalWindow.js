@@ -1,21 +1,11 @@
 ﻿(function () {
     var activeId;
     var companyId;
-    var deleteProductUrl;
-    var changeAdminRoleUrl;
-    var setCompanyUrl;
-    var adminCompanyId;
-    var addUserToCompanyQuestion;
-    var removeUserFromCompanyQuestion;
+    var params;
 
     var removingModalNamespace = Utils.getNamespace("RemovingModal");
     removingModalNamespace.initRemovingModal = function (newParams) {
-        deleteProductUrl = newParams.deleteProductUrl;
-        changeAdminRoleUrl = newParams.changeAdminRoleUrl;
-        setCompanyUrl = newParams.setCompanyUrl;
-        adminCompanyId = newParams.adminCompanyId;
-        addUserToCompanyQuestion = newParams.addUserToCompanyQuestion;
-        removeUserFromCompanyQuestion = newParams.removeUserFromCompanyQuestion;
+        params = newParams;
     }
 
     $(function () {
@@ -54,7 +44,7 @@
 
         $("#setAdminBtnId").click(function () {
             var data = JSON.stringify({ userId: activeId });
-            postRequest(data, changeAdminRoleUrl, showAdminChanges);
+            postRequest(data, params.changeAdminRoleUrl, showAdminChanges);
         });
     }
 
@@ -71,7 +61,7 @@
         $("#changeCompanyBtnId").click(function () {
             var companyId = $("#SelectCompany").val();
             var data = JSON.stringify({ userId: activeId, companyId: companyId});
-            postRequest(data, setCompanyUrl, showCompanyChanges);
+            postRequest(data, params.setCompanyUrl, showCompanyChanges);
         });
     }
 
@@ -80,13 +70,13 @@
             activeId = parseInt($(e.target).attr("data-id"));
             var tempCompanyId = parseInt($(e.target).attr("data-company"));
             $("#AddingOrRemovingModalMessageId").empty();
-            if (tempCompanyId === adminCompanyId){
+            if (tempCompanyId === params.adminCompanyId){
                 companyId = 1;
-                $("#AddingOrRemovingModalMessageId").append(removeUserFromCompanyQuestion);
+                $("#AddingOrRemovingModalMessageId").append(params.removeUserFromCompanyQuestion);
             }
             else{
-                companyId = adminCompanyId;
-                $("#AddingOrRemovingModalMessageId").append(addUserToCompanyQuestion);
+                companyId = params.adminCompanyId;
+                $("#AddingOrRemovingModalMessageId").append(params.addUserToCompanyQuestion);
             }
             $("#AddingOrRemovingModal").modal("show");
         });
@@ -97,24 +87,26 @@
 
         $("#addOrRemoveBtnId").click(function () {
             var data = JSON.stringify({ userId: activeId, companyId: companyId});
-            postRequest(data, setCompanyUrl, showAddOrremoveChanges);
+            postRequest(data, params.setCompanyUrl, showAddOrremoveChanges);
         });
     }
 
     function showAddOrremoveChanges(result){
         var button = $("#addOrRemoveCompanyUserBtn" + activeId);
-        if(result.CompanyId === adminCompanyId){
+        if(result.CompanyId === params.adminCompanyId){
             button.attr("class", "btn btn-small btn-danger");
-            $(button).children().attr("class", "halflings-icon white remove-sign");
+            button.children().attr("class", "halflings-icon white remove-sign");
+            button.attr("title", params.removeFromCompany);
             $("#setAdminBtn" + activeId).show();
         }
         else{
             button.attr("class", "btn btn-success btn-small");
-            $(button).children().attr("class", "halflings-icon white ok-sign");
+            button.children().attr("class", "halflings-icon white ok-sign");
+            button.attr("title", params.addToCompany);
             $("#setAdminBtn" + activeId).hide();
         }
-        $("#addOrRemoveCompanyUserBtn" + activeId).attr("data-company", result.CompanyId);
-        $("#addOrRemoveCompanyUserBtn" + activeId).children().attr("data-company", result.CompanyId);
+        button.attr("data-company", result.CompanyId);
+        button.children().attr("data-company", result.CompanyId);
         $("#AddingOrRemovingModal").modal("hide");
     }
 
@@ -125,13 +117,15 @@
         $("#ChangeCompanyModal").modal("hide");
     }
 
-    function setButtonColor(roles) {
+    function setButtonStyle(roles) {
         var button = $("#setAdminBtn" + activeId);
         if (roles.indexOf("Admin") !== -1) {
             button.attr("class", "btn btn-small btn-success");
+            button.attr("title", params.unsetAdmin);
         }
         else {
             button.attr("class", "btn btn-small btn-danger");
+            button.attr("title", params.setAdmin);
         }
     }
 
@@ -142,7 +136,7 @@
     }
 
     function showAdminChanges(result){
-        setButtonColor(result);
+        setButtonStyle(result);
         showUserRoles(result);
         $("#SetAdminModal").modal("hide");
     }

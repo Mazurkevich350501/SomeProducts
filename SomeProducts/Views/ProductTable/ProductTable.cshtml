@@ -93,7 +93,10 @@
                                 <td>
                                     @if (User.IsInUserRole(UserRole.Admin))
                                     {
-                                        <button class="btn btn-danger" data-type="remove-btn" data-id="@product.Id"><i class="halflings-icon white trash"></i></button>
+                                        <button class="btn btn-danger" data-type="remove-btn" data-id="@product.Id"
+                                                title="@R.Delete">
+                                            <i class="halflings-icon white trash"></i>
+                                        </button>
                                     }
                                 </td>
                             </tr>

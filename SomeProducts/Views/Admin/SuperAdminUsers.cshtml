@@ -79,7 +79,9 @@
                             @if (User.Identity.Name != user.Name)
                             {
                                 <div class="userCompany">
-                                    <button class="btn btn-small btn-info" data-id="@user.Id">
+                                    <button class="btn btn-small btn-info" 
+                                            title="@R.Edit"
+                                            data-id="@user.Id">
                                         <i class="halflings-icon white pencil"></i>
                                     </button>
                                     <span class="companyDisplay-@user.Id">@Html.DisplayFor(p => user.CompanyName)</span>
@@ -91,9 +93,11 @@
                             {
                                 if (user.Roles.Contains(UserRole.Admin.AsString()))
                                 {
-                                    <button class="btn btn-success btn-small" data-id="@user.Id"
+                                    <button class="btn btn-success btn-small" 
+                                            data-id="@user.Id"
                                             data-type="setAdmin-btn"
-                                            id=@($"setAdminBtn{user.Id}")>
+                                            id=@($"setAdminBtn{user.Id}")
+                                            title="@R.UnsetAdmin">
                                         <i class="halflings-icon white font"
                                            data-id="@user.Id"
                                            data-company="@user.CompanyId"></i>
@@ -101,9 +105,11 @@
                                 }
                                 else
                                 {
-                                    <button class="btn btn-danger btn-small" data-id="@user.Id"
+                                    <button class="btn btn-danger btn-small" 
+                                            data-id="@user.Id"
                                             data-type="setAdmin-btn"
-                                            id=@($"setAdminBtn{user.Id}")>
+                                            id=@($"setAdminBtn{user.Id}")
+                                            title="@R.SetAdmin">
                                         <i class="halflings-icon white font"
                                            data-id="@user.Id"
                                            data-company="@user.CompanyId"></i>
@@ -115,7 +121,8 @@
                             {
                                 <button class="btn btn-danger btn-small"
                                         data-id="@user.Id"
-                                        data-type="remove-btn">
+                                        data-type="remove-btn"
+                                        title="@R.Delete">
                                     <i class="halflings-icon white trash"></i>
                                 </button>
                             }
@@ -206,7 +213,9 @@
                 changeAdminRoleUrl: '@Url.Action("ChangeUserAdminRole", "Admin")',
                 setCompanyUrl: '@Url.Action("SetUserCompany", "Admin")',
                 filters: '@Model.FilterInfo.FiltertsList',
-                IllegalCharsError: '@R.IllegalCharsError'
+                IllegalCharsError: '@R.IllegalCharsError',
+                setAdmin: '@R.SetAdmin',
+                unsetAdmin: '@R.UnsetAdmin'
             };
 
             var sortingNamespace = window.Utils.getNamespace("SortableTable");
