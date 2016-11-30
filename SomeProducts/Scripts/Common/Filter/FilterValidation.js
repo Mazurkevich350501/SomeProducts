@@ -10,7 +10,7 @@
     productTableNamespace.checkValidity = function () {
         var result = true;
         $("span[class='field-validation-error']").empty();
-        $("div[class='col-xs-10 filter-option-input-div']>input").each(function () {
+        $("input[data-type='validate']").each(function () {
             if (window.Utils.checkValidityData($(this).val())) {
                 showValidationMessage(this);
                 result = false;

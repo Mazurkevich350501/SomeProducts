@@ -26,7 +26,8 @@
                                     <input class="form-control"
                                            type="@(Model.Filters.ToArray()[i].Type == Type.Numeric ? "number" : "text")"
                                            id="@(Model.Filters.ToArray()[i].Option)ValueId"
-                                           value="@Model.Filters.ToArray()[i].Value"/>
+                                           value="@Model.Filters.ToArray()[i].Value"
+                                           data-type="validate"/>
                                 </div>
                                 <div class="span1">
                                     @if (Model.Filters.ToArray()[i].Type == Type.Numeric)
