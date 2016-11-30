@@ -401,6 +401,7 @@
     <Content Include="Views\Audit\AuditTable.cshtml" />
     <Content Include="Views\Audit\AuditTableForItem.cshtml" />
     <Content Include="Views\Admin\Companies.cshtml" />
+    <Content Include="Views\Account\_LogInLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

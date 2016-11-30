@@ -351,11 +351,17 @@
   <data name="Status" xml:space="preserve">
     <value>Статус</value>
   </data>
+  <data name="Type" xml:space="preserve">
+    <value>Введите</value>
+  </data>
   <data name="UnsetAdmin" xml:space="preserve">
     <value>Удалить из админов</value>
   </data>
   <data name="User" xml:space="preserve">
     <value>Пользователь</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Имя пользователя</value>
   </data>
   <data name="UserNameExist" xml:space="preserve">
     <value>имя уже существует.</value>

@@ -348,11 +348,17 @@
   <data name="Status" xml:space="preserve">
     <value>Status</value>
   </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+  </data>
   <data name="UnsetAdmin" xml:space="preserve">
     <value>Unset admin</value>
   </data>
   <data name="User" xml:space="preserve">
     <value>User</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
   </data>
   <data name="UserNameExist" xml:space="preserve">
     <value>name already exist.</value>

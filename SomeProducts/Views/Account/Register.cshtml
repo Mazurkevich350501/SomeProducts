@@ -1,6 +1,7 @@
 ﻿@model SomeProducts.PresentationServices.Models.Account.RegistrationViewModel
 @using R = Resources.LocalResource
 @{
+    Layout = "_LogInLayout.cshtml";
     ViewBag.Title = "Register";
     string returnUrl = ViewBag.ReturnUrl ?? Url.Action("Show", "ProductTable");
 }
@@ -12,25 +13,36 @@
     @Html.Hidden("returnUrl", returnUrl)
     @Html.ValidationMessage("Error")
     <div>
-        @Html.LabelFor(m => m.Name)
-        <div class="input-div">
+        <div class="error-message-container">
             @Html.ValidationMessageFor(m => m.Name)
-            @Html.TextBoxFor(m => m.Name, new {@class = "form-control"})
         </div>
-        @Html.LabelFor(m => m.Password)
-        <div class="input-div">
+        <div class="input-prepend" title="@R.Username">
+            <span class="add-on"><i class="halflings-icon user"></i></span>
+            @Html.TextBoxFor(m => m.Name, new {@class = "input-large span10", placeholder = $"{@R.Type} {@R.Username}"})
+        </div>
+
+        <div class="error-message-container">
             @Html.ValidationMessageFor(m => m.Password)
-            @Html.TextBoxFor(m => m.Password, new {@class = "form-control", type = "password"})
         </div>
-        @Html.LabelFor(m => m.ConfirmPassword)
-        <div class="input-div">
+        <div class="input-prepend" title="@R.Password">
+            <span class="add-on"><i class="halflings-icon lock"></i></span>
+            @Html.TextBoxFor(m => m.Password,
+           new {@class = "input-large span10", placeholder = $"{@R.Type} {@R.Password}", type = "password" })
+        </div>
+
+        <div class="error-message-container">
             @Html.ValidationMessageFor(m => m.ConfirmPassword)
-            @Html.TextBoxFor(m => m.ConfirmPassword, new {@class = "form-control", type = "password"})
+        </div>
+        <div class="input-prepend" title="@R.ConfirmPassword">
+            <span class="add-on"><i class="halflings-icon lock"></i></span>
+            @Html.TextBoxFor(m => m.ConfirmPassword,
+           new {@class = "input-large span10", placeholder = $"{@R.Type} {@R.ConfirmPassword}", type = "password" })
         </div>
     </div>
-    <div class="btn-div">
+    <div class="button-login">
         <input class="btn btn-info" type="submit" value="@R.Register" />
     </div>
+    <div class="clearfix"></div>
 </form>
 
 @section stylesheets

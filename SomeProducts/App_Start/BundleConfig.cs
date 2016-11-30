@@ -9,19 +9,43 @@ namespace SomeProducts
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
-
-             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
-
-            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/respond.js"));
+            
+            bundles.Add(new ScriptBundle("~/bundles/janux").Include(
+                        "~/janux/js/jquery-ui-1.10.0.custom.min.js",
+                        "~/janux/js/jquery-migrate-1.0.0.min.js",
+                        "~/janux/js/jquery.ui.touch-punch.js",
+                        "~/janux/js/modernizr.js",
+                        "~/janux/js/bootstrap.min.js",
+                        "~/janux/js/jquery.cookie.js",
+                        "~/janux/js/fullcalendar.min.js",
+                        "~/janux/js/jquery.dataTables.min.js",
+                        "~/janux/js/excanvas.js",
+                        "~/janux/js/jquery.flot.js",
+                        "~/janux/js/jquery.flot.pie.js",
+                        "~/janux/js/jquery.flot.stack.js",
+                        "~/janux/js/jquery.flot.resize.min.js",
+                        "~/janux/js/jquery.chosen.min.js",
+                        "~/janux/js/jquery.uniform.min.js",
+                        "~/janux/js/jquery.cleditor.min.js",
+                        "~/janux/js/jquery.noty.js",
+                        "~/janux/js/jquery.elfinder.min.js",
+                        "~/janux/js/jquery.raty.min.js",
+                        "~/janux/js/jquery.iphone.toggle.js",
+                        "~/janux/js/jquery.uploadify-3.1.min.js",
+                        "~/janux/js/jquery.gritter.min.js",
+                        "~/janux/js/jquery.imagesloaded.js",
+                        "~/janux/js/jquery.masonry.min.js",
+                        "~/janux/js/jquery.knob.modified.js",
+                        "~/janux/js/jquery.sparkline.min.js",
+                        "~/janux/js/counter.js",
+                        "~/janux/js/custom.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Stylesheets/Common/Common.css"));
+                      "~/Stylesheets/Common/Common.css",
+                      "~/janux/css/bootstrap.min.css",
+                      "~/janux/css/bootstrap-responsive.min.css",
+                      "~/janux/css/style.css",
+                      "~/janux/css/style-responsive.css"));
 
             bundles.Add(new ScriptBundle("~/Product/Create/Scripts").Include(
                 "~/BowerComponents/jquery-simplecolorpicker/jquery.simplecolorpicker.js",

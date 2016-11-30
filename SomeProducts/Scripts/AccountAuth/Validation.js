@@ -16,7 +16,7 @@
     function checkValidity() {
         var result = true;
         $("span[class='field-validation-error']").empty();
-        $("div[class='input-div']>input").each(function () {
+        $("div[class='input-prepend']>input").each(function () {
             if (window.Utils.checkValidityData($(this).val())) {
                 showValidationMessage(this);
                 result = false;

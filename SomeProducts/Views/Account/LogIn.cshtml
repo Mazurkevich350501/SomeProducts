@@ -1,4 +1,6 @@
-﻿
+﻿@{
+    Layout = "_LogInLayout.cshtml";
+}
 @model SomeProducts.PresentationServices.Models.Account.LogInUserModel
 @using R = Resources.LocalResource;
 @{
@@ -13,23 +15,28 @@
     @Html.Hidden("returnUrl", returnUrl)
     @Html.ValidationMessage("Error")
     <div>
-        @Html.LabelFor(m => m.Name)
-        <div class="input-div">
+        <div class="error-message-container">
             @Html.ValidationMessageFor(m => m.Name)
-            @Html.TextBoxFor(m => m.Name, new {@class = "form-control"})
         </div>
-        @Html.LabelFor(m => m.Password)
-        <div class="input-div">
+        <div class="input-prepend" title="@R.Username">
+            <span class="add-on"><i class="halflings-icon user"></i></span>
+            @Html.TextBoxFor(m => m.Name, new {@class = "input-large span10", placeholder = $"{@R.Type} {@R.Username}"})
+        </div>
+
+        <div class="error-message-container">
             @Html.ValidationMessageFor(m => m.Password)
-            @Html.TextBoxFor(m => m.Password, new {@class = "form-control", type = "password"})
+        </div>
+        <div class="input-prepend" title="@R.Password">
+            <span class="add-on"><i class="halflings-icon lock"></i></span>
+            @Html.TextBoxFor(m => m.Password, new {@class = "input-large span10", placeholder = $"{@R.Type} {@R.Password}", type = "password" })
         </div>
     </div>
-    <div class="btn-div">
-        <input class="btn btn-info" type="submit" value="@R.SignIn"/>
+    <div class="button-login">
+        <input class="btn btn-info" type="submit" value="@R.SignIn" />
         <a class="btn btn-default" href="@Url.Action("Register", "Account", new {returnUrl})">@R.Register</a>
     </div>
+    <div class="clearfix"></div>
 </form>
-
 
 @section stylesheets
 {
