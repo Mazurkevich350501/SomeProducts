@@ -38,22 +38,22 @@
             <table class="table table-bordered table-striped table-condensed">
                 <thead>
                     <tr class="tr-admin-users">
-                        <td>
+                        <th>
                             <div id="th-id" data-type="sort" data-name="Id" class="pointer">
                                 Id
                             </div>
-                        </td>
-                        <td>
+                        </th>
+                        <th>
                             <div id="th-username" data-type="sort" data-name="UserName" class="pointer">
                                 @R.Name
                             </div>
-                        </td>
-                        <td>
+                        </th>
+                        <th>
                             <div data-name="roles">
                                 @R.Roles
                             </div>
-                        </td>
-                        <td></td>
+                        </th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,16 +61,16 @@
             {
 
             <tr id="tr-@user.Id" class="tr-admin-users">
-                <th>
+                <td>
                     @Html.DisplayFor(p => user.Id)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.DisplayFor(p => user.Name)
-                </th>
-                <th>
+                </td>
+                <td>
                     @Html.Raw(string.Join(", ", user.Roles)).ToHtmlString()
-                </th>
-                <th>
+                </td>
+                <td>
                     @if (User.Identity.Name != user.Name)
                         {
                             if (user.CompanyId == User.GetCompany())
@@ -127,7 +127,7 @@
                             </button>
                         }
                     }
-                </th>
+                </td>
             </tr>
             }
                 </tbody>
