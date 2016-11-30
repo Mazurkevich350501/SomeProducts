@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Threading;
 using System.Web;
 using System.Web.Routing;
@@ -38,8 +39,8 @@ namespace SomeProducts.Helpers
             Thread.CurrentThread.CurrentCulture = ci;
             Thread.CurrentThread.CurrentUICulture = ci;
             var cookie = new HttpCookie("culture", ci.Name);
-            var request = context.Request;
-            request.Cookies.Add(cookie);
+            var response = context.Response;
+            response.Cookies.Add(cookie);
         }
     }
 }
