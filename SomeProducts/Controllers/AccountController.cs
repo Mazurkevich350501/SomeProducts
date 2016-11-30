@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using Resources;
 using SomeProducts.CrossCutting.ProjectLogger;
+using SomeProducts.Helpers;
 using SomeProducts.PresentationServices.Authorize;
 using SomeProducts.PresentationServices.Models.Account;
 
@@ -93,20 +94,12 @@ namespace SomeProducts.Controllers
         }
 
         [HttpGet]
-        public ActionResult ChangeCulture(string lang, string returnUrl)
+        public ActionResult ChangeCulture(string returnUrl)
         {
-            var cultureReturnUrl = GetNewCultureReturnUrl(lang, returnUrl);
-            return Redirect(cultureReturnUrl);
+            LocalizationHelper.Localize(System.Web.HttpContext.Current);
+            return Redirect(returnUrl);
         }
-
-        private static string GetNewCultureReturnUrl(string lang, string returnUrl)
-        {
-            var projectName = System.Reflection.Assembly
-                .GetExecutingAssembly().GetName().Name;
-            var pattern = projectName + "/([A-Za-z]{2}/){0,1}";
-            return Regex.Replace(returnUrl, pattern, $"{projectName}/{lang}/");
-        }
-
+        
         private async Task<IdentityResult> LogIn(LogInUserModel userModel)
         {
             var user = await _manager.FindAsync(userModel.Name, userModel.Password);
