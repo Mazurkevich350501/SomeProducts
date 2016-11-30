@@ -372,4 +372,7 @@
   <data name="YouDontHaveAccess" xml:space="preserve">
     <value>У вас нет доступа!</value>
   </data>
+  <data name="Filters" xml:space="preserve">
+    <value>Фильтры</value>
+  </data>
 </root>

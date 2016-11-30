@@ -369,4 +369,7 @@
   <data name="YouDontHaveAccess" xml:space="preserve">
     <value>You don't have access!</value>
   </data>
+  <data name="Filters" xml:space="preserve">
+    <value>Filters</value>
+  </data>
 </root>

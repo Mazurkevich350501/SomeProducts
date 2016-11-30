@@ -13,7 +13,9 @@
 <form method="post" action=@Url.Action("LogIn", "Account") enctype="multipart/form-data">
     @Html.AntiForgeryToken()
     @Html.Hidden("returnUrl", returnUrl)
-    @Html.ValidationMessage("Error")
+    <div class="error-message-container">
+        @Html.ValidationMessage("Error")
+    </div>
     <div>
         <div class="error-message-container">
             @Html.ValidationMessageFor(m => m.Name)

@@ -18,6 +18,16 @@
                 <a class="brand" href="@Url.Action("Show", "ProductTable")"><span>SomeProducts</span></a>
                 <div class="nav-no-collapse header-nav">
                     <ul class="nav pull-right">
+                        <li class="dropdown">
+                            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="halflings-icon white globe"></i>
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("English", "ChangeCulture", "Account", new {culture = "en", returnUrl = Request.RawUrl}, null)</li>
+                                <li>@Html.ActionLink("Русский", "ChangeCulture", "Account", new {culture = "ru", returnUrl = Request.RawUrl}, null)</li>
+                            </ul>
+                        </li>
                         @Html.Partial("_LoginPartial")
                     </ul>
                 </div>
