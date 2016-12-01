@@ -372,4 +372,7 @@
   <data name="Filters" xml:space="preserve">
     <value>Filters</value>
   </data>
+  <data name="NewBrand" xml:space="preserve">
+    <value>New brand</value>
+  </data>
 </root>

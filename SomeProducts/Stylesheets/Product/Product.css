@@ -20,21 +20,15 @@
     margin: 0;
 }
 
-.new-brand-input {
-    max-width: none;
-    width: 95%;
-}
-
 .modal-body-central {
     text-align: center;
     padding: 20px;
 }
 
 .brand-edit-input {
-    border: 0;
+    border: 3px;
     outline: none;
     max-width: none;
-    width: 97%;
 }
 
 h4 label {

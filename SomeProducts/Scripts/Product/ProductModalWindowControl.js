@@ -127,8 +127,14 @@
         brandListValidation();
     }
 
+    function getTargetButton(target){
+        if(target.tagName !== 'BUTTON')
+            return target.parentNode;
+        return target;
+    }
+
     function removeBrand(e) {
-        var object = e.target;
+        var object = getTargetButton(e.target);
         removeFromBrandsList(object.getAttribute("data-id"));
         showBrandsList();
     }

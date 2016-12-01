@@ -538,6 +538,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New brand.
+        /// </summary>
+        public static string NewBrand {
+            get {
+                return ResourceManager.GetString("NewBrand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New company.
         /// </summary>
         public static string NewCompany {

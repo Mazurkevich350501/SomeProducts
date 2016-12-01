@@ -375,4 +375,7 @@
   <data name="Filters" xml:space="preserve">
     <value>Фильтры</value>
   </data>
+  <data name="NewBrand" xml:space="preserve">
+    <value>Новый бренд</value>
+  </data>
 </root>
