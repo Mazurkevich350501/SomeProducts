@@ -23,3 +23,17 @@ ul.dropdown-menu::after {
 ul.dropdown-menu::before {
     display: none;
 }
+
+.table-tr-line th,
+.table-tr-line td {
+    border: none !important;
+}
+
+.table-tr-line tr, 
+.table-tr-line tbody {
+    border-bottom: 1px solid #cccccc;
+}
+
+.nav.nav-tabs.nav-stacked.main-menu i{
+    padding-right: 4px;
+}

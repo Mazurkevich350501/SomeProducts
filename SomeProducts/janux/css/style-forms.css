@@ -17,7 +17,7 @@ input[type="tel"],
 input[type="color"],
 input[type="file"],
 .uneditable-input {
-  border-color: #eee !important;	
+  border-color: #aaa !important;	
   display: inline-block;
   height: 20px;
   padding: 4px 6px;
@@ -58,7 +58,8 @@ input[type="tel"],
 input[type="color"],
 .uneditable-input {
   background-color: #ffffff;
-  border: 1px solid #cccccc;
+  border: 1px solid #cccccc !important;
+    border-radius: 3px;
   -webkit-box-shadow: none;
      -moz-box-shadow: none;
           box-shadow: none;

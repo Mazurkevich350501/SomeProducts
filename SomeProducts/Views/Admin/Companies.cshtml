@@ -23,7 +23,7 @@
                 <div class="span5">
                     <span class="field-validation-error" id="input-company-id@(id)"></span>
                     <input type="text" class="form-control" style="display: none;" input-company-id="@id">
-                    <div>
+                    <div class="button-row">
                         <button class="btn btn-small" data-type="setCompany" setCompany-id="@id"
                                 title="@R.Edit">
                             <i class="halflings-icon pencil"></i>
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                     <div class="box-content" style="display: none;">
-                        <table class="table table-bordered table-striped table-condensed">
+                        <table class="table table-tr-line">
                             <thead>
                             <tr>
                                 <th>@R.User</th>
@@ -81,7 +81,7 @@
     </div>
 }
 
-<div id="RemovingModal" class="modal fade" role="dialog">
+<div id="RemovingModal" class="modal hide fade" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -100,7 +100,7 @@
     </div>
 </div>
 
-<div id="CreateCompanyModal" class="modal fade" role="dialog">
+<div id="CreateCompanyModal" class="modal hide fade" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

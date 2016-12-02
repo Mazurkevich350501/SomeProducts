@@ -59,13 +59,6 @@ th div, td div{
     max-width: 100%;
     overflow: hidden;
 }
-.filter-param-select {
-    max-width: 20px;
-    padding: 7px;
-}
 
-.filter-option-input-div {
-    padding-right: 2px;
-}
 
 

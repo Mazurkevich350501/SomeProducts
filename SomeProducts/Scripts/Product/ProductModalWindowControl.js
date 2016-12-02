@@ -141,9 +141,16 @@
 
     function saveBrandsChanges() {
         if (isValid) {
-            postJsonData(JSON.stringify(getBrandChangeModel()), params.url.saveBrandsChangesUrl);
+            postJsonData(JSON.stringify(getBrandChangeModel()),
+                params.url.saveBrandsChangesUrl, saveBrandsChangesSuccess);
         }
     }
+
+    function saveBrandsChangesSuccess (data) {
+        setBrandDropdownItems(data);
+        closeModalWindow();
+        noty(Utils.noty.createSuccessNoty("asdasdasda asd asd"));
+    }   
 
     function getBrandChangeModel() {
         var brandChangesModel = {
@@ -172,7 +179,7 @@
         return brandChangesModel;
     }
 
-    function postJsonData(jsonData, url) {
+    function postJsonData(jsonData, url, success) {
         $.ajax({
             type: "POST",
             url: url,
@@ -180,10 +187,7 @@
             dataType: "json",
             data: jsonData,
             traditional: true,
-            success: function (data) {
-                setBrandDropdownItems(data);
-                closeModalWindow();
-            }
+            success: success
         });
     }
 

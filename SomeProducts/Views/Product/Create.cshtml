@@ -8,7 +8,7 @@
 }
 
 <h2>@(isEdit ? R.Edit : R.Create)</h2>
-
+    
 <form method="post" action=@Url.Action(isEdit ? "Edit" : "Create", "Product") enctype="multipart/form-data">
     @Html.AntiForgeryToken()
     @Html.HiddenFor(m => m.Product.Id)
@@ -62,14 +62,14 @@
     </div>
 </form>
 
-<div id="BrandModal" class="modal fade" role="dialog">
+<div id="BrandModal" class="modal hide fade" aria-hidden="true">
     <div class="modal-dialog" id="modal_dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">@R.Brand</h4>
             </div>
             <div class="modal-body" id="modal-body">
-                <div>
+                <div class="new-brand-container">
                     <h4>@R.NewBrand:</h4>
                     <div>
                         <p class="field-validation-error" id="newBrandValidation"></p>
@@ -92,7 +92,7 @@
     </div>
 </div>
 
-<div id="RemovingModal" class="modal fade" role="dialog">
+<div id="RemovingModal" class="modal hide fade" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

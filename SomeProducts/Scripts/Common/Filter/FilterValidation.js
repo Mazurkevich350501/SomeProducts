@@ -20,7 +20,8 @@
     }
 
     function showValidationMessage(obj) {
-        $("#validation-" + obj.id).attr("class", "field-validation-error");
-        $("#validation-" + obj.id).append(illegalCharsError);
+        var id = obj.id.replace(/\./g, "\\.");
+        $("#validation-" + id).attr("class", "field-validation-error");
+        $("#validation-" + id).append(illegalCharsError);
     }
 })();

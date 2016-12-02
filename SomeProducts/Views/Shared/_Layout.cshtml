@@ -16,11 +16,17 @@
         <div class="navbar-inner">
             <div class="container-fluid">
                 <a class="brand" href="@Url.Action("Show", "ProductTable")"><span>SomeProducts</span></a>
+                <a class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
                 <div class="nav-no-collapse header-nav">
                     <ul class="nav pull-right">
                         <li class="dropdown">
                             <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
                                 <i class="halflings-icon white globe"></i>
+                                @R.Language
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
@@ -37,7 +43,7 @@
     <div class="container-fluid-full">
         <div class="row-fluid">
             <div id="sidebar-left" class="span2">
-                <div class="nav-collapse sidebar-nav">
+                <div class="nav-collapse sidebar-nav collapse">
                     <ul class="nav nav-tabs nav-stacked main-menu">
                         <li><a href="@Url.Action("Show", "ProductTable")"><i class="icon-shopping-cart"></i><span class="hidden-tablet">@R.Products</span></a></li>
                         @if (User.IsInUserRole(UserRole.Admin) || User.IsInUserRole(UserRole.SuperAdmin))

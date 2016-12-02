@@ -17,4 +17,23 @@
     {
         return validationExp.test(data);
     }
+
+    Utils.noty = {};
+    Utils.noty.createWarningNoty = function(text)
+    {
+        return {
+            text: text,
+            layout: "topRight",
+            type:"error"
+        }
+    }
+
+    Utils.noty.createSuccessNoty = function(text)
+    {
+        return {
+            text: text,
+            layout: "bottomRight",
+            type:"success"
+        }
+    }
 }());

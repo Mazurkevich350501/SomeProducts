@@ -8,12 +8,12 @@
         </a>
         <ul class="dropdown-menu">
             <li>
-                <div>
-                    <form id="logoutForm" method="post" action=@Url.Action("LogOff", "Account") enctype="multipart/form-data">
+                <a>
+                    <form id="logoutForm" method="post" style="margin: 0;" action=@Url.Action("LogOff", "Account") enctype="multipart/form-data">
                         @Html.AntiForgeryToken()
-                        <a href="javascript:$('#logoutForm').submit()"><i class="halflings-icon off"></i>@R.LogOff</a>
+                        <p onclick="javascript:$('#logoutForm').submit()"><i class="halflings-icon off"></i>@R.LogOff</p>
                     </form>
-                </div>
+                </a>
             </li>
         </ul>
     </li>
