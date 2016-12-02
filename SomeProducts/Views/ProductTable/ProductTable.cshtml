@@ -77,14 +77,10 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div>
-                                        @Html.DisplayFor(p => product.Name)
-                                    </div>
+                                     @Html.DisplayFor(p => product.Name)
                                 </td>
                                 <td>
-                                    <div>
-                                        @Html.DisplayFor(p => product.Description)
-                                    </div>
+                                    @Html.DisplayFor(p => product.Description)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(p => product.Brand)
@@ -92,7 +88,7 @@
                                 <td>
                                     @Html.DisplayFor(p => product.Quantity)
                                 </td>
-                                <td>
+                                <td style="width: 10%">
                                     @if (User.IsInUserRole(UserRole.Admin))
                                     {
                                         <button class="btn btn-danger" data-type="remove-btn" data-id="@product.Id"

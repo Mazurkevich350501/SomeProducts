@@ -14,53 +14,6 @@
     border: 5px solid white;
 }
 
-.pointer {
-    cursor: pointer;
-}
-
-table {
-    width: 100%;
-    display:block;
-}
-
-thead {
-    display: block; 
-    width: 100%;
-}
-
-tbody {
-    display: block;
-    max-height: 450px;
-    width: 100%;
-    overflow: auto;
-}
-
-tbody td {
-    font-style: italic;
-}
-
-tr {
-    display: block;
-    width: 100%
-}
-
 th, td {
-    display: inline-block;
-    overflow: hidden;
     width: 15%;
 }
-
-th div, td div{
-    max-width: 100%;
-    overflow: hidden;
-}
-.filter-param-select {
-    max-width: 20px;
-    padding: 7px;
-}
-
-.filter-option-input-div {
-    padding-right: 2px;
-}
-
-

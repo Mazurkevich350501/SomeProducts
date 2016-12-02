@@ -311,6 +311,7 @@
     <Content Include="Stylesheets\Audit\AuditTable.css" />
     <Content Include="Stylesheets\Common\Common.css" />
     <Content Include="Stylesheets\Common\Filter.css" />
+    <Content Include="Stylesheets\Common\Table.css" />
     <Content Include="Stylesheets\Product\Product.css" />
     <Content Include="Scripts\Product\ProductModalWindowControl.js" />
     <Content Include="Scripts\Product\ProductImageController.js" />

@@ -42,6 +42,7 @@ namespace SomeProducts
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Stylesheets/Common/Common.css",
+                      "~/Stylesheets/Common/Table.css",
                       "~/janux/css/bootstrap.min.css",
                       "~/janux/css/bootstrap-responsive.min.css",
                       "~/janux/css/style.css",

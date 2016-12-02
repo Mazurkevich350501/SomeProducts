@@ -3,42 +3,6 @@
     padding: 20px;
 }
 
-.product-table-image {
-    max-height: 80px;
-    max-width: 80px;
-    border: 6px solid white;
-}
-
-.pointer {
-    cursor: pointer;
-}
-
-table {
-    width: 100%;
-    display:block;
-}
-
-thead {
-    display: block; 
-    width: 100%;
-}
-
-tbody {
-    display: block;
-    max-height: 450px;
-    width: 100%;
-    overflow: auto;
-}
-
-tbody td {
-    font-style: italic;
-}
-
-tr {
-    display: block;
-    width: 100%
-}
-
 .tr-item-audit th,
 .tr-item-audit td
 {
@@ -48,16 +12,6 @@ tr {
 .tr-full-audit th, 
 .tr-full-audit td{
     width: 9%;
-}
-
-th, td {
-    display: inline-block;
-    overflow: hidden;
-}
-
-th div, td div{
-    max-width: 100%;
-    overflow: hidden;
 }
 
 
