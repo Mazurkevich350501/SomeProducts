@@ -378,4 +378,25 @@
   <data name="NewBrand" xml:space="preserve">
     <value>Новый бренд</value>
   </data>
+  <data name="AddUserToCompanySuccessMessage" xml:space="preserve">
+    <value>Пользователь добавлен в компанию.</value>
+  </data>
+  <data name="BrandChangesSuccessMessage" xml:space="preserve">
+    <value>Изменения брендов сохранены успешно.</value>
+  </data>
+  <data name="CompanyNameChangeSuccsessMessage" xml:space="preserve">
+    <value>Имя компании успешно изменено.</value>
+  </data>
+  <data name="DeleteUserFromCompanySuccessMessage" xml:space="preserve">
+    <value>Пользователь удален из компании.</value>
+  </data>
+  <data name="ServerRequestErrorMessage" xml:space="preserve">
+    <value>Сервер не может ответить на запрос.</value>
+  </data>
+  <data name="UserCompanyChangeSuccessMessage" xml:space="preserve">
+    <value>Компания пользователя успешно изменена.</value>
+  </data>
+  <data name="UserRoleChangeSuccessMessge" xml:space="preserve">
+    <value>Роль пользователя успешно изменена.</value>
+  </data>
 </root>

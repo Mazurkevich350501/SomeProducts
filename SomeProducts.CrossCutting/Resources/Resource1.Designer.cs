@@ -79,6 +79,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User added to company..
+        /// </summary>
+        public static string AddUserToCompanySuccessMessage {
+            get {
+                return ResourceManager.GetString("AddUserToCompanySuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin.
         /// </summary>
         public static string Admin {
@@ -102,6 +111,15 @@ namespace Resources {
         public static string Brand {
             get {
                 return ResourceManager.GetString("Brand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brand changes successfully saved..
+        /// </summary>
+        public static string BrandChangesSuccessMessage {
+            get {
+                return ResourceManager.GetString("BrandChangesSuccessMessage", resourceCulture);
             }
         }
         
@@ -165,6 +183,15 @@ namespace Resources {
         public static string Company {
             get {
                 return ResourceManager.GetString("Company", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Company name successfully changed..
+        /// </summary>
+        public static string CompanyNameChangeSuccsessMessage {
+            get {
+                return ResourceManager.GetString("CompanyNameChangeSuccsessMessage", resourceCulture);
             }
         }
         
@@ -237,6 +264,15 @@ namespace Resources {
         public static string DeleteProductQuestion {
             get {
                 return ResourceManager.GetString("DeleteProductQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User removed frome company..
+        /// </summary>
+        public static string DeleteUserFromCompanySuccessMessage {
+            get {
+                return ResourceManager.GetString("DeleteUserFromCompanySuccessMessage", resourceCulture);
             }
         }
         
@@ -745,6 +781,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The server can not respond to your request..
+        /// </summary>
+        public static string ServerRequestErrorMessage {
+            get {
+                return ResourceManager.GetString("ServerRequestErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set admin.
         /// </summary>
         public static string SetAdmin {
@@ -799,6 +844,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User company successfully changed..
+        /// </summary>
+        public static string UserCompanyChangeSuccessMessage {
+            get {
+                return ResourceManager.GetString("UserCompanyChangeSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username.
         /// </summary>
         public static string Username {
@@ -813,6 +867,15 @@ namespace Resources {
         public static string UserNameExist {
             get {
                 return ResourceManager.GetString("UserNameExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User role successfully changed..
+        /// </summary>
+        public static string UserRoleChangeSuccessMessge {
+            get {
+                return ResourceManager.GetString("UserRoleChangeSuccessMessge", resourceCulture);
             }
         }
         

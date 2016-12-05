@@ -375,4 +375,25 @@
   <data name="NewBrand" xml:space="preserve">
     <value>New brand</value>
   </data>
+  <data name="ServerRequestErrorMessage" xml:space="preserve">
+    <value>The server can not respond to your request.</value>
+  </data>
+  <data name="AddUserToCompanySuccessMessage" xml:space="preserve">
+    <value>User added to company.</value>
+  </data>
+  <data name="BrandChangesSuccessMessage" xml:space="preserve">
+    <value>Brand changes successfully saved.</value>
+  </data>
+  <data name="CompanyNameChangeSuccsessMessage" xml:space="preserve">
+    <value>Company name successfully changed.</value>
+  </data>
+  <data name="DeleteUserFromCompanySuccessMessage" xml:space="preserve">
+    <value>User removed frome company.</value>
+  </data>
+  <data name="UserCompanyChangeSuccessMessage" xml:space="preserve">
+    <value>User company successfully changed.</value>
+  </data>
+  <data name="UserRoleChangeSuccessMessge" xml:space="preserve">
+    <value>User role successfully changed.</value>
+  </data>
 </root>

@@ -141,15 +141,16 @@
 
     function saveBrandsChanges() {
         if (isValid) {
-            postJsonData(JSON.stringify(getBrandChangeModel()),
-                params.url.saveBrandsChangesUrl, saveBrandsChangesSuccess);
+            var data = JSON.stringify(getBrandChangeModel());
+            Utils.postRequest(data, params.url.saveBrandsChangesUrl, 
+                saveBrandsChangesSuccess, closeModalWindow,
+                params.message.brandChangesSuccessMessage, params.message.requestErrorMessage);
         }
     }
 
     function saveBrandsChangesSuccess (data) {
         setBrandDropdownItems(data);
         closeModalWindow();
-        noty(Utils.noty.createSuccessNoty("asdasdasda asd asd"));
     }   
 
     function getBrandChangeModel() {
@@ -177,18 +178,6 @@
             });
         });
         return brandChangesModel;
-    }
-
-    function postJsonData(jsonData, url, success) {
-        $.ajax({
-            type: "POST",
-            url: url,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            data: jsonData,
-            traditional: true,
-            success: success
-        });
     }
 
     function setBrandDropdownItems(items) {

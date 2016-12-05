@@ -137,7 +137,9 @@
             var params = {
                 updateUrl: '@Url.Action("UpdateCompany", "Admin")',
                 emptyValueError: '@R.EmptyBrandNameError',
-                incorectSymbolError: '@R.IllegalCharsError'
+                incorectSymbolError: '@R.IllegalCharsError',
+                requestErrorMessage: '@R.ServerRequestErrorMessage',
+                companyNameChangeSuccessMessage: '@R.CompanyNameChangeSuccsessMessage'
             }
             var companyNamespace = window.Utils.getNamespace("Company");
             companyNamespace.init(params);

@@ -93,18 +93,9 @@
             CompanyName: newName
         };
         var data = JSON.stringify(company);
-        postRequest(data, params.updateUrl, setNewName)
-    }
-
-    function postRequest(data, url, success) {
-        $.ajax({
-            type: "POST",
-            url: url,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            data: data,
-            success: success
-        });
+        Utils.postRequest(data, params.updateUrl,
+            setNewName, null,
+            params.companyNameChangeSuccessMessage, params.requestErrorMessage);
     }
 
     function setNewName(result){

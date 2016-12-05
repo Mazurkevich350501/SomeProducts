@@ -19,21 +19,47 @@
     }
 
     Utils.noty = {};
-    Utils.noty.createWarningNoty = function(text)
+    Utils.noty.warningNoty = function(text)
     {
-        return {
+        noty({
             text: text,
             layout: "topRight",
             type:"error"
-        }
+        });
     }
 
-    Utils.noty.createSuccessNoty = function(text)
+    Utils.noty.successNoty = function(text)
     {
-        return {
+        noty( {
             text: text,
             layout: "bottomRight",
             type:"success"
-        }
+        });
+    }
+
+    Utils.postRequest = function (data, url, successf, errorf, successNotyMessage, warningNotyMessage) {
+        $.ajax({
+            type: "POST",
+            url: url,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: data,
+            success: function(result){
+                if(successf !== undefined && successf !== null){
+                    successf(result);
+                }
+                if(successNotyMessage !== "" && successNotyMessage !== undefined){
+                    Utils.noty.successNoty(successNotyMessage);
+                }
+            },
+            error: function(result){
+                if(errorf !== undefined && errorf !== null){
+                    errorf(result);
+                }
+                if(warningNotyMessage !== "" && warningNotyMessage !== undefined){
+                    Utils.noty.warningNoty(warningNotyMessage);
+                }
+            }
+        });
     }
 }());
