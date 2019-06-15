@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using SomeProducts.DAL.Models;
@@ -45,7 +46,8 @@ namespace SomeProducts.PresentationServices.Authorize
             return new User()
             {
                 UserName = model.Name,
-                Password = model.Password
+                Password = model.Password,
+                Roles = new List<Role> {new Role { Id = (int)UserRole.User, Name = nameof(UserRole.User) } }
             };
         }
     }

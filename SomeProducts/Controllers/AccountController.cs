@@ -14,7 +14,6 @@ using SomeProducts.PresentationServices.Models.Account;
 
 namespace SomeProducts.Controllers
 {
-    [RequireHttps]
     public class AccountController : Controller
     {
         private readonly AccountManager _manager;
@@ -42,6 +41,7 @@ namespace SomeProducts.Controllers
                 var result = await _manager.PasswordValidator.ValidateAsync(model.Password);
                 if (result.Succeeded)
                 {
+                    
                     result = await _manager.CreateAsync(AccountManager.UserCast(model));
                     if (result.Succeeded)
                     {

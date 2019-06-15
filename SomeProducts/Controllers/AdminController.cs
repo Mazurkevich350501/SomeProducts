@@ -14,7 +14,6 @@ using FilterInfo = SomeProducts.CrossCutting.Filter.Model.FilterInfo;
 namespace SomeProducts.Controllers
 {
     [AuthorizeRole(UserRole.Admin, UserRole.SuperAdmin)]
-    [RequireHttps]
     public class AdminController : Controller
     {
         private readonly IUserTablePresentationService _service;

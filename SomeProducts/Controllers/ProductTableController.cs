@@ -10,7 +10,6 @@ using FilterInfo = SomeProducts.CrossCutting.Filter.Model.FilterInfo;
 namespace SomeProducts.Controllers
 {
     [Authorize]
-    [RequireHttps]
     public class ProductTableController : Controller
     {
         private readonly IProductTablePresentationService _service;

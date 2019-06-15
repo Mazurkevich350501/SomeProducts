@@ -9,6 +9,7 @@ namespace SomeProducts.DAL.Context
     {
         public ProductContext(string baseString = "DefaultConnection") : base(baseString)
         {
+            Database.SetInitializer<ProductContext>(null);
         }
         
         public DbSet<Product> Products { set; get; }

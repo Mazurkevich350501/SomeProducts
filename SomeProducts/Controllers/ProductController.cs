@@ -12,7 +12,6 @@ using SomeProducts.PresentationServices.Models.Create;
 namespace SomeProducts.Controllers
 {
     [Authorize]
-    [RequireHttps]
     public class ProductController : Controller
     {
         private readonly IProductViewModelPresentationService _productViewModelService;
